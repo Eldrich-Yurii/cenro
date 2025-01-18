@@ -4,4 +4,5 @@ cd backend // pagpunta sa folder na backend
 npm init -y // paginstall ng node_modules
 npm install express mongoose dotenv cors bcryptojs jsonwebtoken // paginstall ng express mongoose dotenv cors bcryptojs jsonwebtoken
 
-express - node js framework
+express - nodejs framework
+mongoose - database
