@@ -4,6 +4,9 @@ function App() {
   
   return (
     <>
+    <h1 className='bg-yellow-500 text-pink-200 font-semibold text-4xl'>
+      hello cenro
+    </h1>
     </>
   )
 }
