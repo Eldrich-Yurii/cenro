@@ -8,6 +8,7 @@ function App() {
       hello cenro
     </h1>
       <h2>Ayos na</h2>
+  <h3>bye bye</h3>
     </>
   )
 }
