@@ -2,10 +2,15 @@ import Sanjuan from '../../../assets/about-img.jpg'
 
 export default function About() {
     return (
+        // grid form na template two columns
         <div className='grid grid-cols-2 lg:px-[4.5rem] lg:pt-40'>
-            <section className=''>   
-                <img src={Sanjuan} alt="sanjuan-munisipyo" width={585}/>
+            
+            {/* container ng image ng san juan */}
+            <section>   
+                <img className='rounded-lg' src={Sanjuan} alt="sanjuan-munisipyo" width={585}/>
             </section>
+
+            {/* container ng title at description */}
             <section className='pt-40 pl-6 font-semibold'>
                 <div>
                     <h2 className='font-extrabold text-red-700 pb-2'>About</h2>
