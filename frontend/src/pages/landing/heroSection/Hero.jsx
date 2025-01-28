@@ -21,7 +21,7 @@ export default function Hero() {
         <div className="absolute top-48 z-10 text-white pl-[4.5rem]">
           <p className="text-2xl font-semibold">Welcome to San Juan,</p>
           <h1 className="text-[72px] font-black">CENRO PORTAL</h1>
-          <p className="text-2xl font-semibold w-[25rem] pb-7">
+          <p className="text-2xl font-semibold w-[25rem] pb-7 leading-[120%]">
             Process documents and track your document status more easily.
           </p>
           <button className="bg-red-700 rounded-md px-[18px] py-2 text-2xl font-extrabold tracking-wide">

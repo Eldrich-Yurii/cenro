@@ -3,7 +3,7 @@ import Sanjuan from '../../../assets/about-img.jpg'
 export default function About() {
     return (
         // grid form na template two columns
-        <div className='grid grid-cols-2 lg:px-[4.5rem] lg:pt-40'>
+        <div className='grid grid-cols-2 lg:px-[4.5rem] lg:pt-48'>
             
             {/* container ng image ng san juan */}
             <section>   
