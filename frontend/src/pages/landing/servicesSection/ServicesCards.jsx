@@ -32,18 +32,20 @@ export default function ServicesCards() {
 
     console.log(items)
     return (
-        <div className="absolute left-32 flex justify-center gap-10 bg-black">
-            {items.map((item) => {
-                return <div className="bg-pink-400 w-64 p-6" key={item.id}>
-                            <div className="text-black">
-                                {item.icon}
+        <div className="absolute w-full pt-8">
+            <div className="flex justify-center gap-10 px-[4.5rem] ">
+                {items.map((item) => {
+                    return <div className="bg-[#001A49] w-72 lg:p-6 lg:pr-5" key={item.id}>
+                                <div className="text-white">
+                                    {item.icon}
+                                </div>
+                                <div>
+                                    <h2>{item.title}</h2>
+                                    <p className="text-base font-medium">{item.description}</p>
+                                </div>
                             </div>
-                            <div>
-                                <h2>{item.title}</h2>
-                                <p className="text-sm">{item.description}</p>
-                            </div>
-                        </div>
-            })}
+                })}
+            </div>
           </div>
     )
 }
