@@ -12,8 +12,8 @@ export default function Contact() {
                     </div>
                     <div>
                         <h3 className="font-extrabold text-[24px] pb-2">Contact Number</h3> 
-                        <p className="text-[18] font-semibold">(02) 7729 0114</p>
-                        <p className="text-[18] font-semibold">(63) 967 380 5773</p>
+                        <p className="text-[18px] font-semibold">(02) 7729 0114</p>
+                        <p className="text-[18px] font-semibold">(63) 967 380 5773</p>
                     </div>
                 </section>
                 <section className="flex gap-2 pb-4">
@@ -22,7 +22,7 @@ export default function Contact() {
                     </div>
                     <div>
                         <h3 className="font-extrabold text-[24px] pb-2">Email</h3>
-                        <a className="text-[18] font-semibold" href="mailto:cenrosanjuancity@gmail.com" target="_blank" rel="noopener noreferrer">cenrosanjuancity@gmail.com</a>
+                        <a className="text-[18px] font-semibold" href="mailto:cenrosanjuancity@gmail.com" target="_blank" rel="noopener noreferrer">cenrosanjuancity@gmail.com</a>
                     </div>
                 </section>
                 <section className="flex gap-2 pb-4">
@@ -40,8 +40,8 @@ export default function Contact() {
                     </div>
                     <div>
                         <h3 className="font-extrabold text-[24px] pb-2">Working Hours</h3>
-                        <p className="text-[18] font-semibold">Monday - Friday</p>
-                        <p className="text-[18] font-semibold">8:00AM - 5:00PM</p>
+                        <p className="text-[18px] font-semibold">Monday - Friday</p>
+                        <p className="text-[18px] font-semibold">8:00AM - 5:00PM</p>
                     </div>
                 </section>
             </div>

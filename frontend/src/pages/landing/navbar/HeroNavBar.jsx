@@ -20,7 +20,7 @@ export default function HeroNavBar() {
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">CENRO</span>
-            <p className="text-[189px/24px] text-[#FFFFFF] font-black tracking-wide">CENRO PORTAL</p>
+            <p className="text-[24px] text-[#FFFFFF] font-black tracking-wide">CENRO PORTAL</p>
           </a>
         </div>
         {/* burger menu */}
@@ -50,13 +50,13 @@ export default function HeroNavBar() {
           </a>
           <a
             href="#"
-            className="text-[18px] font-bold text-[#FFFFFF]  hover:text-blue-300"
+            className="text-[18px] font-bold text-[#FFFFFF]  hover:text-red-200"
           >
             Contact Us
           </a>
           <a
             href="#"
-            className="text-[18px] font-bold text-[#FFFFFF]  hover:text-blue-300"
+            className="text-[18px] font-bold text-[#FFFFFF]  hover:text-red-200"
           >
             Announcements
           </a>
