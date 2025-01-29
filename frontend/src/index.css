@@ -58,6 +58,12 @@ iframe {
   stroke-width: 3px;
 }
 
+/* .tagline-bg {
+  background-image: url(./assets/SANJUAN.jpg);
+  background-size:  cover;
+  filter: grayscale(100%) opacity(50%);
+} */
+
 /* button {
   border-radius: 8px;
   border: 1px solid transparent;
