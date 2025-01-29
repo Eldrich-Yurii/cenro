@@ -20,7 +20,7 @@ export default function HeroNavBar() {
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">CENRO</span>
-            <p className="text-white font-black tracking-wide">CENRO PORTAL</p>
+            <p className="text-[189px/24px] text-[#FFFFFF] font-black tracking-wide">CENRO PORTAL</p>
           </a>
         </div>
         {/* burger menu */}
@@ -38,25 +38,25 @@ export default function HeroNavBar() {
         <div className="hidden lg:flex lg:gap-x-12">
           <a
             href="#"
-            className="text-sm/6 font-bold text-white hover:text-red-500"
+            className="text-[18px] font-bold text-[#FFFFFF]  hover:text-red-200" 
           >
             Home
           </a>
           <a
             href="#"
-            className="text-sm/6 font-bold text-white hover:text-red-500"
+            className="text-[18px] font-bold text-[#FFFFFF]   hover:text-red-200"
           >
             About
           </a>
           <a
             href="#"
-            className="text-sm/6 font-bold text-white hover:text-red-500"
+            className="text-[18px] font-bold text-[#FFFFFF]  hover:text-blue-300"
           >
             Contact Us
           </a>
           <a
             href="#"
-            className="text-sm/6 font-bold text-white hover:text-red-500"
+            className="text-[18px] font-bold text-[#FFFFFF]  hover:text-blue-300"
           >
             Announcements
           </a>
@@ -65,13 +65,13 @@ export default function HeroNavBar() {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-8">
           <a
             href="#"
-            className="text-sm/6 font-semibold text-white border-white rounded-md border-2 px-4 py-1 hover:bg-red-700 hover:border-red-700"
+            className="text-[16px] font-bold text-white border-white rounded-md border-2 px-4 py-1 hover:bg-red-700 hover:border-red-700"
           >
             Log in
           </a>
           <a
             href="#"
-            className="text-sm/6 font-semibold text-white rounded-md bg-red-700 px-4 py-1 hover:bg-red-900"
+            className="text-[16px] font-bold text-[#FFFFFF] rounded-md bg-red-700 px-4 py-1 hover:bg-red-900"
           >
             Sign Up
           </a>
@@ -136,7 +136,7 @@ export default function HeroNavBar() {
               <div className="py-6">
                 <a
                   href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-gray-50 hover:text-red-700"
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-gray-50 hover:color[red-700]"
                 >
                   Log in
                 </a>

@@ -19,12 +19,12 @@ export default function Hero() {
         
         {/* title, desciption container */}
         <div className="absolute top-48 z-10 text-white pl-[4.5rem]">
-          <p className="text-2xl font-semibold">Welcome to San Juan,</p>
+          <p className="text-[20] font-semibold">Welcome to San Juan,</p>
           <h1 className="text-[72px] font-black">CENRO PORTAL</h1>
-          <p className="text-2xl font-semibold w-[25rem] pb-7 leading-[120%]">
+          <p className="text-[24px] font-semibold w-[25rem] pb-7 leading-[120%]">
             Process documents and track your document status more easily.
           </p>
-          <button className="bg-red-700 rounded-md px-[18px] py-2 text-2xl font-extrabold tracking-wide">
+          <button className="bg-red-700 rounded-md px-[18px] py-2 text-2xl hover:bg-red-800 font-extrabold tracking-wide ">
             Get Started
           </button>
         </div>
