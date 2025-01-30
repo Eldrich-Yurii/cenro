@@ -25,16 +25,16 @@ export default function HeroNavBar() {
 
   return (
     // navbar
-    <header className="bg-transparent fixed w-full z-10">
+    <header className="fixed w-full z-20">
       <nav
         aria-label="Global"
-        className={`flex  items-center justify-between transition-colors duration-300 p-6 lg:px-8 ${scrolled ? "bg-blue-950 shadow-lg" : "bg-transparent"}`}
+        className={`flex  items-center justify-between transition-colors duration-300 lg:px-[4.5rem] lg:py-8 ${scrolled ? "bg-blue-950 shadow-lg" : "bg-transparent"}`}
       >
         {/* CENRO */}
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">CENRO</span>
-            <p className="text-[24px] text-[#FFFFFF] font-black tracking-wide">CENRO PORTAL</p>
+            <p className="text-[24px] text-[#FFFFFF] font-black tracking-wide">CENRO</p>
           </a>
         </div>
         {/* burger menu */}
