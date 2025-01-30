@@ -44,7 +44,7 @@ export default function ServicesCards() {
             <div className="flex justify-between px-[4.5rem] ">
                 {items.map((item) => {
                     // card elements
-                    return <div className="bg-[#001A49] w-72 rounded-lg lg:p-[1.5rem]" key={item.id}>
+                    return <div className="bg-[#001A49] w-72 rounded-xl lg:p-[1.5rem]" key={item.id}>
                                 {/* icons */}
                                 <div className="pb-2">
                                     <span className={item.size}>

@@ -8,13 +8,13 @@ export default function About() {
             
             {/* container ng image ng san juan */}
             <section className='w-[39rem]'>   
-                <img  className='rounded-lg' src={Sanjuan} alt="sanjuan-munisipyo"/>
+                <img  className='rounded-xl' src={Sanjuan} alt="sanjuan-munisipyo"/>
             </section>
 
             {/* container ng title at description */}
             <section className='pl-4 font-semibold w-[40rem]'>
                 <div>
-                    <h2 className='font-extrabold text-red-700 text-3xl pb-2'>ABOUT</h2>
+                    <h2 className='font-extrabold text-red-700 text-3xl pb-4'>ABOUT</h2>
                 </div>
                 <div>
                     <p className='leading-[160%] text-[20px] font-semibold'>The City Environment and Natural Resources Office (CENRO) supports the Sangguniang Panlungsod and the city mayor in ensuring the delivery of environmental services and facilities, 
