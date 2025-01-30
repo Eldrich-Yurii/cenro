@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -8,13 +8,27 @@ export default function HeroNavBar() {
 
   // state management ng mobile view ng navbar
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  const handleScroll = () => {
+    if (window.scrollY > 50) {
+      setScrolled(true);
+    } else {
+      setScrolled(false)
+    }
+  }
+
+  useEffect (() => {
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   return (
     // navbar
-    <header className="bg-transparent absolute w-full z-10">
+    <header className="bg-transparent fixed w-full z-10">
       <nav
         aria-label="Global"
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
+        className={`flex  items-center justify-between transition-colors duration-300 p-6 lg:px-8 ${scrolled ? "bg-blue-950 shadow-lg" : "bg-transparent"}`}
       >
         {/* CENRO */}
         <div className="flex lg:flex-1">

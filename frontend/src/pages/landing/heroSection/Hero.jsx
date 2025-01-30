@@ -1,6 +1,6 @@
 import HeroNavBar from "../navbar/HeroNavBar";
 import Services from "../servicesSection/Services";
-import BG from "../../../assets/cenro-bg.jpg";
+import BG from "../../../assets/cenroBg.jpg";
 
 export default function Hero() {
   return (
