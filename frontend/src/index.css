@@ -58,6 +58,11 @@ iframe {
   stroke-width: 3px;
 }
 
+.icon-semibold {
+  font-weight: bold;
+  stroke-width: 2px;
+}
+
 /* .tagline-bg {
   background-image: url(./assets/SANJUAN.jpg);
   background-size:  cover;

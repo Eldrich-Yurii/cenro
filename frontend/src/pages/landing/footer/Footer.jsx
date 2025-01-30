@@ -3,7 +3,7 @@ import LOGO from "../../../assets/cenro-logo.png";
 
 export default function Footer() {
   return (
-    <footer className="bg-red-700 text-white pt-12 pb-4">
+    <footer className="bg-red-700 text-[#EBFADC] pt-12 pb-4">
       <div className="flex justify-around items-start pb-12">
         <section className="inline-flex items-center">
           <img src={LOGO} alt="" width={100} />
@@ -56,7 +56,9 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <hr />
+      <div className="px-8">
+        <hr />
+      </div>
       <div>
         <p className="text-center pt-4">
           Copyright &copy; 2025 CENRO Portal. All rights reserved.

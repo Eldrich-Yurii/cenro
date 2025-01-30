@@ -13,13 +13,13 @@ export default function Hero() {
           <img className="h-screen w-full brightness-75" src={BG} alt="cenro" />
           {/* gradient layer */}
           {/* title, desciption container */}
-          <div className="absolute top-1/2 transform -translate-y-1/2 z-10 text-white px-[4.5rem]">
+          <div className="absolute top-1/2 transform -translate-y-1/2 z-10 text-[#EBFADC] px-[4.5rem]">
             <p className="text-2xl font-semibold">Welcome to San Juan,</p>
             <h1 className="text-7xl font-black">CENRO PORTAL</h1>
             <p className="text-lg w-[23rem] pb-7 leading-[120%]">
               Process documents and track your document status more easily.
             </p>
-            <button className="bg-red-700 rounded-md px-[18px] py-2 text-2xl hover:bg-red-800 font-extrabold tracking-wide ">
+            <button className="bg-[#C1111F] rounded-md px-[18px] py-2 text-2xl hover:bg-red-800 font-extrabold tracking-wide ">
               Get Started
             </button>
           </div>
