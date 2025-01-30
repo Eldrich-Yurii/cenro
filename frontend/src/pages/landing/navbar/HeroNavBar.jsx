@@ -28,7 +28,7 @@ export default function HeroNavBar() {
     <header className="fixed w-full z-20">
       <nav
         aria-label="Global"
-        className={`flex  items-center justify-between transition-colors duration-300 lg:px-[4.5rem] lg:py-8 ${scrolled ? "bg-blue-950 shadow-lg" : "bg-transparent"}`}
+        className={`flex  items-center justify-between transition-colors duration-300 lg:px-[4.5rem] lg:py-4 ${scrolled ? "bg-blue-950 shadow-lg" : "bg-transparent"}`}
       >
         {/* CENRO */}
         <div className="flex lg:flex-1">

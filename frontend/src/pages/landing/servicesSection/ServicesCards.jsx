@@ -41,7 +41,7 @@ export default function ServicesCards() {
         <div className="absolute w-full pt-8">
 
             {/* single card container */}
-            <div className="flex justify-center gap-8 px-[4.5rem] ">
+            <div className="flex justify-between px-[4.5rem] ">
                 {items.map((item) => {
                     // card elements
                     return <div className="bg-[#001A49] w-72 rounded-lg lg:p-[1.5rem]" key={item.id}>
