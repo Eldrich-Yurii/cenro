@@ -37,6 +37,7 @@ export default function LoginPage() {
                   type="email"
                   id="email"
                   name="email"
+                  placeholder="Enter your email..."
                   required
                   className="border-blue-900 border-2 w-full h-12 rounded-lg pl-2"
                 />
@@ -52,6 +53,7 @@ export default function LoginPage() {
                   type="password"
                   id="password"
                   name="password"
+                  placeholder="Enter your password..."
                   required
                   className="border-blue-900 border-2 w-full h-12 rounded-lg pl-2"
                 />
