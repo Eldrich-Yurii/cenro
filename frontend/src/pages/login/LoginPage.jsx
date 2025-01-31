@@ -1,17 +1,18 @@
 import { Link } from "react-router-dom";
 import { TbArrowLeft } from "react-icons/tb";
+import Logo from "../../assets/cenro-logo.png"
 
 export default function LoginPage() {
   return (
     <div className="font-inter w-full">
-      <nav className="absolute">
+      <nav className="absolute left-4 top-4">
         <Link to="/">
-          <TbArrowLeft />
+          <TbArrowLeft className="text-3xl text-white"/>
         </Link>
       </nav>
       <div className="grid grid-cols-2 h-screen">
         <section className="login-pic w-full">
-          <img src="" alt="" />
+          <img className="pt-4 pl-4 opacity-90" src={Logo} alt="" width={180}/>
         </section>
         <section className="flex flex-col justify-center items-center px-2">
           <div className="w-[30rem]">
@@ -19,13 +20,13 @@ export default function LoginPage() {
               <h2 className="font-black text-5xl pb-2 leading-[100%]">
                 LOGIN TO YOUR ACCOUNT
               </h2>
-              <p className="text-lg font-semibold w-56 leading-[120%]">
+              <p className="text-lg font-medium w-56 leading-[120%]">
                 Please fill out the form to log in.
               </p>
             </div>
             <div>
               <div className="pb-8 flex flex-col gap-2">
-                <label className="font-medium" htmlFor="email">
+                <label className="font-semibold text-blue-900" htmlFor="email">
                   Email
                 </label>
                 <input
@@ -37,7 +38,7 @@ export default function LoginPage() {
                 />
               </div>
               <div className="pb-8 flex flex-col gap-2">
-                <label className="font-medium" htmlFor="password">
+                <label className="font-semibold text-blue-900" htmlFor="password">
                   Password
                 </label>
                 <input
@@ -47,7 +48,7 @@ export default function LoginPage() {
                   required
                   className="border-blue-900 border-2 w-full h-12 rounded-lg pl-2"
                 />
-                <p className="text-end">Forgot Password?</p>
+                <p className="text-end text-blue-900">Forgot Password?</p>
               </div>
             </div>
             <div>
