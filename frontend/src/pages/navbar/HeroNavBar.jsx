@@ -4,7 +4,9 @@ import AppRoutes from "../../routes/AppRoutes";
 import { useState, useEffect } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import LoginPage from "../login/LoginPage";
+import SignUp from "../signup/SignUp";
 
 export default function HeroNavBar() {
   // state management ng mobile view ng navbar
@@ -23,6 +25,18 @@ export default function HeroNavBar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const location = useLocation();
+  
+  // hiding navigation bar on login page
+  if(location.pathname === '/login') {
+    return <LoginPage />;
+  }
+// hiding navigation bar on signup page
+  if(location.pathname === '/signup') {
+    return <SignUp />;
+  }
+
 
   return (
     // navbar

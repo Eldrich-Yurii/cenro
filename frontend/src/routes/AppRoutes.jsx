@@ -3,7 +3,8 @@ import { useEffect } from "react"
 import LandingPage from "../pages/landing/LandingPage"
 import Announcements from "../pages/announcements/Announcements"
 import Hero from "../pages/landing/heroSection/Hero"
-import Login from "../pages/login/LoginPage"
+import LoginPage from "../pages/login/LoginPage"
+import SignUp from "../pages/signup/SignUp"
 
 
 export default function AppRoutes() {
@@ -24,8 +25,8 @@ export default function AppRoutes() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/#home" element={<Hero />} />
             <Route path="/announcements" element={<Announcements />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Announcements />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUp />} />
         </Routes>
     )
 }

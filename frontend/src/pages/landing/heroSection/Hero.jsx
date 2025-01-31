@@ -1,6 +1,7 @@
 // import HeroNavBar from "../navbar/HeroNavBar";
 import Services from "../servicesSection/Services";
 import BG from "../../../assets/cenroBg.jpg";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
@@ -19,9 +20,9 @@ export default function Hero() {
             <p className="text-lg w-[23rem] pb-7 leading-[120%]">
               Process documents and track your document status more easily.
             </p>
-            <button className="bg-[#C1111F] rounded-md px-[18px] py-2 text-2xl hover:bg-red-800 font-extrabold tracking-wide ">
+            <Link to="/login" className="bg-[#C1111F] rounded-md px-[18px] py-2 text-2xl hover:bg-red-800 font-extrabold tracking-wide ">
               Get Started
-            </button>
+            </Link>
           </div>
           <div className="absolute top-0 h-screen w-full bg-gradient-to-r from-black to-transparent opacity-95"></div>
         </div>
