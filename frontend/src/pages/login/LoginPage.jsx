@@ -1,19 +1,23 @@
 import { Link } from "react-router-dom";
 import { TbArrowLeft } from "react-icons/tb";
-import Logo from "../../assets/cenro-logo.png"
+import Logo from "../../assets/cenro-logo.png";
 
 export default function LoginPage() {
   return (
     <div className="font-inter w-full">
-      <nav className="absolute left-4 top-4">
+      <nav className="absolute left-4 top-4 z-20">
         <Link to="/">
-          <TbArrowLeft className="text-3xl text-white"/>
+          <TbArrowLeft className="text-3xl text-white" />
         </Link>
       </nav>
+      <img
+        className="absolute top-4 left-4 opacity-90 z-10"
+        src={Logo}
+        alt="cenro-logo"
+        width={180}
+      />
       <div className="grid grid-cols-2 h-screen">
-        <section className="login-pic w-full">
-          <img className="pt-4 pl-4 opacity-90" src={Logo} alt="" width={180}/>
-        </section>
+        <section className="login-pic w-full brightness-75 contrast-125"></section>
         <section className="flex flex-col justify-center items-center px-2">
           <div className="w-[30rem]">
             <div className="w-[25rem] pb-8 text-blue-900">
@@ -38,7 +42,10 @@ export default function LoginPage() {
                 />
               </div>
               <div className="pb-8 flex flex-col gap-2">
-                <label className="font-semibold text-blue-900" htmlFor="password">
+                <label
+                  className="font-semibold text-blue-900"
+                  htmlFor="password"
+                >
                   Password
                 </label>
                 <input
