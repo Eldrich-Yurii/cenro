@@ -4,7 +4,23 @@ module.exports = (app) => {
 
     const base = require('../controllers/base.controller')
 
-    router.get('/', base.findAll)
+    // create new 
+    router.post('/', base.create);
+
+    // get all
+    router.get('/', base.findAll);
+
+    // get one via id
+    router.get('/:id', base.findOne);
+
+    // update one 
+    router.put('/:id', base.update);
+
+    // delete all 
+    router.delete('/', base.deleteAll);
+
+    // delete one via id
+    router.delete('/:id', base.deleteOne);
 
     app.use('/api/baseRoute', router)
 }
