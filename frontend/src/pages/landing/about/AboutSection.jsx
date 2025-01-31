@@ -4,7 +4,7 @@ export default function About() {
   return (
     // grid form na template two columns
 
-    <div className="flex justify-between gap-4 lg:px-[4.5rem] lg:pt-48">
+    <section id="about" className="flex justify-between gap-4 lg:px-[4.5rem] lg:pt-72 lg:pb-28">
       {/* container ng image ng san juan */}
       <section className="w-[39rem]">
         <img className="rounded-xl" src={Sanjuan} alt="sanjuan-munisipyo" />
@@ -27,6 +27,6 @@ export default function About() {
           </p>
         </div>
       </section>
-    </div>
+    </section>
   );
 }

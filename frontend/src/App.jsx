@@ -1,10 +1,11 @@
-import LandingPage from "./pages/landing/LandingPage";
+import { BrowserRouter } from "react-router-dom";
+import HeroNavBar from "./pages/navbar/HeroNavBar";
 
 function App() {
   return (
-    <div className="font-inter">
-      <LandingPage />
-    </div>
+    <BrowserRouter>
+      <HeroNavBar />
+    </BrowserRouter>
   );
 }
 

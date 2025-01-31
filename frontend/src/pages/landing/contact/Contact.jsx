@@ -3,7 +3,7 @@ import Map from "./Map";
 
 export default function Contact() {
   return (
-    <div className="grid grid-cols-2 bg-[#C1111F] pt-20 pb-20 px-[4.5rem] gap-8 mt-24">
+    <section id="contact" className="grid grid-cols-2 bg-[#C1111F] pt-20 pb-20 px-[4.5rem] gap-8 mt-24">
       <div className="text-[#EBFADC] w-11/12">
         <h2 className="font-extrabold pb-4 text-3xl">GET IN TOUCH</h2>
         <section className="flex gap-2 pb-4">
@@ -58,6 +58,6 @@ export default function Contact() {
       <div>
         <Map />
       </div>
-    </div>
+    </section>
   );
 }

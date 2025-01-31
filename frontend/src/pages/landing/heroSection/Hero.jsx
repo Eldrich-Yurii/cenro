@@ -1,12 +1,12 @@
-import HeroNavBar from "../navbar/HeroNavBar";
+// import HeroNavBar from "../navbar/HeroNavBar";
 import Services from "../servicesSection/Services";
 import BG from "../../../assets/cenroBg.jpg";
 
 export default function Hero() {
   return (
-    <div>
+    <section id="home">
       {/* Navigation Bar */}
-      <HeroNavBar />
+      {/* <HeroNavBar /> */}
       {/* Hero Section */}
       <div>
         <div>
@@ -28,6 +28,6 @@ export default function Hero() {
       </div>
       {/* import ng services */}
       <Services />
-    </div>
+    </section>
   );
 }
