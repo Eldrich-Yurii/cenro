@@ -7,7 +7,7 @@ import Footer from "./footer/Footer";
 export default function LandingPage() {
   return (
     // landing page container
-    <div>
+    <div className="font-inter">
       <Hero />
       <About />
       <Contact />
