@@ -19,7 +19,7 @@ export default function LoginPage() {
       <div className="grid grid-cols-2 h-screen">
         <section className="login-pic w-full brightness-75 contrast-125"></section>
         <section className="flex flex-col justify-center items-center px-2">
-          <div className="w-[30rem]">
+          <div className="w-[34rem]">
             <div className="w-[25rem] pb-8 text-blue-900">
               <h2 className="font-black text-5xl pb-2 leading-[100%]">
                 LOGIN TO YOUR ACCOUNT
