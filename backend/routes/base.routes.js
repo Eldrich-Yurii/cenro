@@ -1,26 +1,32 @@
-module.exports = (app) => {
-    const express = require('express');
-    const router = express.Router();
+// const express = require('express');
+import express from "express";
+import {
+  create,
+  findAll,
+  findOne,
+  update,
+  deleteAll,
+  deleteOne,
+} from "../controllers/base.controller.js";
 
-    const base = require('../controllers/base.controller')
+const router = express.Router();
 
-    // create new 
-    router.post('/', base.create);
+// create new
+router.post("/", create);
 
-    // get all
-    router.get('/', base.findAll);
+// get all
+router.get("/", findAll);
 
-    // get one via id
-    router.get('/:id', base.findOne);
+// get one via id
+router.get("/:id", findOne);
 
-    // update one 
-    router.put('/:id', base.update);
+// update one
+router.put("/:id", update);
 
-    // delete all 
-    router.delete('/', base.deleteAll);
+// delete all
+router.delete("/", deleteAll);
 
-    // delete one via id
-    router.delete('/:id', base.deleteOne);
+// delete one via id
+router.delete("/:id", deleteOne);
 
-    app.use('/api/baseRoute', router)
-}
+export default router;

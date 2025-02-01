@@ -1,27 +1,31 @@
-exports.create = (request, response) => {
-    res.send('POST > create response from controller.');
-  };
-
-exports.findAll = (request, response) => {
-    response.send('GET ALL Request Received.')
+export const create = (request, response) => {
+  response.send("POST > create response from controller.");
 };
 
-// retrieve a single  
-exports.findOne = (request, response) => { // http://localhost:8000/api/baseRoutes/{id}
-  res.send('GET ONE Request Received.');
+export const findAll = (request, response) => {
+  response.send("GET ALL Request Received.");
 };
 
-// update a 
-exports.update = (request, response) => { // http://localhost:8000/api/baseRoutes/{id}
-  res.send('UPDATE ONE Request Received.');
+// retrieve a single
+export const findOne = (request, response) => {
+  // http://localhost:8000/api/baseRoutes/{id}
+  response.send("GET ONE Request Received.");
 };
 
-// delete all 
-exports.deleteAll = (request, response) => { // http://localhost:8000/api/baseRoutes/
-  res.send('DELETE ALL Request Received.');
+// update
+export const update = (request, response) => {
+  // http://localhost:8000/api/baseRoutes/{id}
+  response.send("UPDATE ONE Request Received.");
 };
 
-// delete a single 
-exports.deleteOne = (request, response) => { // http://localhost:8000/api/baseRoutes/{id}
-  res.send('DELETE ONE Request Received.');
+// delete all
+export const deleteAll = (request, response) => {
+  // http://localhost:8000/api/baseRoutes/
+  response.send("DELETE ALL Request Received.");
+};
+
+// delete a single
+export const deleteOne = (request, response) => {
+  // http://localhost:8000/api/baseRoutes/{id}
+  response.send("DELETE ONE Request Received.");
 };
