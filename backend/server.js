@@ -5,6 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import baseRoutes from "./routes/base.routes.js";
+import { createDefaultAdmin } from "./middlewares/auth/auth.createDefaultAdmin.js";
 
 // const express = require('express');
 // const bodyParser = require('body-parser');
@@ -34,12 +35,12 @@ app.use("/api/baseRoute", baseRoutes);
 
 // connect to mongoDB
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.log("MongoDB Connection Error", err));
+  .connect(process.env.MONGODB_URI)
+  .then(async () => {
+    console.log("Connected to MongoDB");
+    // create default admin
+    await createDefaultAdmin();
+  }).catch((err) => console.log(err))
 
 // start server
 const PORT = process.env.PORT || 5000;

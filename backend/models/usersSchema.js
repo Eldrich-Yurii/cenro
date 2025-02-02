@@ -1,11 +1,46 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
+
+const addressSchema = new mongoose.Schema(
+    {
+        housenumber: {
+            type: String,
+            required: true
+        },
+        street: {
+            type: String,
+            required: true
+        },
+        barangay: {
+            type: String,
+            required: true
+        },
+        city: {
+            type: String,
+            required: true
+            },
+    }
+)
+
 
 const userSchema = new mongoose.Schema(
     {
-        username: {
+        firstname: {
             type: String,
-            required: true,
-            unique: true
+            required: true
+        },
+        middlename: {
+            type: String,
+            required: false
+        },
+        lastname: {
+            type: String,
+            required: true
+        },
+        birthdate: {
+            type: Date,
+            required:  function() {
+                return this.role === 'user' && 'employee';
+            }
         },
         email: {
             type: String,
@@ -15,8 +50,25 @@ const userSchema = new mongoose.Schema(
         password: {
             type: String,
             required: true
+        },
+        role: {
+            type: String,
+            enum: ['admin', 'employee', 'user'],
+            required: true
+        },
+        address: {
+            type: addressSchema,
+            required: function () {
+                return this.role === 'user'; // for normal user lang yung address
+            }
+        },
+        designation: {
+            type: String,
+            required: function () {
+                return this.role === 'employee'; // for employee lang yung designation
+            }
         }
-    }
+    }, { timestamps: true }
 );
 
 export default mongoose.model("User", userSchema)
