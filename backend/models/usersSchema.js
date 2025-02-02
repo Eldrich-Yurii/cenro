@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema(
         birthdate: {
             type: Date,
             required:  function() {
-                return this.role === 'user' && 'employee';
+                return this.role === 'user' && 'employee'; // for user and employee
             }
         },
         email: {
@@ -53,7 +53,7 @@ const userSchema = new mongoose.Schema(
         },
         role: {
             type: String,
-            enum: ['admin', 'employee', 'user'],
+            enum: ['admin', 'employee', 'user'], // type ng roles
             required: true
         },
         address: {

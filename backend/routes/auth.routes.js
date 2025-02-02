@@ -1,15 +1,18 @@
-// login routes
-module.exports = (app) => {
+import express from "express";
+import { registerUser } from "../middlewares/auth/auth.regUserController.js";
+import { loginUser } from "../middlewares/auth/auth.loginUser.js";
+import { verifyToken, isAdmin } from "../middlewares/auth/auth.verifyAdmin.js";
 
-    const Auth = require('../controllers/auth.controller');
-  
-    let router = require('express').Router();
-  
-    router.post('/login', Auth.login);
-  
-    router.post('/logout', Auth.logout)
-  
-    // use the router
-    app.use('/api/auth', router);
-  
-  };
+const router = express.Router();
+
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+router.get("/dashboard", verifyToken, (req, res) => {
+  res.json({ message: `Welcome, ${req.user.role}` });
+});
+
+router.get("/admin", verifyToken, isAdmin, (req, res) => {
+  res.json({ message: "Welcome, Admin!" });
+});
+
+export default router;

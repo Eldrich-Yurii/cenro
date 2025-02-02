@@ -7,7 +7,7 @@ export default defineConfig({
   base: '/',
   server: {
     proxy: {
-      "/api": "http://loalhost:5000", // para makapag API call sa backend
+      "/api": "http://localhost:5000", // para makapag API call sa backend
     }
   }
 })

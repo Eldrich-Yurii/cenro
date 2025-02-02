@@ -5,6 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import baseRoutes from "./routes/base.routes.js";
+import authRoutes from "./routes/auth.routes.js"
 import { createDefaultAdmin } from "./middlewares/auth/auth.createDefaultAdmin.js";
 
 // const express = require('express');
@@ -32,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // routes
 // require('./routes/base.routes')(app);
 app.use("/api/baseRoute", baseRoutes);
-
+app.use("api/auth", authRoutes);
 // connect to mongoDB
 mongoose
   .connect(process.env.MONGODB_URI)
