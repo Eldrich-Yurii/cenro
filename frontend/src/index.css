@@ -71,7 +71,7 @@ iframe {
 }
 
 .scrollbar {
-  scrollbar-width: none;
+  scrollbar-width: none; /*walang scroll bar sa create account*/
   
 }
 
