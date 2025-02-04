@@ -19,12 +19,18 @@ dotenv.config(); // load variable -- yung nakalagay sa .env
 
 const app = express();
 
+//connection to frontend
+const corsOption = {
+  origin: [ "http://localhost:5173"],
+  credentials: true,
+}
 // middlewares
-app.use(cors());
+app.use(cors(corsOption));
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
 
 // app.get('/', (req, res) => {
 //     res.send('Hello Welcome to CENRO')
@@ -32,11 +38,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // routes
 // require('./routes/base.routes')(app);
-app.use("/api/baseRoute", baseRoutes);
-app.use("api/auth", authRoutes);
+// app.use("/api/baseRoute", baseRoutes);
+app.use("/api/auth", authRoutes);
+
 // connect to mongoDB
-mongoose
-  .connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI)
   .then(async () => {
     console.log("Connected to MongoDB");
     // create default admin

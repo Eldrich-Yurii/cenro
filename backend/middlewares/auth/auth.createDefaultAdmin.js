@@ -20,9 +20,9 @@ export const createDefaultAdmin = async () => {
       });
 
       await adminUser.save();
-      console.log(`✅ Default admin created: ${process.env.ADMIN_EMAIL}`);
+      console.log(`Default admin created: ${process.env.ADMIN_EMAIL}`);
     } else {
-      console.log("✅ Admin already exist.");
+      console.log("Admin already exist.");
     }
   } catch (error) {
     console.error("Error creating default admin:", error);
