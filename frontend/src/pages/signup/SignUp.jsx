@@ -17,21 +17,22 @@ export default function SignUp() {
         width={180}
       />
       <div className="grid grid-cols-2 h-screen">
-      <section className="login-pic w-full brightness-75 contrast-125"></section>
-        <section className="flex flex-col justify-center items-center px-2">
+        <section className="login-pic w-full brightness-75 contrast-125"></section>
+
+        <section className="flex flex-col justify-center items-center bg-gray-200">
           {/* Create an Account Form */}
-          <div className="w-[32rem] h-[34rem] py-12 overflow-y-auto border-2 border-stone-400 rounded-xl outline-offset-4 bg-stone-300/50 shadow-2xl" >
+          <div className="w-[32rem] h-[34rem] py-12 px-10 overflow-y-auto scrollbar border-2 border-gray-200 rounded-xl outline-offset-4 bg-white shadow-2xl">
             <div className="w-[25rem] pb-8 text-blue-900">
-              <h2 className="pl-12 font-black text-5xl pb-2 leading-[100%]">
+              <h2 className="font-black text-5xl pb-2 leading-[100%]">
                 CREATE AN ACCOUNT
               </h2>
-              <p className="pl-12 text-lg font-medium w-80 leading-[120%]">
+              <p className="text-lg font-medium w-64 leading-[120%]">
                 Please fill out the form to create an account.
               </p>
             </div>
             {/* Full Name */}
-            <div className=" pl-12 pr-12 grid grid-cols-3 gap-2">
-              <div className="pb-2 flex flex-col gap-2">
+            <div className="grid grid-cols-3 gap-2">
+              <div className="flex flex-col gap-2">
                 <label className="font-semibold text-blue-900" htmlFor="fName">
                   First Name
                 </label>
@@ -44,7 +45,7 @@ export default function SignUp() {
                   className="border-blue-900 border-2 w-full h-12 rounded-lg px-2 truncate"
                 />
               </div>
-              <div className="pb-2 flex flex-col gap-2">
+              <div className="flex flex-col gap-2">
                 <label className="font-semibold text-blue-900" htmlFor="mName">
                   Middle Name
                 </label>
@@ -57,7 +58,7 @@ export default function SignUp() {
                   className="border-blue-900 border-2 w-full h-12 rounded-lg px-2 truncate"
                 />
               </div>
-              <div className="pb-3 flex flex-col gap-2">
+              <div className="pb-2 flex flex-col gap-2">
                 <label className="font-semibold text-blue-900" htmlFor="lName">
                   Last Name
                 </label>
@@ -72,7 +73,7 @@ export default function SignUp() {
               </div>
             </div>
             {/* Birth Date */}
-            <div className=" pl-12 pr-12 pb-3 flex flex-col gap-2">
+            <div className="pb-3 flex flex-col gap-2">
               <label className="font-semibold text-blue-900" htmlFor="bdate">
                 Birth Date
               </label>
@@ -85,10 +86,10 @@ export default function SignUp() {
               />
             </div>
             {/* Address */}
-            <label className="pl-12 pr-12 font-semibold text-blue-900" htmlFor="">
+            <label className="font-semibold text-blue-900" htmlFor="">
               Address
             </label>
-            <div className=" pl-12 pr-12 pt-2 grid grid-cols-3 gap-2">
+            <div className="pt-2 grid grid-cols-3 gap-2">
               <div className="pb-2">
                 <input
                   type="text"
@@ -99,7 +100,7 @@ export default function SignUp() {
                   className="border-blue-900 border-2 w-full h-12 rounded-lg pl-2"
                 />
               </div>
-              <div >
+              <div>
                 {/* <label className="font-semibold text-blue-900" htmlFor="mName">
                   Middle Name
                 </label> */}
@@ -122,10 +123,10 @@ export default function SignUp() {
                   name="brgy"
                   placeholder="Barangay"
                   required
-                  className=" border-blue-900 border-2 w-full h-12 rounded-lg pl-2"
+                  className="border-blue-900 border-2 w-full h-12 rounded-lg pl-2"
                 />
               </div>
-            
+            </div>
             <input
               type="text"
               id="city"
@@ -134,9 +135,8 @@ export default function SignUp() {
               required
               className="border-blue-900 border-2 w-full h-12 rounded-lg pl-2"
             />
-            </div>
             {/* Account credentials */}
-            <div className="pt-3 pl-12 pr-12">
+            <div className="pt-2">
               <div className="grid grid-cols-2 gap-2">
                 <div className="flex flex-col gap-2">
                   <label
@@ -154,7 +154,7 @@ export default function SignUp() {
                     className="border-blue-900 border-2 w-full h-12 rounded-lg pl-2"
                   />
                 </div>
-                <div className="pb-3 flex flex-col gap-2">
+                <div className="pb-2 flex flex-col gap-2">
                   <label
                     className="font-semibold text-blue-900"
                     htmlFor="password"
@@ -172,7 +172,10 @@ export default function SignUp() {
                 </div>
               </div>
               <div className="pb-8 flex flex-col gap-2">
-                <label className="font-semibold text-blue-900" htmlFor="cpassword">
+                <label
+                  className="font-semibold text-blue-900"
+                  htmlFor="cpassword"
+                >
                   Confirm Password
                 </label>
                 <input
@@ -185,16 +188,16 @@ export default function SignUp() {
                 />
               </div>
             </div>
-            <div className="pl-12 pr-12">
+            <div>
               <button className="bg-blue-900 text-white w-full h-12 font-bold text-xl rounded-lg hover:bg-blue-500">
                 Create an Account
               </button>
             </div>
             <div>
               <p className="text-lg font-semibold text-center pt-8">
-                Already have an account? 
+                Already have an account?
                 <Link to="/login" className="underline text-blue-900">
-                   Login Now
+                  Login Now
                 </Link>
               </p>
             </div>

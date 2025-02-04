@@ -71,15 +71,16 @@ iframe {
 }
 
 .scrollbar {
-  scrollbar-width: none; /*walang scroll bar sa create account*/
-  
+  /* scrollbar-width: thin; */
+  scrollbar-color: #1e3a8a #ffffff; /*color ng scroll bar*/
 }
 
-/* .tagline-bg {
+
+.tagline-bg {
   background-image: url(./assets/SANJUAN.jpg);
   background-size:  cover;
   filter: grayscale(100%) opacity(50%);
-} */
+}
 
 /* button {
   border-radius: 8px;
