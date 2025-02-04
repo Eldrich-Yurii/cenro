@@ -21,7 +21,7 @@ export default function SignUp() {
 
         <section className="flex flex-col justify-center items-center bg-gray-200">
           {/* Create an Account Form */}
-          <div className="w-[32rem] h-[34rem] py-12 px-10 overflow-y-auto scrollbar border-2 border-gray-200 rounded-xl outline-offset-4 bg-white shadow-2xl">
+          <div className="w-[32rem] h-[34rem] py-12 px-10 overflow-y-auto scrollbar border-2 border-gray-300 rounded-xl outline-offset-4 bg-white shadow-2xl">
             <div className="w-[25rem] pb-8 text-blue-900">
               <h2 className="font-black text-5xl pb-2 leading-[100%]">
                 CREATE AN ACCOUNT
@@ -131,7 +131,7 @@ export default function SignUp() {
               type="text"
               id="city"
               name="city"
-              value="San Juan"
+              // value="San Juan"
               required
               className="border-blue-900 border-2 w-full h-12 rounded-lg pl-2"
             />

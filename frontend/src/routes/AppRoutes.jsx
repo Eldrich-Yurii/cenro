@@ -5,6 +5,10 @@ import Announcements from "../pages/announcements/Announcements"
 import Hero from "../pages/landing/heroSection/Hero"
 import LoginPage from "../pages/login/LoginPage"
 import SignUp from "../pages/signup/SignUp"
+import ProtectedRoute from "../components/ProtectedRoutes"
+import Dashboard  from "../pages/dashboard/Dashboard"
+import Admin  from "../pages/dashboard/AdminDashboard"
+import Employee  from "../pages/dashboard/EmployeeDashboard"
 
 
 export default function AppRoutes() {
@@ -27,6 +31,9 @@ export default function AppRoutes() {
             <Route path="/announcements" element={<Announcements />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/dashboard" element={<ProtectedRoute allowedRoles={["user"]}><Dashboard/></ProtectedRoute>}/>
+            <Route path="/admin" element={<ProtectedRoute allowedRoles={["admin"]}><Admin/></ProtectedRoute>}/>
+            <Route path="/employeedashboard" element={<ProtectedRoute allowedRoles={["employee"]}><Employee/></ProtectedRoute>}/>
         </Routes>
     )
 }

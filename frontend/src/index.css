@@ -75,6 +75,16 @@ iframe {
   scrollbar-color: #1e3a8a #ffffff; /*color ng scroll bar*/
 }
 
+input {
+  /* border:2px solid #1e3a8a; */
+  transition: 0.5s;
+  outline: none;
+}
+
+input:focus {
+  border: 2px solid #001A49;
+}
+
 
 .tagline-bg {
   background-image: url(./assets/SANJUAN.jpg);
