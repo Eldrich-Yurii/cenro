@@ -7,6 +7,10 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
 import LoginPage from "../login/LoginPage";
 import SignUp from "../signup/SignUp";
+import AdminDashboard from "../dashboard/AdminDashboard";
+import EmployeeDashboard from "../dashboard/EmployeeDashboard";
+import Dashboard from "../dashboard/Dashboard";
+import NotFound from "../notfound/NotFound";
 
 export default function HeroNavBar() {
   // state management ng mobile view ng navbar
@@ -31,11 +35,18 @@ export default function HeroNavBar() {
   // hiding navigation bar on login page
   if(location.pathname === '/login') {
     return <LoginPage />;
-  }
-// hiding navigation bar on signup page
-  if(location.pathname === '/signup') {
+  } else if (location.pathname === '/signup') {
     return <SignUp />;
+  } else if (location.pathname === '/admin'){
+    return <AdminDashboard />;
+  } else if (location.pathname === '/employeedashboard') {
+    return <EmployeeDashboard />
+  } else if (location.pathname === '/dashboard') {
+    return <Dashboard />
+  } else if (location.pathname === '/notfound') {
+    return <NotFound />
   }
+ 
 
 
   return (

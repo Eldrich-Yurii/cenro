@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import AuthContext from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types"
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
     const { user } = useContext(AuthContext);
 
-    if (!user?.token) {
+    if (!user.token) {
         return <Navigate to="/login"/>;
     }
 
@@ -16,6 +16,9 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
 
     return children;
 };
+
+// console.log("🚀 Allowed Roles:", allowedRoles);
+// console.log("🛠 Current Role:", user.role);
 
 // PropTypes
 ProtectedRoute.propTypes = {

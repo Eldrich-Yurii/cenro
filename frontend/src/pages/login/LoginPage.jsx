@@ -1,10 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
+import { data, Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../api/AuthApi";
 import { useState } from "react";
 import { TbArrowLeft } from "react-icons/tb";
 import Logo from "../../assets/cenro-logo.png";
 
-export default function LoginPage() {
+const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -13,33 +13,43 @@ export default function LoginPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError(""); // clear previous error
 
     try {
-      const response = await loginUser({ email, password });
+      const response = await loginUser( email, password );
 
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("token", response.data.role);
 
-      if (response.data.role === "admin") {
+      if (!response || !response.token) {
+        console.error("Login failed: No token received");
+        return;
+    }
+    
+    if (!response.role) {
+      console.error("No role in response");
+      return;
+  }
+
+      localStorage.setItem("token", response.token);
+      console.log("received login response:", response.token)
+      localStorage.setItem("role", response.role);
+      console.log("login successful:", data)
+      if (response.role === "admin") {
         navigate("/admin");
-      } else if (response.data.role === "employee") {
+      } else if (response.role === "employee") {
         navigate("/employeedashboard");
-      } else {
-        navigate("/dashboard");
-      }
-    } catch {
+      } 
+    } catch (err){
       setError("Invalid email or password");
+      console.log("Login Error:", err.response?.data || err.message)
     }
   };
 
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
+  // const handleEmail = (e) => {
+  //   setEmail(e.target.value);
+  // };
 
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
+  // const handlePassword = (e) => {
+  //   setPassword(e.target.value);
+  // };
 
   return (
     <div className="font-inter w-full">
@@ -83,7 +93,7 @@ export default function LoginPage() {
                     placeholder="Enter your email..."
                     required
                     value={email}
-                    onChange={handleEmail}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="border-blue-900 border-2 w-full h-12 rounded-lg pl-2"
                   />
                 </div>
@@ -100,7 +110,7 @@ export default function LoginPage() {
                     name="password"
                     placeholder="Enter your password..."
                     value={password}
-                    onChange={handlePassword}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                     className="border-blue-900 border-2 w-full h-12 rounded-lg pl-2"
                   />
@@ -130,3 +140,5 @@ export default function LoginPage() {
     </div>
   );
 }
+
+export default LoginPage;
