@@ -12,7 +12,7 @@ export const verifyToken = (req, res, next) => {
     //   return res.status(403).json({ error: "Access Denied, Admin Only." });
 
     req.user = decoded; // Attach user data to request
-    console.log("Token Verified:", decoded);
+    // console.log("Token Verified:", decoded);
     next();
   } catch (error) {
     res.status(400).json({ error: "Invalid token", error });
