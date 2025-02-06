@@ -1,6 +1,6 @@
 export default function Dashboard() {
     return (
-        <div>
+        <div className="bg-green-600 h-screen">
             Welcome to dashboard
         </div>
     )

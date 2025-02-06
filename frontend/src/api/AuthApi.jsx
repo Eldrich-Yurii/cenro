@@ -18,7 +18,7 @@ export const registerUser = async (userData) => {
 // login a user
 
 export const loginUser = async (email, password) => {
-  // console.log("📢 Sending login request with:", { email, password });
+  // console.log("Sending login request with:", { email, password });
   try {
     const response = await axios.post(`${API}/login`,{
       email,

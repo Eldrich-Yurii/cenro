@@ -26,7 +26,7 @@ export const loginUser = async (req, res) => {
       process.env.JWT_SECRET_KEY,
       { expiresIn: "1h" }
     );
-    console.log("Generated Token:", token);
+    // console.log("Generated Token:", token);
     res.json({ token, role: user.role });
     // res.status(200).json({ message: "Login successful", role: user.role });
   } catch (error) {

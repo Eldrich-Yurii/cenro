@@ -36,7 +36,9 @@ const LoginPage = () => {
         navigate("/admin");
       } else if (response.role === "employee") {
         navigate("/employeedashboard");
-      } 
+      } else {
+        navigate("/dashboard");
+      }
     } catch (err){
       setError("Invalid email or password");
       console.log("Login Error:", err.response?.data || err.message)

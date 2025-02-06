@@ -9,7 +9,7 @@ import verifyRoles from "../middlewares/verifyRoles.js";
 const router = express.Router();
 
 router.post("/register", registerUser);
-router.post("/create-employee", verifyToken, createEmployee)
+router.post("/admin/create-employee", verifyToken, createEmployee)
 router.post("/login", loginUser);
 router.get("/dashboard", verifyToken, (req, res) => {
   res.json({ message: `Welcome, ${req.user.role}` });

@@ -16,7 +16,8 @@ const addressSchema = new mongoose.Schema(
         },
         city: {
             type: String,
-            required: true
+            required: true,
+            default: "San Juan City"
             },
     }
 )
@@ -39,7 +40,7 @@ const userSchema = new mongoose.Schema(
         birthdate: {
             type: Date,
             required:  function() {
-                return this.role === 'user' && 'employee'; // for user and employee
+                return this.role === 'user' || this.role ==='employee'; // for user and employee
             }
         },
         email: {
@@ -60,13 +61,13 @@ const userSchema = new mongoose.Schema(
             type: addressSchema,
             required: function () {
                 return this.role === 'user'; // for normal user lang yung address
-            }
+            },
         },
         designation: {
             type: String,
             required: function () {
                 return this.role === 'employee'; // for employee lang yung designation
-            }
+            },
         }
     }, { timestamps: true }
 );
