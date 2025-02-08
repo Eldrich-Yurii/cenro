@@ -1,4 +1,4 @@
-import { data, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../api/AuthApi";
 import { useState } from "react";
 import { TbArrowLeft } from "react-icons/tb";
@@ -28,12 +28,10 @@ const LoginPage = () => {
       return;
   }
 
-      localStorage.setItem("token", response.token);
-      console.log("received login response:", response.token)
-      localStorage.setItem("role", response.role);
-      console.log("login successful:", data)
+      localStorage.setItem("user", JSON.stringify(response));
+      // console.log("login successful:", data)
       if (response.role === "admin") {
-        navigate("/admin");
+        navigate("/admin/dashboard");
       } else if (response.role === "employee") {
         navigate("/employeedashboard");
       } else {

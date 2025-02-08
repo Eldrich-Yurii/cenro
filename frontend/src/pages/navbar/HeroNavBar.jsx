@@ -7,10 +7,10 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
 import LoginPage from "../login/LoginPage";
 import SignUp from "../signup/SignUp";
-import AdminDashboard from "../dashboard/AdminDashboard";
-import EmployeeDashboard from "../dashboard/EmployeeDashboard";
-import Dashboard from "../dashboard/Dashboard";
-import NotFound from "../notfound/NotFound";
+// import AdminAccount from "../accounts/adminAccount/AdminAccount";
+// import EmployeeAccount from "../accounts/employeeAccount/EmployeeAccount";
+// import NormalUserAccount from "../accounts/normalUserAccount/NormalUserAccount";
+// import NotFound from "../notfound/NotFound";
 
 export default function HeroNavBar() {
   // state management ng mobile view ng navbar
@@ -37,15 +37,15 @@ export default function HeroNavBar() {
     return <LoginPage />;
   } else if (location.pathname === '/signup') {
     return <SignUp />;
-  } else if (location.pathname === '/admin'){
-    return <AdminDashboard />;
-  } else if (location.pathname === '/employeedashboard') {
-    return <EmployeeDashboard />
-  } else if (location.pathname === '/dashboard') {
-    return <Dashboard />
-  } else if (location.pathname === '/notfound') {
-    return <NotFound />
-  }
+  }// else if (location.pathname === '/admin'){
+  //   return <AdminAccount />;
+  // } else if (location.pathname === '/employee-account') {
+  //   return <EmployeeAccount />
+  // } else if (location.pathname === '/user-account') {
+  //   return <NormalUserAccount />
+  // } else if (location.pathname === '/notfound') {
+  //   return <NotFound />
+  // } 
  
 
 

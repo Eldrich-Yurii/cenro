@@ -1,29 +1,37 @@
-import { useContext } from "react";
-import AuthContext from "../context/AuthContext";
-import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { Navigate, Outlet } from "react-router-dom";
 import PropTypes from "prop-types"
 
-const ProtectedRoute = ({ children, allowedRoles }) => {
-    const { user } = useContext(AuthContext);
+const ProtectedRoute = ({ allowedRoles }) => {
+    const { user } = useAuth();
+
+     // Wait until the user is loaded (prevents "reading null" error)
+     if (user === null) {
+        return <div>Loading...</div>;
+    }
+
+    console.log("Checking ProtectedRoute - user:", user);
 
     if (!user.token) {
-        return <Navigate to="/login"/>;
+        console.warn("Redirecting to login - user is missing or token is invalid");
+        return <Navigate to="/login" replace />;
     }
 
     if (!allowedRoles.includes(user.role)) {
         return <h2>Access Denied</h2>
     }
 
-    return children;
-};
+    console.log("User Data in ProtectedRoute: ", user);
+    return <Outlet />;
 
+};
 // console.log("🚀 Allowed Roles:", allowedRoles);
 // console.log("🛠 Current Role:", user.role);
 
 // PropTypes
 ProtectedRoute.propTypes = {
     allowedRoles: PropTypes.arrayOf(PropTypes.string).isRequired,
-    children: PropTypes.node.isRequired,
+    // children: PropTypes.node,
   };
 
 export default ProtectedRoute;

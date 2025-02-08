@@ -1,3 +1,4 @@
+import HeroNavBar from "../navbar/HeroNavBar";
 import Hero from "./heroSection/Hero";
 import About from "./about/AboutSection";
 import Contact from "./contact/Contact";
