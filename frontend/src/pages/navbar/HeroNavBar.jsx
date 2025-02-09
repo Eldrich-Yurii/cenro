@@ -1,12 +1,10 @@
 "use client";
 
-import AppRoutes from "../../routes/AppRoutes";
+// import AppRoutes from "../../routes/AppRoutes";
 import { useState, useEffect } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation } from "react-router-dom";
-import LoginPage from "../login/LoginPage";
-import SignUp from "../signup/SignUp";
 // import AdminAccount from "../accounts/adminAccount/AdminAccount";
 // import EmployeeAccount from "../accounts/employeeAccount/EmployeeAccount";
 // import NormalUserAccount from "../accounts/normalUserAccount/NormalUserAccount";
@@ -34,9 +32,9 @@ export default function HeroNavBar() {
   
   // hiding navigation bar on login page
   if(location.pathname === '/login') {
-    return <LoginPage />;
+    return null;
   } else if (location.pathname === '/signup') {
-    return <SignUp />;
+    return null;
   }// else if (location.pathname === '/admin'){
   //   return <AdminAccount />;
   // } else if (location.pathname === '/employee-account') {
@@ -200,7 +198,6 @@ export default function HeroNavBar() {
           </DialogPanel>
         </Dialog>
       </header>
-      <AppRoutes />
     </div>
   );
 }

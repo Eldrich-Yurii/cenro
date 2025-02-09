@@ -3,6 +3,7 @@ import { loginUser } from "../../api/AuthApi";
 import { useState } from "react";
 import { TbArrowLeft } from "react-icons/tb";
 import Logo from "../../assets/cenro-logo.png";
+import { Button } from "@material-tailwind/react";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -118,12 +119,12 @@ const LoginPage = () => {
                 </div>
               </div>
               <div>
-                <button
+                <Button
                   type="submit"
                   className="bg-blue-900 text-white w-full h-12 font-bold text-xl rounded-lg"
                 >
                   Login
-                </button>
+                </Button>
               </div>
               <div>
                 <p className="text-lg font-semibold text-center pt-8">

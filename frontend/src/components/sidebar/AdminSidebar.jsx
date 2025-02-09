@@ -19,6 +19,7 @@ import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
 import { TbFileText, TbLayoutGrid, TbLogs, TbLogout2, TbSettings2, TbTicket, TbVideo, TbUser } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import Logo from "../../assets/cenro-logo-red.png"
 
 
 export default function AdminSideBar() {
@@ -34,9 +35,10 @@ export default function AdminSideBar() {
   };
  
   return (
-    <Card className="h-auto w-full max-w-[20rem] p-4 shadow-2xl shadow-blue-gray-900/5">
+    <Card className="h-auto w-full max-w-[20rem] p-4 shadow-2xl shadow-blue-gray-900/5 text-red-800">
       <div className="mb-2 p-4">
-        <Typography className="font-black text-red-800" variant="h5">
+        <Typography className="font-black inline-flex items-center gap-2" variant="h2">
+          <img src={Logo} alt="" width={50}/>
           CENRO
         </Typography>
       </div>
