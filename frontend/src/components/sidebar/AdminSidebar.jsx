@@ -35,9 +35,9 @@ export default function AdminSideBar() {
   };
  
   return (
-    <Card className="h-auto w-full max-w-[20rem] p-4 shadow-2xl shadow-blue-gray-900/5 text-red-800">
+    <Card className="h-auto w-full max-w-[20rem] p-4 shadow-2xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
-        <Typography className="font-black inline-flex items-center gap-2" variant="h2">
+        <Typography className="font-black inline-flex items-center gap-2 text-red-800" variant="h2">
           <img src={Logo} alt="" width={50}/>
           CENRO
         </Typography>
