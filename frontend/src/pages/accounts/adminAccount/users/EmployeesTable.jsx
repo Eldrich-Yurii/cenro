@@ -78,8 +78,8 @@ export default function EmployeesTable() {
               <Typography variant="h2" className="text-blue-800 font-extrabold">
                 Employees
               </Typography>
-              <p className="w-48 text-sm leading-[120%] py-2 font-semibold tracking-tight">
-                This are the list of employee and designations.
+              <p className="w-48 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
+                This are the list of employee and their designations.
               </p>
             </section>
           </div>
@@ -92,11 +92,11 @@ export default function EmployeesTable() {
             </section>
             <section className="flex items-center">
               <input
-                className="pl-3 h-12 border-blue-800 rounded-lg"
+                className="pl-3 h-12 border-gray-500 rounded-lg"
                 type="search"
                 name="empsearch"
                 id="empSearch"
-                placeholder="Search an Employee"
+                placeholder="Search an Employee..."
               />
               <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
                 <TbSearch />
@@ -116,7 +116,7 @@ export default function EmployeesTable() {
                   >
                     <Typography
                       variant="small"
-                      className="text-blue-800 font-extrabold leading-none"
+                      className="text-gray-800 font-extrabold leading-none"
                     >
                       {head}
                     </Typography>
@@ -137,8 +137,7 @@ export default function EmployeesTable() {
                       <td className={classes}>
                         <Typography
                           variant="small"
-                          color="blue-gray"
-                          className="font-bold"
+                          className="font-bold text-gray-600"
                         >
                           {firstname}
                         </Typography>
@@ -162,13 +161,13 @@ export default function EmployeesTable() {
                       <td className={classes}>
                         <Typography
                           variant="small"
-                          className="font-normal text-gray-600"
+                          className="font-bold text-blue-800"
                         >
                           {designation}
                         </Typography>
                       </td>
                       <td className="border-b border-gray-300">
-                        <div className="flex justify-star gap-14">
+                        <div className="flex gap-4">
                           <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white">
                             <TbEdit />
                           </Button>

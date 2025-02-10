@@ -34,9 +34,9 @@ const LoginPage = () => {
       if (response.role === "admin") {
         navigate("/admin/dashboard");
       } else if (response.role === "employee") {
-        navigate("/employeedashboard");
+        navigate("/employee-account");
       } else {
-        navigate("/dashboard");
+        navigate("/user-account");
       }
     } catch (err){
       setError("Invalid email or password");

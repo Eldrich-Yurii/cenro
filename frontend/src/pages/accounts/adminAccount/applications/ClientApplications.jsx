@@ -4,21 +4,16 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  Menu,
-  MenuItem,
-  MenuList,
-  MenuHandler,
   Typography,
 } from "@material-tailwind/react";
-import { TbDots, TbSearch, TbUserPlus } from "react-icons/tb";
+import { TbSearch, TbUserPlus } from "react-icons/tb";
 
 const TABLE_HEAD = [
   "First Name",
   "Middle Name",
   "Last Name",
   "Application Type",
-  "Status",
-  "Actions",
+  "Date Submitted"
 ];
 
 const TABLE_ROWS = [
@@ -28,7 +23,6 @@ const TABLE_ROWS = [
     middlename: "Di",
     lastname: "Bol",
     designation: "Validator",
-    status: "pending",
   },
   {
     id: "2",
@@ -36,7 +30,6 @@ const TABLE_ROWS = [
     middlename: "Li",
     lastname: "Sis",
     designation: "Webinar Coordinator",
-    status: "pending",
   },
   {
     id: "3",
@@ -44,7 +37,6 @@ const TABLE_ROWS = [
     middlename: "Cor",
     lastname: "Sega",
     designation: "Inspector",
-    status: "pending",
   },
   {
     id: "4",
@@ -52,7 +44,6 @@ const TABLE_ROWS = [
     middlename: "Pi",
     lastname: "Pol",
     designation: "Chat Support",
-    status: "pending",
   },
   {
     id: "5",
@@ -60,7 +51,6 @@ const TABLE_ROWS = [
     middlename: "Li",
     lastname: "Sis",
     designation: "Webinar Coordinator",
-    status: "approved",
   },
   {
     id: "6",
@@ -68,7 +58,6 @@ const TABLE_ROWS = [
     middlename: "Cor",
     lastname: "Sega",
     designation: "Inspector",
-    status: "approved",
   },
   {
     id: "7",
@@ -76,11 +65,10 @@ const TABLE_ROWS = [
     middlename: "Pi",
     lastname: "Pol",
     designation: "Chat Support",
-    status: "rejected",
   },
 ];
 
-export default function ReceiptVerification() {
+export default function ClientApplications() {
   return (
     <div className="h-screen">
       <Card className="h-[34rem] w-full px-6 shadow-lg">
@@ -88,22 +76,18 @@ export default function ReceiptVerification() {
           <div className=" flex justify-between">
             <section>
               <Typography variant="h2" className="text-blue-800 font-extrabold">
-                Receipt Verification
+                Client Applications
               </Typography>
-              <p className="w-64 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-                This are the list of users uploaded their receipts after paying
-                on the cashier.
+              <p className="w-56 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
+                This are the list of applications of the users.
               </p>
             </section>
           </div>
           <div className="w-full flex justify-between pt-4">
             <section className="flex flex-col gap-2 items-end">
-              <Button
-                variant="outlined"
-                className="w-42 border-blue-800 text-blue-800 py-3 rounded-lg flex justify-center items-center gap-2 font-extrabold text-sm hover:bg-blue-800 hover:text-white transition-all"
-              >
+              <Button variant="outlined" className="w-42 border-blue-800 text-blue-800 py-3 rounded-lg flex justify-center items-center gap-2 font-extrabold text-sm hover:bg-blue-800 hover:text-white transition-all">
                 <TbUserPlus className="text-lg" />
-                Dropdown filter to
+                DropDown Filter to dapat
               </Button>
             </section>
             <section className="flex items-center">
@@ -142,14 +126,7 @@ export default function ReceiptVerification() {
             </thead>
             <tbody>
               {TABLE_ROWS.map(
-                ({
-                  firstname,
-                  middlename,
-                  lastname,
-                  designation,
-                  status,
-                  id,
-                }) => {
+                ({ firstname, middlename, lastname, designation, id }) => {
                   const isLast = id === TABLE_ROWS.length - 1;
                   const classes = isLast
                     ? "py-4"
@@ -189,40 +166,16 @@ export default function ReceiptVerification() {
                           {designation}
                         </Typography>
                       </td>
-                      <td className={classes}>
-                        <div className="w-max">
-                          <span
-                            className={`px-3 py-2 font-extrabold uppercase text-xs rounded-lg ${
-                              status === "approved"
-                                ? "bg-green-200 text-green-700"
-                                : status === "pending"
-                                ? "bg-yellow-200 text-orange-600"
-                                : "bg-red-200 text-red-600"
-                            }`}
-                          >
-                            {status}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="border-b border-gray-300">
+                      {/* <td className="border-b border-gray-300">
                         <div className="flex gap-4">
-                          <Menu>
-                            <MenuHandler>
-                              <Button
-                                variant="outlined"
-                                className="px-2 py-2 border-gray-200 text-blue-800 hover:bg-blue-800 hover:text-white"
-                              >
-                                <TbDots />
-                              </Button>
-                            </MenuHandler>
-                            <MenuList className="text-start p-2">
-                              <MenuItem className="pt-2 hover:bg-blue-50">View Receipt</MenuItem>
-                              <MenuItem className="pt-2 hover:bg-blue-50">Approve</MenuItem>
-                              <MenuItem className="pt-2 hover:bg-blue-50">Reject</MenuItem>
-                            </MenuList>
-                          </Menu>
+                          <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white">
+                            <TbEdit />
+                          </Button>
+                          <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800  hover:bg-blue-800 hover:text-white">
+                            <TbTrash />
+                          </Button>
                         </div>
-                      </td>
+                      </td> */}
                     </tr>
                   );
                 }

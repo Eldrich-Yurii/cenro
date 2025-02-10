@@ -22,7 +22,7 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/cenro-logo-red.png"
 
 
-export default function AdminSideBar() {
+export default function NormalUserSidebar() {
   const [open, setOpen] = React.useState(0);
 //   const [openDrawer, setOpenDrawer] = useState(0);
 
@@ -42,7 +42,7 @@ export default function AdminSideBar() {
           CENRO
         </Typography>
       </div>
-      <List className="text-gray-600">
+      <List>
         {/* Dashboard */}
         <ListItem>
           <ListItemPrefix>
@@ -113,7 +113,7 @@ export default function AdminSideBar() {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to="/admin/application-summary">&nbsp;&nbsp;Client Applications</Link>
+                <Link to="/admin/application-summary">&nbsp;&nbsp;Application Summary</Link>
               </ListItem>
               <ListItem>
                 <ListItemPrefix>

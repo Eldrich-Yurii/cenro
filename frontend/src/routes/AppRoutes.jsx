@@ -12,7 +12,7 @@ import NormalUserAccount from "../pages/accounts/normalUserAccount/NormalUserAcc
 import AdminDashboard from "../pages/accounts/adminAccount/adminDashboard/AdminDashboard";
 import EmployeesTable from "../pages/accounts/adminAccount/users/EmployeesTable";
 import CenroClients from "../pages/accounts/adminAccount/users/CenroClients";
-import ApplicationSummary from "../pages/accounts/adminAccount/applications/ApplicationSummary"
+import ClientApplications from "../pages/accounts/adminAccount/applications/ClientApplications";
 import ReceiptVerification from "../pages/accounts/adminAccount/applications/ReceiptVerification"
 import WebinarSched from "../pages/accounts/adminAccount/webinar/WebinarSched";
 import CertForAttendees from "../pages/accounts/adminAccount/webinar/CertForAttendees";
@@ -45,14 +45,9 @@ export default function AppRoutes() {
       {/* </Route> */}
 
       {/* normal-user-account */}
-      <Route
-        path="/user-account"
-        element={
-          <ProtectedRoute allowedRoles={["user"]}>
-            <NormalUserAccount />
-          </ProtectedRoute>
-        }
-      />
+      <Route element={<ProtectedRoute allowedRoles={["user"]}/>}>
+      <Route path="/user-account" element={<NormalUserAccount/>}/>
+      </Route>
 
       {/* admin account */}
       <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
@@ -61,7 +56,7 @@ export default function AppRoutes() {
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="user-employee" element={<EmployeesTable />} />
           <Route path="user-cenro-clients" element={<CenroClients />} />
-          <Route path="application-summary" element={<ApplicationSummary />} />
+          <Route path="application-summary" element={<ClientApplications />} />
           <Route path="receipt-verification" element={<ReceiptVerification />} />
           <Route path="webinar-schedule" element={<WebinarSched />} />
           <Route path="certificate-for-attendees" element={<CertForAttendees />} />
@@ -72,14 +67,9 @@ export default function AppRoutes() {
       </Route>
 
       {/* employee-account */}
-      <Route
-        path="/employee-account"
-        element={
-          <ProtectedRoute allowedRoles={["employee"]}>
-            <EmployeeAccount />
-          </ProtectedRoute>
-        }
-      />
+      <Route element={<ProtectedRoute allowedRoles={["employee"]}/>}>
+      <Route path="/employee-account" element={<EmployeeAccount/>}/>
+      </Route>
     </Routes>
   );
 }
