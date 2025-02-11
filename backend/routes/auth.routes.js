@@ -11,13 +11,19 @@ const router = express.Router();
 router.post("/register", registerUser);
 router.post("/admin/create-employee", verifyToken, createEmployee)
 router.post("/login", loginUser);
-router.get("/dashboard", verifyToken, (req, res) => {
-  res.json({ message: `Welcome, ${req.user.role}` });
-});
+// router.get("/dashboard", verifyToken, (req, res) => {
+//   res.json({ message: `Welcome, ${req.user.role}` });
+// });
 
+
+// Admin routes
 router.get("/admin", verifyToken, verifyRoles("admin"), (req, res) => {
   if (req.user.role !== "admin") return res.status(403).json({ message: "Access Denied" });
   res.json({ message: "Welcome, Admin" });
+});
+router.get("/admin/manage-user", verifyToken, verifyRoles("admin"), (req, res) => {
+  if (req.user.role !== "admin") return res.status(403).json({ message: "Access Denied" });
+  // res.json({ message: "Welcome, Admin" });
 });
 
 export default router;
