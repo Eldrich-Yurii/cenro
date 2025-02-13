@@ -17,17 +17,17 @@ import {
   const TABLE_ROWS = [
     {
       id: "1",
-      firstname: "Fer",
-      middlename: "Di",
-      lastname: "Bol",
-      designation: "Validator",
+      type: "New Business Application",
+      approved: "16",
+      pending: "3",
+      rejected: "0",
     },
     {
       id: "2",
-      firstname: "Yu",
-      middlename: "Li",
-      lastname: "Sis",
-      designation: "Webinar Coordinator",
+      type: "Renewal of Business Certificate",
+      approved: "28",
+      pending: "1",
+      rejected: "0",
     },
  
   ];
@@ -69,7 +69,7 @@ import {
               </thead>
               <tbody>
                 {TABLE_ROWS.map(
-                  ({ firstname, middlename, lastname, designation, id }) => {
+                  ({ type, approved, pending, rejected, id }) => {
                     const isLast = id === TABLE_ROWS.length - 1;
                     const classes = isLast
                       ? "py-4"
@@ -82,7 +82,7 @@ import {
                             variant="small"
                             className="font-bold text-gray-600"
                           >
-                            {firstname}
+                            {type}
                           </Typography>
                         </td>
                         <td className={classes}>
@@ -90,7 +90,7 @@ import {
                             variant="small"
                             className="font-normal text-gray-600"
                           >
-                            {middlename}
+                            {approved}
                           </Typography>
                         </td>
                         <td className={classes}>
@@ -98,27 +98,17 @@ import {
                             variant="small"
                             className="font-normal text-gray-600"
                           >
-                            {lastname}
+                            {pending}
                           </Typography>
                         </td>
                         <td className={classes}>
                           <Typography
                             variant="small"
-                            className="font-bold text-blue-800"
+                            className="font-normal text-gray-800"
                           >
-                            {designation}
+                            {rejected}
                           </Typography>
                         </td>
-                        {/* <td className="border-b border-gray-300">
-                          <div className="flex gap-4">
-                            <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white">
-                              <TbEdit />
-                            </Button>
-                            <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800  hover:bg-blue-800 hover:text-white">
-                              <TbTrash />
-                            </Button>
-                          </div>
-                        </td> */}
                       </tr>
                     );
                   }

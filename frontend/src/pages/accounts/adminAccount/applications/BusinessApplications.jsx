@@ -10,7 +10,7 @@ import {
   MenuHandler,
   Typography,
 } from "@material-tailwind/react";
-import { TbDots, TbSearch, TbUserPlus } from "react-icons/tb";
+import { TbDots, TbFile, TbSearch, TbUserPlus } from "react-icons/tb";
 
 const TABLE_HEAD = [
   "Application Type",
@@ -96,7 +96,7 @@ export default function BusinessApplications() {
           <div className=" flex justify-between">
             <section>
               <Typography variant="h2" className="text-blue-800 font-extrabold">
-                Receipt Verification
+                Business Application
               </Typography>
               <p className="w-64 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
                 This are the list of users uploaded their receipts after paying
@@ -106,13 +106,21 @@ export default function BusinessApplications() {
           </div>
           <div className="w-full flex justify-between pt-4">
             <section className="flex flex-col gap-2 items-end">
-              <Button
-                variant="outlined"
-                className="w-42 border-blue-800 text-blue-800 py-3 rounded-lg flex justify-center items-center gap-2 font-extrabold text-sm hover:bg-blue-800 hover:text-white transition-all"
-              >
-                <TbUserPlus className="text-lg" />
-                Dropdown filter to
-              </Button>
+              <Menu>
+                <MenuHandler>
+                  <Button
+                    variant="outlined"
+                    className="w-42 border-blue-800 text-blue-800 py-3 rounded-lg flex justify-center items-center gap-2 font-extrabold text-sm hover:bg-blue-800 hover:text-white transition-all"
+                  >
+                    <TbFile className="text-lg" />
+                    Filter...
+                  </Button>
+                </MenuHandler>
+                <MenuList>
+                  <MenuItem>New Business Application</MenuItem>
+                  <MenuItem>Renewal of Business Certificate</MenuItem>
+                </MenuList>
+              </Menu>
             </section>
             <section className="flex items-center">
               <input
@@ -233,9 +241,15 @@ export default function BusinessApplications() {
                               </Button>
                             </MenuHandler>
                             <MenuList className="text-start p-2">
-                              <MenuItem className="pt-2 hover:bg-blue-50">View COA</MenuItem>
-                              <MenuItem className="pt-2 hover:bg-blue-50">Approve</MenuItem>
-                              <MenuItem className="pt-2 hover:bg-blue-50">Reject</MenuItem>
+                              <MenuItem className="pt-2 hover:bg-blue-50">
+                                View COA
+                              </MenuItem>
+                              <MenuItem className="pt-2 hover:bg-blue-50">
+                                Approve
+                              </MenuItem>
+                              <MenuItem className="pt-2 hover:bg-blue-50">
+                                Reject
+                              </MenuItem>
                             </MenuList>
                           </Menu>
                         </div>

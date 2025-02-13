@@ -72,7 +72,7 @@ export default function AdminSideBar() {
               <ListItemPrefix>
                 <TbVideo className="h-5 w-5" />
               </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
+              <Typography color="blue-gray" className="mr-auto font-normal text-[16px]">
               &nbsp;&nbsp;Webinar
               </Typography>
             </AccordionHeader>
@@ -109,7 +109,7 @@ export default function AdminSideBar() {
               <ListItemPrefix>
                 <TbUser className="h-5 w-5" />
               </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
+              <Typography color="blue-gray" className="mr-auto font-normal text-[16px]">
               &nbsp;&nbsp;Users
               </Typography>
             </AccordionHeader>
