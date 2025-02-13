@@ -12,7 +12,7 @@ export default function Contact() {
           </div>
           <div>
             <h3 className="font-extrabold text-xl pb-1">Contact Number</h3>
-            <p>(02) 7729 0114</p>
+            <p>(63) 939 717 2394</p>
             <p>(63) 967 380 5773</p>
           </div>
         </section>
@@ -29,6 +29,14 @@ export default function Contact() {
             >
               cenrosanjuancity@gmail.com
             </a>
+            <br />
+            <a
+              href="mailto:cenrosanjuanpay@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+             cenrosanjuanpay@gmail.com
+            </a>
           </div>
         </section>
         <section className="flex gap-2 pb-4">
@@ -37,11 +45,10 @@ export default function Contact() {
           </div>
           <div>
             <h3 className="font-extrabold text-xl pb-1">Location</h3>
-            <p>
-              City Environment and Natural Resources Office - City Government of
-              San Juan, J24F+HCR, San Juan City Hall, N.Domingo Street, San
-              Juan, 1500 Metro Manila
-            </p>
+            <address>
+            137-135 Pinaglabanan Street, cor Dr.P.A. Narciso, San Juan, Metro Manila
+            lower Ground Floor Cenro Office
+            </address>
           </div>
         </section>
         <section className="flex gap-2 pb-4">
@@ -51,7 +58,7 @@ export default function Contact() {
           <div>
             <h3 className="font-extrabold text-xl pb-1">Working Hours</h3>
             <p>Monday - Friday</p>
-            <p>8:00AM - 5:00PM</p>
+            <p>7:00AM - 4:00PM</p>
           </div>
         </section>
       </div>

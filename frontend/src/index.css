@@ -84,13 +84,6 @@ input:focus {
   border: 2px solid #001A49;
 }
 
-
-.tagline-bg {
-  background-image: url(./assets/SANJUAN.jpg);
-  background-size:  cover;
-  filter: grayscale(100%) opacity(50%);
-}
-
 /* button {
   border-radius: 8px;
   border: 1px solid transparent;

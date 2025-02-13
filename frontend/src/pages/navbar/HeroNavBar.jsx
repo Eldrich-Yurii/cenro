@@ -108,13 +108,13 @@ export default function HeroNavBar() {
           <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-8">
             <Link
               to="/login"
-              className="text-[16px] font-extrabold text-[#EBFADC] border-white rounded-md border-2 px-4 py-1 hover:bg-[#C1111F] hover:border-[#C1111F]"
+              className="text-[16px] font-extrabold text-[#EBFADC] border-[#EBFADC] rounded-md border-2 px-4 py-1 hover:bg-[#C1111F] hover:border-[#C1111F] uppercase"
             >
               Log in
             </Link>
             <Link
               to="/signup"
-              className="text-[16px] font-extrabold text-[#EBFADC] rounded-md bg-[#C1111F] px-4 py-1 hover:bg-red-800"
+              className="text-[16px] font-extrabold text-[#EBFADC] rounded-md bg-[#C1111F] px-4 py-1 hover:bg-red-800 uppercase"
             >
               Sign Up
             </Link>

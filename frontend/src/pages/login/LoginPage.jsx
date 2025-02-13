@@ -3,7 +3,7 @@ import { loginUser } from "../../api/AuthApi";
 import { useState } from "react";
 import { TbArrowLeft } from "react-icons/tb";
 import Logo from "../../assets/cenro-logo.png";
-import { Button } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react"
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
