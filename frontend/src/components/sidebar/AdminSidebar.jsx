@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Card,
   Typography,
@@ -17,7 +17,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
-import { TbFileText, TbLayoutGrid, TbLogs, TbLogout2, TbSettings2, TbTicket, TbVideo, TbUser } from "react-icons/tb";
+import { TbLayoutGrid, TbLogs, TbLogout2, TbSettings2, TbTicket, TbVideo, TbUser, TbFile } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/cenro-logo-red.png"
 
@@ -50,80 +50,13 @@ export default function AdminSideBar() {
           </ListItemPrefix>
           <Link to="/admin/dashboard">&nbsp;&nbsp;Dashboard</Link>
         </ListItem>
-        {/* Manage Users */}
-        <Accordion
-          open={open === 2}
-          icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${open === 2 ? "rotate-180" : ""}`}
-            />
-          }
-        >
-          <ListItem className="p-0 bg-white" selected={open === 2}>
-            <AccordionHeader onClick={() => handleOpen(2)} className="border-b-0 p-3">
-              <ListItemPrefix>
-                <TbUser className="h-5 w-5" />
-              </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
-              &nbsp;&nbsp;Users
-              </Typography>
-            </AccordionHeader>
-          </ListItem>
-          <AccordionBody className="py-1 bg-white">
-            <List className="p-0">
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                <Link to="/admin/user-employee">&nbsp;&nbsp;Employees</Link>
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                <Link to="/admin/user-cenro-clients">&nbsp;&nbsp;CENRO Clients</Link>
-              </ListItem>
-            </List>
-          </AccordionBody>
-        </Accordion>
-        {/* Application and Receipts */}
-        <Accordion
-          open={open === 3}
-          icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${open === 3 ? "rotate-180" : ""}`}
-            />
-          }
-        >
-          <ListItem className="p-0 bg-white" selected={open === 3}>
-            <AccordionHeader onClick={() => handleOpen(3)} className="border-b-0 p-3">
-              <ListItemPrefix>
-                <TbFileText className="h-5 w-5" />
-              </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
-              &nbsp;&nbsp;Applications
-              </Typography>
-            </AccordionHeader>
-          </ListItem>
-          <AccordionBody className="py-1 bg-white">
-            <List className="p-0">
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                <Link to="/admin/application-summary">&nbsp;&nbsp;Client Applications</Link>
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                <Link to="/admin/receipt-verification">&nbsp;&nbsp;Receipt Verification</Link>
-              </ListItem>
-            </List>
-          </AccordionBody>
-        </Accordion>
+          {/* Business Application*/}
+          <ListItem>
+          <ListItemPrefix>
+            <TbFile className="h-5 w-5" />
+          </ListItemPrefix>
+          <Link to="/admin/business-application">&nbsp;&nbsp;Business Application</Link>
+        </ListItem>
         {/* Webinar */}
         <Accordion
           open={open === 4}
@@ -157,6 +90,43 @@ export default function AdminSideBar() {
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
                 <Link to="/admin/certificate-for-attendees">&nbsp;&nbsp;Certificate For Attendees</Link>
+              </ListItem>
+            </List>
+          </AccordionBody>
+        </Accordion>
+        {/* Manage Users */}
+        <Accordion
+          open={open === 2}
+          icon={
+            <ChevronDownIcon
+              strokeWidth={2.5}
+              className={`mx-auto h-4 w-4 transition-transform ${open === 2 ? "rotate-180" : ""}`}
+            />
+          }
+        >
+          <ListItem className="p-0 bg-white" selected={open === 2}>
+            <AccordionHeader onClick={() => handleOpen(2)} className="border-b-0 p-3">
+              <ListItemPrefix>
+                <TbUser className="h-5 w-5" />
+              </ListItemPrefix>
+              <Typography color="blue-gray" className="mr-auto font-normal">
+              &nbsp;&nbsp;Users
+              </Typography>
+            </AccordionHeader>
+          </ListItem>
+          <AccordionBody className="py-1 bg-white">
+            <List className="p-0">
+              <ListItem>
+                <ListItemPrefix>
+                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                </ListItemPrefix>
+                <Link to="/admin/user-employee">&nbsp;&nbsp;Employees</Link>
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                </ListItemPrefix>
+                <Link to="/admin/user-cenro-clients">&nbsp;&nbsp;CENRO Clients</Link>
               </ListItem>
             </List>
           </AccordionBody>

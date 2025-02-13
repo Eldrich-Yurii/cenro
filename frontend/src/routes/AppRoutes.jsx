@@ -12,8 +12,7 @@ import NormalUserAccount from "../pages/accounts/normalUserAccount/NormalUserAcc
 import AdminDashboard from "../pages/accounts/adminAccount/adminDashboard/AdminDashboard";
 import EmployeesTable from "../pages/accounts/adminAccount/users/EmployeesTable";
 import CenroClients from "../pages/accounts/adminAccount/users/CenroClients";
-import ClientApplications from "../pages/accounts/adminAccount/applications/ClientApplications";
-import ReceiptVerification from "../pages/accounts/adminAccount/applications/ReceiptVerification"
+import BusinessApplications from "../pages/accounts/adminAccount/applications/BusinessApplications"
 import WebinarSched from "../pages/accounts/adminAccount/webinar/WebinarSched";
 import CertForAttendees from "../pages/accounts/adminAccount/webinar/CertForAttendees";
 import SuppAndTicket from "../pages/accounts/adminAccount/ticket/SuppAndTicket";
@@ -56,8 +55,7 @@ export default function AppRoutes() {
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="user-employee" element={<EmployeesTable />} />
           <Route path="user-cenro-clients" element={<CenroClients />} />
-          <Route path="application-summary" element={<ClientApplications />} />
-          <Route path="receipt-verification" element={<ReceiptVerification />} />
+          <Route path="business-application" element={<BusinessApplications />} />
           <Route path="webinar-schedule" element={<WebinarSched />} />
           <Route path="certificate-for-attendees" element={<CertForAttendees />} />
           <Route path="support-and-tickets" element={<SuppAndTicket />} />

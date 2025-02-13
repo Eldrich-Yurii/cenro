@@ -13,10 +13,11 @@ import {
 import { TbDots, TbSearch, TbUserPlus } from "react-icons/tb";
 
 const TABLE_HEAD = [
+  "Application Type",
+  "Business Name",
   "First Name",
   "Middle Name",
   "Last Name",
-  "Application Type",
   "Status",
   "Actions",
 ];
@@ -24,63 +25,70 @@ const TABLE_HEAD = [
 const TABLE_ROWS = [
   {
     id: "1",
-    firstname: "Fer",
-    middlename: "Di",
+    type: "Renewal",
+    businessname: "Di",
+    firstname: "Bol",
+    middlename: "Bol",
     lastname: "Bol",
-    designation: "Validator",
     status: "pending",
   },
   {
     id: "2",
-    firstname: "Yu",
-    middlename: "Li",
-    lastname: "Sis",
-    designation: "Webinar Coordinator",
+    type: "Renewal",
+    businessname: "Li",
+    firstname: "Sis",
+    middlename: "Bol",
+    lastname: "Bol",
     status: "pending",
   },
   {
     id: "3",
-    firstname: "kel",
-    middlename: "Cor",
-    lastname: "Sega",
-    designation: "Inspector",
+    type: "Renewal",
+    businessname: "Cor",
+    firstname: "Sega",
+    middlename: "Bol",
+    lastname: "Bol",
     status: "pending",
   },
   {
     id: "4",
-    firstname: "Jey",
-    middlename: "Pi",
-    lastname: "Pol",
-    designation: "Chat Support",
+    type: "Renewal",
+    businessname: "Pi",
+    firstname: "Pol",
+    middlename: "Bol",
+    lastname: "Bol",
     status: "pending",
   },
   {
     id: "5",
-    firstname: "Yu",
-    middlename: "Li",
-    lastname: "Sis",
-    designation: "Webinar Coordinator",
+    type: "New Application",
+    businessname: "Li",
+    firstname: "Sis",
+    middlename: "Bol",
+    lastname: "Bol",
     status: "approved",
   },
   {
     id: "6",
-    firstname: "kel",
-    middlename: "Cor",
-    lastname: "Sega",
-    designation: "Inspector",
+    type: "New Application",
+    businessname: "Cor",
+    firstname: "Sega",
+    middlename: "Bol",
+    lastname: "Bol",
     status: "approved",
   },
   {
     id: "7",
-    firstname: "Jey",
-    middlename: "Pi",
-    lastname: "Pol",
-    designation: "Chat Support",
+    type: "New Application",
+    businessname: "Pi",
+    firstname: "Pol",
+    middlename: "Bol",
+    lastname: "Bol",
     status: "rejected",
   },
 ];
 
-export default function ReceiptVerification() {
+export default function BusinessApplications() {
   return (
     <div className="h-screen">
       <Card className="h-[34rem] w-full px-6 shadow-lg">
@@ -143,10 +151,11 @@ export default function ReceiptVerification() {
             <tbody>
               {TABLE_ROWS.map(
                 ({
+                  type,
+                  businessname,
                   firstname,
                   middlename,
                   lastname,
-                  designation,
                   status,
                   id,
                 }) => {
@@ -161,6 +170,22 @@ export default function ReceiptVerification() {
                         <Typography
                           variant="small"
                           className="font-bold text-gray-600"
+                        >
+                          {type}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          className="font-normal text-gray-600"
+                        >
+                          {businessname}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          className="font-normal text-gray-600"
                         >
                           {firstname}
                         </Typography>
@@ -182,19 +207,11 @@ export default function ReceiptVerification() {
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Typography
-                          variant="small"
-                          className="font-bold text-blue-800"
-                        >
-                          {designation}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
                         <div className="w-max">
                           <span
                             className={`px-3 py-2 font-extrabold uppercase text-xs rounded-lg ${
                               status === "approved"
-                                ? "bg-green-200 text-green-700"
+                                ? "bg-lime-200 text-lime-800"
                                 : status === "pending"
                                 ? "bg-yellow-200 text-orange-600"
                                 : "bg-red-200 text-red-600"
@@ -216,7 +233,7 @@ export default function ReceiptVerification() {
                               </Button>
                             </MenuHandler>
                             <MenuList className="text-start p-2">
-                              <MenuItem className="pt-2 hover:bg-blue-50">View Receipt</MenuItem>
+                              <MenuItem className="pt-2 hover:bg-blue-50">View COA</MenuItem>
                               <MenuItem className="pt-2 hover:bg-blue-50">Approve</MenuItem>
                               <MenuItem className="pt-2 hover:bg-blue-50">Reject</MenuItem>
                             </MenuList>
