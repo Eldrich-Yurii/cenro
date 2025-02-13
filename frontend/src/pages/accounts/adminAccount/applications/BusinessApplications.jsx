@@ -10,7 +10,7 @@ import {
   MenuHandler,
   Typography,
 } from "@material-tailwind/react";
-import { TbDots, TbFile, TbSearch, TbUserPlus } from "react-icons/tb";
+import { TbDots, TbFile, TbSearch } from "react-icons/tb";
 
 const TABLE_HEAD = [
   "Application Type",
