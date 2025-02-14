@@ -6,7 +6,8 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
-import { TbEdit, TbSearch, TbTrash, TbVideo } from "react-icons/tb";
+import { TbEdit, TbSearch, TbTrash } from "react-icons/tb";
+import WebSchedModal from "../../../../components/modal/WebSchedModal";
 
 const TABLE_HEAD = [
   "Webinar Title",
@@ -70,8 +71,8 @@ const TABLE_ROWS = [
 
 export default function WebinarSched() {
   return (
-    <div className="h-screen">
-      <Card className="h-[34rem] w-full px-6 shadow-lg">
+    <div className="h-auto">
+      <Card className="h-full w-full px-6 shadow-lg">
         <CardHeader floated={false} shadow={false}>
           <div className=" flex justify-between">
             <section>
@@ -85,10 +86,7 @@ export default function WebinarSched() {
           </div>
           <div className="w-full flex justify-between pt-4">
             <section className="flex flex-col gap-2 items-end">
-              <Button variant="outlined" className="w-42 border-blue-800 text-blue-800 py-3 rounded-lg flex justify-center items-center gap-2 font-extrabold text-sm hover:bg-blue-800 hover:text-white transition-all">
-                <TbVideo className="text-lg" />
-                Schedule a Webinar
-              </Button>
+              <WebSchedModal />
             </section>
             <section className="flex items-center">
               <input
@@ -105,7 +103,7 @@ export default function WebinarSched() {
           </div>
         </CardHeader>
         <br />
-        <CardBody className="overflow-y-scroll scrollbar">
+        <CardBody className="scrollbar">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
