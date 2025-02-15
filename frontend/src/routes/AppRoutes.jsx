@@ -14,6 +14,7 @@ import EmployeesTable from "../pages/accounts/adminAccount/users/EmployeesTable"
 import CenroClients from "../pages/accounts/adminAccount/users/CenroClients";
 import BusinessApplications from "../pages/accounts/adminAccount/applications/BusinessApplications"
 import WebinarSched from "../pages/accounts/adminAccount/webinar/WebinarSched";
+import InspectAndFinalCert from "../pages/accounts/adminAccount/inspectionAndFinalCert/InspectAndFinalCert";
 import CertForAttendees from "../pages/accounts/adminAccount/webinar/CertForAttendees";
 import SuppAndTicket from "../pages/accounts/adminAccount/ticket/SuppAndTicket";
 import EmpLogs from "../pages/accounts/adminAccount/emplogs/EmpLogs"
@@ -57,6 +58,7 @@ export default function AppRoutes() {
           <Route path="user-cenro-clients" element={<CenroClients />} />
           <Route path="business-application" element={<BusinessApplications />} />
           <Route path="webinar-schedule" element={<WebinarSched />} />
+          <Route path="inspection-and-final-certificate" element={<InspectAndFinalCert />} />
           <Route path="certificate-for-attendees" element={<CertForAttendees />} />
           <Route path="support-and-tickets" element={<SuppAndTicket />} />
           <Route path="employee-logs" element={<EmpLogs />} />

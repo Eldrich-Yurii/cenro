@@ -73,7 +73,7 @@ export default function AdminSideBar() {
                 <TbVideo className="h-5 w-5" />
               </ListItemPrefix>
               <Typography color="blue-gray" className="mr-auto font-normal text-[16px]">
-              &nbsp;&nbsp;Webinar
+              &nbsp;&nbsp;Webinar & Certificate
               </Typography>
             </AccordionHeader>
           </ListItem>
@@ -94,6 +94,15 @@ export default function AdminSideBar() {
             </List>
           </AccordionBody>
         </Accordion>
+          {/* Inspection & Final Certificate */}
+          <ListItem className="z-10 bg-white">
+          <ListItemPrefix>
+            <TbTicket className="h-5 w-5" />
+          </ListItemPrefix>
+          <Link to="/admin/inspection-and-final-certificate">&nbsp;&nbsp;Inspection & Final Certificate</Link>
+          <ListItemSuffix>
+          </ListItemSuffix>
+        </ListItem>
         {/* Manage Users */}
         <Accordion
           open={open === 2}

@@ -20,59 +20,24 @@ const TABLE_HEAD = [
 const TABLE_ROWS = [
   {
     id: "1",
-    firstname: "Fer",
-    middlename: "Di",
-    lastname: "Bol",
-    designation: "Validator",
+    title: "New Business Application",
+    datetime: "Feb 26, 2025 - 10:30 AM",
+    link: "ZOOMLINK",
+    status: "pending",
   },
   {
     id: "2",
-    firstname: "Yu",
-    middlename: "Li",
-    lastname: "Sis",
-    designation: "Webinar Coordinator",
-  },
-  {
-    id: "3",
-    firstname: "kel",
-    middlename: "Cor",
-    lastname: "Sega",
-    designation: "Inspector",
-  },
-  {
-    id: "4",
-    firstname: "Jey",
-    middlename: "Pi",
-    lastname: "Pol",
-    designation: "Chat Support",
-  },
-  {
-    id: "5",
-    firstname: "Yu",
-    middlename: "Li",
-    lastname: "Sis",
-    designation: "Webinar Coordinator",
-  },
-  {
-    id: "6",
-    firstname: "kel",
-    middlename: "Cor",
-    lastname: "Sega",
-    designation: "Inspector",
-  },
-  {
-    id: "7",
-    firstname: "Jey",
-    middlename: "Pi",
-    lastname: "Pol",
-    designation: "Chat Support",
+    title: "Renewal of Business Certificate",
+    datetime: "Feb 26, 2025 - 10:30 AM",
+    link: "ZOOMLINK",
+    status: "ongoing",
   },
 ];
 
 export default function WebinarSched() {
   return (
-    <div className="h-auto">
-      <Card className="h-full w-full px-6 shadow-lg">
+    <div className="h-screen">
+      <Card className="h-[32rem] w-full px-6 shadow-lg">
         <CardHeader floated={false} shadow={false}>
           <div className=" flex justify-between">
             <section>
@@ -80,7 +45,7 @@ export default function WebinarSched() {
                 Webinar Schedule
               </Typography>
               <p className="w-48 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-                This are the list of webinar schedules.
+                This is the list of webinar schedules.
               </p>
             </section>
           </div>
@@ -94,7 +59,7 @@ export default function WebinarSched() {
                 type="search"
                 name="empsearch"
                 id="empSearch"
-                placeholder="Search an Employee..."
+                placeholder="Search..."
               />
               <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
                 <TbSearch />
@@ -103,7 +68,7 @@ export default function WebinarSched() {
           </div>
         </CardHeader>
         <br />
-        <CardBody className="scrollbar">
+        <CardBody className="overflow-y-scroll scrollbar">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
@@ -124,7 +89,7 @@ export default function WebinarSched() {
             </thead>
             <tbody>
               {TABLE_ROWS.map(
-                ({ firstname, middlename, lastname, designation, id }) => {
+                ({ title, datetime, link, status, id }) => {
                   const isLast = id === TABLE_ROWS.length - 1;
                   const classes = isLast
                     ? "py-4"
@@ -137,7 +102,7 @@ export default function WebinarSched() {
                           variant="small"
                           className="font-bold text-gray-600"
                         >
-                          {firstname}
+                          {title}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -145,7 +110,7 @@ export default function WebinarSched() {
                           variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {middlename}
+                          {datetime}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -153,16 +118,23 @@ export default function WebinarSched() {
                           variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {lastname}
+                          {link}
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Typography
-                          variant="small"
-                          className="font-bold text-blue-800"
-                        >
-                          {designation}
-                        </Typography>
+                        <div className="w-max">
+                          <span
+                            className={`px-3 py-2 font-extrabold uppercase text-xs rounded-lg ${
+                              status === "ongoing"
+                                ? "bg-lime-200 text-lime-800"
+                                : status === "pending"
+                                ? "bg-yellow-200 text-orange-600"
+                                : "bg-red-200 text-red-600"
+                            }`}
+                          >
+                            {status}
+                          </span>
+                        </div>
                       </td>
                       <td className="border-b border-gray-300">
                         <div className="flex gap-4">

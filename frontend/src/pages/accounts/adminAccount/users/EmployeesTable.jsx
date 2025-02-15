@@ -6,7 +6,8 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
-import { TbEdit, TbSearch, TbTrash, TbUserPlus } from "react-icons/tb";
+import { TbEdit, TbSearch, TbTrash } from "react-icons/tb";
+import AddEmpAcc from "../../../../components/modal/AddEmpAcc";
 
 const TABLE_HEAD = [
   "First Name",
@@ -85,10 +86,7 @@ export default function EmployeesTable() {
           </div>
           <div className="w-full flex justify-between pt-4">
             <section className="flex flex-col gap-2 items-end">
-              <Button variant="outlined" className="w-42 border-blue-800 text-blue-800 py-3 rounded-lg flex justify-center items-center gap-2 font-extrabold text-sm hover:bg-blue-800 hover:text-white transition-all">
-                <TbUserPlus className="text-lg" />
-                Add Employee
-              </Button>
+            <AddEmpAcc />
             </section>
             <section className="flex items-center">
               <input

@@ -1,9 +1,9 @@
 import { Button } from "@material-tailwind/react";
 import { useState, useEffect, useRef } from "react";
-import { TbVideo } from "react-icons/tb";
+import { TbUserPlus } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
 
-export default function WebSchedModal() {
+export default function AddEmpAcc() {
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef(null);
 
@@ -35,12 +35,12 @@ export default function WebSchedModal() {
     <div className="z-10">
       {/* Button to open modal */}
       <Button
+      onClick={() => setIsOpen(true)}
         variant="outlined"
-        onClick={() => setIsOpen(true)}
         className="w-42 border-blue-800 text-blue-800 py-3 rounded-lg flex justify-center items-center gap-2 font-extrabold text-sm hover:bg-blue-800 hover:text-white transition-all"
       >
-        <TbVideo className="text-lg" />
-        Schedule a Webinar
+        <TbUserPlus className="text-lg" />
+        Add Employee
       </Button>
 
       {/* Modal */}
@@ -51,25 +51,35 @@ export default function WebSchedModal() {
             className="bg-white p-6 rounded-lg shadow-lg w-96 transform transition-transform duration-300 scale-95 opacity-0 animate-fade-in"
           >
             <div className="grid grid-flow-row gap-2">
-                <div className="flex justify-between items-center">
-
-              <h2 className="text-xl font-bold">Scedule A Webinar</h2>
-              <IoClose onClick={() => setIsOpen(false)} className="text-xl hover:text-red-700 cursor-pointer"/>
-                </div>
-              <div>
-
-              <label htmlFor="">Webinar Title</label><br />
-              <input type="text" placeholder="Enter Webinar Title" className="w-full"/>
+              <div className="flex justify-between items-center">
+                <h2 className="text-xl font-bold">Add Employee Account</h2>
+                <IoClose
+                  onClick={() => setIsOpen(false)}
+                  className="text-xl hover:text-red-700 cursor-pointer"
+                />
               </div>
               <div>
-
-              <label htmlFor="">Date and Time</label><br />
-              <input type="datetime-local" className="w-full"/>
+                <label htmlFor="">Webinar Title</label>
+                <br />
+                <input
+                  type="text"
+                  placeholder="Enter Webinar Title"
+                  className="w-full"
+                />
               </div>
               <div>
-
-              <label htmlFor="">Webinar Link</label><br />
-              <input type="text" placeholder="Paste your Webinar Link here"  className="w-full"/>
+                <label htmlFor="">Date and Time</label>
+                <br />
+                <input type="datetime-local" className="w-full" />
+              </div>
+              <div>
+                <label htmlFor="">Webinar Link</label>
+                <br />
+                <input
+                  type="text"
+                  placeholder="Paste your Webinar Link here"
+                  className="w-full"
+                />
               </div>
             </div>
             <div className="mt-4 flex justify-end">

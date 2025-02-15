@@ -1,5 +1,6 @@
 import { TbPhone, TbLocation, TbLink } from "react-icons/tb";
 import LOGO from "../../../assets/cenro-logo.png";
+import LOGOORIG from "../../../assets/CENRO-LOGO-ORIG.png"
 import BagongPhilOrig from "../../../assets/Bagong-Pilipinas.png";
 import BagongPhilWhite from "../../../assets/Logo-Bagong-Pilipinas.png";
 import SanJuanWhite from "../../../assets/makabagong-san-juan-logo.png";
@@ -22,14 +23,14 @@ export default function Footer() {
             </div>
           </section>
           <section className="flex gap-2 pt-2">
-            <img src={LOGO} alt="" width={50} />
+            {/* <img src={LOGO} alt="" width={50} />
             <img src={SanJuanWhite} alt="" width={50} />
             <img src={BagongPhilWhite} alt="" width={50} />
-            <img src={SealWhite} alt="" width={50} />
-            {/* <img src={LOGO} alt="" width={50} />
+            <img src={SealWhite} alt="" width={50} /> */}
+            <img src={LOGOORIG} alt="" width={50} />
             <img src={SanJuanOrig} alt="" width={50} />
             <img src={BagongPhilOrig} alt="" width={50} />
-            <img src={SealOrig} alt="" width={50} /> */}
+            <img src={SealOrig} alt="" width={50} />
           </section>
         </div>
         <div className="flex justify-between w-7/12">
