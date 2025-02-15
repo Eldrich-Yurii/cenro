@@ -4,7 +4,8 @@ import { loginUser } from "../middlewares/auth/auth.loginUser.js"
 import { verifyToken } from "../middlewares/auth/auth.verifyAdmin.js";
 import { createEmployee } from "../middlewares/auth/auth.createEmployee.js";
 import verifyRoles from "../middlewares/verifyRoles.js";
-
+import { getEmployees } from "../controllers/getEmployee.controller.js";
+import { getUsers } from "../controllers/getUser.controller.js";
 
 const router = express.Router();
 
@@ -21,9 +22,7 @@ router.get("/admin", verifyToken, verifyRoles("admin"), (req, res) => {
   if (req.user.role !== "admin") return res.status(403).json({ message: "Access Denied" });
   res.json({ message: "Welcome, Admin" });
 });
-router.get("/admin/manage-user", verifyToken, verifyRoles("admin"), (req, res) => {
-  if (req.user.role !== "admin") return res.status(403).json({ message: "Access Denied" });
-  // res.json({ message: "Welcome, Admin" });
-});
+router.get("/admin/employees", verifyToken, verifyRoles("admin"), getEmployees);
+router.get("/admin/users", verifyToken, verifyRoles("admin"), getUsers);
 
 export default router;

@@ -65,6 +65,7 @@ const userSchema = new mongoose.Schema(
         },
         designation: {
             type: String,
+            enum: ['validator', 'webinar coordinator', 'chat support', 'inspector'],
             required: function () {
                 return this.role === 'employee'; // for employee lang yung designation
             },

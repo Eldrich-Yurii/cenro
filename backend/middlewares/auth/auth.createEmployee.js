@@ -4,7 +4,19 @@ import bcrypt from "bcryptjs";
 
 export const createEmployee = async (req, res) => {
     try {
-        const { firstname, middlename, lastname, birthdate, email, password,  } = req.body;
+        const { firstname, middlename, lastname, birthdate, email, password, designation } = req.body;
+ 
+        // Validate required fields
+        // if (!firstname || !middlename || !lastname || !birthdate || !email || !password || !designation) {
+        //     return res.status(400).json({ message: "Please fill in all fields" });
+        // }
+
+
+        // Validate designation 
+        const validDesignation = ["validator", "webinar coordinator", "inspector", "chat support"];
+        if (!validDesignation.includes(designation)) {
+            return res.status(400).json({ message: "Invalid designation" });
+        }
 
         // Check if the requester is an admin
         if (req.user.role !== "admin") {
@@ -23,11 +35,14 @@ export const createEmployee = async (req, res) => {
             birthdate,
             email,
             password: hashPassword, 
+            role: "employee",
+            designation
         });
 
         await newEmployee.save();
         res.status(201).json({ message: "Employee created successfully" });
     } catch (err) {
+        console.error("Error creating employee:", err);
         res.status(500).json({ message: "Error creating employee", err });
     }
 }

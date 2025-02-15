@@ -31,7 +31,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// console.log("JWT_SECRET:", process.env.JWT_SECRET_KEY);
+console.log("JWT_SECRET:", process.env.JWT_SECRET_KEY);
 
 // app.get('/', (req, res) => {
 //     res.send('Hello Welcome to CENRO')
