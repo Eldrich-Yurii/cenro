@@ -37,7 +37,7 @@ export default function WebSchedModal() {
       <Button
         variant="outlined"
         onClick={() => setIsOpen(true)}
-        className="w-42 border-blue-800 text-blue-800 py-3 rounded-lg flex justify-center items-center gap-2 font-extrabold text-sm hover:bg-blue-800 hover:text-white transition-all"
+        className="w-42 border-blue-800 text-blue-800 py-3 rounded-lg flex justify-center items-center gap-2 font-extrabold text-sm hover:bg-blue-800 hover:text-white transition-all font-inter"
       >
         <TbVideo className="text-lg" />
         Schedule a Webinar

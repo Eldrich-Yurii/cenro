@@ -6,7 +6,7 @@ import { useAuth } from "./context/AuthContext";
 function App() {
   const { user } = useAuth();
   return (
-    <div className="font-inter">
+    <div>
       {!user?.token && <HeroNavBar />}
       <AppRoutes />
     </div>

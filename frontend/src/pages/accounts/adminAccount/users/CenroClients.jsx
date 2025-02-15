@@ -71,15 +71,15 @@ const TABLE_ROWS = [
 export default function CenroClients() {
   return (
     <div className="h-screen">
-      <Card className="h-[34rem] w-full px-6 shadow-lg">
-        <CardHeader floated={false} shadow={false}>
+      <Card className="h-[36rem] w-full px-2 shadow-lg">
+        <CardHeader className="rounded-none h-24" floated={false} shadow={false}>
           <div className=" flex justify-between items-start">
             <section>
               <Typography variant="h2" className="text-blue-800 font-extrabold">
                 Cenro Clients
               </Typography>
               <p className="w-48 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-                This are the list of users.
+                This is the list of users.
               </p>
             </section>
             <section className="flex items-center">
@@ -97,7 +97,7 @@ export default function CenroClients() {
           </div>
         </CardHeader>
         <br />
-        <CardBody className="overflow-y-scroll scrollbar">
+        <CardBody className="overflow-y-auto">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>

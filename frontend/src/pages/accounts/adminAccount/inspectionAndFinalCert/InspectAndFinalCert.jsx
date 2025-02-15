@@ -87,14 +87,14 @@ import {
   export default function InspectAndFinalCert() {
     return (
       <div className="h-screen">
-        <Card className="h-[34rem] w-full px-6 shadow-lg">
-          <CardHeader floated={false} shadow={false}>
+        <Card className="h-[36rem] w-full px-6 shadow-lg">
+          <CardHeader className="rounded-none h-44" floated={false} shadow={false}>
             <div className=" flex justify-between items-start">
               <section>
                 <Typography variant="h2" className="text-blue-800 font-extrabold">
                   Inspection & Final Certificate
                 </Typography>
-                <p className="w-96 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
+                <p className="w-96 text-sm leading-[120%] pt-2 font-semibold text-gray-600 tracking-tight">
                   This is the list of Cenro Clients that is in inspection stage, the last stage to get the final certificate.
                 </p>
               </section>
@@ -113,7 +113,7 @@ import {
             </div>
           </CardHeader>
           <br />
-          <CardBody className="overflow-y-scroll scrollbar">
+          <CardBody className="overflow-y-auto scrollbar">
             <table className="w-full min-w-max table-auto text-left">
               <thead>
                 <tr>

@@ -41,7 +41,7 @@ export default function WebinarSched() {
         <CardHeader floated={false} shadow={false}>
           <div className=" flex justify-between">
             <section>
-              <Typography variant="h2" className="text-blue-800 font-extrabold">
+              <Typography variant="h2" className="text-blue-800 font-extrabold font-inter">
                 Webinar Schedule
               </Typography>
               <p className="w-48 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
@@ -68,7 +68,7 @@ export default function WebinarSched() {
           </div>
         </CardHeader>
         <br />
-        <CardBody className="overflow-y-scroll scrollbar">
+        <CardBody>
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
@@ -79,7 +79,7 @@ export default function WebinarSched() {
                   >
                     <Typography
                       variant="small"
-                      className="text-gray-800 font-extrabold leading-none"
+                      className="text-gray-800 font-extrabold leading-none font-inter"
                     >
                       {head}
                     </Typography>

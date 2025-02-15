@@ -49,7 +49,7 @@ export default function HeroNavBar() {
 
   return (
     // navbar
-    <div>
+    <div className="font-inter">
       <header className="fixed w-full z-20">
         <nav
           aria-label="Global"

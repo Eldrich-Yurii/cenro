@@ -9,7 +9,7 @@ export default function AdminAccount() {
   console.log("Admin Account rendered!")
 
   return (
-    <div className="z-20 flex bg-gray-200">
+    <div className="z-20 flex bg-gray-200 font-inter">
       <AdminSideBar />
       <div className="flex-1 px-6 py-4">
         <Outlet />

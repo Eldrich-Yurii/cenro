@@ -12,11 +12,17 @@ export const registerUser = async (userData) => {
   }
 };
 
-// export const createEmployee = (employeeData) => {
-//     return API.post(`${API}/create-employee`, employeeData);
-// }
-// login a user
+export const createEmployee = async (employeeData) => {
+  try{
+    const response = await axios.post(`${API}/create-employee`, employeeData);
+    return response.data;
+  } catch (err){
+    throw err.response?.data.message || "Registration Failed"
+  }
+}
 
+
+// login a user
 export const loginUser = async (email, password) => {
   // console.log("Sending login request with:", { email, password });
   try {

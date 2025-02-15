@@ -9,7 +9,7 @@ import {
   Chip,
   Accordion,
   AccordionHeader,
-  AccordionBody,
+  AccordionBody
 } from "@material-tailwind/react";
 import {
   ChevronRightIcon,
@@ -35,23 +35,23 @@ export default function AdminSideBar() {
   };
  
   return (
-    <Card className="h-auto w-full max-w-[20rem] p-4 shadow-2xl shadow-blue-gray-900/5">
+    <Card className="h-auto w-full max-w-[20rem] p-4 shadow-2xl shadow-blue-gray-900/5 rounded-none">
       <div className="mb-2 p-4">
-        <Typography className="pt-2 font-black inline-flex items-center gap-2 text-red-800" variant="h2">
+        <Typography className="pt-2 font-black inline-flex items-center gap-2 text-red-800 font-inter" variant="h2">
           <img src={Logo} alt="" width={50}/>
           CENRO
         </Typography>
       </div>
-      <List className="text-gray-600">
+      <List className="text-gray-600 font-inter">
         {/* Dashboard */}
-        <ListItem>
+        <ListItem className="text-[15px]">
           <ListItemPrefix>
             <TbLayoutGrid className="h-5 w-5" />
           </ListItemPrefix>
           <Link to="/admin/dashboard">&nbsp;&nbsp;Dashboard</Link>
         </ListItem>
           {/* Business Application*/}
-          <ListItem>
+          <ListItem className="text-[15px]">
           <ListItemPrefix>
             <TbFile className="h-5 w-5" />
           </ListItemPrefix>
@@ -72,14 +72,14 @@ export default function AdminSideBar() {
               <ListItemPrefix>
                 <TbVideo className="h-5 w-5" />
               </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal text-[16px]">
+              <Typography color="blue-gray" className="mr-auto font-normal text-[15px]">
               &nbsp;&nbsp;Webinar & Certificate
               </Typography>
             </AccordionHeader>
           </ListItem>
           <AccordionBody className="py-1 bg-white">
             <List className="p-0">
-              <ListItem>
+              <ListItem className="text-[15px]">
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
@@ -95,13 +95,11 @@ export default function AdminSideBar() {
           </AccordionBody>
         </Accordion>
           {/* Inspection & Final Certificate */}
-          <ListItem className="z-10 bg-white">
+          <ListItem className="z-10 bg-white text-[15px]">
           <ListItemPrefix>
             <TbTicket className="h-5 w-5" />
           </ListItemPrefix>
           <Link to="/admin/inspection-and-final-certificate">&nbsp;&nbsp;Inspection & Final Certificate</Link>
-          <ListItemSuffix>
-          </ListItemSuffix>
         </ListItem>
         {/* Manage Users */}
         <Accordion
@@ -118,20 +116,20 @@ export default function AdminSideBar() {
               <ListItemPrefix>
                 <TbUser className="h-5 w-5" />
               </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal text-[16px]">
+              <Typography color="blue-gray" className="mr-auto font-normal text-[15px]">
               &nbsp;&nbsp;Users
               </Typography>
             </AccordionHeader>
           </ListItem>
           <AccordionBody className="py-1 bg-white">
             <List className="p-0">
-              <ListItem>
+              <ListItem className="text-[15px]">
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
                 <Link to="/admin/user-employee">&nbsp;&nbsp;Employees</Link>
               </ListItem>
-              <ListItem>
+              <ListItem className="text-[15px]">
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
@@ -141,7 +139,7 @@ export default function AdminSideBar() {
           </AccordionBody>
         </Accordion>
         {/* Ticket and Chat Support */}
-        <ListItem className="z-10 bg-white">
+        <ListItem className="z-10 bg-white text-[15px]">
           <ListItemPrefix>
             <TbTicket className="h-5 w-5" />
           </ListItemPrefix>
@@ -152,19 +150,19 @@ export default function AdminSideBar() {
         </ListItem>
         <div className="z-10 bg-white">
         <hr className="my-2 border-blue-gray-50" />
-        <ListItem>
+        <ListItem className="text-[15px]">
           <ListItemPrefix>
             <TbLogs className="h-5 w-5" />
           </ListItemPrefix>
           <Link to="/admin/employee-logs">&nbsp;&nbsp;Logs</Link>
         </ListItem>
-        <ListItem>
+        <ListItem className="text-[15px]">
           <ListItemPrefix>
             <TbSettings2 className="h-5 w-5" />
           </ListItemPrefix>
           <Link to="/admin/admin-settings">&nbsp;&nbsp;Settings</Link>
         </ListItem>
-        <ListItem>
+        <ListItem className="text-[15px]">
           <ListItemPrefix>
             <TbLogout2 className="h-5 w-5" />
           </ListItemPrefix>

@@ -91,11 +91,11 @@ const TABLE_ROWS = [
 export default function BusinessApplications() {
   return (
     <div className="h-screen">
-      <Card className="h-[34rem] w-full px-6 shadow-lg">
-        <CardHeader floated={false} shadow={false}>
+      <Card className="h-[35rem] w-full px-6 shadow-lg">
+        <CardHeader  className="h-80" floated={false} shadow={false}>
           <div className=" flex justify-between">
             <section>
-              <Typography variant="h2" className="text-blue-800 font-extrabold">
+              <Typography variant="h2" className="text-blue-800 font-extrabold font-inter">
                 Business Application
               </Typography>
               <p className="w-64 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
@@ -148,7 +148,7 @@ export default function BusinessApplications() {
                   >
                     <Typography
                       variant="small"
-                      className="text-gray-800 font-extrabold leading-none"
+                      className="text-gray-800 font-extrabold leading-none font-inter"
                     >
                       {head}
                     </Typography>

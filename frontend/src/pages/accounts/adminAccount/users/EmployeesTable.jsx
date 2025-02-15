@@ -72,21 +72,21 @@ const TABLE_ROWS = [
 export default function EmployeesTable() {
   return (
     <div className="h-screen">
-      <Card className="h-[34rem] w-full px-6 shadow-lg">
-        <CardHeader floated={false} shadow={false}>
+      <Card className="h-[34rem] w-full px-2 shadow-lg">
+        <CardHeader className="rounded-none h-96" floated={false} shadow={false}>
           <div className=" flex justify-between">
             <section>
               <Typography variant="h2" className="text-blue-800 font-extrabold">
                 Employees
               </Typography>
               <p className="w-48 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-                This are the list of employee and their designations.
+                This is the list of employee and their designations.
               </p>
             </section>
           </div>
           <div className="w-full flex justify-between pt-4">
             <section className="flex flex-col gap-2 items-end">
-            <AddEmpAcc />
+              <AddEmpAcc />
             </section>
             <section className="flex items-center">
               <input
@@ -103,7 +103,7 @@ export default function EmployeesTable() {
           </div>
         </CardHeader>
         <br />
-        <CardBody className="overflow-y-scroll scrollbar">
+        <CardBody className="overflow-y-auto scrollbar">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
@@ -166,10 +166,16 @@ export default function EmployeesTable() {
                       </td>
                       <td className="border-b border-gray-300">
                         <div className="flex gap-4">
-                          <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white">
+                          <Button
+                            variant="outlined"
+                            className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white"
+                          >
                             <TbEdit />
                           </Button>
-                          <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800  hover:bg-blue-800 hover:text-white">
+                          <Button
+                            variant="outlined"
+                            className="px-2 py-2 border-blue-800 text-blue-800  hover:bg-blue-800 hover:text-white"
+                          >
                             <TbTrash />
                           </Button>
                         </div>
