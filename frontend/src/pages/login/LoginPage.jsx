@@ -30,6 +30,7 @@ const LoginPage = () => {
   }
 
       localStorage.setItem("user", JSON.stringify(response));
+      // localStorage.setItem("token", JSON.stringify(response.token));
       // console.log("login successful:", data)
       if (response.role === "admin") {
         navigate("/admin/dashboard");

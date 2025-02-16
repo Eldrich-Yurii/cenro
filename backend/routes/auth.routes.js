@@ -10,8 +10,8 @@ import { getUsers } from "../controllers/getUser.controller.js";
 const router = express.Router();
 
 router.post("/register", registerUser);
-router.post("/admin/create-employee", verifyToken, createEmployee)
 router.post("/login", loginUser);
+router.post("/admin/create-employee", verifyToken, verifyRoles("admin"), createEmployee)
 // router.get("/dashboard", verifyToken, (req, res) => {
 //   res.json({ message: `Welcome, ${req.user.role}` });
 // });

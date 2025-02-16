@@ -7,9 +7,9 @@ export const createEmployee = async (req, res) => {
         const { firstname, middlename, lastname, birthdate, email, password, designation } = req.body;
  
         // Validate required fields
-        // if (!firstname || !middlename || !lastname || !birthdate || !email || !password || !designation) {
-        //     return res.status(400).json({ message: "Please fill in all fields" });
-        // }
+        if (!firstname || !middlename || !lastname || !birthdate || !email || !password || !designation) {
+            return res.status(400).json({ message: "Please fill in all fields" });
+        }
 
 
         // Validate designation 
@@ -38,6 +38,8 @@ export const createEmployee = async (req, res) => {
             role: "employee",
             designation
         });
+
+        console.log("Received Data:", req.body);
 
         await newEmployee.save();
         res.status(201).json({ message: "Employee created successfully" });

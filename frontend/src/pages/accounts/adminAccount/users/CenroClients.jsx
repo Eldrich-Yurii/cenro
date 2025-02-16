@@ -6,7 +6,9 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
+import { useEffect, useState } from "react";
 import { TbSearch } from "react-icons/tb";
+import { getUsers } from "../../../../api/AuthApi";
 
 const TABLE_HEAD = [
   "First Name",
@@ -69,6 +71,28 @@ const TABLE_ROWS = [
 ];
 
 export default function CenroClients() {
+
+  const [clients, setClients] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+          const user = JSON.parse(localStorage.getItem("user"));
+          const token = user?.token;
+          if (!token) {
+            console.error("Token not found.");
+            return;
+          }
+    
+          try {
+            const clientData = await getUsers(token);
+            setClients(clientData)
+          } catch(err) {
+            console.error("Error getting data", err);
+          }
+        };
+    
+        getData();
+      }, []);
   return (
     <div className="h-screen">
       <Card className="h-[36rem] w-full px-2 shadow-lg">
@@ -97,14 +121,14 @@ export default function CenroClients() {
           </div>
         </CardHeader>
         <br />
-        <CardBody className="overflow-y-auto">
+        <CardBody className="h-96 overflow-y-auto">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
                 {TABLE_HEAD.map((head) => (
                   <th
                     key={head}
-                    className="border-b border-gray-300 pb-4 pt-10"
+                    className="border-b border-gray-300 pb-4"
                   >
                     <Typography
                       variant="small"
@@ -117,15 +141,15 @@ export default function CenroClients() {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(
-                ({ firstname, middlename, lastname, designation, id }) => {
-                  const isLast = id === TABLE_ROWS.length - 1;
+              {clients.map(
+                ({ firstname, middlename, lastname, email, _id }) => {
+                  const isLast = _id === TABLE_ROWS.length - 1;
                   const classes = isLast
                     ? "py-4"
                     : "py-4 border-b border-gray-300";
 
                   return (
-                    <tr key={id} className="hover:bg-gray-50">
+                    <tr key={_id} className="hover:bg-gray-50">
                       <td className={classes}>
                         <Typography
                           variant="small"
@@ -155,7 +179,7 @@ export default function CenroClients() {
                           variant="small"
                           className="font-bold text-blue-800"
                         >
-                          {designation}
+                          {email}
                         </Typography>
                       </td>
                       <td className="border-b border-gray-300">

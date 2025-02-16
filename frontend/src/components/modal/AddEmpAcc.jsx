@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { createEmployee } from "../../api/AuthApi";
 import { TbUserPlus } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 export default function AddEmpAcc() {
   const [firstname, setFirstname] = useState("");
@@ -19,8 +20,21 @@ export default function AddEmpAcc() {
   const modalRef = useRef(null);
 
 
-  const handleSubmit = async (e) => {
+  const navigate = useNavigate();
+
+  const handleCreateEmployee = async (e) => {
     e.preventDefault()
+
+    // const user = JSON.parse(localStorage.getItem("user")); // Get token from storage
+    // console.log("Stored Token:", localStorage.getItem("user"));
+    // const token = user?.token; // Extract only the token
+    // console.log("Stored Token:", token);
+    
+
+    // if (!token) {
+    //   console.error("No token found in localStorage");
+    //   return;
+    // }
 
     const formData = {
       firstname,
@@ -42,6 +56,7 @@ export default function AddEmpAcc() {
     try {
       const response = await createEmployee(formData);
       alert(JSON.stringify(response))
+      navigate(0)
     } catch(err) {
       alert(err)
     }
@@ -59,7 +74,10 @@ export default function AddEmpAcc() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-
+  const handleDesignation = (value) => {
+    console.log("Selected Designation:", value); // Debugging
+    setDesignation(value);
+  };
   return (
    
     <div className="z-10">
@@ -76,7 +94,7 @@ export default function AddEmpAcc() {
       {/* Modal */}
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleCreateEmployee}>
             <div
               ref={modalRef}
               className="bg-white p-6 rounded-lg shadow-lg w-96 transform transition-transform duration-300 scale-95 opacity-0 animate-fade-in"
@@ -97,6 +115,7 @@ export default function AddEmpAcc() {
                     type="text"
                     name="firstname"
                     value={firstname}
+                    onChange={(e) => setFirstname(e.target.value)}
                     placeholder="Enter Employee First Name"
                     className="w-full"
                   />
@@ -110,6 +129,7 @@ export default function AddEmpAcc() {
                     type="text"
                     name="middlename"
                     value={middlename}
+                    onChange={(e) => setMiddlename(e.target.value)}
                     placeholder="Enter Employee Middle Name"
                     className="w-full"
                   />
@@ -121,6 +141,7 @@ export default function AddEmpAcc() {
                     type="text"
                     name="lastname"
                     value={lastname}
+                    onChange={(e) => setLastname(e.target.value)}
                     placeholder="Enter Employee Last Name"
                     className="w-full"
                   />
@@ -130,6 +151,7 @@ export default function AddEmpAcc() {
                   <br />
                   <input type="date" name="birthdate" 
                   value={birthdate}
+                  onChange={(e) => setBirthdate(e.target.value)}
                   className="w-full" />
                 </div>
                 <div>
@@ -139,6 +161,7 @@ export default function AddEmpAcc() {
                     type="email"
                     name="email"
                     value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter an Email"
                     className="w-full"
                   />
@@ -150,6 +173,7 @@ export default function AddEmpAcc() {
                     type="password"
                     name="password"
                     value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter a Password"
                     className="w-full"
                   />
@@ -162,6 +186,7 @@ export default function AddEmpAcc() {
                     type="password"
                     name="confirmpassword"
                     value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Re-type Password"
                     className="w-full"
                   />
@@ -170,11 +195,11 @@ export default function AddEmpAcc() {
                   <label htmlFor="">Designation</label>
                   <br />
                   <div className="w-full">
-                    <Select label="Select Designation">
-                      <Option>Validator</Option>
-                      <Option>Webinar Coordinator</Option>
-                      <Option>Inspector</Option>
-                      <Option>Chat Support</Option>
+                    <Select value={designation} onChange={handleDesignation} label="Select Designation">
+                      <Option value="validator">Validator</Option>
+                      <Option value="webinar coordinator">Webinar Coordinator</Option>
+                      <Option value="inspector">Inspector</Option>
+                      <Option value="chat support">Chat Support</Option>
                     </Select>
                   </div>
                 </div>
@@ -186,7 +211,7 @@ export default function AddEmpAcc() {
                 >
                   Cancel
                 </Button>
-                <Button className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-950">
+                <Button type="submit" className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-950">
                   Confirm
                 </Button>
               </div>

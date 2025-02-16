@@ -10,8 +10,6 @@ const ProtectedRoute = ({ allowedRoles }) => {
         return <div>Loading...</div>;
     }
 
-    console.log("Checking ProtectedRoute - user:", user);
-
     if (!user.token) {
         console.warn("Redirecting to login - user is missing or token is invalid");
         return <Navigate to="/login" replace />;
@@ -21,7 +19,7 @@ const ProtectedRoute = ({ allowedRoles }) => {
         return <h2>Access Denied</h2>
     }
 
-    console.log("User Data in ProtectedRoute: ", user);
+    // console.log("User Data in ProtectedRoute: ", user);
     return <Outlet />;
 
 };

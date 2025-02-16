@@ -8,6 +8,8 @@ import {
 } from "@material-tailwind/react";
 import { TbEdit, TbSearch, TbTrash } from "react-icons/tb";
 import AddEmpAcc from "../../../../components/modal/AddEmpAcc";
+import { getEmployees } from "../../../../api/AuthApi";
+import { useEffect, useState } from "react";
 
 const TABLE_HEAD = [
   "First Name",
@@ -17,63 +19,87 @@ const TABLE_HEAD = [
   "Actions",
 ];
 
-const TABLE_ROWS = [
-  {
-    id: "1",
-    firstname: "Fer",
-    middlename: "Di",
-    lastname: "Bol",
-    designation: "Validator",
-  },
-  {
-    id: "2",
-    firstname: "Yu",
-    middlename: "Li",
-    lastname: "Sis",
-    designation: "Webinar Coordinator",
-  },
-  {
-    id: "3",
-    firstname: "kel",
-    middlename: "Cor",
-    lastname: "Sega",
-    designation: "Inspector",
-  },
-  {
-    id: "4",
-    firstname: "Jey",
-    middlename: "Pi",
-    lastname: "Pol",
-    designation: "Chat Support",
-  },
-  {
-    id: "5",
-    firstname: "Yu",
-    middlename: "Li",
-    lastname: "Sis",
-    designation: "Webinar Coordinator",
-  },
-  {
-    id: "6",
-    firstname: "kel",
-    middlename: "Cor",
-    lastname: "Sega",
-    designation: "Inspector",
-  },
-  {
-    id: "7",
-    firstname: "Jey",
-    middlename: "Pi",
-    lastname: "Pol",
-    designation: "Chat Support",
-  },
-];
+// const TABLE_ROWS = [
+//   {
+//     id: "1",
+//     firstname: "Fer",
+//     middlename: "Di",
+//     lastname: "Bol",
+//     designation: "Validator",
+//   },
+//   {
+//     id: "2",
+//     firstname: "Yu",
+//     middlename: "Li",
+//     lastname: "Sis",
+//     designation: "Webinar Coordinator",
+//   },
+//   {
+//     id: "3",
+//     firstname: "kel",
+//     middlename: "Cor",
+//     lastname: "Sega",
+//     designation: "Inspector",
+//   },
+//   {
+//     id: "4",
+//     firstname: "Jey",
+//     middlename: "Pi",
+//     lastname: "Pol",
+//     designation: "Chat Support",
+//   },
+//   {
+//     id: "5",
+//     firstname: "Yu",
+//     middlename: "Li",
+//     lastname: "Sis",
+//     designation: "Webinar Coordinator",
+//   },
+//   {
+//     id: "6",
+//     firstname: "kel",
+//     middlename: "Cor",
+//     lastname: "Sega",
+//     designation: "Inspector",
+//   },
+//   {
+//     id: "7",
+//     firstname: "Jey",
+//     middlename: "Pi",
+//     lastname: "Pol",
+//     designation: "Chat Support",
+//   },
+// ];
 
 export default function EmployeesTable() {
+
+  const [employee, setEmployee] = useState([]);
+  
+  useEffect(() => {
+    const getData = async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const token = user?.token;
+      if (!token) {
+        console.error("Token not found.");
+        return;
+      }
+
+      try {
+        const employeeData = await getEmployees(token);
+        setEmployee(employeeData)
+      } catch(err) {
+        console.error("Error getting data", err);
+      }
+    };
+
+    getData();
+  },[]);
+
+
   return (
     <div className="h-screen">
       <Card className="h-[34rem] w-full px-2 shadow-lg">
-        <CardHeader className="rounded-none h-96" floated={false} shadow={false}>
+        <CardHeader className="rounded-none" floated={false} shadow={false}>
           <div className=" flex justify-between">
             <section>
               <Typography variant="h2" className="text-blue-800 font-extrabold">
@@ -103,14 +129,14 @@ export default function EmployeesTable() {
           </div>
         </CardHeader>
         <br />
-        <CardBody className="overflow-y-auto scrollbar">
+        <CardBody className="h-64 overflow-y-auto">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
                 {TABLE_HEAD.map((head) => (
                   <th
                     key={head}
-                    className="border-b border-gray-300 pb-4 pt-10"
+                    className="border-b border-gray-300 pb-4"
                   >
                     <Typography
                       variant="small"
@@ -123,15 +149,15 @@ export default function EmployeesTable() {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(
-                ({ firstname, middlename, lastname, designation, id }) => {
-                  const isLast = id === TABLE_ROWS.length - 1;
+              {employee.map(
+                ({ firstname, middlename, lastname, designation, _id }) => {
+                  const isLast = _id === employee.length - 1;
                   const classes = isLast
                     ? "py-4"
                     : "py-4 border-b border-gray-300";
 
                   return (
-                    <tr key={id} className="hover:bg-gray-50">
+                    <tr key={_id} className="hover:bg-gray-50">
                       <td className={classes}>
                         <Typography
                           variant="small"
