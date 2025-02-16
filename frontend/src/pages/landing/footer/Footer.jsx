@@ -15,22 +15,22 @@ export default function Footer() {
         <div className="grid grid-cols-1">
           <section className="inline-flex items-center">
             <div className="grid grid-cols-1">
-            <p className="w-80 font-black text-6xl tracking-wider uppercase">
+            <p className="w-80 font-black text-[5rem] leading-[100%] tracking-wider uppercase">
               Cenro
               <br />
             </p>
-              <small className="uppercase font-light text-sm tracking-[0.6rem]">san juan city</small>
+              <small className="uppercase font-light text-sm tracking-[0.98rem]">san juan city</small>
             </div>
           </section>
           <section className="flex gap-2 pt-2">
-            {/* <img src={LOGO} alt="" width={50} />
-            <img src={SanJuanWhite} alt="" width={50} />
-            <img src={BagongPhilWhite} alt="" width={50} />
+            {/* <img src={LOGO} alt="" width={65} />
+            <img src={SanJuanWhite} alt="" width={65} />
+            <img src={BagongPhilWhite} alt="" width={65} />
             <img src={SealWhite} alt="" width={50} /> */}
-            <img src={LOGOORIG} alt="" width={50} />
-            <img src={SanJuanOrig} alt="" width={50} />
-            <img src={BagongPhilOrig} alt="" width={50} />
-            <img src={SealOrig} alt="" width={50} />
+            <img src={LOGOORIG} alt="" width={65} />
+            <img src={SanJuanOrig} alt="" width={65} />
+            <img src={BagongPhilOrig} alt="" width={65} />
+            <img src={SealOrig} alt="" width={65} />
           </section>
         </div>
         <div className="flex justify-between w-7/12">
