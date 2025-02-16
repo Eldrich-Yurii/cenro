@@ -1,4 +1,3 @@
-import { response } from "express";
 import User from "../../models/usersSchema.js";
 import bcrypt from "bcryptjs";
 
