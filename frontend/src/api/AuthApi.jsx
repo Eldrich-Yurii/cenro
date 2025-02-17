@@ -18,6 +18,8 @@ console.log("Stored Token:", localStorage.getItem("user"));
 const token = user?.token; // Extract only the token
 console.log("Stored Token:", token);
 
+
+// create an employee account
 export const createEmployee = async (employeeData) => {
   try {
     const response = await axios.post(
@@ -36,6 +38,53 @@ export const createEmployee = async (employeeData) => {
     throw err.response?.data.message || "Registration Failed";
   }
 };
+
+// fetch employee acounts
+export const getEmployees = async (token) => {
+  try {
+    const response = await axios.get(`${API}/admin/employees`, {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+    return response.data;
+  } catch (err) {
+    console.error("Error fetching employees:", err);
+  }
+};
+
+// update employee designation
+export const updateEmployeeDesignation = async (id, token, updatedEmpDesignation) => {
+  try {
+    const response = await axios.put(`${API}/admin/update-employee/${id}`,
+      updatedEmpDesignation, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Ensure you're sending the token
+        }
+      }
+    );
+    return response.data
+
+  } catch (err) {
+    console.error("Error updating employee designation:", err);
+    throw err;
+  }
+}
+
+// delete employee account
+export const deleteEmploye = async (id, token) => {
+  try {
+    const response = await axios.delete(`${API}/admin/delete-employee/${id}`, {
+        headers: { 
+          Authorization: `Bearer ${token}`
+        },
+    })
+    return response.data
+  } catch (err) {
+    console.error("Error deleting employee:", err);
+    throw err;
+  }
+}
+
 
 // login a user
 export const loginUser = async (email, password) => {
@@ -59,17 +108,7 @@ export const loginUser = async (email, password) => {
   }
 };
 
-export const getEmployees = async (token) => {
-  try {
-    const response = await axios.get(`${API}/admin/employees`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return response.data;
-  } catch (err) {
-    console.error("Error fetching employees:", err);
-  }
-};
-
+// get cenro clients account
 export const getUsers = async (token) => {
   try {
     const response = await axios.get(`${API}/admin/users`, {

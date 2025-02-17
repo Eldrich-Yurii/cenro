@@ -88,7 +88,7 @@ export default function CertForAttendees() {
   return (
     <div className="h-screen">
       <Card className="h-[34rem] w-full px-6 shadow-lg">
-        <CardHeader floated={false} shadow={false}>
+        <CardHeader className="h-56" floated={false} shadow={false}>
           <div className=" flex justify-between items-start">
             <section>
               <Typography variant="h2" className="text-blue-800 font-extrabold">

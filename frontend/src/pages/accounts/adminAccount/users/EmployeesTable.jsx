@@ -19,58 +19,6 @@ const TABLE_HEAD = [
   "Actions",
 ];
 
-// const TABLE_ROWS = [
-//   {
-//     id: "1",
-//     firstname: "Fer",
-//     middlename: "Di",
-//     lastname: "Bol",
-//     designation: "Validator",
-//   },
-//   {
-//     id: "2",
-//     firstname: "Yu",
-//     middlename: "Li",
-//     lastname: "Sis",
-//     designation: "Webinar Coordinator",
-//   },
-//   {
-//     id: "3",
-//     firstname: "kel",
-//     middlename: "Cor",
-//     lastname: "Sega",
-//     designation: "Inspector",
-//   },
-//   {
-//     id: "4",
-//     firstname: "Jey",
-//     middlename: "Pi",
-//     lastname: "Pol",
-//     designation: "Chat Support",
-//   },
-//   {
-//     id: "5",
-//     firstname: "Yu",
-//     middlename: "Li",
-//     lastname: "Sis",
-//     designation: "Webinar Coordinator",
-//   },
-//   {
-//     id: "6",
-//     firstname: "kel",
-//     middlename: "Cor",
-//     lastname: "Sega",
-//     designation: "Inspector",
-//   },
-//   {
-//     id: "7",
-//     firstname: "Jey",
-//     middlename: "Pi",
-//     lastname: "Pol",
-//     designation: "Chat Support",
-//   },
-// ];
-
 export default function EmployeesTable() {
 
   const [employee, setEmployee] = useState([]);
