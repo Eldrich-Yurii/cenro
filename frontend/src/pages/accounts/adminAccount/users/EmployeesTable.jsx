@@ -8,6 +8,7 @@ import {
 } from "@material-tailwind/react";
 import { TbEdit, TbSearch, TbTrash } from "react-icons/tb";
 import AddEmpAcc from "../../../../components/modal/AddEmpAcc";
+import EditDesigModal from "../../../../components/modal/EditDesigModal";
 import { getEmployees } from "../../../../api/AuthApi";
 import { useEffect, useState } from "react";
 
@@ -20,9 +21,9 @@ const TABLE_HEAD = [
 ];
 
 export default function EmployeesTable() {
-
   const [employee, setEmployee] = useState([]);
-  
+  const [editEmployeeDesignation, setEditEmployeeDesignation] = useState(null);
+
   useEffect(() => {
     const getData = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
@@ -34,15 +35,22 @@ export default function EmployeesTable() {
 
       try {
         const employeeData = await getEmployees(token);
-        setEmployee(employeeData)
-      } catch(err) {
+        setEmployee(employeeData);
+      } catch (err) {
         console.error("Error getting data", err);
       }
     };
 
     getData();
-  },[]);
+  }, []);
 
+  const updateEmployeeDesignation = (id, newDesignation) => {
+    setEmployee((prevEmployees) =>
+      prevEmployees.map((emp) =>
+        emp._id === id ? { ...emp, designation: newDesignation } : emp
+      )
+    );
+  };
 
   return (
     <div className="h-screen">
@@ -82,10 +90,7 @@ export default function EmployeesTable() {
             <thead>
               <tr>
                 {TABLE_HEAD.map((head) => (
-                  <th
-                    key={head}
-                    className="border-b border-gray-300 pb-4"
-                  >
+                  <th key={head} className="border-b border-gray-300 pb-4">
                     <Typography
                       variant="small"
                       className="text-gray-800 font-extrabold leading-none"
@@ -141,6 +146,13 @@ export default function EmployeesTable() {
                       <td className="border-b border-gray-300">
                         <div className="flex gap-4">
                           <Button
+                            onClick={() => {
+                              console.log(
+                                "Editing Employee designation:",
+                                designation
+                              );
+                              setEditEmployeeDesignation({firstname, middlename, lastname, designation, _id});
+                            }}
                             variant="outlined"
                             className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white"
                           >
@@ -160,6 +172,13 @@ export default function EmployeesTable() {
               )}
             </tbody>
           </table>
+          {editEmployeeDesignation  && (
+            <EditDesigModal
+              employee={editEmployeeDesignation}
+              setEditEmployeeDesignation={setEditEmployeeDesignation}
+              updateEmployeeDesignation={updateEmployeeDesignation}
+            />
+          )}
         </CardBody>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
