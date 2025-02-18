@@ -10,6 +10,7 @@ import { TbEdit, TbSearch, TbTrash } from "react-icons/tb";
 import AddEmpAcc from "../../../../components/modal/AddEmpAcc";
 import EditDesigModal from "../../../../components/modal/EditDesigModal";
 import { getEmployees } from "../../../../api/AuthApi";
+import { deleteEmployee } from "../../../../api/AuthApi";
 import { useEffect, useState } from "react";
 
 const TABLE_HEAD = [
@@ -21,9 +22,11 @@ const TABLE_HEAD = [
 ];
 
 export default function EmployeesTable() {
+
   const [employee, setEmployee] = useState([]);
   const [editEmployeeDesignation, setEditEmployeeDesignation] = useState(null);
 
+  // get employee
   useEffect(() => {
     const getData = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
@@ -44,13 +47,36 @@ export default function EmployeesTable() {
     getData();
   }, []);
 
+  //update employee designation
   const updateEmployeeDesignation = (id, newDesignation) => {
     setEmployee((prevEmployees) =>
-      prevEmployees.map((emp) =>
-        emp._id === id ? { ...emp, designation: newDesignation } : emp
+      prevEmployees.map((employee) =>
+        employee._id === id ? { ...employee, designation: newDesignation } : employee
       )
     );
   };
+
+  // delete employee
+  const handleDeleteEmployee = async (id) => {
+    if(!window.confirm("Are you sure you want delete this employee account?"))
+  return;
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user?.token;
+
+    if (!token) {
+      console.error("Token not found.");
+    }
+
+    try {
+      await deleteEmployee(id, token)
+      
+      setEmployee((prevEmployees) => prevEmployees.filter((employee) => employee._id !== id));
+    }catch(err) {
+      console.error("Error deleting employee", err);
+    }
+    alert("Employee account deleted")
+  }
 
   return (
     <div className="h-screen">
@@ -159,7 +185,7 @@ export default function EmployeesTable() {
                             <TbEdit />
                           </Button>
                           <Button
-                            variant="outlined"
+                            variant="outlined"onClick={() => handleDeleteEmployee(_id)}
                             className="px-2 py-2 border-blue-800 text-blue-800  hover:bg-blue-800 hover:text-white"
                           >
                             <TbTrash />

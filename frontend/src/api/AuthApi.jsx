@@ -71,7 +71,7 @@ export const updateEmployeeDesignation = async (id, token, updatedEmpDesignation
 }
 
 // delete employee account
-export const deleteEmploye = async (id, token) => {
+export const deleteEmployee = async (id, token) => {
   try {
     const response = await axios.delete(`${API}/admin/delete-employee/${id}`, {
         headers: { 
