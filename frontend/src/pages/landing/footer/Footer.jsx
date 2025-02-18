@@ -1,6 +1,6 @@
-import { TbPhone, TbLocation, TbLink } from "react-icons/tb";
+import { TbPhone, TbLocation, TbLink, TbBrandFacebook } from "react-icons/tb";
 import LOGO from "../../../assets/cenro-logo.png";
-import LOGOORIG from "../../../assets/CENRO-LOGO-ORIG.png"
+import LOGOORIG from "../../../assets/CENRO-LOGO-ORIG.png";
 import BagongPhilOrig from "../../../assets/Bagong-Pilipinas.png";
 import BagongPhilWhite from "../../../assets/Logo-Bagong-Pilipinas.png";
 import SanJuanWhite from "../../../assets/makabagong-san-juan-logo.png";
@@ -15,11 +15,13 @@ export default function Footer() {
         <div className="grid grid-cols-1">
           <section className="inline-flex items-center">
             <div className="grid grid-cols-1">
-            <p className="w-80 font-black text-[5rem] leading-[100%] tracking-wider uppercase">
-              Cenro
-              <br />
-            </p>
-              <small className="uppercase font-light text-sm tracking-[0.98rem]">san juan city</small>
+              <p className="w-80 font-black text-[5rem] leading-[100%] tracking-wider uppercase">
+                Cenro
+                <br />
+              </p>
+              <small className="uppercase font-light text-sm tracking-[0.98rem]">
+                san juan city
+              </small>
             </div>
           </section>
           <section className="flex gap-2 pt-2">
@@ -42,6 +44,10 @@ export default function Footer() {
             <div className="pl-7 pb-2">
               <p>(63) 939 717 2394</p>
               <p>(63) 967 380 5773</p>
+              <span className="flex">
+                <TbBrandFacebook />
+                <a href="">CENRO San Juan City</a>
+              </span>
             </div>
           </section>
           <section>

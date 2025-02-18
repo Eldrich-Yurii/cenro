@@ -128,7 +128,6 @@ export default function SignUp() {
                     placeholder="Enter your Middle Name"
                     value={middlename}
                     onChange={(e) => setMiddlename(e.target.value)}
-                    required
                     className="border-blue-900 border-2 w-full h-12 rounded-lg px-2 truncate"
                   />
                 </div>

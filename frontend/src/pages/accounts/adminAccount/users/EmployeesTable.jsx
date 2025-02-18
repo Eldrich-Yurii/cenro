@@ -186,7 +186,7 @@ export default function EmployeesTable() {
                           </Button>
                           <Button
                             variant="outlined"onClick={() => handleDeleteEmployee(_id)}
-                            className="px-2 py-2 border-blue-800 text-blue-800  hover:bg-blue-800 hover:text-white"
+                            className="px-2 py-2 border-red-800 text-red-800  hover:bg-red-800 hover:text-white"
                           >
                             <TbTrash />
                           </Button>
