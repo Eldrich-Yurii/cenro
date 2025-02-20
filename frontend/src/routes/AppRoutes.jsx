@@ -12,13 +12,13 @@ import NormalUserAccount from "../pages/accounts/normalUserAccount/NormalUserAcc
 import AdminDashboard from "../pages/accounts/adminAccount/adminDashboard/AdminDashboard";
 import EmployeesTable from "../pages/accounts/adminAccount/users/EmployeesTable";
 import CenroClients from "../pages/accounts/adminAccount/users/CenroClients";
-import BusinessApplications from "../pages/accounts/adminAccount/applications/BusinessApplications"
+import BusinessApplications from "../pages/accounts/adminAccount/applications/BusinessApplications";
 import WebinarSched from "../pages/accounts/adminAccount/webinar/WebinarSched";
 import InspectAndFinalCert from "../pages/accounts/adminAccount/inspectionAndFinalCert/InspectAndFinalCert";
 import CertForAttendees from "../pages/accounts/adminAccount/webinar/CertForAttendees";
 import SuppAndTicket from "../pages/accounts/adminAccount/ticket/SuppAndTicket";
-import EmpLogs from "../pages/accounts/adminAccount/emplogs/EmpLogs"
-import AdminSettings from "../pages/accounts/adminAccount/settings/Settings"
+import EmpLogs from "../pages/accounts/adminAccount/emplogs/EmpLogs";
+import AdminSettings from "../pages/accounts/adminAccount/settings/Settings";
 
 export default function AppRoutes() {
   useEffect(() => {
@@ -35,29 +35,38 @@ export default function AppRoutes() {
   return (
     <Routes>
       {/* <Route element={<PublicLayout/>}> */}
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/#home" element={<Hero />} />
-        <Route path="/announcements" element={<Announcements />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUp />} />
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/#home" element={<Hero />} />
+      <Route path="/announcements" element={<Announcements />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignUp />} />
       {/* </Route> */}
 
       {/* normal-user-account */}
-      <Route element={<ProtectedRoute allowedRoles={["user"]}/>}>
-      <Route path="/user-account" element={<NormalUserAccount/>}/>
+      <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
+        <Route path="/user-account" element={<NormalUserAccount />} />
       </Route>
 
       {/* admin account */}
       <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
         <Route path="/admin" element={<AdminAccount />}>
-          <Route index element={<AdminDashboard />} /> 
+          <Route index element={<AdminDashboard />} />
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="user-employee" element={<EmployeesTable />} />
           <Route path="user-cenro-clients" element={<CenroClients />} />
-          <Route path="business-application" element={<BusinessApplications />} />
+          <Route
+            path="business-application"
+            element={<BusinessApplications />}
+          />
           <Route path="webinar-schedule" element={<WebinarSched />} />
-          <Route path="inspection-and-final-certificate" element={<InspectAndFinalCert />} />
-          <Route path="certificate-for-attendees" element={<CertForAttendees />} />
+          <Route
+            path="inspection-and-final-certificate"
+            element={<InspectAndFinalCert />}
+          />
+          <Route
+            path="certificate-for-attendees"
+            element={<CertForAttendees />}
+          />
           <Route path="support-and-tickets" element={<SuppAndTicket />} />
           <Route path="employee-logs" element={<EmpLogs />} />
           <Route path="admin-settings" element={<AdminSettings />} />
@@ -65,18 +74,23 @@ export default function AppRoutes() {
       </Route>
 
       {/* employee-account */}
-      <Route element={<ProtectedRoute allowedRoles={["employee"]}/>}>
-           <Route path="/employee-account" element={<EmployeeAccount/>}/>
-          <Route path="user-employee" element={<EmployeesTable />} />
-          <Route path="user-cenro-clients" element={<CenroClients />} />
-          <Route path="business-application" element={<BusinessApplications />} />
-          <Route path="webinar-schedule" element={<WebinarSched />} />
-          <Route path="inspection-and-final-certificate" element={<InspectAndFinalCert />} />
-          <Route path="certificate-for-attendees" element={<CertForAttendees />} />
-          <Route path="support-and-tickets" element={<SuppAndTicket />} />
-          <Route path="employee-logs" element={<EmpLogs />} />
-          <Route path="admin-settings" element={<AdminSettings />} />
-
+      <Route element={<ProtectedRoute allowedRoles={["employee"]} />}>
+        <Route path="/employee-account" element={<EmployeeAccount />} />
+        <Route path="user-employee" element={<EmployeesTable />} />
+        <Route path="user-cenro-clients" element={<CenroClients />} />
+        <Route path="business-application" element={<BusinessApplications />} />
+        <Route path="webinar-schedule" element={<WebinarSched />} />
+        <Route
+          path="inspection-and-final-certificate"
+          element={<InspectAndFinalCert />}
+        />
+        <Route
+          path="certificate-for-attendees"
+          element={<CertForAttendees />}
+        />
+        <Route path="support-and-tickets" element={<SuppAndTicket />} />
+        <Route path="employee-logs" element={<EmpLogs />} />
+        <Route path="admin-settings" element={<AdminSettings />} />
       </Route>
     </Routes>
   );

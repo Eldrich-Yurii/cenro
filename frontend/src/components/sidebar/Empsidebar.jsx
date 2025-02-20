@@ -22,7 +22,7 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/cenro-logo-red.png"
 
 
-export default function EmpSideBar() {
+export default function EmpSidebar() {
   const [open, setOpen] = React.useState(0);
 //   const [openDrawer, setOpenDrawer] = useState(0);
 
@@ -48,7 +48,7 @@ export default function EmpSideBar() {
           <ListItemPrefix>
             <TbLayoutGrid className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/employee-account/dashboard">&nbsp;&nbsp;Dashboard</Link>
+          <Link to="/admin/dashboard">&nbsp;&nbsp;Dashboard</Link>
         </ListItem>
           {/* Business Application*/}
           <ListItem className="text-[15px]">

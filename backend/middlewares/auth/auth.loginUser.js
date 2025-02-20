@@ -28,7 +28,6 @@ export const loginUser = async (req, res) => {
     );
     console.log("Generated Token:", token);
     res.json({ token, role: user.role });
-    res.status(200).json({ message: "Login successful", role: user.role });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error", error });
   }
