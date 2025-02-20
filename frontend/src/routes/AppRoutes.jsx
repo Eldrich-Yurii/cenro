@@ -20,8 +20,6 @@ import SuppAndTicket from "../pages/accounts/adminAccount/ticket/SuppAndTicket";
 import EmpLogs from "../pages/accounts/adminAccount/emplogs/EmpLogs"
 import AdminSettings from "../pages/accounts/adminAccount/settings/Settings"
 
-
-
 export default function AppRoutes() {
   useEffect(() => {
     // Scroll to the section when the hash changes
@@ -68,7 +66,17 @@ export default function AppRoutes() {
 
       {/* employee-account */}
       <Route element={<ProtectedRoute allowedRoles={["employee"]}/>}>
-      <Route path="/employee-account" element={<EmployeeAccount/>}/>
+           <Route path="/employee-account" element={<EmployeeAccount/>}/>
+          <Route path="user-employee" element={<EmployeesTable />} />
+          <Route path="user-cenro-clients" element={<CenroClients />} />
+          <Route path="business-application" element={<BusinessApplications />} />
+          <Route path="webinar-schedule" element={<WebinarSched />} />
+          <Route path="inspection-and-final-certificate" element={<InspectAndFinalCert />} />
+          <Route path="certificate-for-attendees" element={<CertForAttendees />} />
+          <Route path="support-and-tickets" element={<SuppAndTicket />} />
+          <Route path="employee-logs" element={<EmpLogs />} />
+          <Route path="admin-settings" element={<AdminSettings />} />
+
       </Route>
     </Routes>
   );
