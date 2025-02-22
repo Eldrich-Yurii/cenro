@@ -12,15 +12,17 @@ export const registerUser = async (userData) => {
   }
 };
 
-// create an employee
-const user = JSON.parse(localStorage.getItem("user"));
-console.log("Stored Token:", localStorage.getItem("user"));
-const token = user?.token; // Extract only the token
-console.log("Stored Token:", token);
+
 
 
 // create an employee account
 export const createEmployee = async (employeeData) => {
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log("Stored Token:", localStorage.getItem("user"));
+  const token = user?.token; // Extract only the token
+  console.log("Stored Token:", token);
+  
   try {
     const response = await axios.post(
       `${API}/admin/create-employee`,
