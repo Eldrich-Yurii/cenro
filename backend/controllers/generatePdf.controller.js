@@ -10,7 +10,7 @@ export const generatePdf = async ({ formData, userId }) => {
   const htmlContent = `
     <h2>Application for New Business</h2>
     <p><strong>Business Name:</strong> ${formData.businessName}</p>
-    <p><strong>Business Name:</strong> ${formData.ownerName}</p>
+    <p><strong>Owner Name:</strong> ${formData.ownerName}</p>
     `;
 
   await page.setContent(htmlContent);
