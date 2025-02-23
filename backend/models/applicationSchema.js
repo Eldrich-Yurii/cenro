@@ -7,6 +7,11 @@ const applicationSchema = new mongoose.Schema(
        ref: "user", // Reference to the normal user's account
        required: true,
      },
+     ownerName: {
+      type: String,
+      ref: "user",
+      required: true
+     },
      formType: {
        type: String,
        enum: ["New Business Application", "Renewal of Business"], // Only allow these options

@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 import baseRoutes from "./routes/base.routes.js";
 import authRoutes from "./routes/auth.routes.js"
 import { createDefaultAdmin } from "./middlewares/auth/auth.createDefaultAdmin.js";
-
+import applicationRoutes from "./routes/application.routes.js"
 // const express = require('express');
 // const bodyParser = require('body-parser');
 // const cookieParser = require('cookie-parser')
@@ -41,6 +41,7 @@ console.log("JWT_SECRET:", process.env.JWT_SECRET_KEY);
 // require('./routes/base.routes')(app);
 // app.use("/api/baseRoute", baseRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/application", applicationRoutes)
 
 // connect to mongoDB
 mongoose.connect(process.env.MONGODB_URI)
