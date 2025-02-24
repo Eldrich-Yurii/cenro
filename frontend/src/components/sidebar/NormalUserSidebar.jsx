@@ -17,7 +17,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
-import { TbFileText, TbLayoutGrid, TbLogs, TbLogout2, TbSettings2, TbTicket, TbVideo, TbUser } from "react-icons/tb";
+import { TbFileText, TbLayoutGrid, TbLogout2, TbSettings2, TbTicket, TbVideo, TbFileCertificate, TbNotification } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/cenro-logo-red.png"
 
@@ -48,82 +48,15 @@ export default function NormalUserSidebar() {
           <ListItemPrefix>
             <TbLayoutGrid className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/admin/dashboard">&nbsp;&nbsp;Dashboard</Link>
+          <Link to="/user-account/dashboard">&nbsp;&nbsp;Dashboard</Link>
         </ListItem>
-        {/* Manage Users */}
-        <Accordion
-          open={open === 2}
-          icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${open === 2 ? "rotate-180" : ""}`}
-            />
-          }
-        >
-          <ListItem className="p-0 bg-white" selected={open === 2}>
-            <AccordionHeader onClick={() => handleOpen(2)} className="border-b-0 p-3">
-              <ListItemPrefix>
-                <TbUser className="h-5 w-5" />
-              </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
-              &nbsp;&nbsp;Users
-              </Typography>
-            </AccordionHeader>
-          </ListItem>
-          <AccordionBody className="py-1 bg-white">
-            <List className="p-0">
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                <Link to="/admin/user-employee">&nbsp;&nbsp;Employees</Link>
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                <Link to="/admin/user-cenro-clients">&nbsp;&nbsp;CENRO Clients</Link>
-              </ListItem>
-            </List>
-          </AccordionBody>
-        </Accordion>
-        {/* Application and Receipts */}
-        <Accordion
-          open={open === 3}
-          icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${open === 3 ? "rotate-180" : ""}`}
-            />
-          }
-        >
-          <ListItem className="p-0 bg-white" selected={open === 3}>
-            <AccordionHeader onClick={() => handleOpen(3)} className="border-b-0 p-3">
-              <ListItemPrefix>
-                <TbFileText className="h-5 w-5" />
-              </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
-              &nbsp;&nbsp;Applications
-              </Typography>
-            </AccordionHeader>
-          </ListItem>
-          <AccordionBody className="py-1 bg-white">
-            <List className="p-0">
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                <Link to="/admin/application-summary">&nbsp;&nbsp;Application Summary</Link>
-              </ListItem>
-              <ListItem>
-                <ListItemPrefix>
-                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                </ListItemPrefix>
-                <Link to="/admin/receipt-verification">&nbsp;&nbsp;Receipt Verification</Link>
-              </ListItem>
-            </List>
-          </AccordionBody>
-        </Accordion>
+        {/* My Application */}
+        <ListItem>
+          <ListItemPrefix>
+            <TbFileText className="h-5 w-5" />
+          </ListItemPrefix>
+          <Link to="/user-account/my-application">&nbsp;&nbsp;My Application</Link>
+        </ListItem>  
         {/* Webinar */}
         <Accordion
           open={open === 4}
@@ -150,40 +83,57 @@ export default function NormalUserSidebar() {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to="/admin/webinar-schedule">&nbsp;&nbsp;Webinar Schedule</Link>
+                <Link to="/user-account/webinar-schedule">&nbsp;&nbsp;Webinar Schedule</Link>
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to="/admin/certificate-for-attendees">&nbsp;&nbsp;Certificate For Attendees</Link>
+                <Link to="/user-account/webinar-certificate">&nbsp;&nbsp;Attendee Certificate</Link>
               </ListItem>
             </List>
           </AccordionBody>
         </Accordion>
+        {/* Final Certificate */}
+        <ListItem>
+          <ListItemPrefix>
+            <TbFileCertificate className="h-5 w-5" />
+          </ListItemPrefix>
+          <Link to="/user-account/final-certificate">&nbsp;&nbsp;Inspection & Final Certificate</Link>
+        </ListItem>
+        {/* Notifications */}
+        <ListItem className="z-10 bg-white">
+          <ListItemPrefix>
+            <TbNotification className="h-5 w-5" />
+          </ListItemPrefix>
+          <Link to="/user-account/notifications">&nbsp;&nbsp;Notifications</Link>
+          <ListItemSuffix>
+            <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
+          </ListItemSuffix>
+        </ListItem>
         {/* Ticket and Chat Support */}
         <ListItem className="z-10 bg-white">
           <ListItemPrefix>
             <TbTicket className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/admin/support-and-tickets">&nbsp;&nbsp;Support/Tickets</Link>
-          <ListItemSuffix>
-            <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
-          </ListItemSuffix>
+          <Link to="/user-account/chat-support">&nbsp;&nbsp;FAQ & Chat Support</Link>
+          {/* <ListItemSuffix> */}
+            {/* <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" /> */}
+          {/* </ListItemSuffix> */}
         </ListItem>
         <div className="z-10 bg-white">
         <hr className="my-2 border-blue-gray-50" />
-        <ListItem>
+        {/* <ListItem>
           <ListItemPrefix>
             <TbLogs className="h-5 w-5" />
           </ListItemPrefix>
           <Link to="/admin/employee-logs">&nbsp;&nbsp;Logs</Link>
-        </ListItem>
+        </ListItem> */}
         <ListItem>
           <ListItemPrefix>
             <TbSettings2 className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/admin/admin-settings">&nbsp;&nbsp;Settings</Link>
+          <Link to="/user-account/settings">&nbsp;&nbsp;Settings</Link>
         </ListItem>
         <ListItem>
           <ListItemPrefix>

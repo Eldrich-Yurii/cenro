@@ -57,7 +57,6 @@ export default function SignUp() {
     }
 
     try {
-      // const { confirmPassword, ...userData} = formData
       const message = await registerUser(formData);
       alert(JSON.stringify(message));
       navigate("/login") // show success message

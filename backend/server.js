@@ -30,6 +30,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use("/uploads/forms", express.static("uploads/forms"))
 
 console.log("JWT_SECRET:", process.env.JWT_SECRET_KEY);
 

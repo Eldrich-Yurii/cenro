@@ -19,6 +19,14 @@ import CertForAttendees from "../pages/accounts/adminAccount/webinar/CertForAtte
 import SuppAndTicket from "../pages/accounts/adminAccount/ticket/SuppAndTicket";
 import EmpLogs from "../pages/accounts/adminAccount/emplogs/EmpLogs";
 import AdminSettings from "../pages/accounts/adminAccount/settings/Settings";
+import UserDashboard from "../pages/accounts/normalUserAccount/dashboard/UserDashboard";
+import MyApplication from "../pages/accounts/normalUserAccount/application/MyApplication";
+import WebSched from "../pages/accounts/normalUserAccount/webinar/WebinarSched";
+import WebCert from "../pages/accounts/normalUserAccount/webinar/WebCert";
+import FinalCert from "../pages/accounts/normalUserAccount/finalCert/FinalCert";
+import Notif from "../pages/accounts/normalUserAccount/notification/Notif";
+import ChatSupport from "../pages/accounts/normalUserAccount/chatsupport/ChatSupport";
+import Settings from "../pages/accounts/normalUserAccount/settings/Settings";
 
 export default function AppRoutes() {
   useEffect(() => {
@@ -44,7 +52,17 @@ export default function AppRoutes() {
 
       {/* normal-user-account */}
       <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
-        <Route path="/user-account" element={<NormalUserAccount />} />
+        <Route path="/user-account" element={<NormalUserAccount />}>
+          <Route index element={<UserDashboard />} />
+          <Route path="dashboard" element={<UserDashboard />} />
+          <Route path="my-application" element={<MyApplication />} />
+          <Route path="webinar-schedule" element={<WebSched />} />
+          <Route path="webinar-certificate" element={<WebCert />} />
+          <Route path="final-certificate" element={<FinalCert />} />
+          <Route path="notifications" element={<Notif />} />
+          <Route path="chat-support" element={<ChatSupport />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
       </Route>
 
       {/* admin account */}

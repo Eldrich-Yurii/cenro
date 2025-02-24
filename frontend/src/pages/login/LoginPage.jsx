@@ -28,6 +28,10 @@ const LoginPage = () => {
       console.error("No role in response");
       return;
   }
+    if (!response.userId) {
+      console.error("No id in response");
+      return;
+  }
 
       localStorage.setItem("user", JSON.stringify(response));
       // localStorage.setItem("token", JSON.stringify(response.token));

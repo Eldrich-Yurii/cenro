@@ -13,8 +13,6 @@ export const registerUser = async (userData) => {
 };
 
 
-
-
 // create an employee account
 export const createEmployee = async (employeeData) => {
 
@@ -98,7 +96,6 @@ export const loginUser = async (email, password) => {
         email,
         password,
       }
-      // { headers: { "Content-Type": "application/json" }}
     );
 
     console.log("Login Response:", response); //debugging
@@ -110,7 +107,7 @@ export const loginUser = async (email, password) => {
   }
 };
 
-// get cenro clients account
+// get cenro clients account for admin account
 export const getUsers = async (token) => {
   try {
     const response = await axios.get(`${API}/admin/users`, {

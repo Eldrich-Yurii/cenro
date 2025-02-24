@@ -9,7 +9,10 @@ const applicationSchema = new mongoose.Schema(
      },
      ownerName: {
       type: String,
-      ref: "user",
+      required: true
+     },
+     businessName: {
+      type: String,
       required: true
      },
      formType: {

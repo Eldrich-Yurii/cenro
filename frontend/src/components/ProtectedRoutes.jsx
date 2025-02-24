@@ -15,6 +15,13 @@ const ProtectedRoute = ({ allowedRoles }) => {
         return <Navigate to="/login" replace />;
     }
 
+    // Ensure user role exists before checking allowedRoles
+    if (!user.role) {
+        console.warn("User role is missing");
+        return <Navigate to="/login" replace />;
+    }
+
+
     if (!allowedRoles.includes(user.role)) {
         return <h2>Access Denied</h2>
     }

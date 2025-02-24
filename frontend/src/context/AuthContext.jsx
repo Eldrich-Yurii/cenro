@@ -8,27 +8,6 @@ export const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
     
     const [user, setUser] = useState(null)
-        
-//         () => {
-//       try {
-//         const storedUser = localStorage.getItem("user");
-//         return storedUser ? JSON.parse(storedUser) : null;
-//     } catch (error) {
-//         console.error("Error parsing user from localStorage", error);
-//         return null;
-//     }
-// });
-
-
-// const login = async (email, password) => {
-//     try {
-//       const userData = await loginUser(email, password); // Call API
-//       setUser(userData); // Update state
-//     } catch (error) {
-//       console.error("Login error:", error.message);
-//     }
-//   };
-
 
     const login = (userData) => {
         // console.log("Logging in with:", {userData});
