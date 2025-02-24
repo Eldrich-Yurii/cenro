@@ -4,14 +4,9 @@ import { useAuth } from "../../context/AuthContext";
 
 export default function SampleForm() {
   const { user } = useAuth(); // Get user from context
-  //const userId = user?.userId; // Get the userId
-  // const [role] = useState("user");
   const [businessName, setBusinessName] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [formType] = useState("New Business Application");
-  // const handleChange = (e) => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value})
-  // }
 
   const handleSubmit = async (e) => {
     e.preventDefault();

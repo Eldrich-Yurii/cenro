@@ -55,7 +55,7 @@ export default function NormalUserSidebar() {
           <ListItemPrefix>
             <TbFileText className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/user-account/my-application">&nbsp;&nbsp;My Application</Link>
+          <Link to="/user-account/my-application">&nbsp;&nbsp;My Business Application</Link>
         </ListItem>  
         {/* Webinar */}
         <Accordion
