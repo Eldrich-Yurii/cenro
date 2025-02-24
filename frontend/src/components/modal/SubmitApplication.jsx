@@ -9,8 +9,8 @@ export default function SubmitApplication() {
   const { user } = useAuth(); // Get user from context
   const [businessName, setBusinessName] = useState("");
   const [ownerName, setOwnerName] = useState("");
-  const [formType] = useState("New Business Application");
-  // const [designation, setDesignation] = useState("");
+  // const [formType] = useState("New Business Application");
+  const [formType, setFormtype] = useState("");
   // const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef(null);
@@ -62,10 +62,10 @@ export default function SubmitApplication() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  // const handleDesignation = (value) => {
-  //   console.log("Selected Designation:", value); // Debugging
-  //   setDesignation(value);
-  // };
+  const handleFormType = (value) => {
+    console.log("Selected Designation:", value); // Debugging
+    setFormtype(value);
+  };
 
   return (
     <div className="z-10">
@@ -96,6 +96,13 @@ export default function SubmitApplication() {
                   />
                 </div>
                 <div>
+                  <div>
+                    <Select label="Select form type" value={formType} onChange={handleFormType}>
+                      <Option value="New Business Application">New Business Application</Option>
+                      <Option value="Renewal of Business">Renewal of Business</Option>
+                    </Select>
+                  </div>
+                <div>
                   <label>Business Name:</label>
                   <input
                     id="businessName"
@@ -103,7 +110,9 @@ export default function SubmitApplication() {
                     type="text"
                     value={businessName}
                     onChange={(e) => setBusinessName(e.target.value)}
-                  />
+                    />
+                  </div>
+                  <div>
                   <label>Owner Name:</label>
                   <input
                     id="ownerName"
@@ -111,7 +120,8 @@ export default function SubmitApplication() {
                     type="text"
                     value={ownerName}
                     onChange={(e) => setOwnerName(e.target.value)}
-                  />
+                    />
+                  </div>
                 </div>
               </div>
               <div className="mt-4 flex justify-end">

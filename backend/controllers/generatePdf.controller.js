@@ -12,7 +12,7 @@ export const generatePdf = async ({ userId, businessName, ownerName, formType })
   
   // html form template
   const htmlContent = `
-    <h2>Application for New Business</h2>
+    <h2>${formType} Form</h2>
     <p><strong>Business Name:</strong> ${businessName}</p>
     <p><strong>Owner Name:</strong> ${ownerName}</p>
     `;
