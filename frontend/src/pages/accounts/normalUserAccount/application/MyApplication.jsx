@@ -6,80 +6,41 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
-import { TbEdit, TbSearch, TbTrash } from "react-icons/tb";
+import { TbSearch, TbTrash } from "react-icons/tb";
 import SubmitApplication from "../../../../components/modal/SubmitApplication";
-// import EditDesigModal from "../../../../components/modal/EditDesigModal";
-// import { getEmployees } from "../../../../api/AuthApi";
-// import { deleteEmployee } from "../../../../api/AuthApi";
+import { getApplication } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../../../context/AuthContext";
 
 const TABLE_HEAD = [
   "Application Type",
   "Business Name",
-  "First Name",
-  "Middle Name",
-  "Last Name",
-  "Assessment Certificate",
+  "status",
+  "pdfPath",
   "Actions",
 ];
 
-
 export default function MyApplication() {
 
-  const [employee, setEmployee] = useState([]);
-  const [editEmployeeDesignation, setEditEmployeeDesignation] = useState(null);
+  const { user } = useAuth();
 
-  // get employee
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const user = JSON.parse(localStorage.getItem("user"));
-  //     const token = user?.token;
-  //     if (!token) {
-  //       console.error("Token not found.");
-  //       return;
-  //     }
+  const [applications, setApplications] = useState([]);
 
-  //     try {
-  //       const employeeData = await getEmployees(token);
-  //       setEmployee(employeeData);
-  //     } catch (err) {
-  //       console.error("Error getting data", err);
-  //     }
-  //   };
+  useEffect(() => {
 
-  //   getData();
-  // }, []);
+    if(!user || !user.userId) return
 
-  //update employee designation
-  // const updateEmployeeDesignation = (id, newDesignation) => {
-  //   setEmployee((prevEmployees) =>
-  //     prevEmployees.map((employee) =>
-  //       employee._id === id ? { ...employee, designation: newDesignation } : employee
-  //     )
-  //   );
-  // };
+    const fetchApplications = async () => {
+      try {
+          const data = await getApplication(user.userId);
+          setApplications(data);
+      } catch (error) {
+          console.error("Error fetching applications:", error);
+      }
+  };
 
-  // delete employee
-  // const handleDeleteEmployee = async (id) => {
-  //   if(!window.confirm("Are you sure you want delete this employee account?"))
-  // return;
-
-  //   const user = JSON.parse(localStorage.getItem("user"));
-  //   const token = user?.token;
-
-  //   if (!token) {
-  //     console.error("Token not found.");
-  //   }
-
-  //   try {
-  //     await deleteEmployee(id, token)
-      
-  //     setEmployee((prevEmployees) => prevEmployees.filter((employee) => employee._id !== id));
-  //   }catch(err) {
-  //     console.error("Error deleting employee", err);
-  //   }
-  //   alert("Employee account deleted")
-  // }
+  fetchApplications();
+  },[user])
 
   return (
     <div className="h-screen">
@@ -131,9 +92,9 @@ export default function MyApplication() {
               </tr>
             </thead>
             <tbody>
-              {employee.map(
-                ({ firstname, middlename, lastname, designation, _id }) => {
-                  const isLast = _id === employee.length - 1;
+              {applications.map(
+                ({ _id, formType, businessName, status, pdfPath }) => {
+                  const isLast = _id === applications.length - 1;
                   const classes = isLast
                     ? "py-4"
                     : "py-4 border-b border-gray-300";
@@ -145,7 +106,7 @@ export default function MyApplication() {
                           variant="small"
                           className="font-bold text-gray-600"
                         >
-                          {firstname}
+                          {formType}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -153,7 +114,7 @@ export default function MyApplication() {
                           variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {middlename}
+                          {businessName}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -161,20 +122,20 @@ export default function MyApplication() {
                           variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {lastname}
+                          {status}
                         </Typography>
                       </td>
                       <td className={classes}>
                         <Typography
                           variant="small"
-                          className="font-bold text-blue-800"
+                          className="font-bold text-blue-800 truncate w-32"
                         >
-                          {designation}
+                          {pdfPath}
                         </Typography>
                       </td>
                       <td className="border-b border-gray-300">
                         <div className="flex gap-4">
-                          <Button
+                          {/* <Button
                             onClick={() => {
                               console.log(
                                 "Editing Employee designation:",
@@ -186,7 +147,7 @@ export default function MyApplication() {
                             className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white"
                           >
                             <TbEdit />
-                          </Button>
+                          </Button> */}
                           <Button
                             variant="outlined" //onClick={() => handleDeleteEmployee(_id)}
                             className="px-2 py-2 border-red-800 text-red-800  hover:bg-red-800 hover:text-white"

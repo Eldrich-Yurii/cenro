@@ -11,4 +11,14 @@ export const submitApplication = async (applicationData) => {
     } catch (err) {
         throw err.response?.data.message || "Application Submission failed"; 
     }
+};
+
+export const getApplication = async (userId) => {
+    try {
+        const response = await axios.get(`${API}/get-application/${userId}`);
+
+        return response.data;
+    } catch (err) {
+        throw err.response?.data.message || "Application Retrieval failed";
+    }
 }
