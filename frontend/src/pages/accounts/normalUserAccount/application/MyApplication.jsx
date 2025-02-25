@@ -16,31 +16,29 @@ const TABLE_HEAD = [
   "Application Type",
   "Business Name",
   "status",
-  "pdfPath",
+  "PDF File",
   "Actions",
 ];
 
 export default function MyApplication() {
-
   const { user } = useAuth();
 
   const [applications, setApplications] = useState([]);
 
   useEffect(() => {
-
-    if(!user || !user.userId) return
+    if (!user || !user.userId) return;
 
     const fetchApplications = async () => {
       try {
-          const data = await getApplication(user.userId);
-          setApplications(data);
+        const data = await getApplication(user.userId);
+        setApplications(data);
       } catch (error) {
-          console.error("Error fetching applications:", error);
+        console.error("Error fetching applications:", error);
       }
-  };
+    };
 
-  fetchApplications();
-  },[user])
+    fetchApplications();
+  }, [user]);
 
   return (
     <div className="h-screen">
@@ -52,7 +50,8 @@ export default function MyApplication() {
                 My Business Applications
               </Typography>
               <p className="w-96 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-                This is the list of your new business and renewal of business certificate. Click Submit Application to proceed.
+                This is the list of your new business and renewal of business
+                certificate. Click Submit Application to proceed.
               </p>
             </section>
           </div>
@@ -118,20 +117,26 @@ export default function MyApplication() {
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Typography
-                          variant="small"
-                          className="font-normal text-gray-600"
+                        <span
+                          className={`px-3 py-2 font-extrabold uppercase text-xs rounded-lg ${
+                            status === "Approved"
+                              ? "bg-lime-200 text-lime-600"
+                              : status === "Pending"
+                              ? "bg-yellow-200 text-orange-600"
+                              : "bg-pink-200 text-red-600"
+                          }`}
                         >
                           {status}
-                        </Typography>
+                        </span>
                       </td>
                       <td className={classes}>
-                        <Typography
-                          variant="small"
-                          className="font-bold text-blue-800 truncate w-32"
+                        <a
+                          href={`http://localhost:5000/${pdfPath}`}
+                          target="_blank"
+                          download="Application.pdf"
                         >
-                          {pdfPath}
-                        </Typography>
+                          Download your application
+                        </a>
                       </td>
                       <td className="border-b border-gray-300">
                         <div className="flex gap-4">

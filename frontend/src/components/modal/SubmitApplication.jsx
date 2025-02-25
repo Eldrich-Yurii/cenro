@@ -4,8 +4,12 @@ import { TbUserPlus } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
 import { useAuth } from "../../context/AuthContext";
 import { submitApplication } from "../../api/ApplicationApi";
+import { useNavigate } from "react-router-dom";
 
 export default function SubmitApplication() {
+
+  const navigate = useNavigate();
+
   const { user } = useAuth(); // Get user from context
   const [businessName, setBusinessName] = useState("");
   const [ownerName, setOwnerName] = useState("");
@@ -35,17 +39,18 @@ export default function SubmitApplication() {
       const data = await submitApplication(formData); // Directly access `data`
       console.log("Backend Response Data:", data);
 
-      if (data.pdfUrl) {
-        const pdfUrl = data.pdfUrl;
-        console.log("PDF URL:", pdfUrl);
+      // if (data.pdfUrl) {
+      //   const pdfUrl = data.pdfUrl;
+      //   console.log("PDF URL:", pdfUrl);
 
-        const link = document.createElement("a");
-        link.href = pdfUrl;
-        link.setAttribute("download", "Application-form.pdf");
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
+      //   const link = document.createElement("a");
+      //   link.href = pdfUrl;
+      //   link.setAttribute("download", "Application-form.pdf");
+      //   document.body.appendChild(link);
+      //   link.click();
+      //   document.body.removeChild(link);
+      // }
+      navigate(0)
     } catch (err) {
       console.error("Error submitting application:", err);
     }
@@ -63,7 +68,7 @@ export default function SubmitApplication() {
   }, []);
 
   const handleFormType = (value) => {
-    console.log("Selected Designation:", value); // Debugging
+    console.log("Selected form type:", value); // Debugging
     setFormtype(value);
   };
 
