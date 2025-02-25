@@ -133,9 +133,10 @@ export default function MyApplication() {
                         <a
                           href={`http://localhost:5000/${pdfPath}`}
                           target="_blank"
-                          download="Application.pdf"
+                          download//</td>="Application.pdf"
+                          className="hover:underline hover:text-blue-600"
                         >
-                          Download your application
+                          Download PDF
                         </a>
                       </td>
                       <td className="border-b border-gray-300">
