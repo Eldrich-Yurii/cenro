@@ -21,6 +21,16 @@ export const getApplication = async (userId) => {
   }
 };
 
+export const getAllApplication = async () => {
+    try {
+        const response = await axios.get(`${API}/get-application`);
+    
+        return response.data;
+      } catch (err) {
+        throw err.response?.data.message || "Application Retrieval failed";
+      }
+}
+
 export const uploadAssessment = async (applicationId, file) => {
   try {
 
@@ -40,3 +50,7 @@ export const uploadAssessment = async (applicationId, file) => {
     console.error("Error uploading file:", err.response?.data || err.message);
   }
 };
+
+export const updateApplicationStatus = async (applicationId, status) => {
+    return axios.put(`http://localhost:5000/api/application/${applicationId}/status`, { status });
+  };

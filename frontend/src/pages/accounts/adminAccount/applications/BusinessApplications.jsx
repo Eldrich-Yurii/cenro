@@ -11,88 +11,39 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { TbDots, TbFile, TbSearch } from "react-icons/tb";
+import { getAllApplication } from "../../../../api/ApplicationApi";
+import { useEffect, useState } from "react";
 
 const TABLE_HEAD = [
   "Application Type",
   "Business Name",
-  "First Name",
-  "Middle Name",
-  "Last Name",
   "Status",
+  "Assessment Certificate",
   "Actions",
 ];
 
-const TABLE_ROWS = [
-  {
-    id: "1",
-    type: "Renewal",
-    businessname: "Di",
-    firstname: "Bol",
-    middlename: "Bol",
-    lastname: "Bol",
-    status: "pending",
-  },
-  {
-    id: "2",
-    type: "Renewal",
-    businessname: "Li",
-    firstname: "Sis",
-    middlename: "Bol",
-    lastname: "Bol",
-    status: "pending",
-  },
-  {
-    id: "3",
-    type: "Renewal",
-    businessname: "Cor",
-    firstname: "Sega",
-    middlename: "Bol",
-    lastname: "Bol",
-    status: "pending",
-  },
-  {
-    id: "4",
-    type: "Renewal",
-    businessname: "Pi",
-    firstname: "Pol",
-    middlename: "Bol",
-    lastname: "Bol",
-    status: "pending",
-  },
-  {
-    id: "5",
-    type: "New Application",
-    businessname: "Li",
-    firstname: "Sis",
-    middlename: "Bol",
-    lastname: "Bol",
-    status: "approved",
-  },
-  {
-    id: "6",
-    type: "New Application",
-    businessname: "Cor",
-    firstname: "Sega",
-    middlename: "Bol",
-    lastname: "Bol",
-    status: "approved",
-  },
-  {
-    id: "7",
-    type: "New Application",
-    businessname: "Pi",
-    firstname: "Pol",
-    middlename: "Bol",
-    lastname: "Bol",
-    status: "rejected",
-  },
-];
+
 
 export default function BusinessApplications() {
+
+  const [applications, setApplications] = useState([]);
+
+  useEffect(() => {
+    const fetchAllApplications = async () => {
+      try {
+        const data = await getAllApplication();
+        setApplications(data);
+      } catch(err) {
+        console.log(err);
+      }
+    }
+    fetchAllApplications();
+  }, [])
+
   return (
     <div className="h-screen">
       <Card className="h-[35rem] w-full px-6 shadow-lg">
-        <CardHeader  className="h-80" floated={false} shadow={false}>
+        <CardHeader  className="h-38 rounded-none" floated={false} shadow={false}>
           <div className=" flex justify-between">
             <section>
               <Typography variant="h2" className="text-blue-800 font-extrabold font-inter">
@@ -157,29 +108,28 @@ export default function BusinessApplications() {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(
+              {applications.map(
                 ({
-                  type,
-                  businessname,
-                  firstname,
-                  middlename,
-                  lastname,
+                  _id,
+                  formType,
+                  businessName,
                   status,
-                  id,
+                  assessmentCert
+                  
                 }) => {
-                  const isLast = id === TABLE_ROWS.length - 1;
+                  const isLast = _id === applications.length - 1;
                   const classes = isLast
                     ? "py-4"
                     : "py-4 border-b border-gray-300";
 
                   return (
-                    <tr key={id} className="hover:bg-gray-50">
+                    <tr key={_id} className="hover:bg-gray-50">
                       <td className={classes}>
                         <Typography
                           variant="small"
                           className="font-bold text-gray-600"
                         >
-                          {type}
+                          {formType}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -187,31 +137,7 @@ export default function BusinessApplications() {
                           variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {businessname}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          className="font-normal text-gray-600"
-                        >
-                          {firstname}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          className="font-normal text-gray-600"
-                        >
-                          {middlename}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          className="font-normal text-gray-600"
-                        >
-                          {lastname}
+                          {businessName}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -228,6 +154,14 @@ export default function BusinessApplications() {
                             {status}
                           </span>
                         </div>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          className="font-normal text-gray-600"
+                        >
+                          {assessmentCert}
+                        </Typography>
                       </td>
                       <td className="border-b border-gray-300">
                         <div className="flex gap-4">
