@@ -6,18 +6,19 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
-import { TbSearch, TbTrash } from "react-icons/tb";
+import { TbSearch } from "react-icons/tb";
 import SubmitApplication from "../../../../components/modal/SubmitApplication";
-import { getApplication } from "../../../../api/ApplicationApi";
+import { getApplication, uploadAssessment } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../../context/AuthContext";
 
 const TABLE_HEAD = [
   "Application Type",
   "Business Name",
-  "status",
+  "Status",
   "PDF File",
-  "Actions",
+  "Assessment",
+  "Upload Assessment",
 ];
 
 export default function MyApplication() {
@@ -39,6 +40,21 @@ export default function MyApplication() {
 
     fetchApplications();
   }, [user]);
+
+  const handleFileUpload = async (e, applicationId) => {
+    const file = e.target.files[0];
+    if (!file) return;
+  
+    try {
+      const response = await uploadAssessment(applicationId, file);
+      console.log("File uploaded successfully:", response);
+  
+      // Reset file input
+      e.target.value = "";
+    } catch (error) {
+      console.error("Error uploading file:", error.response?.data || error.message);
+    }
+  };
 
   return (
     <div className="h-screen">
@@ -92,7 +108,7 @@ export default function MyApplication() {
             </thead>
             <tbody>
               {applications.map(
-                ({ _id, formType, businessName, status, pdfPath }) => {
+                ({ _id, formType, businessName, status, pdfPath, assessmentCert }) => {
                   const isLast = _id === applications.length - 1;
                   const classes = isLast
                     ? "py-4"
@@ -133,34 +149,31 @@ export default function MyApplication() {
                         <a
                           href={`http://localhost:5000/${pdfPath}`}
                           target="_blank"
-                          download//</td>="Application.pdf"
+                          rel="noopener noreferrer" 
                           className="hover:underline hover:text-blue-600"
                         >
                           Download PDF
                         </a>
                       </td>
-                      <td className="border-b border-gray-300">
-                        <div className="flex gap-4">
-                          {/* <Button
-                            onClick={() => {
-                              console.log(
-                                "Editing Employee designation:",
-                                designation
-                              );
-                              setEditEmployeeDesignation({firstname, middlename, lastname, designation, _id});
-                            }}
-                            variant="outlined"
-                            className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white"
+                      <td className={classes}>
+                        <div className="w-32 truncate">
+
+                        <Typography
+                          variant="small"
+                          className="font-normal text-gray-600"
                           >
-                            <TbEdit />
-                          </Button> */}
-                          <Button
-                            variant="outlined" //onClick={() => handleDeleteEmployee(_id)}
+                          {assessmentCert}
+                        </Typography>
+                          </div>
+                      </td>
+                      <td className="border-b border-gray-300">
+                          <input type="file" onChange={(e) => handleFileUpload(e, _id)} />
+                          {/* <Button
+                            variant="outlined"
                             className="px-2 py-2 border-red-800 text-red-800  hover:bg-red-800 hover:text-white"
                           >
-                            <TbTrash />
-                          </Button>
-                        </div>
+                            Upload file
+                          </Button> */}
                       </td>
                     </tr>
                   );

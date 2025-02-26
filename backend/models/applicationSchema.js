@@ -29,6 +29,10 @@ const applicationSchema = new mongoose.Schema(
        type: String, // Store the file path where the PDF is generated
        required: true,
      },
+     assessmentCert: {
+       type: String, // Store the file path of assessment certificate
+       required: false,
+     },
      submittedAt: {
        type: Date,
        default: Date.now, // Automatically sets the submission timestamp
