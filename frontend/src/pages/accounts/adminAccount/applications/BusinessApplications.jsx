@@ -11,7 +11,10 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { TbDots, TbFile, TbSearch } from "react-icons/tb";
-import { getAllApplication } from "../../../../api/ApplicationApi";
+import {
+  getAllApplication,
+  updateApplicationStatus,
+} from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
 
 const TABLE_HEAD = [
@@ -22,10 +25,7 @@ const TABLE_HEAD = [
   "Actions",
 ];
 
-
-
 export default function BusinessApplications() {
-
   const [applications, setApplications] = useState([]);
 
   useEffect(() => {
@@ -33,25 +33,51 @@ export default function BusinessApplications() {
       try {
         const data = await getAllApplication();
         setApplications(data);
-      } catch(err) {
+      } catch (err) {
         console.log(err);
       }
-    }
+    };
     fetchAllApplications();
-  }, [])
+  }, []);
+
+  const handleUpdateStatus = async (applicationId, status) => {
+    if (!applicationId) {
+      console.log("Application ID is undefined");
+      return;
+    }
+  
+    try {
+      const response = await updateApplicationStatus(applicationId, status);
+      console.log(response);
+      
+      setApplications(prevApps =>
+        prevApps.map(app =>
+          app._id === applicationId ? { ...app, status } : app
+        )
+      );
+    } catch (err) {
+      console.log("Error Updating status", err);
+    }
+  };
 
   return (
     <div className="h-screen">
       <Card className="h-[35rem] w-full px-6 shadow-lg">
-        <CardHeader  className="h-38 rounded-none" floated={false} shadow={false}>
+        <CardHeader
+          className="h-38 rounded-none"
+          floated={false}
+          shadow={false}
+        >
           <div className=" flex justify-between">
             <section>
-              <Typography variant="h2" className="text-blue-800 font-extrabold font-inter">
+              <Typography
+                variant="h2"
+                className="text-blue-800 font-extrabold font-inter"
+              >
                 Business Application
               </Typography>
               <p className="w-64 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-                This are the list of users uploaded their receipts after paying
-                on the cashier.
+                This is the list of business application sent by users.
               </p>
             </section>
           </div>
@@ -109,14 +135,7 @@ export default function BusinessApplications() {
             </thead>
             <tbody>
               {applications.map(
-                ({
-                  _id,
-                  formType,
-                  businessName,
-                  status,
-                  assessmentCert
-                  
-                }) => {
+                ({ _id, formType, businessName, status, assessmentCert }) => {
                   const isLast = _id === applications.length - 1;
                   const classes = isLast
                     ? "py-4"
@@ -144,9 +163,9 @@ export default function BusinessApplications() {
                         <div className="w-max">
                           <span
                             className={`px-3 py-2 font-extrabold uppercase text-xs rounded-lg ${
-                              status === "approved"
+                              status === "Approved"
                                 ? "bg-lime-200 text-lime-800"
-                                : status === "pending"
+                                : status === "Pending"
                                 ? "bg-yellow-200 text-orange-600"
                                 : "bg-red-200 text-red-600"
                             }`}
@@ -165,27 +184,22 @@ export default function BusinessApplications() {
                       </td>
                       <td className="border-b border-gray-300">
                         <div className="flex gap-4">
-                          <Menu>
-                            <MenuHandler>
-                              <Button
-                                variant="outlined"
-                                className="px-2 py-2 border-gray-200 text-blue-800 hover:bg-blue-800 hover:text-white"
-                              >
-                                <TbDots />
-                              </Button>
-                            </MenuHandler>
-                            <MenuList className="text-start p-2">
-                              <MenuItem className="pt-2 hover:bg-blue-50">
-                                View COA
-                              </MenuItem>
-                              <MenuItem className="pt-2 hover:bg-blue-50">
-                                Approve
-                              </MenuItem>
-                              <MenuItem className="pt-2 hover:bg-blue-50">
-                                Reject
-                              </MenuItem>
-                            </MenuList>
-                          </Menu>
+                        {status === "Pending" && (
+            <div className="flex gap-2">
+              <button
+                onClick={() => handleUpdateStatus(_id, "Approved")}
+                className="px-2 py-2 text-green-700 border border-green-700 rounded hover:bg-green-700 hover:text-white"
+              >
+                Approve
+              </button>
+              <button
+                onClick={() => handleUpdateStatus(_id, "Rejected")}
+                className="px-2 py-2 text-red-700 border border-red-700 rounded hover:bg-red-700 hover:text-white"
+              >
+                Reject
+              </button>
+            </div>
+          )}
                         </div>
                       </td>
                     </tr>

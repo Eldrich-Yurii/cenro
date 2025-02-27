@@ -39,7 +39,7 @@ export const uploadAssessment = async (applicationId, file) => {
     formData.append("assessmentCert", file);
 
     const response = await axios.post(
-      `http://localhost:5000/api/application/upload-assessment/${applicationId}`,
+      `${API}/upload-assessment/${applicationId}`,
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" },
@@ -52,5 +52,16 @@ export const uploadAssessment = async (applicationId, file) => {
 };
 
 export const updateApplicationStatus = async (applicationId, status) => {
-    return axios.put(`http://localhost:5000/api/application/${applicationId}/status`, { status });
+  try {
+    console.log("Sending applicationId:", applicationId); // Debugging
+
+    const response = await axios.put(`${API}/update-status/${applicationId}`, 
+        { status }, 
+        { headers: { "Content-Type": "application/json" } }
+    );
+
+    console.log("Update Response:", response.data);
+} catch (error) {
+    console.error("Error updating status:", error.response?.data || error.message);
+}
   };

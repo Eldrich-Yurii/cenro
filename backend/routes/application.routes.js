@@ -25,7 +25,7 @@ router.get("/get-application", getAllApplication);
 router.post("/upload-assessment/:applicationId", upload.single("assessmentCert"), uploadAssessmentCert);
 
 // update status of application
-router.put("/update-status/:applicationId/status", updateApplicationStatus);
+router.put("/update-status/:applicationId", updateApplicationStatus);
 
 
 
