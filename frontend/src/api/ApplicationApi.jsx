@@ -31,10 +31,20 @@ export const getAllApplication = async () => {
       }
 }
 
+export const viewAssessmentCert = async (applicationId) => {
+  try {
+    const response = await axios.get(`${API}/view-assessment-file/${applicationId}`, {
+      responseType: 'blob',
+    });
+
+    return response.data;
+  } catch (err) {
+    console.log("Error retrieving file", err)  
+}
+}
+
 export const uploadAssessment = async (applicationId, file) => {
   try {
-
-    
     const formData = new FormData();
     formData.append("assessmentCert", file);
 
@@ -48,6 +58,7 @@ export const uploadAssessment = async (applicationId, file) => {
     return response.data;
   } catch (err) {
     console.error("Error uploading file:", err.response?.data || err.message);
+    throw new Error(err.response?.data?.message || "Error uploading file");    
   }
 };
 

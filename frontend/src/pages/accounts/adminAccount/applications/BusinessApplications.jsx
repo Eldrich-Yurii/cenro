@@ -14,8 +14,10 @@ import { TbDots, TbFile, TbSearch } from "react-icons/tb";
 import {
   getAllApplication,
   updateApplicationStatus,
+  viewAssessmentCert,
 } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
+import { IoClose } from "react-icons/io5";
 
 const TABLE_HEAD = [
   "Application Type",
@@ -27,6 +29,8 @@ const TABLE_HEAD = [
 
 export default function BusinessApplications() {
   const [applications, setApplications] = useState([]);
+  const [fileUrl, setFileUrl] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchAllApplications = async () => {
@@ -45,18 +49,33 @@ export default function BusinessApplications() {
       console.log("Application ID is undefined");
       return;
     }
-  
+
     try {
       const response = await updateApplicationStatus(applicationId, status);
       console.log(response);
-      
-      setApplications(prevApps =>
-        prevApps.map(app =>
+
+      setApplications((prevApps) =>
+        prevApps.map((app) =>
           app._id === applicationId ? { ...app, status } : app
         )
       );
     } catch (err) {
       console.log("Error Updating status", err);
+    }
+  };
+
+  const handleViewAssessmentCert = async (applicationId) => {
+    try {
+      const fileData = await viewAssessmentCert(applicationId);
+
+      // create a blob URL for the file
+      const blob = new Blob([fileData], { type: "application/pdf" });
+      const blobUrl = URL.createObjectURL(blob);
+
+      setFileUrl(blobUrl);
+      setIsModalOpen(true);
+    } catch (err) {
+      console.log("Error fetching file", err);
     }
   };
 
@@ -184,22 +203,33 @@ export default function BusinessApplications() {
                       </td>
                       <td className="border-b border-gray-300">
                         <div className="flex gap-4">
-                        {status === "Pending" && (
-            <div className="flex gap-2">
-              <button
-                onClick={() => handleUpdateStatus(_id, "Approved")}
-                className="px-2 py-2 text-green-700 border border-green-700 rounded hover:bg-green-700 hover:text-white"
-              >
-                Approve
-              </button>
-              <button
-                onClick={() => handleUpdateStatus(_id, "Rejected")}
-                className="px-2 py-2 text-red-700 border border-red-700 rounded hover:bg-red-700 hover:text-white"
-              >
-                Reject
-              </button>
-            </div>
-          )}
+                          <button
+                            onClick={() => handleViewAssessmentCert(_id)}
+                            className="bg-blue-500 text-white p-2 rounded"
+                          >
+                            View Assessment Certificate
+                          </button>
+
+                          {status === "Pending" && (
+                            <div className="flex gap-2">
+                              <button
+                                onClick={() =>
+                                  handleUpdateStatus(_id, "Approved")
+                                }
+                                className="px-2 py-2 text-green-700 border border-green-700 rounded hover:bg-green-700 hover:text-white"
+                              >
+                                Approve
+                              </button>
+                              <button
+                                onClick={() =>
+                                  handleUpdateStatus(_id, "Rejected")
+                                }
+                                className="px-2 py-2 text-red-700 border border-red-700 rounded hover:bg-red-700 hover:text-white"
+                              >
+                                Reject
+                              </button>
+                            </div>
+                          )}
                         </div>
                       </td>
                     </tr>
@@ -208,6 +238,34 @@ export default function BusinessApplications() {
               )}
             </tbody>
           </table>
+          {isModalOpen && (
+            <div className="z-20 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="bg-white p-5 rounded-lg shadow-lg w-[80%] h-[80%] flex flex-col">
+                <div className="flex justify-between">
+
+                <h2 className="text-xl font-bold mb-2">
+                  Certificate of Assessment
+                </h2>
+                <button
+                    onClick={() => setIsModalOpen(false)}
+                    className="text-2xl"
+                    >
+                    <IoClose />
+                  </button>
+                    </div>
+                <iframe src={fileUrl} className="w-full h-full border" />
+                <div className="flex justify-end mt-4">
+                  <a
+                    href={fileUrl}
+                    download="assessment_certificate.pdf"
+                    className="bg-green-500 text-white px-4 py-2 rounded mr-2"
+                  >
+                    Download
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
         </CardBody>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
