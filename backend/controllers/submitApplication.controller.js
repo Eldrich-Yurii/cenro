@@ -4,13 +4,9 @@ import { generatePdf } from "./generatePdf.controller.js";
 export const submitApplication = async (req, res) => {
     try {
        const { userId, businessName, ownerName, formType } = req.body;
-
+       console.log("Request Body:", req.body);
        if (!userId || !formType || !businessName || !ownerName) {
         return res.status(400).json({ message: "Missing required fields" });
-    }
-    
-       if (!userId) {
-        return res.status(400).json({ message: "User ID is required" });
     }
 
        const pdfPath = await generatePdf({ businessName, ownerName, userId, formType });

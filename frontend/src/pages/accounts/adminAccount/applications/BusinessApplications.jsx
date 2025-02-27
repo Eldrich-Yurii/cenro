@@ -194,12 +194,14 @@ export default function BusinessApplications() {
                         </div>
                       </td>
                       <td className={classes}>
+                        <div className="w-48 truncate">
                         <Typography
                           variant="small"
                           className="font-normal text-gray-600"
-                        >
+                          >
                           {assessmentCert}
                         </Typography>
+                          </div>
                       </td>
                       <td className="border-b border-gray-300">
                         <div className="flex gap-4">
@@ -207,7 +209,7 @@ export default function BusinessApplications() {
                             onClick={() => handleViewAssessmentCert(_id)}
                             className="bg-blue-500 text-white p-2 rounded"
                           >
-                            View Assessment Certificate
+                            View COA
                           </button>
 
                           {status === "Pending" && (
@@ -242,17 +244,16 @@ export default function BusinessApplications() {
             <div className="z-20 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-5 rounded-lg shadow-lg w-[80%] h-[80%] flex flex-col">
                 <div className="flex justify-between">
-
-                <h2 className="text-xl font-bold mb-2">
-                  Certificate of Assessment
-                </h2>
-                <button
+                  <h2 className="text-xl font-bold mb-2">
+                    Certificate of Assessment
+                  </h2>
+                  <button
                     onClick={() => setIsModalOpen(false)}
                     className="text-2xl"
-                    >
+                  >
                     <IoClose />
                   </button>
-                    </div>
+                </div>
                 <iframe src={fileUrl} className="w-full h-full border" />
                 <div className="flex justify-end mt-4">
                   <a

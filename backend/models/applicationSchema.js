@@ -33,6 +33,10 @@ const applicationSchema = new mongoose.Schema(
        type: String, // Store the file path of assessment certificate
        required: false,
      },
+     certificateOfAttendance: {
+      type: Boolean,
+      default: false
+     },
      submittedAt: {
        type: Date,
        default: Date.now, // Automatically sets the submission timestamp
