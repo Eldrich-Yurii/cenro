@@ -5,6 +5,7 @@ import { downloadPdf } from "../controllers/downloadPdf.controller.js";
 import { uploadAssessmentCert } from "../controllers/uploadAssessmentCert.controller.js";
 import upload from "../controllers/multerConfig.js";
 import { updateApplicationStatus } from "../controllers/updateApplicationStatus.controller.js";
+import { viewAssessmentCert } from "../controllers/viewAssessment.controller.js";
 
 
 
@@ -20,6 +21,10 @@ router.get("/get-application/:userid", getApplication);
 router.get("/get-application", getAllApplication);
 
 // router.get("/download/:filename", downloadPdf);
+
+
+// View assessment certificate
+router.get("/view-assessment-file/:applicationId", viewAssessmentCert)
 
 //upload file 
 router.post("/upload-assessment/:applicationId", upload.single("assessmentCert"), uploadAssessmentCert);
