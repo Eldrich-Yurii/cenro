@@ -9,6 +9,10 @@ const webinarSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  webinarLink: {
+    type: String,
+    required: true,
+  },
   attendees: [
     {
       userId: {

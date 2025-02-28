@@ -3,8 +3,8 @@ import applicationSchema from "./../models/applicationSchema.js";
 
 export const createWebinar = async (req, res) => {
   try {
-    const { dateTime, formType } = req.body;
-    if (!dateTime || !formType) {
+    const { dateTime, formType, webinarLink } = req.body;
+    if (!dateTime || !formType || !webinarLink) {
       return res.status(400).json({ error: "Date and form type are required" });
     }
 
@@ -31,7 +31,8 @@ export const createWebinar = async (req, res) => {
     
     const webinar = new webinarSchema({
       formType,
-      dateTime: new Date(dateTime), // Convert to Date object
+      dateTime: new Date(dateTime),
+      webinarLink, // Convert to Date object
       attendees: eligibleUsers.map((app) => ({
         userId: app.userId,
         applicationId: app._id,

@@ -1,12 +1,20 @@
-import { Button } from "@material-tailwind/react";
+import { Button, Select, Option } from "@material-tailwind/react";
 import { useState, useEffect, useRef } from "react";
+import { createWebinar } from "../../api/webinarApi";
+// import { toast } from "react-toastify";
 import { TbVideo } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 export default function WebSchedModal() {
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef(null);
+  const [dateTime, setDateTime] = useState("");
+  const [formType, setFormType] = useState("");
+  const [webinarLink, setWebinarLink] = useState("");
+  const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate()
   // Close modal on Escape key press
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -31,6 +39,28 @@ export default function WebSchedModal() {
   //     return () => document.removeEventListener("mousedown", handleClickOutside);
   // }, [isOpen]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+
+    try {
+      const data = await createWebinar(dateTime, formType, webinarLink);
+      alert(JSON.stringify(data))
+      // toast.success("Webinar scheduled successfully!", data, { autoClose: 3000 });
+      navigate(0)
+    } catch (err) {
+      alert(err || "Failed to Schedule Webinar");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleWebinarTitle = (value) => {
+    console.log("Title:", value);
+    setFormType(value);
+  };
+
   return (
     <div className="z-10">
       {/* Button to open modal */}
@@ -50,39 +80,69 @@ export default function WebSchedModal() {
             ref={modalRef}
             className="bg-white p-6 rounded-lg shadow-lg w-96 transform transition-transform duration-300 scale-95 opacity-0 animate-fade-in"
           >
-            <div className="grid grid-flow-row gap-2">
+            <form onSubmit={handleSubmit}>
+              <div className="grid grid-flow-row gap-2">
                 <div className="flex justify-between items-center">
-
-              <h2 className="text-xl font-bold">Scedule A Webinar</h2>
-              <IoClose onClick={() => setIsOpen(false)} className="text-xl hover:text-red-700 cursor-pointer"/>
+                  <h2 className="text-xl font-bold">Scedule A Webinar</h2>
+                  <IoClose
+                    onClick={() => setIsOpen(false)}
+                    className="text-xl hover:text-red-700 cursor-pointer"
+                  />
                 </div>
-              <div>
-
-              <label htmlFor="">Webinar Title</label><br />
-              <input type="text" placeholder="Enter Webinar Title" className="w-full"/>
+                <div>
+                  <label htmlFor="">Webinar Title</label>
+                  <br />
+                  <Select
+                    label="Choose a title..."
+                    value={formType}
+                    onChange={handleWebinarTitle}
+                  >
+                    <Option value="New Business Application">
+                      New Business Application
+                    </Option>
+                    <Option value="Renewal of Business">
+                      Renewal of Business
+                    </Option>
+                  </Select>
+                </div>
+                <div>
+                  <label htmlFor="">Date and Time</label>
+                  <br />
+                  <input
+                    type="datetime-local"
+                    value={dateTime}
+                    onChange={(e) => setDateTime(e.target.value)}
+                    className="w-full"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="">Webinar Link</label>
+                  <br />
+                  <input
+                    type="text"
+                    placeholder="Paste your Webinar Link here"
+                    value={webinarLink}
+                    onChange={(e) => setWebinarLink(e.target.value)}
+                    className="w-full"
+                  />
+                </div>
               </div>
-              <div>
-
-              <label htmlFor="">Date and Time</label><br />
-              <input type="datetime-local" className="w-full"/>
+              <div className="mt-4 flex justify-end">
+                <Button
+                  className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg mr-2 hover:bg-red-600 hover:text-white"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-950"
+                >
+                  {loading ? "Scheduling..." : "Schedule"}
+                </Button>
               </div>
-              <div>
-
-              <label htmlFor="">Webinar Link</label><br />
-              <input type="text" placeholder="Paste your Webinar Link here"  className="w-full"/>
-              </div>
-            </div>
-            <div className="mt-4 flex justify-end">
-              <Button
-                className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg mr-2 hover:bg-red-600 hover:text-white"
-                onClick={() => setIsOpen(false)}
-              >
-                Cancel
-              </Button>
-              <Button className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-950">
-                Confirm
-              </Button>
-            </div>
+            </form>
           </div>
         </div>
       )}
