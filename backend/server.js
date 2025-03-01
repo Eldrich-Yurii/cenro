@@ -9,6 +9,7 @@ import authRoutes from "./routes/auth.routes.js"
 import { createDefaultAdmin } from "./middlewares/auth/auth.createDefaultAdmin.js";
 import applicationRoutes from "./routes/application.routes.js"
 import webinarRoutes from "./routes/webinar.routes.js"
+import faqsRouter from "./routes/faqs.routes.js"
 // const express = require('express');
 // const bodyParser = require('body-parser');
 // const cookieParser = require('cookie-parser')
@@ -43,8 +44,9 @@ console.log("JWT_SECRET:", process.env.JWT_SECRET_KEY);
 // require('./routes/base.routes')(app);
 // app.use("/api/baseRoute", baseRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/api/application", applicationRoutes)
-app.use("/api/webinar", webinarRoutes)
+app.use("/api/application", applicationRoutes);
+app.use("/api/webinar", webinarRoutes);
+app.use("/api/faqs", faqsRouter)
 
 // connect to mongoDB
 mongoose.connect(process.env.MONGODB_URI)
