@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
-import { getFaqs } from "../../api/ChatbotApi";
+import { getFaqs } from "../../../../api/ChatbotApi"
+import { useEffect, useState } from "react"
 import {TbMessage, TbSend } from "react-icons/tb"
-import "./FloatChatbot.css";
 
-export default function PublicChatbot() {
+
+export default function ChatSupport() {
+
   const [faqs, setFaqs] = useState([]);
   const [chatHistory, setChatHistory] = useState([]);
   const [userInput, setUserInput] = useState("");
@@ -11,11 +12,11 @@ export default function PublicChatbot() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (isOpen) {
+    if (location.pathname === "/user-account/frequently-asked-questions") {
       getFaqs().then(setFaqs);
       setChatHistory([{ type: "bot", message: "Hello! I'm Cendi 😊 How can I assist you today?" }]);
     }
-  }, [isOpen]);
+  }, []);
 
   const handleQuestionClick = (faq) => {
     setChatHistory((prev) => [
@@ -81,19 +82,10 @@ export default function PublicChatbot() {
     setSuggestions([]);
   };
 
-  return (
-    <div>
-      <button onClick={() => setIsOpen(!isOpen)} className="chat-icon">
-        Ask Cendi <TbMessage />
-      </button>
-      {isOpen && (
-        <div className="chat-window">
-            <div className=" shadow-lg p-2">
-
-          <h3>Ask Cendi</h3>
-            </div>
-
-          <div className="chat-messages">
+    return (
+      <div className="h-screen bg-yellow-200">
+      <h2>Ask Cendi for FAQs</h2>
+      <div className="chat-messages">
             {chatHistory.map((msg, index) => (
               <div
                 key={index}
@@ -107,44 +99,9 @@ export default function PublicChatbot() {
               </div>
             ))}
           </div>
-
-          {suggestions.length > 0 && (
-            <ul className="suggestions-list">
-              {suggestions.map((faq) => (
-                <li key={faq._id} onClick={() => handleQuestionClick(faq)}>
-                 <small>
-                  
-                  {faq.question}
-                  </small> 
-                </li>
-              ))}
-            </ul>
-          )}
-
-          <div className="p-2 pb-4 flex items-center justify-between">
-            <input
-            className="w-full p-2  m-1 mt-2 rounded-lg"
-              type="text"
-              value={userInput}
-              onChange={handleInputChange}
-              placeholder="Type your question..."
-            />
-            <div>
-
-            <button className="rounded-lg px-3 py-[0.68rem] bg-blue-800 text-2xl text-white" onClick={handleSendMessage}><TbSend/></button>
-            </div>
-          </div>
-
-          {/* <div className="faq-list">
-            <h4>Common Questions:</h4>
-            {faqs.map((faq) => (
-              <p key={faq._id} onClick={() => handleQuestionClick(faq)} className="faq-question">
-                {faq.question}
-              </p>
-            ))}
-          </div> */}
-        </div>
-      )}
     </div>
-  );
-}
+    )
+  }
+  
+  
+  

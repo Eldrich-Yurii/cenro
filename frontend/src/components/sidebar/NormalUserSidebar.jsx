@@ -59,16 +59,16 @@ export default function NormalUserSidebar() {
         </ListItem>  
         {/* Webinar */}
         <Accordion
-          open={open === 4}
+          open={open === 1}
           icon={
             <ChevronDownIcon
               strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${open === 4 ? "rotate-180" : ""}`}
+              className={`mx-auto h-4 w-4 transition-transform ${open === 1 ? "rotate-180" : ""}`}
             />
           }
         >
-          <ListItem className="p-0 bg-white" selected={open === 4}>
-            <AccordionHeader onClick={() => handleOpen(4)} className="border-b-0 p-3">
+          <ListItem className="p-0 bg-white" selected={open === 1}>
+            <AccordionHeader onClick={() => handleOpen(1)} className="border-b-0 p-3">
               <ListItemPrefix>
                 <TbVideo className="h-5 w-5" />
               </ListItemPrefix>
@@ -112,15 +112,51 @@ export default function NormalUserSidebar() {
           </ListItemSuffix>
         </ListItem>
         {/* Ticket and Chat Support */}
-        <ListItem className="z-10 bg-white">
+        <Accordion
+          open={open === 2}
+          icon={
+            <ChevronDownIcon
+              strokeWidth={2.5}
+              className={`mx-auto h-4 w-4 transition-transform ${open === 2 ? "rotate-180" : ""}`}
+            />
+          }
+        >
+          <ListItem className="p-0 bg-white" selected={open === 2}>
+            <AccordionHeader onClick={() => handleOpen(2)} className="border-b-0 p-3">
+              <ListItemPrefix>
+                <TbTicket className="h-5 w-5" />
+              </ListItemPrefix>
+              <Typography color="blue-gray" className="mr-auto font-normal">
+              &nbsp;&nbsp;FAQs & Chat Support
+              </Typography>
+            </AccordionHeader>
+          </ListItem>
+          <AccordionBody className="py-1 bg-white">
+            <List className="p-0">
+              <ListItem>
+                <ListItemPrefix>
+                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                </ListItemPrefix>
+                <Link to="/user-account/frequently-asked-questions">&nbsp;&nbsp;Frequently Asked Questions</Link>
+              </ListItem>
+              <ListItem>
+                <ListItemPrefix>
+                  <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                </ListItemPrefix>
+                <Link to="/user-account/ticket-submitted">&nbsp;&nbsp;Tickets (Chat Support)</Link>
+              </ListItem>
+            </List>
+          </AccordionBody>
+        </Accordion>
+        {/* <ListItem className="z-10 bg-white">
           <ListItemPrefix>
             <TbTicket className="h-5 w-5" />
           </ListItemPrefix>
           <Link to="/user-account/chat-support">&nbsp;&nbsp;FAQ & Chat Support</Link>
-          {/* <ListItemSuffix> */}
-            {/* <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" /> */}
-          {/* </ListItemSuffix> */}
-        </ListItem>
+          <ListItemSuffix>
+            <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
+          </ListItemSuffix>
+        </ListItem> */}
         <div className="z-10 bg-white">
         <hr className="my-2 border-blue-gray-50" />
         {/* <ListItem>

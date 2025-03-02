@@ -25,7 +25,8 @@ import WebSched from "../pages/accounts/normalUserAccount/webinar/WebinarSched";
 import WebCert from "../pages/accounts/normalUserAccount/webinar/WebCert";
 import FinalCert from "../pages/accounts/normalUserAccount/finalCert/FinalCert";
 import Notif from "../pages/accounts/normalUserAccount/notification/Notif";
-import ChatSupport from "../pages/accounts/normalUserAccount/chatsupport/ChatSupport";
+import FAQs from "../pages/accounts/normalUserAccount/chatsupport/FaqsChat";
+import Tickets from "../pages/accounts/normalUserAccount/chatsupport/Tickets";
 import Settings from "../pages/accounts/normalUserAccount/settings/Settings";
 
 export default function AppRoutes() {
@@ -60,7 +61,8 @@ export default function AppRoutes() {
           <Route path="webinar-certificate" element={<WebCert />} />
           <Route path="final-certificate" element={<FinalCert />} />
           <Route path="notifications" element={<Notif />} />
-          <Route path="chat-support" element={<ChatSupport />} />
+          <Route path="frequently-asked-questions" element={<FAQs />} />
+          <Route path="ticket-submitted" element={<Tickets />} />
           <Route path="settings" element={<Settings />} />
         </Route>
       </Route>

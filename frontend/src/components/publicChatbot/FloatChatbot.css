@@ -94,14 +94,16 @@
   margin: 0;
   background: white;
   border: 1px solid #ddd;
-  /* position: absolute; */
+  border-radius: 10px;
+  position: absolute;
   width: 90%;
-  /* right: 00px; */
+  right: 520px;
   z-index: 10;
 }
 
 .suggestions-list li {
-  padding: 5px;
+  border-radius: 8px;
+  padding: 2px 12px;
   cursor: pointer;
 }
 
