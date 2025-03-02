@@ -8,6 +8,9 @@ import {
 } from "@material-tailwind/react";
 import { TbEdit, TbSearch, TbTrash } from "react-icons/tb";
 import WebSchedModal from "../../../../components/modal/WebSchedModal";
+import { getAllWebinar } from "../../../../api/webinarApi";
+import { useEffect, useState } from "react";
+
 
 const TABLE_HEAD = [
   "Webinar Title",
@@ -17,29 +20,44 @@ const TABLE_HEAD = [
   "Actions",
 ];
 
-const TABLE_ROWS = [
-  {
-    id: "1",
-    title: "New Business Application",
-    datetime: "Feb 26, 2025 - 10:30 AM",
-    link: "ZOOMLINK",
-    status: "pending",
-  },
-  {
-    id: "2",
-    title: "Renewal of Business Certificate",
-    datetime: "Feb 26, 2025 - 10:30 AM",
-    link: "ZOOMLINK",
-    status: "ongoing",
-  },
-];
+// const TABLE_ROWS = [
+//   {
+//     id: "1",
+//     title: "New Business Application",
+//     datetime: "Feb 26, 2025 - 10:30 AM",
+//     link: "ZOOMLINK",
+//     status: "pending",
+//   },
+//   {
+//     id: "2",
+//     title: "Renewal of Business Certificate",
+//     datetime: "Feb 26, 2025 - 10:30 AM",
+//     link: "ZOOMLINK",
+//     status: "ongoing",
+//   },
+// ];
 
-export default function WebinarSched() {
+ export default function WebinarSched() {
+  
+ const [webinars, setWebinars] = useState([]);
+
+useEffect(() => {
+    const fetchAllWebinars = async () => {
+      try {
+        const data = await getAllWebinar();
+        setWebinars(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchAllWebinars();
+  }, []);
+
   return (
     <div className="h-screen">
-      <Card className="h-[32rem] w-full px-6 shadow-lg">
+      <Card className="h-[36rem] w-full px-2 shadow-lg">
         <CardHeader floated={false} shadow={false}>
-          <div className=" flex justify-between">
+          <div className=" flex justify-between items-start">
             <section>
               <Typography variant="h2" className="text-blue-800 font-extrabold font-inter">
                 Webinar Schedule
@@ -49,8 +67,8 @@ export default function WebinarSched() {
               </p>
             </section>
           </div>
-          <div className="w-full flex justify-between pt-4">
-            <section className="flex flex-col gap-2 items-end">
+          <div className="w-full flex justify-between pt-2 pb-3">
+          <section className="flex items-center">
               <WebSchedModal />
             </section>
             <section className="flex items-center">
@@ -68,7 +86,7 @@ export default function WebinarSched() {
           </div>
         </CardHeader>
         <br />
-        <CardBody>
+        <CardBody className="overflow-y-scroll scrollbar">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
@@ -88,21 +106,21 @@ export default function WebinarSched() {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(
-                ({ title, datetime, link, status, id }) => {
-                  const isLast = id === TABLE_ROWS.length - 1;
+              {webinars.map(
+                ({ _id, formType, dateTime, webinarLink, status, }) => {
+                  const isLast = _id === webinars.length - 1;
                   const classes = isLast
                     ? "py-4"
                     : "py-4 border-b border-gray-300";
 
                   return (
-                    <tr key={id} className="hover:bg-gray-50">
+                    <tr key={_id} className="hover:bg-gray-50">
                       <td className={classes}>
                         <Typography
                           variant="small"
                           className="font-bold text-gray-600"
                         >
-                          {title}
+                          {formType}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -110,15 +128,15 @@ export default function WebinarSched() {
                           variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {datetime}
+                          {dateTime}
                         </Typography>
                       </td>
                       <td className={classes}>
                         <Typography
                           variant="small"
-                          className="font-normal text-gray-600"
+                          className="font-bold text-gray-600"
                         >
-                          {link}
+                          {webinarLink}
                         </Typography>
                       </td>
                       <td className={classes}>
