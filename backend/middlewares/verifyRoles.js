@@ -1,4 +1,4 @@
-const verifyRoles = (...allowedRoles) => {
+export const verifyRoles = (...allowedRoles) => {
     return (request, response, next) => {
       if (!request.user) return response.status(401).json({ message: "Unauthorized" });
   

@@ -12,9 +12,6 @@ export const verifyToken = (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
     req.user = decoded; // Attach user data to request
     
-    if (req.user.role !== "admin")
-      return res.status(403).json({ error: "Access Denied, Admin Only." });
-
     console.log("Token Verified:", decoded);
     next();
   } catch (error) {
