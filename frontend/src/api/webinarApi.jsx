@@ -11,4 +11,14 @@ export const createWebinar = async (dateTime, formType, webinarLink) => {
     } catch (err) {
         throw err.response?.message.data || "Error creating webinar schedule";
     }
+};
+
+export const getAllWebinar = async () => {
+    try {
+        const response = await axios.get(`${API}/get-webinar`);
+    
+        return response.data;
+      } catch (err) {
+        throw err.response?.data.message || "";
+      }
 }
