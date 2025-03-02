@@ -7,6 +7,8 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { TbEdit, TbSearch, TbTrash } from "react-icons/tb";
+import { getAllWebinar } from "../../../../api/webinarApi";
+import { useEffect, useState } from "react";
 
 const TABLE_HEAD = [
   "Webinar Title",
@@ -16,31 +18,32 @@ const TABLE_HEAD = [
   "Actions",
 ];
 
-const TABLE_ROWS = [
-  {
-    id: "1",
-    title: "New Business Application",
-    datetime: "Feb 26, 2025 - 10:30 AM",
-    link: "ZOOMLINK",
-    status: "pending",
-  },
-  {
-    id: "2",
-    title: "Renewal of Business Certificate",
-    datetime: "Feb 26, 2025 - 10:30 AM",
-    link: "ZOOMLINK",
-    status: "ongoing",
-  },
-];
-
 export default function WebSched() {
+  const [webinar, setWebinar] = useState([]);
+
+  useEffect(() => {
+    const fetchWebinar = async () => {
+      try {
+        const response = await getAllWebinar();
+        setWebinar(response);
+      } catch (err) {
+        console.error("Error Retrieving all Webinars", err);
+      }
+    };
+
+    fetchWebinar();
+  }, []);
+
   return (
     <div className="h-screen">
       <Card className="h-[32rem] w-full px-3 pt-3 shadow-lg">
         <CardHeader floated={false} shadow={false}>
           <div className=" flex justify-between items-start">
             <section>
-              <Typography variant="h2" className="text-blue-800 font-extrabold font-inter">
+              <Typography
+                variant="h2"
+                className="text-blue-800 font-extrabold font-inter"
+              >
                 Webinar Schedule
               </Typography>
               <p className="w-48 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
@@ -82,21 +85,21 @@ export default function WebSched() {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(
-                ({ title, datetime, link, status, id }) => {
-                  const isLast = id === TABLE_ROWS.length - 1;
+              {webinar.map(
+                ({ formType, dateTime, webinarLink, status, _id }) => {
+                  const isLast = _id === webinar.length - 1;
                   const classes = isLast
                     ? "py-4"
                     : "py-4 border-b border-gray-300";
 
                   return (
-                    <tr key={id} className="hover:bg-gray-50">
+                    <tr key={_id} className="hover:bg-gray-50">
                       <td className={classes}>
                         <Typography
                           variant="small"
                           className="font-bold text-gray-600"
                         >
-                          {title}
+                          {formType}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -104,15 +107,22 @@ export default function WebSched() {
                           variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {datetime}
+                          {dateTime}
                         </Typography>
                       </td>
                       <td className={classes}>
                         <Typography
-                          variant="small"
+                          // variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {link}
+                          <a
+                            href={webinarLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline"
+                          >
+                            {webinarLink}
+                          </a>
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -132,10 +142,16 @@ export default function WebSched() {
                       </td>
                       <td className="border-b border-gray-300">
                         <div className="flex gap-4">
-                          <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white">
+                          <Button
+                            variant="outlined"
+                            className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white"
+                          >
                             <TbEdit />
                           </Button>
-                          <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800  hover:bg-blue-800 hover:text-white">
+                          <Button
+                            variant="outlined"
+                            className="px-2 py-2 border-blue-800 text-blue-800  hover:bg-blue-800 hover:text-white"
+                          >
                             <TbTrash />
                           </Button>
                         </div>

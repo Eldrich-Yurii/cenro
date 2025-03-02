@@ -1,59 +1,56 @@
-import { Button, Select, Option } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import { useState, useEffect, useRef } from "react";
-import { TbTicket, TbUserPlus } from "react-icons/tb";
+import { TbTicket } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
 import { useAuth } from "../../context/AuthContext";
-import { submitApplication } from "../../api/ApplicationApi";
 import { useNavigate } from "react-router-dom";
-
+import { createTicket } from "../../api/TicketApi";
 export default function SubmitTicket() {
-
   const navigate = useNavigate();
 
   const { user } = useAuth(); // Get user from context
-  const [businessName, setBusinessName] = useState("");
-  const [ownerName, setOwnerName] = useState("");
-  const [formType, setFormtype] = useState("");
-  // const [error, setError] = useState(null);
+  const [subject, setSubject] = useState("");
+  const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!user || !user.userId) {
-      console.log("User ID not found. Please log in.");
+    setLoading(true);
+  
+    // Get user and token from AuthContext instead of localStorage
+    const token = user?.token;
+    if (!token) {
+      setMessage("Authentication error: No token found.");
+      setLoading(false);
       return;
     }
-
-    const formData = {
-      userId: user.userId,
-      businessName,
-      ownerName,
-      formType,
-      role: user.role,
-    };
-
+  
+    console.log("Stored Token:", token);
+    console.log("Sending Ticket Data:", { subject, description });
+  
     try {
-      const data = await submitApplication(formData); // Directly access `data`
-      console.log("Backend Response Data:", data);
-
-      // if (data.pdfUrl) {
-      //   const pdfUrl = data.pdfUrl;
-      //   console.log("PDF URL:", pdfUrl);
-
-      //   const link = document.createElement("a");
-      //   link.href = pdfUrl;
-      //   link.setAttribute("download", "Application-form.pdf");
-      //   document.body.appendChild(link);
-      //   link.click();
-      //   document.body.removeChild(link);
-      // }
-      navigate(0)
+      const ticketData = { subject, description };
+  
+      // FIX: Correct argument order (ticketData first, then token)
+      const newTicket = await createTicket(ticketData, token);
+  
+      setMessage("Ticket created successfully!");
+      console.log("Ticket Created:", newTicket);
+      
+      setSubject("");
+      setDescription("");
+      navigate(0); // Refresh page
     } catch (err) {
-      console.error("Error submitting application:", err);
+      setMessage(err?.message || "Error creating ticket");
+      console.error("Create Ticket Error:", err);
+    } finally {
+      setLoading(false);
     }
   };
+  
 
   // Close modal on Escape key press
   useEffect(() => {
@@ -66,10 +63,10 @@ export default function SubmitTicket() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const handleFormType = (value) => {
-    console.log("Selected form type:", value); // Debugging
-    setFormtype(value);
-  };
+  // const handleFormType = (value) => {
+  //   console.log("Selected form type:", value); // Debugging
+  //   setFormtype(value);
+  // };
 
   return (
     <div className="z-10">
@@ -100,27 +97,39 @@ export default function SubmitTicket() {
                   />
                 </div>
                 <div>
-                  <div>
+                  {/* <div>
                     <Select label="Select Category" value={formType} onChange={handleFormType}>
                       <Option value="General Inquiry">General Inquiry</Option>
                       <Option value="Application Concerns">Application Concern</Option>
                       <Option value="Webinar Assisstance">Webinar Assisstance</Option>
                       <Option value="Others">Others</Option>
                     </Select>
-                  </div>
-                <div>
-                  <label>Subject</label>
-                  <input
-                    id="businessName"
-                    name="businessName"
-                    type="text"
-                    value={businessName}
-                    onChange={(e) => setBusinessName(e.target.value)}
+                  </div> */}
+                   {message && <p>{message}</p>}
+                  <div>
+                    <label>Subject</label>
+                    <input
+                      id="subject"
+                      name="subject"
+                      type="text"
+                      value={subject}
+                      required
+                      onChange={(e) => setSubject(e.target.value)}
                     />
                   </div>
                   <div>
-                  <label>Description</label>
-                 <textarea name="desc" rows="7" cols="44" id="" className="border-2" placeholder="Enter Your Concerns Here..."></textarea>
+                    <label>Description</label>
+                    <textarea
+                      name="desc"
+                      rows="7"
+                      cols="44"
+                      id="description"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      className="border-2"
+                      required
+                      placeholder="Enter Your Concerns Here..."
+                    ></textarea>
                   </div>
                 </div>
               </div>
@@ -133,9 +142,10 @@ export default function SubmitTicket() {
                 </Button>
                 <Button
                   type="submit"
+                  disabled={loading}
                   className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-950"
                 >
-                  Submit Ticket
+                  {loading ? "Submitting..." : "Create Ticket"}
                 </Button>
               </div>
             </div>

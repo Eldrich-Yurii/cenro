@@ -56,7 +56,7 @@ useEffect(() => {
   return (
     <div className="h-screen">
       <Card className="h-[36rem] w-full px-2 shadow-lg">
-        <CardHeader floated={false} shadow={false}>
+        <CardHeader className="h-auto" floated={false} shadow={false}>
           <div className=" flex justify-between items-start">
             <section>
               <Typography variant="h2" className="text-blue-800 font-extrabold font-inter">
@@ -136,7 +136,14 @@ useEffect(() => {
                           variant="small"
                           className="font-bold text-gray-600"
                         >
-                          {webinarLink}
+                         <a
+                            href={webinarLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:underline"
+                          >
+                            {webinarLink}
+                          </a>
                         </Typography>
                       </td>
                       <td className={classes}>

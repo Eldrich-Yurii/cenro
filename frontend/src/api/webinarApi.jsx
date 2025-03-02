@@ -16,9 +16,9 @@ export const createWebinar = async (dateTime, formType, webinarLink) => {
 export const getAllWebinar = async () => {
     try {
         const response = await axios.get(`${API}/get-webinar`);
-    
+        console.log(response)
         return response.data;
       } catch (err) {
-        throw err.response?.data.message || "";
+        throw err.response?.data.message || "Error Retrieving Webinar";
       }
 }
