@@ -62,7 +62,7 @@ export default function AppRoutes() {
           <Route path="final-certificate" element={<FinalCert />} />
           <Route path="notifications" element={<Notif />} />
           <Route path="frequently-asked-questions" element={<FAQs />} />
-          <Route path="ticket-submitted" element={<Tickets />} />
+          <Route path="support-ticket" element={<Tickets />} />
           <Route path="settings" element={<Settings />} />
         </Route>
       </Route>

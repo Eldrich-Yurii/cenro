@@ -48,14 +48,14 @@ export default function NormalUserSidebar() {
           <ListItemPrefix>
             <TbLayoutGrid className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/user-account/dashboard">&nbsp;&nbsp;Dashboard</Link>
+          <Link to="/user-account/dashboard">&nbsp;Dashboard</Link>
         </ListItem>
         {/* My Application */}
         <ListItem>
           <ListItemPrefix>
             <TbFileText className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/user-account/my-application">&nbsp;&nbsp;My Business Application</Link>
+          <Link to="/user-account/my-application">&nbsp;My Business Application</Link>
         </ListItem>  
         {/* Webinar */}
         <Accordion
@@ -73,7 +73,7 @@ export default function NormalUserSidebar() {
                 <TbVideo className="h-5 w-5" />
               </ListItemPrefix>
               <Typography color="blue-gray" className="mr-auto font-normal">
-              &nbsp;&nbsp;Webinar
+              &nbsp;Webinar
               </Typography>
             </AccordionHeader>
           </ListItem>
@@ -83,13 +83,13 @@ export default function NormalUserSidebar() {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to="/user-account/webinar-schedule">&nbsp;&nbsp;Webinar Schedule</Link>
+                <Link to="/user-account/webinar-schedule">&nbsp;Webinar Schedule</Link>
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to="/user-account/webinar-certificate">&nbsp;&nbsp;Attendee Certificate</Link>
+                <Link to="/user-account/webinar-certificate">&nbsp;Attendee Certificate</Link>
               </ListItem>
             </List>
           </AccordionBody>
@@ -99,14 +99,14 @@ export default function NormalUserSidebar() {
           <ListItemPrefix>
             <TbFileCertificate className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/user-account/final-certificate">&nbsp;&nbsp;Inspection & Final Certificate</Link>
+          <Link to="/user-account/final-certificate">&nbsp;Final Certificate</Link>
         </ListItem>
         {/* Notifications */}
         <ListItem className="z-10 bg-white">
           <ListItemPrefix>
             <TbNotification className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/user-account/notifications">&nbsp;&nbsp;Notifications</Link>
+          <Link to="/user-account/notifications">&nbsp;Notifications</Link>
           <ListItemSuffix>
             <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
           </ListItemSuffix>
@@ -127,7 +127,7 @@ export default function NormalUserSidebar() {
                 <TbTicket className="h-5 w-5" />
               </ListItemPrefix>
               <Typography color="blue-gray" className="mr-auto font-normal">
-              &nbsp;&nbsp;FAQs & Chat Support
+              &nbsp;FAQs & Chat Support
               </Typography>
             </AccordionHeader>
           </ListItem>
@@ -137,13 +137,13 @@ export default function NormalUserSidebar() {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to="/user-account/frequently-asked-questions">&nbsp;&nbsp;Frequently Asked Questions</Link>
+                <Link to="/user-account/frequently-asked-questions">&nbsp;Frequently Asked Questions</Link>
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to="/user-account/ticket-submitted">&nbsp;&nbsp;Tickets (Chat Support)</Link>
+                <Link to="/user-account/support-ticket">&nbsp;Tickets (Chat Support)</Link>
               </ListItem>
             </List>
           </AccordionBody>
@@ -169,13 +169,13 @@ export default function NormalUserSidebar() {
           <ListItemPrefix>
             <TbSettings2 className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/user-account/settings">&nbsp;&nbsp;Settings</Link>
+          <Link to="/user-account/settings">&nbsp;Settings</Link>
         </ListItem>
         <ListItem>
           <ListItemPrefix>
             <TbLogout2 className="h-5 w-5" />
           </ListItemPrefix>
-          &nbsp;&nbsp;<button onClick={logout}>Logout</button>
+          &nbsp;<button onClick={logout}>Logout</button>
         </ListItem>
         </div>
       </List>
