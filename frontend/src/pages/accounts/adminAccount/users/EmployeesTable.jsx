@@ -9,7 +9,7 @@ import {
 import { TbEdit, TbSearch, TbTrash } from "react-icons/tb";
 import AddEmpAcc from "../../../../components/modal/AddEmpAcc";
 import EditDesigModal from "../../../../components/modal/EditDesigModal";
-import { getEmployees } from "../../../../api/AuthApi";
+import { getEmployees, updateEmployeeDesignation } from "../../../../api/AuthApi";
 import { deleteEmployee } from "../../../../api/AuthApi";
 import { useEffect, useState } from "react";
 
@@ -48,13 +48,28 @@ export default function EmployeesTable() {
   }, []);
 
   //update employee designation
-  const updateEmployeeDesignation = (id, newDesignation) => {
-    setEmployee((prevEmployees) =>
-      prevEmployees.map((employee) =>
-        employee._id === id ? { ...employee, designation: newDesignation } : employee
-      )
-    );
-  };
+  const handleEditDesignation = async (id, newDesignation) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user?.token;
+    if (!token) {
+      console.error("Token not found.");
+      return;
+    }
+
+    try {
+      const response = await updateEmployeeDesignation(id, newDesignation, token)
+
+      console.log("RES:",response)
+        setEmployee((prevEmployees) =>
+          prevEmployees.map((employee) =>
+            employee._id === id ? { ...employee, designation: newDesignation } : employee
+          )
+        );
+      
+    } catch (err) {
+      console.log("Error:", err)
+    }
+  }
 
   // delete employee
   const handleDeleteEmployee = async (id) => {
@@ -202,7 +217,7 @@ export default function EmployeesTable() {
             <EditDesigModal
               employee={editEmployeeDesignation}
               setEditEmployeeDesignation={setEditEmployeeDesignation}
-              updateEmployeeDesignation={updateEmployeeDesignation}
+              updateEmployeeDesignation={handleEditDesignation}
             />
           )}
         </CardBody>

@@ -63,7 +63,6 @@ export default function AppRoutes() {
           <Route path="notifications" element={<Notif />} />
           <Route path="frequently-asked-questions" element={<FAQs />} />
           <Route path="support-ticket" element={<Tickets />} />
-          {/* <Route path="support-ticket/:id" element={<Tickets />} /> */}
           <Route path="settings" element={<Settings />} />
         </Route>
       </Route>

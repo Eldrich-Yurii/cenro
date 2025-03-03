@@ -81,7 +81,7 @@ export default function WebSchedModal() {
             className="bg-white p-6 rounded-lg shadow-lg w-96 transform transition-transform duration-300 scale-95 opacity-0 animate-fade-in"
           >
             <form onSubmit={handleSubmit}>
-              <div className="grid grid-flow-row gap-2">
+              <header className="grid grid-flow-row gap-2">
                 <div className="flex justify-between items-center">
                   <h2 className="text-xl font-bold">Scedule A Webinar</h2>
                   <IoClose
@@ -126,7 +126,7 @@ export default function WebSchedModal() {
                     className="w-full"
                   />
                 </div>
-              </div>
+              </header>
               <div className="mt-4 flex justify-end">
                 <Button
                   className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg mr-2 hover:bg-red-600 hover:text-white"

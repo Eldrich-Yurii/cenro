@@ -51,18 +51,26 @@ export const getTicketById = async (req, res) => {
 // User/Admin replies to a ticket
 export const sendMessage = async (req, res) => {
   try {
+    console.log("Received request body:", req.body); // Debugging log
+
     const { message } = req.body;
+    if (!message) return res.status(400).json({ error: "Message content is required" });
+
     const ticket = await ticketSchema.findById(req.params.id);
     if (!ticket) return res.status(404).json({ error: "Ticket not found" });
 
-    ticket.messages.push({
-      sender: req.user.role === "admin" ? "admin" : "user",
+    const newMessage = {
+      sender: req.user?.role === "admin" ? "admin" : "user",
       message,
-    });
+    };
+
+    ticket.messages.push(newMessage);
     await ticket.save();
 
-    res.status(200).json(ticket);
+    
+    res.status(200).json(newMessage);
   } catch (error) {
+    console.error("Error sending message:", error);
     res.status(500).json({ error: error.message });
   }
 };

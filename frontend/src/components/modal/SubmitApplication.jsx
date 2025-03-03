@@ -93,13 +93,13 @@ export default function SubmitApplication() {
               className="bg-white p-6 rounded-lg shadow-lg w-96 transform transition-transform duration-300 scale-95 opacity-0 animate-fade-in"
             >
               <div className="grid grid-flow-row gap-2">
-                <div className="flex justify-between items-center">
+                <header className="flex justify-between items-center">
                   <h2 className="text-xl font-bold">Application for New Business</h2>
                   <IoClose
                     onClick={() => setIsOpen(false)}
                     className="text-xl hover:text-red-700 cursor-pointer"
                   />
-                </div>
+                </header>
                 <div>
                   <div>
                     <Select label="Select form type" value={formType} onChange={handleFormType}>

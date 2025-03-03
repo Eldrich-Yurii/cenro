@@ -53,22 +53,32 @@ export const getEmployees = async (token) => {
 };
 
 // update employee designation
-export const updateEmployeeDesignation = async (id, token, updatedEmpDesignation) => {
-  try {
-    const response = await axios.put(`${API}/admin/update-employee/${id}`,
-      updatedEmpDesignation, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Ensure you're sending the token
-        }
-      }
-    );
-    return response.data
+export const updateEmployeeDesignation = async (id, token, newDesignation) => {
+  console.log("📢 updateEmployeeDesignation() STARTED");
+  console.log("➡️ API URL:", `${API}/admin/update-employee/${id}`);
+  console.log("➡️ Token:", token ? "Token Present ✅" : "No Token ❌");
+  console.log("➡️ Payload:", { designation: newDesignation });
 
+  try {
+    const response = await axios.put(
+      `${API}/admin/update-employee/${id}`,
+      { designation: newDesignation },  // Pass correct payload
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Ensure token is sent
+          "Content-Type": "application/json",
+        },
+      }
+      
+    );
+
+    console.log("✅ Response Data:", response.data);
+    return response.data;
   } catch (err) {
-    console.error("Error updating employee designation:", err);
-    throw err;
+    console.error("❌ Axios Error:", err.response ? err.response.data : err.message);
+    throw err.response?.data || { message: "An error occurred" };
   }
-}
+};
 
 // delete employee account
 export const deleteEmployee = async (id, token) => {

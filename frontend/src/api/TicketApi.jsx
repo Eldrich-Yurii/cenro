@@ -45,15 +45,51 @@ export const createTicket = async (ticketData, token) => {
 };
 
 // Send a message to a ticket
-export const sendMessage = async (ticketId, message, token) => {
+export const sendMessage = async (id, message) => {
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user?.token; // Extract only the token
+  console.log("Stored Token:", token);
+
   try {
     const response = await axios.post(
-      `${API}/send-message/${ticketId}/message`,
+      `${API}/send-message/${id}/message`,
       { message },
       { headers: { Authorization: `Bearer ${token}` } }
     );
     return response.data;
   } catch (err) {
     throw err.response?.message.data || "Error Sending Message";
+  }
+};
+
+
+// Admin Get All Ticket
+export const getAllTicket = async (token) => {
+  try {
+    const response = await axios.get(`${API}/admin/get-all-ticket`,{
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data
+  } catch (err) {
+    throw err.response?.data || "Error Retrieving All Tickets"
+  }
+}
+
+export const updateStatus = async (ticketId, status) => {
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user?.token; // Extract only the token
+  console.log("Stored Token:", token);
+
+  try {
+    const response = await axios.put(
+      `${API}/admin/update/${ticketId}/status`,
+      { status },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return response.data;
+  } catch (err) {
+    throw err.response?.data || "Error Updating Ticket Status";
   }
 };

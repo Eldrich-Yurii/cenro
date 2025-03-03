@@ -101,6 +101,8 @@ export default function ChatSupport() {
   return (
     <div className="h-screen bg-yellow-200">
       <h2>Ask Cendi for FAQs</h2>
+
+      {/* mesage content */}
       <div className="chat-messages">
         {chatHistory.map((msg, index) => (
          <div key={index} className={msg.type === "user" ? "user-message" : "bot-message"}>

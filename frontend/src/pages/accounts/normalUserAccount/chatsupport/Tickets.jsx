@@ -9,7 +9,7 @@ import {
 import SubmitTicket from "../../../../components/modal/SubmitTicket";
 import { getUserTickets } from "../../../../api/TicketApi";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import UserTicketModal from "../../../../components/modal/UserTicketModal";
 const TABLE_HEAD = [
   "Ticket ID",
   // "Category",
@@ -19,22 +19,6 @@ const TABLE_HEAD = [
   "View",
 ];
 
-// const TABLE_ROWS = [
-//   {
-//     id: "1",
-//     title: "New Business Application",
-//     datetime: "Feb 26, 2025 - 10:30 AM",
-//     link: "ZOOMLINK",
-//     status: "pending",
-//   },
-//   {
-//     id: "2",
-//     title: "Renewal of Business Certificate",
-//     datetime: "Feb 26, 2025 - 10:30 AM",
-//     link: "ZOOMLINK",
-//     status: "ongoing",
-//   },
-// ];
 
 export default function Tickets() {
   const [tickets, setTickets] = useState([]);
@@ -152,12 +136,7 @@ export default function Tickets() {
                       </div>
                     </td>
                     <td className="border-b border-gray-300">
-                      <Link
-                        to={`/support-ticket/${_id}`}
-                        className="text-blue-600 hover:underline"
-                      >
-                        View Details
-                      </Link>
+                    <UserTicketModal ticketId={_id} />                    
                     </td>
                   </tr>
                 );
