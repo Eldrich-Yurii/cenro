@@ -109,6 +109,12 @@ export default function SignUp() {
                     placeholder="Enter your first Name"
                     value={firstname}
                     onChange={(e) => setFirstname(e.target.value)}
+                    onKeyPress={(e) => {
+                      const charCode = e.which ? e.which : e.keyCode;
+                          if (charCode >= 48 && charCode <= 57) { 
+                          e.preventDefault();
+                          }
+                    }}
                     required
                     className="border-blue-900 border-2 w-full h-12 rounded-lg px-2 truncate"
                   />
@@ -127,6 +133,12 @@ export default function SignUp() {
                     placeholder="Enter your Middle Name"
                     value={middlename}
                     onChange={(e) => setMiddlename(e.target.value)}
+                    onKeyPress={(e) => {
+                      const charCode = e.which ? e.which : e.keyCode;
+                          if (charCode >= 48 && charCode <= 57) { 
+                          e.preventDefault();
+                          }
+                    }}
                     className="border-blue-900 border-2 w-full h-12 rounded-lg px-2 truncate"
                   />
                 </div>
@@ -144,6 +156,12 @@ export default function SignUp() {
                     placeholder="Enter your Last Name"
                     value={lastname}
                     onChange={(e) => setLastname(e.target.value)}
+                    onKeyPress={(e) => {
+                      const charCode = e.which ? e.which : e.keyCode;
+                          if (charCode >= 48 && charCode <= 57) { 
+                          e.preventDefault();
+                          }
+                    }}
                     required
                     className="border-blue-900 border-2 w-full h-12 rounded-lg px-2 truncate"
                   />
