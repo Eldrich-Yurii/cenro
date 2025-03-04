@@ -12,7 +12,7 @@ export default function ServicesCards() {
       size: "text-[28px]",
       title: "BUSINESS CERTIFICATE",
       description:
-        "Lorem ipsum dolor sit amet consectetur. Nunc a ut tellus quisque nec facilisis habitant. Quis consectetur nascetur in sagittis amet tempor nec nulla nunc.",
+        "Launch your business ventures without delay. Our streamlined process makes it incredibly easy to apply for a business certificate. Experience a hassle-free application and quickly turn your business ideas into reality.",
     },
     {
       id: 4,
@@ -20,7 +20,7 @@ export default function ServicesCards() {
       size: "text-[28px]",
       title: "IEC (Information Education and Communication)",
       description:
-        "Lorem ipsum dolor sit amet consectetur. Nunc a ut tellus quisque nec facilisis habitant. Quis consectetur nascetur in sagittis amet tempor nec nulla nunc.",
+        "Our IEC programs provide clear insights into CENRO's procedures, empowering you to effectively manage your environmental responsibilities. Plus, CENDI's comprehensive FAQ resources are designed to answer your common queries, offering practical support every step of the way.",
     },
   ];
 
