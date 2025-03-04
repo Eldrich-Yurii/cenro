@@ -9,6 +9,7 @@ import {
 import { getUserTickets } from "../../../../api/TicketApi";
 import { useEffect, useState } from "react";
 import UserTicketModal from "../../../../components/modal/UserTicketModal";
+import SubmitTicket from "../../../../components/modal/SubmitTicket";
 
 const TABLE_HEAD = ["Ticket ID", "Subject", "Description", "Status", "View"];
 
@@ -52,6 +53,9 @@ export default function Ticket() {
                       This is the list of tickets you submitted to the Chat Support.
                     </p>
                   </section>
+                  <section className="flex flex-col gap-2 items-end">
+              <SubmitTicket />
+            </section>
                 </div>
               </CardHeader>
               <br />
