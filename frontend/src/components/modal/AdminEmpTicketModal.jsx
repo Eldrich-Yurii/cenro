@@ -10,6 +10,22 @@ export default function AdminEmpTicketModal({ ticket, isOpen, onClose }) {
   const [newMessage, setNewMessage] = useState("");
   const modalRef = useRef(null);
 
+
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+  
+  useEffect(() => {
+    if (ticket) {
+      setMessages(ticket.messages || []);
+    }
+  }, [ticket]);
+
   // Close modal on Escape key press
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -18,6 +34,14 @@ export default function AdminEmpTicketModal({ ticket, isOpen, onClose }) {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
+  
+  // send chat using enter
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) { 
+      e.preventDefault(); // Prevents new line in input field
+      handleSendMessage(); // Send the message
+    }
+  };
 
   // Handle Status Change
   const handleStatusChange = async (newStatus) => {
@@ -57,6 +81,9 @@ export default function AdminEmpTicketModal({ ticket, isOpen, onClose }) {
                 <h6 className="font-bold">{ticket?.subject || "Loading..."}</h6>
                 <small>Ticket ID: {ticket?._id || "Loading..."}</small>
                 <p>{ticket?.user?.name || "User Name"}</p>
+              </section>
+              <section className="flex items-center">
+                <small>{ticket?.createdAt?.split("T")[0] || "Date"}</small>
               </section>
           <IoClose onClick={onClose} className="text-xl hover:text-red-700 cursor-pointer" />
         </header>
@@ -104,6 +131,7 @@ export default function AdminEmpTicketModal({ ticket, isOpen, onClose }) {
           ) : (
             <p className="text-gray-500">No messages yet.</p>
           )}
+           <div ref={messagesEndRef}></div>
         </section>
 
         {/* Reply Input */}
@@ -114,6 +142,7 @@ export default function AdminEmpTicketModal({ ticket, isOpen, onClose }) {
             className="flex-1 p-2 border rounded-lg"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
+            onKeyDown={handleKeyPress}
           />
           <button onClick={handleSendMessage} className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
             Send
@@ -131,6 +160,7 @@ AdminEmpTicketModal.propTypes = {
     description: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
     messages: PropTypes.array,
+    createdAt: PropTypes.string.isRequired,
   }).isRequired,
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,

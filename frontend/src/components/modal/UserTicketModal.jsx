@@ -1,17 +1,15 @@
 import { useState, useEffect, useRef } from "react";
 import { TbTicket } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
-import { getTicketById, sendMessage } from "../../api/TicketApi"; // Import API request
 import PropTypes from "prop-types";
+import { updateStatus, sendMessage } from "../../api/TicketApi";
 
-export default function UserTicketModal({ ticketId }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const modalRef = useRef(null);
-  const [loading, setLoading] = useState(false);
-  const [ticket, setTicket] = useState(null);
-  const [messages, setMessages] = useState(ticketId || []);
+export default function UserTicketModal({ ticket, isOpen, onClose }) {
+  const [status, setStatus] = useState(ticket.status);
+  const [messages, setMessages] = useState(ticket.messages || []);
   const [newMessage, setNewMessage] = useState("");
-  const [error, setError] = useState(null);
+  const modalRef = useRef(null);
+
 
   const messagesEndRef = useRef(null);
 
@@ -23,79 +21,51 @@ export default function UserTicketModal({ ticketId }) {
   }, [messages]);
   
   useEffect(() => {
-    if (ticketId) {
-      setMessages(ticketId.messages || []);
+    if (ticket) {
+      setMessages(ticket.messages || []);
     }
-  }, [ticketId]);
+  }, [ticket]);
 
+  // Close modal on Escape key press
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === "Escape") setIsOpen(false);
+      if (e.key === "Escape") onClose();
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [onClose]);
 
-  const fetchTicketDetails = async () => {
-    setLoading(true);
-    setError(null);
-    const user = JSON.parse(localStorage.getItem("user"));
-    const token = user?.token;
-
-    if (!token) {
-      setError("Authentication error: No token found");
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const data = await getTicketById(ticketId, token);
-      setTicket(data);
-    } catch (err) {
-      setError(err);
-    }
-    setLoading(false);
-  };
+// send chat using enter
+const handleKeyPress = (e) => {
+  if (e.key === "Enter" && !e.shiftKey) { 
+    e.preventDefault(); // Prevents new line in input field
+    handleSendMessage(); // Send the message
+  }
+};
 
   // Handle Sending Messages
-    const handleSendMessage = async () => {
-      if (!newMessage.trim()) return;
-      try {
-        console.log("Sending message:", newMessage);
-        const messageData = await sendMessage(ticketId, newMessage);
-        setMessages([...messages, messageData]); // Add new message to UI
-        setNewMessage("");
-        fetchTicketDetails()
-      } catch (err) {
-        console.error("Failed to send message:", err);
-      }
-    };
-
-  const handleOpenModal = () => {
-    setIsOpen(true);
-    fetchTicketDetails();
+  const handleSendMessage = async () => {
+    if (!newMessage.trim()) return;
+    try {
+      console.log("Sending message:", newMessage);
+      const messageData = await sendMessage(ticket._id, newMessage);
+      setMessages([...messages, messageData]); // Add new message to UI
+      setNewMessage("");
+    } catch (err) {
+      console.error("Failed to send message:", err);
+    }
   };
 
-  return (
-    <div className="z-10">
-      {/* Button to open modal */}
-      <button
-        onClick={handleOpenModal}
-        className="border-blue-800 text-blue-800 py-3 rounded-lg flex justify-center items-center gap-2 font-extrabold text-sm hover:underline hover:text-blue-600 transition-all cursor-pointer"
-      >
-        <TbTicket className="text-lg" />
-        View Ticket
-      </button>
+  if (!isOpen) return null; // Prevent rendering when closed
 
-      {/* Modal */}
-      {isOpen && (
-        <div className="z-20 fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
-          <div
-            ref={modalRef}
-            className="bg-white p-6 rounded-lg shadow-lg w-96 transform transition-transform duration-300 scale-95 opacity-0 animate-fade-in"
-          >
-            <header className="flex justify-between">
-              <section>
+  return (
+    <div className="z-20 fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
+      <div
+        ref={modalRef}
+        className="bg-white p-6 rounded-lg shadow-lg w-96 transform transition-transform duration-300 animate-fade-in"
+      >
+        <header className="flex justify-between">
+        <section>
                 <h6 className="font-bold">{ticket?.subject || "Loading..."}</h6>
                 <small>Ticket ID: {ticket?._id || "Loading..."}</small>
                 <p>{ticket?.user?.name || "User Name"}</p>
@@ -111,49 +81,53 @@ export default function UserTicketModal({ ticketId }) {
                 }`}>
                   {ticket?.status || "Status"}
                 </span>
-                <IoClose
-                  onClick={() => setIsOpen(false)}
-                  className="text-xl hover:text-red-700 cursor-pointer ml-4"
-                />
               </section>
-            </header>
 
-            {/* Ticket Messages */}
-            <section className="mt-4 p-3 bg-gray-100 rounded-md max-h-40 overflow-y-auto">
-              {loading ? (
-                <p>Loading messages...</p>
-              ) : error ? (
-                <p className="text-red-600">{error}</p>
-              ) : (
-                ticket?.messages?.map((msg, index) => (
-                  <p key={index} className="text-gray-700">
+          <IoClose onClick={onClose} className="text-xl hover:text-red-700 cursor-pointer" />
+        </header>
+
+        {/* Messages Section */}
+        <section className="mt-4 p-3 bg-gray-100 rounded-md max-h-40 overflow-y-auto">
+          {messages.length > 0 ? (
+            messages.map((msg, index) => (
+              <p key={index} className="text-gray-700">
                 <strong>{msg.sender}:</strong> {msg.message}
               </p>
-                ))
-              )}
-               <div ref={messagesEndRef}></div>
-            </section>
+            ))
+          ) : (
+            <p className="text-gray-500">No messages yet.</p>
+          )}
+           <div ref={messagesEndRef}></div>
+        </section>
 
-            {/* Message Input */}
-            <div className="mt-4 flex justify-end gap-2">
-            <input
+        {/* Reply Input */}
+        <div className="mt-4 flex">
+          <input
             type="text"
             placeholder="Type your response..."
             className="flex-1 p-2 border rounded-lg"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
+            onKeyDown={handleKeyPress}
           />
           <button onClick={handleSendMessage} className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
             Send
           </button>
-            </div>
-          </div>
         </div>
-      )}
+      </div>
     </div>
   );
-};
+}
 
 UserTicketModal.propTypes = {
-  ticketId: PropTypes.string.isRequired, // Ensure ticketId is a required string
+  ticket: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    subject: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    messages: PropTypes.array,
+    createdAt: PropTypes.string.isRequired,
+  }).isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
