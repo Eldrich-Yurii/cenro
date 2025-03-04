@@ -1,4 +1,5 @@
 import { TbPhone, TbLocation, TbLink, TbBrandFacebook } from "react-icons/tb";
+import { LiaFacebook } from "react-icons/lia";
 import LOGO from "../../../assets/cenro-logo.png";
 import LOGOORIG from "../../../assets/CENRO-LOGO-ORIG.png";
 import BagongPhilOrig from "../../../assets/Bagong-Pilipinas.png";
@@ -45,7 +46,7 @@ export default function Footer() {
               <p>(+63) 939 717 2394</p>
               <p>(+63) 967 380 5773</p>
               <span className="flex">
-                <TbBrandFacebook />
+                <LiaFacebook size={23} />
                 <a href="">CENRO San Juan City</a>
               </span>
             </div>
