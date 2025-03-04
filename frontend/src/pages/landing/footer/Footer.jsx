@@ -42,8 +42,8 @@ export default function Footer() {
               <h3 className="font-extrabold text-xl">Contact Number</h3>
             </div>
             <div className="pl-7 pb-2">
-              <p>(63) 939 717 2394</p>
-              <p>(63) 967 380 5773</p>
+              <p>(+63) 939 717 2394</p>
+              <p>(+63) 967 380 5773</p>
               <span className="flex">
                 <TbBrandFacebook />
                 <a href="">CENRO San Juan City</a>
@@ -57,19 +57,19 @@ export default function Footer() {
             </div>
             <ul className="pl-7">
               <li>
-                <a href="#">Home</a>
+                <a href="#home">Home</a>
               </li>
               <li>
-                <a href="#">About</a>
+                <a href="#about">About</a>
               </li>
               <li>
-                <a href="#">Contact Us</a>
+                <a href="#contact">Contact Us</a>
               </li>
               <li>
-                <a href="#">Log In</a>
+                <a href="/login">Log In</a>
               </li>
               <li>
-                <a href="#">Sign Up</a>
+                <a href="/signup">Sign Up</a>
               </li>
             </ul>
           </section>
