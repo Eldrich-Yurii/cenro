@@ -81,9 +81,9 @@ export default function BusinessApplications() {
 
   return (
     <div className="h-screen">
-      <Card className="h-[35rem] w-full px-6 shadow-lg">
+      <Card className="flex flex-col h-[35rem] w-full px-6 shadow-lg">
         <CardHeader
-          className="h-38 rounded-none"
+          className="h-38 rounded-none flex-shrink-0"
           floated={false}
           shadow={false}
         >
@@ -132,8 +132,8 @@ export default function BusinessApplications() {
             </section>
           </div>
         </CardHeader>
-        <br />
-        <CardBody className="overflow-y-scroll scrollbar">
+        
+        <CardBody className="flex-grow overflow-y-scroll scrollbar">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
@@ -268,7 +268,7 @@ export default function BusinessApplications() {
             </div>
           )}
         </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+        <CardFooter className="h-38 flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
             Page 1 of 1
           </Typography>
