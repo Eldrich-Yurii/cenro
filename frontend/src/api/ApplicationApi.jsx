@@ -11,13 +11,15 @@ export const submitApplication = async (applicationData) => {
   }
 };
 
-export const getApplication = async (userId) => {
+// Get user tickets
+export const getUserApplication = async (token) => {
   try {
-    const response = await axios.get(`${API}/get-application/${userId}`);
-
+    const response = await axios.get(`${API}/get-user-application`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     return response.data;
   } catch (err) {
-    throw err.response?.data.message || "Application Retrieval failed";
+    throw err.response?.message.data || "Error Retrieving Ticket";
   }
 };
 

@@ -1,6 +1,6 @@
 import { Button, Select, Option } from "@material-tailwind/react";
 import { useState, useEffect, useRef } from "react";
-import { TbUserPlus } from "react-icons/tb";
+import { TbFileText } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
 import { useAuth } from "../../context/AuthContext";
 import { submitApplication } from "../../api/ApplicationApi";
@@ -80,7 +80,7 @@ export default function SubmitApplication() {
         variant="outlined"
         className="w-42 border-blue-800 text-blue-800 py-3 rounded-lg flex justify-center items-center gap-2 font-extrabold text-sm hover:bg-blue-800 hover:text-white transition-all"
       >
-        <TbUserPlus className="text-lg" />
+        <TbFileText className="text-lg" />
         Submit Application
       </Button>
 

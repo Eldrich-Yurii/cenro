@@ -7,8 +7,14 @@ const router = express.Router();
 
 // User routes
 router.post("/create-ticket", verifyToken, verifyRoles("user"), createTicket);
+
+// get all tickets for specific normal user
 router.get("/get-user-ticket",verifyToken, getUserTickets);
+
+// get one ticket
 router.get("/get-user-ticket/:id", verifyToken, getTicketById);
+
+// send message 
 router.post("/send-message/:id/message", verifyToken, sendMessage);
 
 // Admin routes

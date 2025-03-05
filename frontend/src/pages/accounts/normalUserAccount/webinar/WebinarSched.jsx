@@ -107,7 +107,7 @@ export default function WebSched() {
                           variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {dateTime}
+                          {dateTime.split("T")[0]}&nbsp;|&nbsp;{dateTime.split("T")[1].split(".")[0]}
                         </Typography>
                       </td>
                       <td className={classes}>

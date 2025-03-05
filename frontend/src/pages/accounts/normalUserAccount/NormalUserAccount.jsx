@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import NormalUserSidebar from "../../../components/sidebar/NormalUserSidebar";
-import SampleForm from "../../../components/forms/SampleForm";
+// import SampleForm from "../../../components/forms/SampleForm";
 export default function NormalUserAccount() {
  
   console.log("Normal Account rendered!")

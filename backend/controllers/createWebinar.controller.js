@@ -36,6 +36,7 @@ export const createWebinar = async (req, res) => {
       attendees: eligibleUsers.map((app) => ({
         userId: app.userId,
         applicationId: app._id,
+        businessName: app.businessName
       })),
     });
 
