@@ -6,6 +6,8 @@ import {
     CardHeader,
     Typography,
   } from "@material-tailwind/react";
+  import { getAllApplication } from "../../../../../api/ApplicationApi";
+  import { useEffect, useState } from "react";
   
   const TABLE_HEAD = [
     "Type of Application",
@@ -14,25 +16,45 @@ import {
     "Rejected",
   ];
   
-  const TABLE_ROWS = [
-    {
-      id: "1",
-      type: "New Business Application",
-      approved: "16",
-      pending: "3",
-      rejected: "0",
-    },
-    {
-      id: "2",
-      type: "Renewal of Business Certificate",
-      approved: "28",
-      pending: "1",
-      rejected: "0",
-    },
- 
-  ];
-  
   export default function ApplicationBreakdown() {
+
+    const [applications, setApplications] = useState([]);
+    const [applicationSummary, setApplicationSummary] = useState({});
+
+    useEffect(() => {
+      const fetchAllApplications = async () => {
+          try {
+              const data = await getAllApplication();
+              setApplications(data);
+
+              const summary = data.reduce((acc, app) => {
+                  if (!acc[app.formType]) {
+                      acc[app.formType] = {
+                          approved: 0,
+                          pending: 0,
+                          rejected: 0,
+                      };
+                  }
+                  acc[app.formType][app.status.toLowerCase()]++; // Increment status counts
+                  return acc;
+              }, {});
+
+              setApplicationSummary(summary);
+          } catch (err) {
+              console.log(err);
+          }
+      };
+      fetchAllApplications();
+  }, []);
+
+          const TABLE_ROWS = Object.entries(applicationSummary).map(([formType, counts]) => ({
+          id: formType, // Use formType as a unique ID
+          type: formType,
+          approved: counts.approved,
+          pending: counts.pending,
+          rejected: counts.rejected,
+}));
+
     return (
       <div>
         <Card className="h-[24rem] w-full px-6 shadow-lg">
@@ -42,8 +64,8 @@ import {
                 <Typography variant="h2" className="text-blue-800 font-extrabold">
                   Client Applications
                 </Typography>
-                <p className="w-56 text-sm leading-[120%] pt-2 font-semibold text-gray-600 tracking-tight">
-                  This are the list of applications of the users.
+                <p className="w-full text-sm leading-[120%] pt-2 font-semibold text-gray-600 tracking-tight">
+                  These are the list of applications of the users.
                 </p>
               </section>
             </div>
@@ -117,9 +139,6 @@ import {
             </table>
           </CardBody>
           <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-            <Typography variant="small" color="blue-gray" className="font-normal">
-              Page 1 of 1
-            </Typography>
             <div className="flex gap-2">
               <Button variant="outlined" size="sm" className="text-blue-800">
                 Previous
