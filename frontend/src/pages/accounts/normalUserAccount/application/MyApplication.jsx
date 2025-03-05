@@ -108,7 +108,7 @@ export default function MyApplication() {
               {applications.length === 0 ? (
                 <tr>
                   <td colSpan="12" className="text-center pt-4">
-                    No applications found
+                    No Applications Found
                   </td>
                 </tr>
               ) : (

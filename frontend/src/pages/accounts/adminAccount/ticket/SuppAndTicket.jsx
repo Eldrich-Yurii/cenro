@@ -37,10 +37,10 @@ export default function SuppAndTicket() {
   }, []);
 
   return (
-    <div className="h-screen bg-lime-300">
-      <Card className="h-[32rem] w-full px-6 shadow-lg">
+    <div className="h-screen">
+      <Card className="h-auto w-full px-6 shadow-lg">
               <CardHeader className="rounded-none" floated={false} shadow={false}>
-                <div className=" flex justify-between">
+                <div className="flex justify-between">
                   <section>
                     <Typography
                       variant="h2"

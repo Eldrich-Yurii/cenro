@@ -40,7 +40,7 @@ export default function Ticket() {
   return (
     <div className="h-screen bg-lime-300">
       <Card className="h-[32rem] w-full px-6 shadow-lg">
-        <CardHeader className="rounded-none" floated={false} shadow={false}>
+        <CardHeader className="rounded-none h-full" floated={false} shadow={false}>
           <div className=" flex justify-between">
             <section>
               <Typography
@@ -82,7 +82,7 @@ export default function Ticket() {
               {tickets.length === 0 ? (
                 <tr>
                   <td colSpan="12" className="text-center pt-4">
-                    No applications found
+                    No Tickets Found
                   </td>
                 </tr>
               ) : (
