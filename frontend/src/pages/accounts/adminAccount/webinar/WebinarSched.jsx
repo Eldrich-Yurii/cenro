@@ -55,8 +55,8 @@ useEffect(() => {
 
   return (
     <div className="h-screen">
-      <Card className="h-[36rem] w-full px-2 shadow-lg">
-        <CardHeader className="h-auto" floated={false} shadow={false}>
+      <Card className="h-[36rem] flex flex-col w-full px-2 shadow-lg">
+        <CardHeader className="h-auto flex-shrink-0" floated={false} shadow={false}>
           <div className=" flex justify-between items-start">
             <section>
               <Typography variant="h2" className="text-blue-800 font-extrabold font-inter">
@@ -178,7 +178,7 @@ useEffect(() => {
             </tbody>
           </table>
         </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+        <CardFooter className="h-auto flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
             Page 1 of 1
           </Typography>
