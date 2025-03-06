@@ -64,7 +64,7 @@ export default function MyApplication() {
 };
 
   return (
-    <div className="h-screen bg-lime-300">
+    <div className="h-screen">
       <Card className="h-[32rem] w-full px-6 shadow-lg">
         <CardHeader className="rounded-none" floated={false} shadow={false}>
           <div className=" flex justify-between">
@@ -73,10 +73,10 @@ export default function MyApplication() {
                 variant="h2"
                 className="text-blue-800 font-extrabold font-inter"
               >
-                Support Tickets
+                My Business Application
               </Typography>
               <p className="w-64 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-                This is the list of tickets you submitted to the Chat Support.
+                This is the list of applications you submitted.
               </p>
             </section>
             <section className="flex flex-col gap-2 items-end">
