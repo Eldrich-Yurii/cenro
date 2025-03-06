@@ -49,7 +49,7 @@ export default function SuppAndTicket() {
                       Support Tickets
                     </Typography>
                     <p className="w-64 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-                      This is the list of tickets you submitted to the Chat Support.
+                      This is the list of tickets submitted by the clients.
                     </p>
                   </section>
                 </div>
