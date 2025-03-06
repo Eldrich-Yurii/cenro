@@ -31,6 +31,8 @@ export default function BusinessApplications() {
   const [applications, setApplications] = useState([]);
   const [fileUrl, setFileUrl] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredApplications, setFilteredApplications] = useState([]);
 
   useEffect(() => {
     const fetchAllApplications = async () => {
@@ -43,6 +45,15 @@ export default function BusinessApplications() {
     };
     fetchAllApplications();
   }, []);
+  
+   //search function
+   useEffect(() => {
+    const results = applications.filter((app) => {
+      const searchStr = `${app.formType} ${app.businessName} ${app.status} ${app.assessmentCert}`.toLowerCase();
+      return searchStr.includes(searchTerm.toLowerCase());
+    });
+    setFilteredApplications(results);
+  }, [searchTerm, applications]);
 
   const handleUpdateStatus = async (applicationId, status) => {
     if (!applicationId) {
@@ -125,6 +136,8 @@ export default function BusinessApplications() {
                 name="empsearch"
                 id="empSearch"
                 placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
               <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
                 <TbSearch />
@@ -153,7 +166,7 @@ export default function BusinessApplications() {
               </tr>
             </thead>
             <tbody>
-              {applications.map(
+              {filteredApplications.map(
                 ({ _id, formType, businessName, status, assessmentCert }) => {
                   const isLast = _id === applications.length - 1;
                   const classes = isLast
@@ -216,16 +229,22 @@ export default function BusinessApplications() {
                             <div className="flex gap-2">
                               <button
                                 onClick={() =>
-                                  handleUpdateStatus(_id, "Approved")
-                                }
+                                  {
+                                    if (window.confirm("Are you sure you want to approve? This cannot be undone.")) {
+                                      handleUpdateStatus(_id, "Approved");
+                                    }
+                                  }}
                                 className="px-2 py-2 text-green-700 border border-green-700 rounded hover:bg-green-700 hover:text-white"
                               >
                                 Approve
                               </button>
                               <button
                                 onClick={() =>
-                                  handleUpdateStatus(_id, "Rejected")
-                                }
+                                  {
+                                    if (window.confirm("Are you sure you want to reject? This cannot be undone.")) {
+                                      handleUpdateStatus(_id, "Rejected");
+                                    }
+                                  }}
                                 className="px-2 py-2 text-red-700 border border-red-700 rounded hover:bg-red-700 hover:text-white"
                               >
                                 Reject
