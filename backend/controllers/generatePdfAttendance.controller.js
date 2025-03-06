@@ -1,14 +1,14 @@
 import puppeteer from "puppeteer";
 import fs from "fs";
 import path from "path";
-import Application from "../models/applicationSchema.js";
+import applicationSchema from "../models/applicationSchema.js";
 
 export const generateCertAttendance = async (applicationId) => {
   try {
     console.log("Received applicationId:", applicationId);
 
     // Find the application in the database
-    const application = await Application.findById(applicationId);
+    const application = await applicationSchema.findById(applicationId);
     console.log("Fetched application:", application);
 
     if (!application) {
@@ -29,10 +29,12 @@ export const generateCertAttendance = async (applicationId) => {
 
     // HTML Template for Certificate
     const htmlContent = `
-      <h2>CERTIFICATE OF ATTENDANCE</h2>
-      <p>THIS IS TO CERTIFY</p>
-      <p>${application.businessName}</p>
-      <p>THANK YOU FOR PARTICIPATING SHEESH</p>
+    <div style="text-align: center;">
+    <h2>CERTIFICATE OF ATTENDANCE</h2>
+    <p>THIS IS TO CERTIFY</p>
+    <p>${application.businessName}</p>
+    <p>THANK YOU FOR PARTICIPATING SHEESH</p>
+    </div>
     `;
 
     await page.setContent(htmlContent);

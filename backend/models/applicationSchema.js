@@ -39,20 +39,19 @@ const applicationSchema = new mongoose.Schema(
      },
      certificateOfAttendancePath: {
       type: String, // Store the file path of attendance certificate
-      required: false
      },
      businessCertificatePath: {
       type: String,
-      required: false
+     },
+     businessCertificateHash: {
+      type: String,
      },
      attendanceConfirmedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user", // Reference to the admin/employee who confirmed
-      required: false,
     },
     attendanceConfirmedAt: {
       type: Date,
-      required: false,
     },
      submittedAt: {
        type: Date,

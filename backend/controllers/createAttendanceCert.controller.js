@@ -12,7 +12,7 @@ export const createAttendanceCert = async (req, res) => {
       return res.status(404).json({ message: "Application not found" });
     }
 
-    console.log("✅ Found Application:", application);
+    console.log("Found Application:", application);
 
     // Check if the user has already been marked as attended
     if (application.attendance && application.certificateOfAttendancePath) {
@@ -39,7 +39,7 @@ export const createAttendanceCert = async (req, res) => {
       confirmedAt: application.attendanceConfirmedAt,
     });
   } catch (err) {
-    console.error("Error confirming attendance:", err);
-    res.status(500).json({ message: "Error confirming attendance", error: err.message });
+    console.error("Error Confirming attendance:", err);
+    res.status(500).json({ message: "Error Confirming attendance", error: err.message });
   }
 };

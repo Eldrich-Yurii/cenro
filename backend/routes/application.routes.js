@@ -11,7 +11,8 @@ import { verifyRoles } from "./../middlewares/verifyRoles.js"
 import { createAttendanceCert } from "../controllers/createAttendanceCert.controller.js";
 import { viewCertOfAttendance } from "../controllers/viewCertOfAttendance.controller.js"
 import { getPendingAttendanceCert } from "../controllers/getPendingAttendanceCert.controller.js";
-
+import { createFinalCert } from "../controllers/createFinalCert.controller.js";
+import { verifyCert } from "../controllers/verifyCert.controller.js";
 
 
 
@@ -22,6 +23,9 @@ router.post("/generate-pdf", submitApplication);
 
 // Generate certificate of Attendance
 router.post("/generate-certificate/:applicationId", verifyToken, createAttendanceCert)
+
+// Generate certificate of Environmental Compliance
+router.post("/generate-final-certificate/:applicationId", verifyToken, createFinalCert)
 
 // Get Application to normal user
 router.get("/get-user-application", verifyToken, getUserApplication);
@@ -47,7 +51,8 @@ router.post("/upload-assessment/:applicationId", upload.single("assessmentCert")
 // update status of application
 router.put("/update-status/:applicationId", updateApplicationStatus);
 
-
+// verify Final Certificate
+router.get("/certificate-verification", verifyCert)
 
 
 
