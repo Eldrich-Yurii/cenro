@@ -25,6 +25,8 @@ export default function EmployeesTable() {
 
   const [employee, setEmployee] = useState([]);
   const [editEmployeeDesignation, setEditEmployeeDesignation] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredEmployees, setFilteredEmployees] = useState([]);
 
   // get employee
   useEffect(() => {
@@ -46,6 +48,14 @@ export default function EmployeesTable() {
 
     getData();
   }, []);
+
+  useEffect(() => {
+    const results = employee.filter((emp) => {
+      const searchStr = `${emp.firstname} ${emp.middlename} ${emp.lastname} ${emp.designation}`.toLowerCase();
+      return searchStr.includes(searchTerm.toLowerCase());
+    });
+    setFilteredEmployees(results);
+  }, [searchTerm, employee]);
 
   //update employee designation
   const handleEditDesignation = async (id, newDesignation) => {
@@ -118,6 +128,8 @@ export default function EmployeesTable() {
                 name="empsearch"
                 id="empSearch"
                 placeholder="Search an Employee..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
               <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
                 <TbSearch />
@@ -143,7 +155,7 @@ export default function EmployeesTable() {
               </tr>
             </thead>
             <tbody>
-              {employee.map(
+              {filteredEmployees.map(
                 ({ firstname, middlename, lastname, designation, _id }) => {
                   const isLast = _id === employee.length - 1;
                   const classes = isLast

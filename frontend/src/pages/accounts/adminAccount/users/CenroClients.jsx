@@ -73,6 +73,8 @@ const TABLE_ROWS = [
 export default function CenroClients() {
 
   const [clients, setClients] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredClients, setFilteredClients] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
@@ -93,6 +95,16 @@ export default function CenroClients() {
     
         getData();
       }, []);
+
+      //search function
+  useEffect(() => {
+    const results = clients.filter((clt) => {
+      const searchStr = `${clt.firstname} ${clt.middlename} ${clt.lastname} ${clt.email}`.toLowerCase();
+      return searchStr.includes(searchTerm.toLowerCase());
+    });
+    setFilteredClients(results);
+  }, [searchTerm, clients]);
+
   return (
     <div className="h-screen">
       <Card className="h-[36rem] w-full px-2 shadow-lg">
@@ -113,6 +125,8 @@ export default function CenroClients() {
                 name="empsearch"
                 id="empSearch"
                 placeholder="Search a User..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
               <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
                 <TbSearch />
@@ -141,7 +155,7 @@ export default function CenroClients() {
               </tr>
             </thead>
             <tbody>
-              {clients.map(
+              {filteredClients.map(
                 ({ firstname, middlename, lastname, email, _id }) => {
                   const isLast = _id === TABLE_ROWS.length - 1;
                   const classes = isLast
