@@ -22,7 +22,7 @@ export default function MyApplication() {
   // const [selectedTicket, setSelectedTicket] = useState(null);
 
   useEffect(() => {
-    const fetchTickets = async () => {
+    const fetchApplications = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
       const token = user?.token;
 
@@ -38,7 +38,7 @@ export default function MyApplication() {
         console.log("Error:", err);
       }
     };
-    fetchTickets();
+    fetchApplications();
   }, []);
 
   const handleFileUpload = async (e, applicationId) => {
@@ -47,17 +47,23 @@ export default function MyApplication() {
 
     try {
         const response = await uploadAssessment(applicationId, file);
-        console.log("File uploaded successfully:", response);
+        console.log("File upload response:", response); // Debugging log
 
-        // Update the assessmentCert field in state without full reload
+        // Use 'fileUrl' instead of 'fileName'
+        if (!response || !response.fileUrl) {
+            console.error("Unexpected response format:", response);
+            return;
+        }
+
         setApplications((prevApplications) =>
             prevApplications.map((app) =>
-                app._id === applicationId ? { ...app, assessmentCert: response.data.fileName } : app
+                app._id === applicationId
+                    ? { ...app, assessmentCert: response.fileUrl } // Use fileUrl
+                    : app
             )
         );
 
-        // Reset file input
-        e.target.value = "";
+        e.target.value = ""; // Reset file input
     } catch (error) {
         console.error("Error uploading file:", error.response?.data || error.message);
     }

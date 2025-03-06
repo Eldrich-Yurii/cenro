@@ -6,58 +6,70 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
-import { TbEdit, TbSearch, TbTrash } from "react-icons/tb";
+import { getUserApplication, viewCertificateOfAttendance } from "../../../../api/ApplicationApi";
+import { useEffect, useState } from "react";
+import { IoClose } from "react-icons/io5";
 
-const TABLE_HEAD = [
-  "Webinar Title",
-  "Date and Time",
-  "Webinar Link",
-  "Status",
-  "Actions",
-];
-
-const TABLE_ROWS = [
-  {
-    id: "1",
-    title: "New Business Application",
-    datetime: "Feb 26, 2025 - 10:30 AM",
-    link: "ZOOMLINK",
-    status: "pending",
-  },
-  {
-    id: "2",
-    title: "Renewal of Business Certificate",
-    datetime: "Feb 26, 2025 - 10:30 AM",
-    link: "ZOOMLINK",
-    status: "ongoing",
-  },
-];
-
+const TABLE_HEAD = ["Application Type", "Business Name", "Certficate Of Attendace", "Action"];
 export default function WebCert() {
+  const [applications, setApplications] = useState([]);
+  const [fileUrl, setFileUrl] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [selectedTicket, setSelectedTicket] = useState(null);
+
+  useEffect(() => {
+    const fetchTickets = async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const token = user?.token;
+
+      if (!token) {
+        console.error("Token not found.");
+        return;
+      }
+
+      try {
+        const data = await getUserApplication(token);
+        setApplications(data);
+      } catch (err) {
+        console.log("Error:", err);
+      }
+    };
+    fetchTickets();
+  }, []);
+
+  const handleViewCertAttendance = async (applicationId) => {
+    try {
+      const fileData = await viewCertificateOfAttendance(applicationId);
+
+      // create a blob URL for the file
+      const blob = new Blob([fileData], { type: "application/pdf" });
+      const blobUrl = URL.createObjectURL(blob);
+
+      setFileUrl(blobUrl);
+      setIsModalOpen(true);
+    } catch (err) {
+      console.log("Error fetching file", err);
+    }
+  };
+
   return (
     <div className="h-screen">
-      <Card className="h-[32rem] w-full px-3 pt-3 shadow-lg">
-        <CardHeader floated={false} shadow={false}>
-          <div className=" flex justify-between items-start">
+      <Card className="h-[32rem] w-full px-6 shadow-lg">
+        <CardHeader className="rounded-none" floated={false} shadow={false}>
+          <div className=" flex justify-between">
             <section>
-              <Typography variant="h2" className="text-blue-800 font-extrabold font-inter">
-                Attendee Certificate
+              <Typography
+                variant="h2"
+                className="text-blue-800 font-extrabold font-inter"
+              >
+                My Business Application
               </Typography>
-              <p className="w-72 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-                This where you can get your certificate of attendance.
+              <p className="w-64 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
+                This is the list of applications you submitted.
               </p>
             </section>
-            <section className="flex items-center">
-              <input
-                className="pl-3 h-12 border-gray-500 rounded-lg"
-                type="search"
-                name="empsearch"
-                id="empSearch"
-                placeholder="Search..."
-              />
-              <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
-                <TbSearch />
-              </Button>
+            <section className="flex flex-col gap-2 items-end">
+              Lagyan ng search siguro
             </section>
           </div>
         </CardHeader>
@@ -82,21 +94,27 @@ export default function WebCert() {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(
-                ({ title, datetime, link, status, id }) => {
-                  const isLast = id === TABLE_ROWS.length - 1;
+              {applications.length === 0 ? (
+                <tr>
+                  <td colSpan="12" className="text-center pt-4">
+                    No Certificate Found
+                  </td>
+                </tr>
+              ) : (
+                applications.map((application) => {
+                  const isLast = application._id === applications.length - 1;
                   const classes = isLast
                     ? "py-4"
                     : "py-4 border-b border-gray-300";
 
                   return (
-                    <tr key={id} className="hover:bg-gray-50">
+                    <tr key={application._id} className="hover:bg-gray-50">
                       <td className={classes}>
                         <Typography
                           variant="small"
                           className="font-bold text-gray-600"
                         >
-                          {title}
+                          {application.formType}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -104,48 +122,59 @@ export default function WebCert() {
                           variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {datetime}
+                          {application.businessName}
                         </Typography>
                       </td>
+
                       <td className={classes}>
-                        <Typography
-                          variant="small"
-                          className="font-normal text-gray-600"
-                        >
-                          {link}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <div className="w-max">
-                          <span
-                            className={`px-3 py-2 font-extrabold uppercase text-xs rounded-lg ${
-                              status === "ongoing"
-                                ? "bg-lime-200 text-lime-800"
-                                : status === "pending"
-                                ? "bg-yellow-200 text-orange-600"
-                                : "bg-red-200 text-red-600"
-                            }`}
+                        <div className="w-32 truncate">
+                          <Typography
+                            variant="small"
+                            className="font-normal text-gray-600"
                           >
-                            {status}
-                          </span>
+                            {application.certificateOfAttendancePath}
+                          </Typography>
                         </div>
                       </td>
-                      <td className="border-b border-gray-300">
-                        <div className="flex gap-4">
-                          <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white">
-                            <TbEdit />
-                          </Button>
-                          <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800  hover:bg-blue-800 hover:text-white">
-                            <TbTrash />
-                          </Button>
-                        </div>
-                      </td>
+                      <button
+                            onClick={() => handleViewCertAttendance(application._id)}
+                            className="bg-blue-500 text-white p-2 rounded"
+                          >
+                            View COA
+                          </button>
                     </tr>
                   );
-                }
+                })
               )}
             </tbody>
           </table>
+            {isModalOpen && (
+                      <div className="z-20 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                        <div className="bg-white p-5 rounded-lg shadow-lg w-[80%] h-[80%] flex flex-col">
+                          <div className="flex justify-between">
+                            <h2 className="text-xl font-bold mb-2">
+                              Certificate of Attendance
+                            </h2>
+                            <button
+                              onClick={() => setIsModalOpen(false)}
+                              className="text-2xl"
+                            >
+                              <IoClose />
+                            </button>
+                          </div>
+                          <iframe src={fileUrl} className="w-full h-full border" />
+                          <div className="flex justify-end mt-4">
+                            <a
+                              href={fileUrl}
+                              download="assessment_certificate.pdf"
+                              className="bg-green-500 text-white px-4 py-2 rounded mr-2"
+                            >
+                              Download
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    )}
         </CardBody>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
