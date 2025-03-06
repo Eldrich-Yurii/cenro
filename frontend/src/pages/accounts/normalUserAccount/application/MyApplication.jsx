@@ -65,8 +65,8 @@ export default function MyApplication() {
 
   return (
     <div className="h-screen">
-      <Card className="h-[32rem] w-full px-6 shadow-lg">
-        <CardHeader className="rounded-none" floated={false} shadow={false}>
+      <Card className="flex flex-col h-[32rem] w-full px-6 shadow-lg">
+        <CardHeader className="h-auto flex-shrink-0 rounded-none" floated={false} shadow={false}>
           <div className=" flex justify-between">
             <section>
               <Typography
@@ -85,8 +85,8 @@ export default function MyApplication() {
           </div>
         </CardHeader>
         <br />
-        <CardBody>
-          <table className="w-full min-w-max table-auto text-left">
+        <CardBody className="overflow-y-scroll">
+          <table className="h-auto flex-grow w-full min-w-max table-auto text-left ">
             <thead>
               <tr>
                 {TABLE_HEAD.map((head) => (
@@ -196,7 +196,7 @@ export default function MyApplication() {
             />
           )} */}
         </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+        <CardFooter className="h-auto flex-shrink-0 flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
             Page 1 of 1
           </Typography>
