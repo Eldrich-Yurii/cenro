@@ -152,7 +152,9 @@ export default function AddEmpAcc() {
                   <input type="date" name="birthdate" 
                   value={birthdate}
                   onChange={(e) => setBirthdate(e.target.value)}
-                  className="w-full" />
+                  className="w-full" 
+                  min="1900-01-01"
+                  max="2009-12-12"/>
                 </div>
                 <div>
                   <label htmlFor="">Email</label>
