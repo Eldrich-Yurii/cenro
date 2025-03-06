@@ -12,79 +12,76 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { TbDots, TbSearch } from "react-icons/tb";
+import {
+  confirmAttendance,
+  getPendingWebinarUsers,
+} from "../../../../api/ApplicationApi";
+import { useEffect, useState } from "react";
 
 const TABLE_HEAD = [
   {
+    head: "ID",
+    // icon: <Checkbox />,
+  },
+  {
     head: "Business Name",
-    icon: <Checkbox />,
   },
-  {
-    head: "Applicant Name",
-  },
-  {
-    head: "Email",
-  },
-  {
-    head: "Status",
-  },
+  // {
+  //   head: "Email",
+  // },
+  // {
+  //   head: "Status",
+  // },
   {
     head: "Action",
   },
 ];
 
-const TABLE_ROWS = [
-  {
-    id: "1",
-    firstname: "Fer",
-    middlename: "Di",
-    lastname: "emailko@gmail.com",
-    status: "certificate generated",
-  },
-  {
-    id: "2",
-    firstname: "Yu",
-    middlename: "Li",
-    lastname: "emailko@gmail.com",
-    status: "certificate generated",
-  },
-  {
-    id: "3",
-    firstname: "kel",
-    middlename: "Cor",
-    lastname: "emailko@gmail.com",
-    status: "pending",
-  },
-  {
-    id: "4",
-    firstname: "Jey",
-    middlename: "Pi",
-    lastname: "emailko@gmail.com",
-    status: "pending",
-  },
-  {
-    id: "5",
-    firstname: "Yu",
-    middlename: "Li",
-    lastname: "emailko@gmail.com",
-    status: "certificate generated",
-  },
-  {
-    id: "6",
-    firstname: "kel",
-    middlename: "Cor",
-    lastname: "emailko@gmail.com",
-    status: "pending",
-  },
-  {
-    id: "7",
-    firstname: "Jey",
-    middlename: "Pi",
-    lastname: "emailko@gmail.com",
-    status: "certificate generated",
-  },
-];
-
 export default function CertForAttendees() {
+  const [webinarAttendees, setWebinarAttendees] = useState([]);
+
+  useEffect(() => {
+    const fetchPendingUsers = async () => {
+      try {
+        const user = JSON.parse(localStorage.getItem("user"));
+        const token = user?.token;
+
+        if (!token) {
+          console.error("Token not found.");
+          return;
+        }
+        const data = await getPendingWebinarUsers(token);
+        setWebinarAttendees(data);
+      } catch (error) {
+        console.error("Error fetching pending webinar users:", error);
+      }
+    };
+
+    fetchPendingUsers();
+  }, []);
+
+  const handleConfirmAttendance = async (applicationId) => {
+    try {
+      // const user = JSON.parse(localStorage.getItem("user"));
+      //   const token = user?.token;
+
+      //   console.log("TOKEN:", token)
+
+      //   if (!token) {
+      //     console.log("Token not found.");
+      //     return;
+      //   }      
+      
+      const response = await confirmAttendance(applicationId);
+      setWebinarAttendees((prev) =>
+        prev.filter((attendee) => attendee._id !== applicationId)
+      );
+      console.log(response.message); // Show success message
+    } catch (err) {
+      console.log("Error generating certificate", err);
+    }
+  };
+
   return (
     <div className="h-screen">
       <Card className="h-[34rem] w-full px-6 shadow-lg">
@@ -137,23 +134,23 @@ export default function CertForAttendees() {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(
-                ({ firstname, middlename, lastname, status, id }) => {
-                  const isLast = id === TABLE_ROWS.length - 1;
+              {webinarAttendees.map(
+                ({ _id, businessName }) => {
+                  const isLast = _id === webinarAttendees.length - 1;
                   const classes = isLast
                     ? "py-4"
                     : "py-4 border-b border-gray-300";
 
                   return (
-                    <tr key={id} className="hover:bg-gray-50">
+                    <tr key={_id} className="hover:bg-gray-50">
                       <td className={classes}>
                         <div className="flex items-center">
-                          <Checkbox />
+                          {/* <Checkbox /> */}
                           <Typography
                             variant="small"
                             className="font-bold text-gray-600"
                           >
-                            {firstname}
+                            {_id}
                           </Typography>
                         </div>
                       </td>
@@ -162,18 +159,18 @@ export default function CertForAttendees() {
                           variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {middlename}
+                          {businessName}
                         </Typography>
                       </td>
-                      <td className={classes}>
+                      {/* <td className={classes}>
                         <Typography
                           variant="small"
                           className="font-normal text-gray-600"
                         >
                           {lastname}
                         </Typography>
-                      </td>
-                      <td className={classes}>
+                      </td> */}
+                      {/* <td className={classes}>
                         <div className="w-max">
                           <span
                             className={`px-3 py-2 font-extrabold uppercase text-xs rounded-lg ${
@@ -187,9 +184,12 @@ export default function CertForAttendees() {
                             {status}
                           </span>
                         </div>
-                      </td>
+                      </td> */}
                       <td className="border-b border-gray-300">
-                        <div className="flex gap-4">
+                        <Button onClick={() => handleConfirmAttendance(_id)}>
+                          Confirm Attendance
+                        </Button>
+                        {/* <div className="flex gap-4">
                           <Menu>
                             <MenuHandler>
                               <Button
@@ -211,7 +211,7 @@ export default function CertForAttendees() {
                               </MenuItem>
                             </MenuList>
                           </Menu>
-                        </div>
+                        </div> */}
                       </td>
                     </tr>
                   );
