@@ -180,6 +180,8 @@ export default function SignUp() {
                   onChange={(e) => setBirthdate(e.target.value)}
                   required
                   className="border-blue-900 border-2 w-full h-12 rounded-lg px-2"
+                  min="1900-01-01"
+                  max="2009-12-12"
                 />
               </div>
               {/* Address */}
