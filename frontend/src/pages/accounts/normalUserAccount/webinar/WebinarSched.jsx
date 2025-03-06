@@ -36,8 +36,8 @@ export default function WebSched() {
 
   return (
     <div className="h-screen">
-      <Card className="h-[32rem] w-full px-3 pt-3 shadow-lg">
-        <CardHeader floated={false} shadow={false}>
+      <Card className="h-[32rem] flex flex-col w-full px-3 pt-3 shadow-lg">
+        <CardHeader className= "flex-shrink-0" floated={false} shadow={false}>
           <div className=" flex justify-between items-start">
             <section>
               <Typography
@@ -65,7 +65,7 @@ export default function WebSched() {
           </div>
         </CardHeader>
         <br />
-        <CardBody>
+        <CardBody className="overflow-y-scroll">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
