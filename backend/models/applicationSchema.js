@@ -33,10 +33,27 @@ const applicationSchema = new mongoose.Schema(
        type: String, // Store the file path of assessment certificate
        required: false,
      },
-     certificateOfAttendance: {
-      type: Boolean,
-      default: false
+     attendance: {
+      type: Boolean, // Attended Webinar or not
+      default: false,
      },
+     certificateOfAttendancePath: {
+      type: String, // Store the file path of attendance certificate
+      required: false
+     },
+     businessCertificatePath: {
+      type: String,
+      required: false
+     },
+     attendanceConfirmedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user", // Reference to the admin/employee who confirmed
+      required: false,
+    },
+    attendanceConfirmedAt: {
+      type: Date,
+      required: false,
+    },
      submittedAt: {
        type: Date,
        default: Date.now, // Automatically sets the submission timestamp

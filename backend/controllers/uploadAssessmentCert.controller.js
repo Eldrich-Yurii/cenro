@@ -20,7 +20,8 @@ export const uploadAssessmentCert = async (req, res) => {
       application.assessmentCert = filePath;
       await application.save();
   
-      res.status(200).json({ message: "Assessment certificate uploaded", fileUrl: `${req.protocol}://${req.get("host")}/${filePath}` });
+      // res.status(200).json({ message: "Assessment certificate uploaded", fileUrl: `${req.protocol}://${req.get("host")}/${filePath}` });
+      res.status(200).json({ message: "Assessment certificate uploaded", fileUrl: filePath });
   } catch (err) {
     res.status(500).json({ message: "Error uploading file", err });
   }
