@@ -24,6 +24,7 @@ export const createFinalCert = async (req, res) => {
     const certPath = await generateFinalCert(applicationId);
 
     // Save the certificate path
+    application.businessCertificate = true;
     application.businessCertificatePath = certPath;
     await application.save();
 

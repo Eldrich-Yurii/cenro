@@ -14,6 +14,7 @@ import { getPendingAttendanceCert } from "../controllers/getPendingAttendanceCer
 import { createFinalCert } from "../controllers/createFinalCert.controller.js";
 import { verifyCert } from "../controllers/verifyCert.controller.js";
 import { viewFinalCert } from "../controllers/viewFinalCert.controller.js";
+import { getPendingFinalCert } from "../controllers/getPendingFinalCert.controller.js";
 
 
 
@@ -34,16 +35,19 @@ router.get("/get-user-application", verifyToken, getUserApplication);
 // Get All application to admin
 router.get("/get-application", getAllApplication);
 
-// Get application that is initially approved
+// Get application that is initially approved for webinar schedule
 router.get("/pending-webinar-users", verifyToken, verifyRoles("admin"), getPendingAttendanceCert)
 
-// View assessment certificate
+// Get application that is attended in webinar for final certificate
+router.get("/pending-final-certificate-users", verifyToken, verifyRoles("admin"), getPendingFinalCert)
+
+// View assessment certificate for admin/employee
 router.get("/view-assessment-file/:applicationId", viewAssessmentCert)
 
-// View certificate of attendance
+// View certificate of attendance for normal user
 router.get("/view-certificate-of-attendance/:applicationId", viewCertOfAttendance)
 
-// View Final certificate
+// View Final certificate for normal user
 router.get("/view-final-certificate/:applicationId", viewFinalCert)
 
 //upload file 
@@ -52,7 +56,7 @@ router.post("/upload-assessment/:applicationId", upload.single("assessmentCert")
 // update status of application
 router.put("/update-status/:applicationId", updateApplicationStatus);
 
-// verify Final Certificate
+// verify Final Certificate for verification
 router.get("/certificate-verification", verifyCert)
 
 

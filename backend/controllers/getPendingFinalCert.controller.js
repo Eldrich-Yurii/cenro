@@ -1,10 +1,11 @@
 import applicationSchema from "../models/applicationSchema.js"
 
-export const getPendingAttendanceCert = async (req, res) => {
+export const getPendingFinalCert = async (req, res) => {
     try {
       const pendingUsers = await applicationSchema.find({ 
-        status: "Pending", // Only those approved for a webinar
-        attendance: false // Users who haven't attended yet
+        status: "Approved", // Only those approved for a webinar
+        attendance: true, // Users who haven't attended yet
+        businessCertificate: false
       });
   
       res.status(200).json(pendingUsers);

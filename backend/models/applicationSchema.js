@@ -46,6 +46,10 @@ const applicationSchema = new mongoose.Schema(
      businessCertificateHash: {
       type: String,
      },
+     businessCertificate: {
+      type: Boolean,
+      default: false
+     },
      attendanceConfirmedBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user", // Reference to the admin/employee who confirmed
