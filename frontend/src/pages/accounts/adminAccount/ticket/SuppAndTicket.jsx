@@ -45,10 +45,10 @@ export default function SuppAndTicket() {
                       variant="h2"
                       className="text-blue-800 font-extrabold font-inter"
                     >
-                      Support Tickets
+                      Chat Support
                     </Typography>
                     <p className="w-64 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-                      This is the list of tickets submitted by the clients.
+                      This is the list of concerns or follow-ups submitted by the clients.
                     </p>
                   </section>
                 </div>
