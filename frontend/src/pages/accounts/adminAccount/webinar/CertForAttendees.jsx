@@ -40,16 +40,6 @@ export default function CertForAttendees() {
 
   const handleConfirmAttendance = async (applicationId) => {
     try {
-      // const user = JSON.parse(localStorage.getItem("user"));
-      //   const token = user?.token;
-
-      //   console.log("TOKEN:", token)
-
-      //   if (!token) {
-      //     console.log("Token not found.");
-      //     return;
-      //   }
-
       const response = await confirmAttendance(applicationId);
       setWebinarAttendees((prev) =>
         prev.filter((attendee) => attendee._id !== applicationId)

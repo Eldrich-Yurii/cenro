@@ -90,6 +90,17 @@ export const getPendingWebinarUsers = async (token) => {
   }
 };
 
+export const getPendingFinalCertUsers = async (token) => {
+  try {
+    const response = await axios.get(`${API}/pending-webinar-users`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (err) {
+    throw err.response?.data.message || "Failed to fetch pending webinar users";
+  }
+};
+
 export const uploadAssessment = async (applicationId, file) => {
   try {
     const formData = new FormData();
@@ -145,6 +156,38 @@ export const confirmAttendance = async (applicationId) => {
 
     const response = await axios.post(
       `${API}/generate-certificate/${applicationId}`,
+      {}, // Corrected endpoint
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    console.log("Certificate Generation Response:", response.data);
+    return response.data;
+  } catch (error) {
+    console.log(
+      "Error generating certificate:",
+      error.response?.data || error.message
+    );
+    throw new Error(error.response?.data || "Error generating certificate");
+  }
+};
+
+// Generate Final Certificate
+export const confirmInspection = async (applicationId) => {
+  try {
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user?.token;
+
+    console.log("TOKEN:", token)
+
+    if (!token) {
+      console.log("Token not found.");
+      return;
+    }
+    console.log("Confirming attendance for:", applicationId); // Debugging
+
+    const response = await axios.post(
+      `${API}/generate-final-certificate/${applicationId}`,
       {}, // Corrected endpoint
       { headers: { Authorization: `Bearer ${token}` } }
     );
