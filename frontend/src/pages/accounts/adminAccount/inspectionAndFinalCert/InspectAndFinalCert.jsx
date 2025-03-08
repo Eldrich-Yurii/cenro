@@ -100,7 +100,11 @@ export default function IsnpectionAndFinalCert() {
             </tr>
           </thead>
           <tbody>
-            {webinarAttendees.map(({ _id, businessName }) => {
+            {webinarAttendees.length === 0 ? <tr>
+                <td colSpan="12" className="text-center pt-4">
+                  No Pending Users Found
+                </td>
+              </tr>:webinarAttendees.map(({ _id, businessName }) => {
               const isLast = _id === webinarAttendees.length - 1;
               const classes = isLast ? "py-4" : "py-4 border-b border-gray-300";
 

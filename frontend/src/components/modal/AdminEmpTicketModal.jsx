@@ -1,15 +1,20 @@
 import { useState, useEffect, useRef } from "react";
-import { TbTicket } from "react-icons/tb";
+import { TbSend, TbTicket } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
 import PropTypes from "prop-types";
 import { updateStatus, sendMessage } from "../../api/TicketApi";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+} from "@material-tailwind/react";
 
 export default function AdminEmpTicketModal({ ticket, isOpen, onClose }) {
   const [status, setStatus] = useState(ticket.status);
   const [messages, setMessages] = useState(ticket.messages || []);
   const [newMessage, setNewMessage] = useState("");
   const modalRef = useRef(null);
-
 
   const messagesEndRef = useRef(null);
 
@@ -19,7 +24,7 @@ export default function AdminEmpTicketModal({ ticket, isOpen, onClose }) {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-  
+
   useEffect(() => {
     if (ticket) {
       setMessages(ticket.messages || []);
@@ -34,10 +39,10 @@ export default function AdminEmpTicketModal({ ticket, isOpen, onClose }) {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
-  
+
   // send chat using enter
   const handleKeyPress = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) { 
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault(); // Prevents new line in input field
       handleSendMessage(); // Send the message
     }
@@ -70,72 +75,125 @@ export default function AdminEmpTicketModal({ ticket, isOpen, onClose }) {
 
   if (!isOpen) return null; // Prevent rendering when closed
 
+  const formatDateTime = (isoString) => {
+    const date = new Date(isoString);
+
+    return date.toLocaleString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
   return (
     <div className="z-20 fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
-      <div
+      <Card
         ref={modalRef}
-        className="bg-white p-6 rounded-lg shadow-lg w-96 transform transition-transform duration-300 animate-fade-in"
+        className="flex justify-between bg-white rounded-lg shadow-lg h-[32rem] w-[48rem] transform transition-transform duration-300 animate-fade-in"
       >
-        <header className="flex justify-between">
-        <section>
-                <h6 className="font-bold">{ticket?.subject || "Loading..."}</h6>
-                <small>Ticket ID: {ticket?._id || "Loading..."}</small>
-                <p>{ticket?.user?.name || "User Name"}</p>
-              </section>
-              <section className="flex items-center">
-                <small>{ticket?.createdAt?.split("T")[0] || "Date"}</small>
-              </section>
-          <IoClose onClick={onClose} className="text-xl hover:text-red-700 cursor-pointer" />
-        </header>
-
-        {/* Status Update (Buttons Instead of Dropdown) */}
-        <div className="mt-3 flex gap-2">
-          <span className="text-sm font-bold">Status:</span>
-          <button
-            className={`px-3 py-1 rounded-lg text-xs font-bold ${
-              status === "Open" ? "bg-blue-200 text-blue-800" : "bg-gray-300 text-gray-700"
-            }`}
-            onClick={() => handleStatusChange("Open")}
-            disabled={status === "Open"}
-          >
-            Open
-          </button>
-          <button
-            className={`px-3 py-1 rounded-lg text-xs font-bold ${
-              status === "In Progress" ? "bg-yellow-200 text-orange-600" : "bg-gray-300 text-gray-700"
-            }`}
-            onClick={() => handleStatusChange("In Progress")}
-            disabled={status === "In Progress"}
-          >
-            In Progress
-          </button>
-          <button
-            className={`px-3 py-1 rounded-lg text-xs font-bold ${
-              status === "Resolved" ? "bg-green-200 text-green-600" : "bg-gray-300 text-gray-700"
-            }`}
-            onClick={() => handleStatusChange("Resolved")}
-            disabled={status === "Resolved"}
-          >
-            Resolved
-          </button>
-        </div>
+        <CardHeader
+          floated={false}
+          shadow={false}
+          className="flex justify-between items-start flex-shrink-0 rounded-none"
+        >
+          <section>
+            <h6 className="font-bold">{ticket?.subject || "Loading..."}</h6>
+            <small>Ticket ID: {ticket?._id || "Loading..."}</small>
+            <p>{ticket?.user?.name || "User Name"}</p>
+          </section>
+          <section>
+            <div className="flex items-center gap-4 justify-end">
+              <small>{formatDateTime(ticket?.createdAt)}</small>
+              <IoClose
+                onClick={onClose}
+                className="text-xl hover:text-red-700 cursor-pointer"
+              />
+            </div>
+            {/* Status Update */}
+            <div className="mt-3 flex gap-2">
+              <span className="text-sm font-bold">Status:</span>
+              <button
+                className={`px-3 py-1 rounded-lg text-xs font-bold ${
+                  status === "Open"
+                    ? "bg-blue-200 text-blue-800"
+                    : "bg-gray-300 text-gray-700"
+                }`}
+                onClick={() => handleStatusChange("Open")}
+                disabled={status === "Open"}
+              >
+                Open
+              </button>
+              <button
+                className={`px-3 py-1 rounded-lg text-xs font-bold ${
+                  status === "In Progress"
+                    ? "bg-yellow-200 text-orange-700"
+                    : "bg-gray-300 text-gray-700"
+                }`}
+                onClick={() => handleStatusChange("In Progress")}
+                disabled={status === "In Progress"}
+              >
+                In Progress
+              </button>
+              <button
+                className={`px-3 py-1 rounded-lg text-xs font-bold ${
+                  status === "Resolved"
+                    ? "bg-lime-200 text-lime-700"
+                    : "bg-gray-300 text-gray-700"
+                }`}
+                onClick={() => handleStatusChange("Resolved")}
+                disabled={status === "Resolved"}
+              >
+                Resolved
+              </button>
+            </div>
+          </section>
+        </CardHeader>
 
         {/* Messages Section */}
-        <section className="mt-4 p-3 bg-gray-100 rounded-md max-h-40 overflow-y-auto">
-          {messages.length > 0 ? (
-            messages.map((msg, index) => (
-              <p key={index} className="text-gray-700">
-                <strong>{msg.sender}:</strong> {msg.message}
-              </p>
-            ))
-          ) : (
-            <p className="text-gray-500">No messages yet.</p>
-          )}
-           <div ref={messagesEndRef}></div>
-        </section>
+        <CardBody className="border-b border-t mt-2 h-full p-0">
+          <div className="mt-4 p-3 bg-white h-[19rem] rounded-md overflow-y-auto">
+            {messages.length > 0 ? (
+              messages.map((msg, index) => (
+                <div
+                  key={index}
+                  className={
+                    msg.sender === "user"
+                      ? "text-gray-900 mb-8"
+                      : "text-white mb-8"
+                  }
+                >
+                  <div
+                    className={
+                      msg.sender === "user"
+                        ? "text-gray-400 flex justify-self-center"
+                        : "text-gray-400 flex justify-self-center"
+                    }
+                  >
+                    <small>{formatDateTime(msg.timestamp)}</small>
+                  </div>
+                  <div
+                    className={
+                      msg.sender === "user"
+                        ? "text-gray-900 bg-gray-100 mr-16 p-3 rounded-lg w-fit"
+                        : "text-white bg-sky-700 ml-16 p-3 rounded-lg w-fit flex justify-self-end gap-2"
+                    }
+                  >
+                    <strong>{msg.sender}:</strong> {msg.message}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500">No messages yet.</p>
+            )}
+            <div ref={messagesEndRef}></div>
+          </div>
+        </CardBody>
 
-        {/* Reply Input */}
-        <div className="mt-4 flex">
+        <CardFooter className="flex">
+          {/* Reply Input */}
           <input
             type="text"
             placeholder="Type your response..."
@@ -144,11 +202,14 @@ export default function AdminEmpTicketModal({ ticket, isOpen, onClose }) {
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyDown={handleKeyPress}
           />
-          <button onClick={handleSendMessage} className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-            Send
+          <button
+            onClick={handleSendMessage}
+            className="ml-2 px-4 py-2 bg-sky-700 text-white rounded-lg hover:bg-blue-700"
+          >
+            <TbSend />
           </button>
-        </div>
-      </div>
+        </CardFooter>
+      </Card>
     </div>
   );
 }

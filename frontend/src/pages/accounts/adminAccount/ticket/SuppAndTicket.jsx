@@ -37,7 +37,6 @@ export default function SuppAndTicket() {
   }, []);
 
   return (
-    <div className="h-screen">
       <Card className="h-auto w-full px-6 shadow-lg">
               <CardHeader className="rounded-none" floated={false} shadow={false}>
                 <div className="flex justify-between">
@@ -115,7 +114,7 @@ export default function SuppAndTicket() {
                                     ? "bg-blue-200 text-blue-800"
                                     : ticket.status === "In Progress"
                                     ? "bg-yellow-200 text-orange-600"
-                                    : "bg-green-200 text-green-600"
+                                    : "bg-lime-200 text-lime-700"
                                 }`}
                               >
                                 {ticket.status}
@@ -148,14 +147,13 @@ export default function SuppAndTicket() {
                   </Button>
                 </div>
               </CardFooter>
+              {selectedTicket && (
+                <AdminEmpTicketModal
+                  ticket={selectedTicket}
+                  isOpen={!!selectedTicket}
+                  onClose={() => setSelectedTicket(null)}
+                />
+              )}
             </Card>
-      {selectedTicket && (
-        <AdminEmpTicketModal
-          ticket={selectedTicket}
-          isOpen={!!selectedTicket}
-          onClose={() => setSelectedTicket(null)}
-        />
-      )}
-    </div>
   );
 }
