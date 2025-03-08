@@ -81,7 +81,7 @@ export default function CertForAttendees() {
           </section>
         </div>
       </CardHeader>
-      <CardBody className="overflow-y-scroll scrollbar">
+      <CardBody className="overflow-y-auto scrollbar">
         <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
@@ -187,10 +187,10 @@ export default function CertForAttendees() {
           Page 1 of 1
         </Typography>
         <div className="flex gap-2">
-          <Button variant="outlined" size="sm" className="text-blue-800">
+          <Button variant="outlined" size="sm" className="">
             Previous
           </Button>
-          <Button variant="outlined" size="sm" className="text-blue-800">
+          <Button variant="outlined" size="sm" className="">
             Next
           </Button>
         </div>

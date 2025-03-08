@@ -4,117 +4,136 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  Checkbox,
-  Menu,
-  MenuHandler,
-  MenuItem,
-  MenuList,
   Typography,
 } from "@material-tailwind/react";
-import { TbDots, TbSearch } from "react-icons/tb";
+import { TbSearch } from "react-icons/tb";
+import {
+  confirmInspection,
+  getPendingFinalCertUsers,
+} from "../../../../api/ApplicationApi";
+import { useEffect, useState } from "react";
 
-const TABLE_HEAD = [
-  "Business Name",
-  "Applicant Name",
-  "Email",
-  "Status",
-  "Action",
-];
+const TABLE_HEAD = ["ID", "Business Name", "Action"];
 
-export default function InspectAndFinalCert() {
+export default function IsnpectionAndFinalCert() {
+  const [webinarAttendees, setWebinarAttendees] = useState([]);
+
+  useEffect(() => {
+    const fetchPendingFinalCertUsers = async () => {
+      try {
+        const user = JSON.parse(localStorage.getItem("user"));
+        const token = user?.token;
+
+        if (!token) {
+          console.error("Token not found.");
+          return;
+        }
+        const data = await getPendingFinalCertUsers(token);
+        setWebinarAttendees(data);
+      } catch (error) {
+        console.error("Error fetching pending webinar users:", error);
+      }
+    };
+
+    fetchPendingFinalCertUsers();
+  }, []);
+
+  const handleCofirmInspection = async (applicationId) => {
+    try {
+      const response = await confirmInspection(applicationId);
+      setWebinarAttendees((prev) =>
+        prev.filter((attendee) => attendee._id !== applicationId)
+      );
+      console.log(response.message); // Show success message
+    } catch (err) {
+      console.log("Error generating certificate", err);
+    }
+  };
+
   return (
-    <div className="h-screen">
-      <Card className="h-[36rem] w-full px-6 shadow-lg">
-        <CardHeader
-          className="rounded-none h-44"
-          floated={false}
-          shadow={false}
-        >
-          <div className=" flex justify-between items-start">
-            <section>
-              <Typography variant="h2" className="text-blue-800 font-extrabold">
-                Inspection & Final Certificate
-              </Typography>
-              <p className="w-96 text-sm leading-[120%] pt-2 font-semibold text-gray-600 tracking-tight">
-                This is the list of Cenro Clients that is in inspection stage,
-                the last stage to get the final certificate.
-              </p>
-            </section>
-            <section className="flex items-center">
-              <input
-                className="pl-3 h-12 border-gray-500 rounded-lg"
-                type="search"
-                name="certSearch"
-                id="certSearch"
-                placeholder="Search..."
-              />
-              <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
-                <TbSearch />
-              </Button>
-            </section>
-          </div>
-        </CardHeader>
-        <br />
-        <CardBody className="overflow-y-auto scrollbar">
-          <table className="w-full min-w-max table-auto text-left">
-            <thead>
-              <tr>
-                {TABLE_HEAD.map(({ head, icon }) => (
-                  <th
-                    key={head}
-                    className="border-b border-gray-300 pb-4 pt-10"
-                  >
+    <Card className="max-h-[34rem] w-full px-6 shadow-lg">
+      <CardHeader
+        className="rounded-none flex-shrink-0"
+        floated={false}
+        shadow={false}
+      >
+        <div className=" flex justify-between items-start">
+          <section>
+            <Typography variant="h2" className="text-blue-800 font-extrabold">
+              Generate Certificates
+            </Typography>
+            <p className="w-72 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
+              This is the list of Cenro Clients that should attended the
+              Webinar.
+            </p>
+          </section>
+          <section className="flex items-center">
+            <input
+              className="pl-3 h-12 border-gray-500 rounded-lg"
+              type="search"
+              name="certSearch"
+              id="certSearch"
+              placeholder="Search..."
+            />
+            <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
+              <TbSearch />
+            </Button>
+          </section>
+        </div>
+      </CardHeader>
+      <CardBody className="overflow-y-auto scrollbar">
+        <table className="w-full min-w-max table-auto text-left">
+          <thead>
+            <tr>
+              {TABLE_HEAD.map((head) => (
+                <th key={head} className="border-b border-gray-300 pb-4 pt-10">
+                  <div className="flex items-center">
+                    <Typography
+                      variant="small"
+                      className="text-gray-800 font-extrabold leading-none"
+                    >
+                      {head}
+                    </Typography>
+                  </div>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {webinarAttendees.map(({ _id, businessName }) => {
+              const isLast = _id === webinarAttendees.length - 1;
+              const classes = isLast ? "py-4" : "py-4 border-b border-gray-300";
+
+              return (
+                <tr key={_id} className="hover:bg-gray-50">
+                  <td className={classes}>
                     <div className="flex items-center">
-                      {icon}
+                      {/* <Checkbox /> */}
                       <Typography
                         variant="small"
-                        className="text-gray-800 font-extrabold leading-none"
+                        className="font-bold text-gray-600"
                       >
-                        {head}
+                        {_id}
                       </Typography>
                     </div>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {TABLE_ROWS.map(
-                ({ firstname, middlename, lastname, status, id }) => {
-                  const isLast = id === TABLE_ROWS.length - 1;
-                  const classes = isLast
-                    ? "py-4"
-                    : "py-4 border-b border-gray-300";
-
-                  return (
-                    <tr key={id} className="hover:bg-gray-50">
-                      <td className={classes}>
-                        <div className="flex items-center">
-                          <Checkbox />
-                          <Typography
-                            variant="small"
-                            className="font-bold text-gray-600"
-                          >
-                            {firstname}
-                          </Typography>
-                        </div>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          className="font-normal text-gray-600"
-                        >
-                          {middlename}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
+                  </td>
+                  <td className={classes}>
+                    <Typography
+                      variant="small"
+                      className="font-normal text-gray-600"
+                    >
+                      {businessName}
+                    </Typography>
+                  </td>
+                  {/* <td className={classes}>
                         <Typography
                           variant="small"
                           className="font-normal text-gray-600"
                         >
                           {lastname}
                         </Typography>
-                      </td>
-                      <td className={classes}>
+                      </td> */}
+                  {/* <td className={classes}>
                         <div className="w-max">
                           <span
                             className={`px-3 py-2 font-extrabold uppercase text-xs rounded-lg ${
@@ -128,9 +147,12 @@ export default function InspectAndFinalCert() {
                             {status}
                           </span>
                         </div>
-                      </td>
-                      <td className="border-b border-gray-300">
-                        <div className="flex gap-4">
+                      </td> */}
+                  <td className="border-b border-gray-300">
+                    <Button onClick={() => handleCofirmInspection(_id)}>
+                      Generate Certificate Now
+                    </Button>
+                    {/* <div className="flex gap-4">
                           <Menu>
                             <MenuHandler>
                               <Button
@@ -152,29 +174,27 @@ export default function InspectAndFinalCert() {
                               </MenuItem>
                             </MenuList>
                           </Menu>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                }
-              )}
-            </tbody>
-          </table>
-        </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <Typography variant="small" color="blue-gray" className="font-normal">
-            Page 1 of 1
-          </Typography>
-          <div className="flex gap-2">
-            <Button variant="outlined" size="sm" className="text-blue-800">
-              Previous
-            </Button>
-            <Button variant="outlined" size="sm" className="text-blue-800">
-              Next
-            </Button>
-          </div>
-        </CardFooter>
-      </Card>
-    </div>
+                        </div> */}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </CardBody>
+      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+        <Typography variant="small" color="blue-gray" className="font-normal">
+          Page 1 of 1
+        </Typography>
+        <div className="flex gap-2">
+          <Button variant="outlined" size="sm" className="">
+            Previous
+          </Button>
+          <Button variant="outlined" size="sm" className="">
+            Next
+          </Button>
+        </div>
+      </CardFooter>
+    </Card>
   );
 }

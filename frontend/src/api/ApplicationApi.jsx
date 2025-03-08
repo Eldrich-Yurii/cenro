@@ -92,12 +92,12 @@ export const getPendingWebinarUsers = async (token) => {
 
 export const getPendingFinalCertUsers = async (token) => {
   try {
-    const response = await axios.get(`${API}/pending-webinar-users`, {
+    const response = await axios.get(`${API}/pending-final-certificate-users`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
   } catch (err) {
-    throw err.response?.data.message || "Failed to fetch pending webinar users";
+    throw err.response?.data.message || "Failed to fetch pending final cert users";
   }
 };
 
