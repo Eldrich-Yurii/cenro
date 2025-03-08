@@ -77,7 +77,7 @@ export const generateFinalCert = async (applicationId) => {
 
     // Generate PDF File Name
     const pdfName = `${application.userId}-${formattedDate}-${safeBusinessName}-Final-Certificate.pdf`;
-    const pdfDir = path.resolve("uploads", "certOfEnvComp");
+    const pdfDir = path.join("uploads", "certOfEnvComp");
     const finalCertPath = path.join(pdfDir, pdfName);
 
     // Ensure the directory exists

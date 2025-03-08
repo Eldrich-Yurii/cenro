@@ -70,9 +70,8 @@ export default function MyApplication() {
 };
 
   return (
-    <div className="h-screen">
-      <Card className="flex flex-col h-[32rem] w-full px-6 shadow-lg">
-        <CardHeader className="h-auto flex-shrink-0 rounded-none" floated={false} shadow={false}>
+      <Card className="max-h-[34rem] w-full px-6 shadow-lg">
+        <CardHeader className="flex-shrink-0 rounded-none" floated={false} shadow={false}>
           <div className=" flex justify-between">
             <section>
               <Typography
@@ -216,6 +215,5 @@ export default function MyApplication() {
           </div>
         </CardFooter>
       </Card>
-    </div>
   );
 }

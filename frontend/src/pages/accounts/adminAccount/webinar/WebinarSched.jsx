@@ -6,11 +6,10 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
-import { TbEdit, TbSearch, TbTrash } from "react-icons/tb";
+import { TbEdit, TbTrash } from "react-icons/tb";
 import WebSchedModal from "../../../../components/modal/WebSchedModal";
 import { getAllWebinar } from "../../../../api/webinarApi";
 import { useEffect, useState } from "react";
-
 
 const TABLE_HEAD = [
   "Webinar Title",
@@ -37,11 +36,10 @@ const TABLE_HEAD = [
 //   },
 // ];
 
- export default function WebinarSched() {
-  
- const [webinars, setWebinars] = useState([]);
+export default function WebinarSched() {
+  const [webinars, setWebinars] = useState([]);
 
-useEffect(() => {
+  useEffect(() => {
     const fetchAllWebinars = async () => {
       try {
         const data = await getAllWebinar();
@@ -54,21 +52,27 @@ useEffect(() => {
   }, []);
 
   return (
-    <div className="h-screen">
-      <Card className="h-[36rem] flex flex-col w-full px-2 shadow-lg">
-        <CardHeader className="h-auto flex-shrink-0" floated={false} shadow={false}>
-          <div className=" flex justify-between items-start">
+    
+      <Card className="h-[34rem] flex flex-col w-full p-4 shadow-lg">
+        <CardHeader className="rounded-none flex-shrink-0" floated={false} shadow={false}>
+          <div className="flex justify-between items-start">
             <section>
-              <Typography variant="h2" className="text-blue-800 font-extrabold font-inter">
+              <Typography
+                variant="h2"
+                className="text-blue-800 font-extrabold font-inter"
+              >
                 Webinar Schedule
               </Typography>
-              <p className="w-48 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-                This is the list of webinar schedules.
+              <p className="w-56 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
+                This is the table where you can list the webinar schedules.
               </p>
             </section>
+            {/* <section className="flex items-center">
+              <WebSchedModal />
+            </section> */}
           </div>
           <div className="w-full flex justify-between pt-2 pb-3">
-          <section className="flex items-center">
+            <section className="flex items-center">
               <WebSchedModal />
             </section>
             <section className="flex items-center">
@@ -79,14 +83,13 @@ useEffect(() => {
                 id="empSearch"
                 placeholder="Search..."
               />
-              <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
+              {/* <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
                 <TbSearch />
-              </Button>
+              </Button> */}
             </section>
           </div>
         </CardHeader>
-        <br />
-        <CardBody className="overflow-y-scroll scrollbar">
+        <CardBody className="bg-yellow-200 overflow-y-auto scrollbar">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
@@ -107,7 +110,7 @@ useEffect(() => {
             </thead>
             <tbody>
               {webinars.map(
-                ({ _id, formType, dateTime, webinarLink, status, }) => {
+                ({ _id, formType, dateTime, webinarLink, status }) => {
                   const isLast = _id === webinars.length - 1;
                   const classes = isLast
                     ? "py-4"
@@ -128,7 +131,8 @@ useEffect(() => {
                           variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {dateTime}
+                          {dateTime.split("T")[0]}
+                          {dateTime.split("T")[1].split(".")[0]}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -136,7 +140,7 @@ useEffect(() => {
                           variant="small"
                           className="font-bold text-gray-600"
                         >
-                         <a
+                          <a
                             href={webinarLink}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -163,10 +167,16 @@ useEffect(() => {
                       </td>
                       <td className="border-b border-gray-300">
                         <div className="flex gap-4">
-                          <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white">
+                          <Button
+                            variant="outlined"
+                            className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white"
+                          >
                             <TbEdit />
                           </Button>
-                          <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800  hover:bg-blue-800 hover:text-white">
+                          <Button
+                            variant="outlined"
+                            className="px-2 py-2 border-blue-800 text-blue-800  hover:bg-blue-800 hover:text-white"
+                          >
                             <TbTrash />
                           </Button>
                         </div>
@@ -178,20 +188,19 @@ useEffect(() => {
             </tbody>
           </table>
         </CardBody>
-        <CardFooter className="h-auto flex items-center justify-between border-t border-blue-gray-50 p-4">
+        <CardFooter className="h-auto bg-pink-200 flex items-center justify-between border-t border-blue-gray-50 p-4">
           <Typography variant="small" color="blue-gray" className="font-normal">
             Page 1 of 1
           </Typography>
           <div className="flex gap-2">
-            <Button variant="outlined" size="sm" className="text-blue-800">
+            <Button variant="outlined" size="sm" className="">
               Previous
             </Button>
-            <Button variant="outlined" size="sm" className="text-blue-800">
+            <Button variant="outlined" size="sm" className="">
               Next
             </Button>
           </div>
         </CardFooter>
       </Card>
-    </div>
   );
 }

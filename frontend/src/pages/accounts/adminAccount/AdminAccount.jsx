@@ -11,7 +11,7 @@ export default function AdminAccount() {
   return (
     <div className="z-20 flex bg-gray-200 font-inter">
       <AdminSideBar />
-      <div className="flex-1 px-6 py-4">
+      <div className="flex-1 p-6 h-screen">
         <Outlet />
       </div>
     </div>

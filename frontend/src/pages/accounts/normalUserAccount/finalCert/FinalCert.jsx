@@ -6,45 +6,75 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
-import { TbEdit, TbSearch, TbTrash } from "react-icons/tb";
+import { TbSearch } from "react-icons/tb";
+import {
+  getUserApplication,
+  viewFinalCertificate,
+} from "../../../../api/ApplicationApi";
+import { useEffect, useState } from "react";
+import { IoClose } from "react-icons/io5";
 
-const TABLE_HEAD = [
-  "Webinar Title",
-  "Date and Time",
-  "Webinar Link",
-  "Status",
-  "Actions",
-];
-
-const TABLE_ROWS = [
-  {
-    id: "1",
-    title: "New Business Application",
-    datetime: "Feb 26, 2025 - 10:30 AM",
-    link: "ZOOMLINK",
-    status: "pending",
-  },
-  {
-    id: "2",
-    title: "Renewal of Business Certificate",
-    datetime: "Feb 26, 2025 - 10:30 AM",
-    link: "ZOOMLINK",
-    status: "ongoing",
-  },
-];
+const TABLE_HEAD = ["Business Name", "Certificate", "Actions"];
 
 export default function FinalCert() {
+  const [applications, setApplications] = useState([]);
+  const [fileUrl, setFileUrl] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [selectedTicket, setSelectedTicket] = useState(null);
+
+  useEffect(() => {
+    const fetchTickets = async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      const token = user?.token;
+
+      if (!token) {
+        console.error("Token not found.");
+        return;
+      }
+
+      try {
+        const data = await getUserApplication(token);
+        setApplications(data);
+      } catch (err) {
+        console.log("Error:", err);
+      }
+    };
+    fetchTickets();
+  }, []);
+
+  const handleViewFinalCert = async (applicationId) => {
+    try {
+      const fileData = await viewFinalCertificate(applicationId);
+
+      // create a blob URL for the file
+      const blob = new Blob([fileData], { type: "application/pdf" });
+      const blobUrl = URL.createObjectURL(blob);
+
+      setFileUrl(blobUrl);
+      setIsModalOpen(true);
+    } catch (err) {
+      console.log("Error fetching file", err);
+    }
+  };
   return (
     <div className="h-screen">
-      <Card className="h-[32rem] w-full px-3 pt-3 shadow-lg">
-        <CardHeader floated={false} shadow={false}>
+      <Card className="h-[34rem] w-full px-3 pt-3 shadow-lg">
+        <CardHeader
+          className="rounded-none flex-shrink-0"
+          floated={false}
+          shadow={false}
+        >
           <div className=" flex justify-between items-start">
             <section>
-              <Typography variant="h2" className="text-blue-800 font-extrabold font-inter">
+              <Typography
+                variant="h2"
+                className="text-blue-800 font-extrabold font-inter"
+              >
                 Inspection & Final Certificate
               </Typography>
               <p className="w-72 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-                This where you will get your final certificate after the inspection.
+                This where you will get your final certificate after the
+                inspection.
               </p>
             </section>
             <section className="flex items-center">
@@ -55,14 +85,10 @@ export default function FinalCert() {
                 id="empSearch"
                 placeholder="Search..."
               />
-              <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
-                <TbSearch />
-              </Button>
             </section>
           </div>
         </CardHeader>
-        <br />
-        <CardBody>
+        <CardBody className="overflow-y-auto scrollbar">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
@@ -82,63 +108,42 @@ export default function FinalCert() {
               </tr>
             </thead>
             <tbody>
-              {TABLE_ROWS.map(
-                ({ title, datetime, link, status, id }) => {
-                  const isLast = id === TABLE_ROWS.length - 1;
+              {applications.map(
+                ({ _id, businessName, businessCertificatePath }) => {
+                  const isLast = _id === applications.length - 1;
                   const classes = isLast
                     ? "py-4"
                     : "py-4 border-b border-gray-300";
 
                   return (
-                    <tr key={id} className="hover:bg-gray-50">
+                    <tr key={_id} className="hover:bg-gray-50">
                       <td className={classes}>
                         <Typography
                           variant="small"
                           className="font-bold text-gray-600"
                         >
-                          {title}
+                          {businessName}
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <Typography
-                          variant="small"
-                          className="font-normal text-gray-600"
-                        >
-                          {datetime}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          className="font-normal text-gray-600"
-                        >
-                          {link}
-                        </Typography>
-                      </td>
-                      <td className={classes}>
-                        <div className="w-max">
-                          <span
-                            className={`px-3 py-2 font-extrabold uppercase text-xs rounded-lg ${
-                              status === "ongoing"
-                                ? "bg-lime-200 text-lime-800"
-                                : status === "pending"
-                                ? "bg-yellow-200 text-orange-600"
-                                : "bg-red-200 text-red-600"
-                            }`}
+                        <div className="truncate w-32">
+                          <Typography
+                            variant="small"
+                            className="font-normal text-gray-600"
                           >
-                            {status}
-                          </span>
+                            {businessCertificatePath
+                              ? "Certficate Ready"
+                              : "No Certificate Yet"}
+                          </Typography>
                         </div>
                       </td>
                       <td className="border-b border-gray-300">
-                        <div className="flex gap-4">
-                          <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white">
-                            <TbEdit />
-                          </Button>
-                          <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800  hover:bg-blue-800 hover:text-white">
-                            <TbTrash />
-                          </Button>
-                        </div>
+                        <button
+                          onClick={() => handleViewFinalCert(_id)}
+                          className="border-blue-800 border text-blue-800 p-2 rounded-lg"
+                        >
+                          <TbSearch />
+                        </button>
                       </td>
                     </tr>
                   );
@@ -146,16 +151,43 @@ export default function FinalCert() {
               )}
             </tbody>
           </table>
+          {isModalOpen && (
+            <div className="z-20 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="bg-white p-5 rounded-lg shadow-lg w-[80%] h-[80%] flex flex-col">
+                <div className="flex justify-between">
+                  <h2 className="text-xl font-bold mb-2">
+                    Certificate of Attendance
+                  </h2>
+                  <button
+                    onClick={() => setIsModalOpen(false)}
+                    className="text-2xl"
+                  >
+                    <IoClose />
+                  </button>
+                </div>
+                <iframe src={fileUrl} className="w-full h-full border" />
+                <div className="flex justify-end mt-4">
+                  <a
+                    href={fileUrl}
+                    download="assessment_certificate.pdf"
+                    className="bg-green-500 text-white px-4 py-2 rounded mr-2"
+                  >
+                    Download
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
         </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-6">
           <Typography variant="small" color="blue-gray" className="font-normal">
             Page 1 of 1
           </Typography>
           <div className="flex gap-2">
-            <Button variant="outlined" size="sm" className="text-blue-800">
+            <Button variant="outlined" size="sm" className="">
               Previous
             </Button>
-            <Button variant="outlined" size="sm" className="text-blue-800">
+            <Button variant="outlined" size="sm" className="">
               Next
             </Button>
           </div>

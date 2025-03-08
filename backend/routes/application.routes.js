@@ -13,6 +13,7 @@ import { viewCertOfAttendance } from "../controllers/viewCertOfAttendance.contro
 import { getPendingAttendanceCert } from "../controllers/getPendingAttendanceCert.controller.js";
 import { createFinalCert } from "../controllers/createFinalCert.controller.js";
 import { verifyCert } from "../controllers/verifyCert.controller.js";
+import { viewFinalCert } from "../controllers/viewFinalCert.controller.js";
 
 
 
@@ -36,14 +37,14 @@ router.get("/get-application", getAllApplication);
 // Get application that is initially approved
 router.get("/pending-webinar-users", verifyToken, verifyRoles("admin"), getPendingAttendanceCert)
 
-// router.get("/download/:filename", downloadPdf);
-
-
 // View assessment certificate
 router.get("/view-assessment-file/:applicationId", viewAssessmentCert)
 
 // View certificate of attendance
 router.get("/view-certificate-of-attendance/:applicationId", viewCertOfAttendance)
+
+// View Final certificate
+router.get("/view-final-certificate/:applicationId", viewFinalCert)
 
 //upload file 
 router.post("/upload-assessment/:applicationId", upload.single("assessmentCert"), uploadAssessmentCert);

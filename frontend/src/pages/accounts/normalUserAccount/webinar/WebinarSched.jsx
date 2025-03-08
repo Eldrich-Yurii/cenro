@@ -34,10 +34,22 @@ export default function WebSched() {
     fetchWebinar();
   }, []);
 
+  const formatDateTime = (isoString) => {
+    const date = new Date(isoString);
+  
+    return date.toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
+  };
+
   return (
-    <div className="h-screen">
-      <Card className="h-[32rem] flex flex-col w-full px-3 pt-3 shadow-lg">
-        <CardHeader className= "flex-shrink-0" floated={false} shadow={false}>
+      <Card className="max-h-[34rem] w-full px-3 pt-3 shadow-lg">
+        <CardHeader className= "flex-shrink-0 rounded-none bg-pink-100" floated={false} shadow={false}>
           <div className=" flex justify-between items-start">
             <section>
               <Typography
@@ -65,7 +77,7 @@ export default function WebSched() {
           </div>
         </CardHeader>
         <br />
-        <CardBody className="overflow-y-scroll">
+        <CardBody className="overflow-y-auto">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
@@ -107,7 +119,8 @@ export default function WebSched() {
                           variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {dateTime.split("T")[0]}&nbsp;|&nbsp;{dateTime.split("T")[1].split(".")[0]}
+                          {formatDateTime(dateTime)}
+                          {/* {dateTime.split("T")[0]}&nbsp;|&nbsp;{dateTime.split("T")[1].split(".")[0]} */}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -177,6 +190,5 @@ export default function WebSched() {
           </div>
         </CardFooter>
       </Card>
-    </div>
   );
 }

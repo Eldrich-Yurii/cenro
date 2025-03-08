@@ -35,7 +35,7 @@ export default function NormalUserSidebar() {
   };
  
   return (
-    <Card className="h-auto w-full max-w-[20rem] p-4 shadow-2xl shadow-blue-gray-900/5">
+    <Card className="h-auto w-full max-w-[20rem] p-4 shadow-2xl shadow-blue-gray-900/5 rounded-none">
       <div className="mb-2 p-4">
         <Typography className="pt-2 font-black inline-flex items-center gap-2 text-red-800" variant="h2">
           <img src={Logo} alt="" width={50}/>
@@ -143,7 +143,7 @@ export default function NormalUserSidebar() {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to="/user-account/support-ticket">&nbsp;Tickets (Chat Support)</Link>
+                <Link to="/user-account/support-ticket">&nbsp;Chat Support</Link>
               </ListItem>
             </List>
           </AccordionBody>

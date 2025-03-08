@@ -63,6 +63,21 @@ export const viewCertificateOfAttendance = async (applicationId) => {
     console.log("Error retrieving file", err);
   }
 };
+export const viewFinalCertificate = async (applicationId) => {
+  try {
+    const response = await axios.get(
+      `${API}/view-final-certificate/${applicationId}`,
+      {
+        responseType: "blob",
+      }
+    );
+
+    console.log(response)
+    return response.data;
+  } catch (err) {
+    console.log("Error retrieving file", err);
+  }
+};
 
 export const getPendingWebinarUsers = async (token) => {
   try {

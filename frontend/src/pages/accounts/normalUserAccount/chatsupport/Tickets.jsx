@@ -38,8 +38,7 @@ export default function Ticket() {
   }, []);
 
   return (
-    <div className="h-screen bg-lime-300">
-      <Card className="h-[32rem] w-full px-6 shadow-lg">
+      <Card className="max-h-[34rem] w-full px-6 shadow-lg">
         <CardHeader className="rounded-none h-full" floated={false} shadow={false}>
           <div className=" flex justify-between">
             <section>
@@ -58,7 +57,6 @@ export default function Ticket() {
             </section>
           </div>
         </CardHeader>
-        <br />
         <CardBody>
           <table className="w-full min-w-max table-auto text-left">
             <thead>
@@ -148,27 +146,26 @@ export default function Ticket() {
             </tbody>
           </table>
         </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-6">
           <Typography variant="small" color="blue-gray" className="font-normal">
             Page 1 of 1
           </Typography>
           <div className="flex gap-2">
-            <Button variant="outlined" size="sm" className="text-blue-800">
+            <Button variant="outlined" size="sm" className="">
               Previous
             </Button>
-            <Button variant="outlined" size="sm" className="text-blue-800">
+            <Button variant="outlined" size="sm" className="">
               Next
             </Button>
           </div>
         </CardFooter>
+        {selectedTicket && (
+          <UserTicketModal
+            ticket={selectedTicket}
+            isOpen={!!selectedTicket}
+            onClose={() => setSelectedTicket(null)}
+          />
+        )}
       </Card>
-      {selectedTicket && (
-        <UserTicketModal
-          ticket={selectedTicket}
-          isOpen={!!selectedTicket}
-          onClose={() => setSelectedTicket(null)}
-        />
-      )}
-    </div>
   );
 }

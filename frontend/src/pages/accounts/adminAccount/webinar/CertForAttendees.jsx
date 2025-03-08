@@ -4,38 +4,16 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
-  Checkbox,
-  Menu,
-  MenuHandler,
-  MenuItem,
-  MenuList,
   Typography,
 } from "@material-tailwind/react";
-import { TbDots, TbSearch } from "react-icons/tb";
+import { TbSearch } from "react-icons/tb";
 import {
   confirmAttendance,
   getPendingWebinarUsers,
 } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
 
-const TABLE_HEAD = [
-  {
-    head: "ID",
-    // icon: <Checkbox />,
-  },
-  {
-    head: "Business Name",
-  },
-  // {
-  //   head: "Email",
-  // },
-  // {
-  //   head: "Status",
-  // },
-  {
-    head: "Action",
-  },
-];
+const TABLE_HEAD = ["ID", "Business Name", "Action"];
 
 export default function CertForAttendees() {
   const [webinarAttendees, setWebinarAttendees] = useState([]);
@@ -70,8 +48,8 @@ export default function CertForAttendees() {
       //   if (!token) {
       //     console.log("Token not found.");
       //     return;
-      //   }      
-      
+      //   }
+
       const response = await confirmAttendance(applicationId);
       setWebinarAttendees((prev) =>
         prev.filter((attendee) => attendee._id !== applicationId)
@@ -83,86 +61,81 @@ export default function CertForAttendees() {
   };
 
   return (
-    <div className="h-screen">
-      <Card className="h-[34rem] w-full px-6 shadow-lg">
-        <CardHeader className="h-56" floated={false} shadow={false}>
-          <div className=" flex justify-between items-start">
-            <section>
-              <Typography variant="h2" className="text-blue-800 font-extrabold">
-                Generate Certificates
-              </Typography>
-              <p className="w-72 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-                This is the list of Cenro Clients that should attended the
-                Webinar.
-              </p>
-            </section>
-            <section className="flex items-center">
-              <input
-                className="pl-3 h-12 border-gray-500 rounded-lg"
-                type="search"
-                name="certSearch"
-                id="certSearch"
-                placeholder="Search..."
-              />
-              <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
-                <TbSearch />
-              </Button>
-            </section>
-          </div>
-        </CardHeader>
-        <br />
-        <CardBody className="overflow-y-scroll scrollbar">
-          <table className="w-full min-w-max table-auto text-left">
-            <thead>
-              <tr>
-                {TABLE_HEAD.map(({ head, icon }) => (
-                  <th
-                    key={head}
-                    className="border-b border-gray-300 pb-4 pt-10"
-                  >
+    <Card className="max-h-[34rem] w-full px-6 shadow-lg">
+      <CardHeader
+        className="rounded-none flex-shrink-0"
+        floated={false}
+        shadow={false}
+      >
+        <div className=" flex justify-between items-start">
+          <section>
+            <Typography variant="h2" className="text-blue-800 font-extrabold">
+              Generate Certificates
+            </Typography>
+            <p className="w-72 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
+              This is the list of Cenro Clients that should attended the
+              Webinar.
+            </p>
+          </section>
+          <section className="flex items-center">
+            <input
+              className="pl-3 h-12 border-gray-500 rounded-lg"
+              type="search"
+              name="certSearch"
+              id="certSearch"
+              placeholder="Search..."
+            />
+            <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
+              <TbSearch />
+            </Button>
+          </section>
+        </div>
+      </CardHeader>
+      <CardBody className="overflow-y-scroll scrollbar">
+        <table className="w-full min-w-max table-auto text-left">
+          <thead>
+            <tr>
+              {TABLE_HEAD.map((head) => (
+                <th key={head} className="border-b border-gray-300 pb-4 pt-10">
+                  <div className="flex items-center">
+                    <Typography
+                      variant="small"
+                      className="text-gray-800 font-extrabold leading-none"
+                    >
+                      {head}
+                    </Typography>
+                  </div>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {webinarAttendees.map(({ _id, businessName }) => {
+              const isLast = _id === webinarAttendees.length - 1;
+              const classes = isLast ? "py-4" : "py-4 border-b border-gray-300";
+
+              return (
+                <tr key={_id} className="hover:bg-gray-50">
+                  <td className={classes}>
                     <div className="flex items-center">
-                      {icon}
+                      {/* <Checkbox /> */}
                       <Typography
                         variant="small"
-                        className="text-gray-800 font-extrabold leading-none"
+                        className="font-bold text-gray-600"
                       >
-                        {head}
+                        {_id}
                       </Typography>
                     </div>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {webinarAttendees.map(
-                ({ _id, businessName }) => {
-                  const isLast = _id === webinarAttendees.length - 1;
-                  const classes = isLast
-                    ? "py-4"
-                    : "py-4 border-b border-gray-300";
-
-                  return (
-                    <tr key={_id} className="hover:bg-gray-50">
-                      <td className={classes}>
-                        <div className="flex items-center">
-                          {/* <Checkbox /> */}
-                          <Typography
-                            variant="small"
-                            className="font-bold text-gray-600"
-                          >
-                            {_id}
-                          </Typography>
-                        </div>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          className="font-normal text-gray-600"
-                        >
-                          {businessName}
-                        </Typography>
-                      </td>
-                      {/* <td className={classes}>
+                  </td>
+                  <td className={classes}>
+                    <Typography
+                      variant="small"
+                      className="font-normal text-gray-600"
+                    >
+                      {businessName}
+                    </Typography>
+                  </td>
+                  {/* <td className={classes}>
                         <Typography
                           variant="small"
                           className="font-normal text-gray-600"
@@ -170,7 +143,7 @@ export default function CertForAttendees() {
                           {lastname}
                         </Typography>
                       </td> */}
-                      {/* <td className={classes}>
+                  {/* <td className={classes}>
                         <div className="w-max">
                           <span
                             className={`px-3 py-2 font-extrabold uppercase text-xs rounded-lg ${
@@ -185,11 +158,11 @@ export default function CertForAttendees() {
                           </span>
                         </div>
                       </td> */}
-                      <td className="border-b border-gray-300">
-                        <Button onClick={() => handleConfirmAttendance(_id)}>
-                          Confirm Attendance
-                        </Button>
-                        {/* <div className="flex gap-4">
+                  <td className="border-b border-gray-300">
+                    <Button onClick={() => handleConfirmAttendance(_id)}>
+                      Confirm Attendance
+                    </Button>
+                    {/* <div className="flex gap-4">
                           <Menu>
                             <MenuHandler>
                               <Button
@@ -212,28 +185,26 @@ export default function CertForAttendees() {
                             </MenuList>
                           </Menu>
                         </div> */}
-                      </td>
-                    </tr>
-                  );
-                }
-              )}
-            </tbody>
-          </table>
-        </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <Typography variant="small" color="blue-gray" className="font-normal">
-            Page 1 of 1
-          </Typography>
-          <div className="flex gap-2">
-            <Button variant="outlined" size="sm" className="text-blue-800">
-              Previous
-            </Button>
-            <Button variant="outlined" size="sm" className="text-blue-800">
-              Next
-            </Button>
-          </div>
-        </CardFooter>
-      </Card>
-    </div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </CardBody>
+      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+        <Typography variant="small" color="blue-gray" className="font-normal">
+          Page 1 of 1
+        </Typography>
+        <div className="flex gap-2">
+          <Button variant="outlined" size="sm" className="text-blue-800">
+            Previous
+          </Button>
+          <Button variant="outlined" size="sm" className="text-blue-800">
+            Next
+          </Button>
+        </div>
+      </CardFooter>
+    </Card>
   );
 }
