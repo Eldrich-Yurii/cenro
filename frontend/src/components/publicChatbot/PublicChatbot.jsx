@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getFaqs } from "../../api/ChatbotApi";
 import {TbMessage, TbSend } from "react-icons/tb"
 import "./FloatChatbot.css";
+import Fuse from "fuse.js";
 
 export default function PublicChatbot() {
   const [faqs, setFaqs] = useState([]);
@@ -9,6 +10,14 @@ export default function PublicChatbot() {
   const [userInput, setUserInput] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const chatMessagesRef = useRef(null); // Create a ref
+
+  useEffect(() => {
+    if (chatMessagesRef.current) {
+        chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+    }
+}, [chatHistory]);
 
   useEffect(() => {
     if (isOpen) {
@@ -17,7 +26,18 @@ export default function PublicChatbot() {
     }
   }, [isOpen]);
 
+  
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !isSending) {
+        e.preventDefault(); 
+        handleSendMessage();
+    }
+};
+
   const handleQuestionClick = (faq) => {
+    if (isSending) return; // Prevent sending if already sending.
+    setIsSending(true);
     setChatHistory((prev) => [
       ...prev,
       { type: "user", message: faq.question },
@@ -33,6 +53,7 @@ export default function PublicChatbot() {
         }; // Replace "Typing..." with the answer
         return updatedChat;
       });
+      setIsSending(false);
     }, 1500); // Delay for 1.5 seconds
 
     setUserInput("");
@@ -44,42 +65,55 @@ export default function PublicChatbot() {
     setUserInput(input);
 
     if (input.length > 0) {
-      const filteredSuggestions = faqs.filter((faq) =>
-        faq.question.toLowerCase().includes(input.toLowerCase())
-      );
-      setSuggestions(filteredSuggestions);
+        const fuse = new Fuse(faqs, { keys: ["question"] });
+        const results = fuse.search(input);
+        const filteredSuggestions = results.map((result) => result.item);
+        setSuggestions(filteredSuggestions);
     } else {
-      setSuggestions([]);
+        setSuggestions([]);
     }
-  };
+};
 
   const handleSendMessage = () => {
-    const matchedFaq = faqs.find(
-      (faq) => faq.question.toLowerCase() === userInput.toLowerCase()
-    );
+    if (isSending) return; // Prevent sending if already sending.
+    setIsSending(true);
+    const fuse = new Fuse(faqs, { 
+      keys: ["question"], 
+      threshold: 0.5, 
+      distance: 100,
+      includeScore: true, });
+    const results = fuse.search(userInput);
+
+    let response;
+    if (results.length > 0) {
+        
+        response = results[0].item.answer;
+    } else {
+        response = "Sorry, I'm still learning with that.";
+    }
 
     setChatHistory((prev) => [
-      ...prev,
-      { type: "user", message: userInput },
-      { type: "bot", message: "Typing..." }, // Show "Typing..." first
+        ...prev,
+        { type: "user", message: userInput },
+        { type: "bot", message: "Typing..." },
     ]);
 
     setTimeout(() => {
-      setChatHistory((prev) => {
-        const updatedChat = [...prev];
-        updatedChat[updatedChat.length - 1] = {
-          type: "bot",
-          message: matchedFaq
-            ? matchedFaq.answer
-            : "Sorry, I don't have an answer for that yet.",
-        };
-        return updatedChat;
-      });
-    }, 1500); // Delay for 1.5 seconds
+        setChatHistory((prev) => {
+            const updatedChat = [...prev];
+            updatedChat[updatedChat.length - 1] = {
+                type: "bot",
+                message: response,
+            };
+            return updatedChat;
+        });
+        setIsSending(false);
+    }, 1500);
 
     setUserInput("");
     setSuggestions([]);
-  };
+};
+
 
   return (
     <div>
@@ -93,7 +127,7 @@ export default function PublicChatbot() {
           <h3>Ask Cendi</h3>
             </div>
 
-          <div className="chat-messages">
+          <div className="chat-messages" ref={chatMessagesRef}>
             {chatHistory.map((msg, index) => (
               <div
                 key={index}
@@ -127,11 +161,17 @@ export default function PublicChatbot() {
               type="text"
               value={userInput}
               onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
               placeholder="Type your question..."
+              disabled={isSending}
             />
             <div>
 
-            <button className="rounded-lg px-3 py-[0.68rem] bg-blue-800 text-2xl text-white" onClick={handleSendMessage}><TbSend/></button>
+            <button 
+            className="rounded-lg px-3 py-[0.68rem] bg-blue-800 text-2xl text-white" 
+            onClick={handleSendMessage}
+              disabled={isSending}>
+              <TbSend/></button>
             </div>
           </div>
 
