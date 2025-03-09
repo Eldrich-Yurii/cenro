@@ -68,12 +68,12 @@ export default function AppRoutes() {
       </Route>
 
       {/* admin account */}
-      <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-        <Route path="/admin" element={<AdminAccount />}>
+      <Route element={<ProtectedRoute allowedRoles={["admin", "employee"]} />}>
+        <Route path="/emp" element={<AdminAccount />}>
           <Route index element={<AdminDashboard />} />
           <Route path="dashboard" element={<AdminDashboard />} />
-          <Route path="user-employee" element={<EmployeesTable />} />
-          <Route path="user-cenro-clients" element={<CenroClients />} />
+          <Route path="employees" element={<EmployeesTable />} />
+          <Route path="users" element={<CenroClients />} />
           <Route
             path="business-application"
             element={<BusinessApplications />}
