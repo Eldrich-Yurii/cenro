@@ -13,7 +13,7 @@ const TABLE_HEAD = [
   "Application Type",
   "Business Name",
   "Status",
-  "PDF File",
+  // "PDF File",
   "Assessment",
   "Upload Assessment",
 ];
@@ -154,7 +154,7 @@ export default function MyApplication() {
                             {application.status}
                           </span>
                         </td>
-                        <td className={classes}>
+                        {/* <td className={classes}>
                           <a
                             href={`http://localhost:5000/${application.pdfPath}`}
                             target="_blank"
@@ -163,7 +163,7 @@ export default function MyApplication() {
                           >
                             Download PDF
                           </a>
-                        </td>
+                        </td> */}
                         <td className={classes}>
                           <div className="w-32 truncate">
                             <Typography

@@ -22,3 +22,22 @@ export const getAllWebinar = async () => {
         throw err.response?.data.message || "Error Retrieving Webinar";
       }
 }
+
+// update webinar schedule
+export const updateStatus = async (webinarId, status) => {
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user?.token; // Extract only the token
+    console.log("Stored Token:", token);
+  
+    try {
+      const response = await axios.put(
+        `${API}/admin/update/${webinarId}/status`,
+        { status },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      return response.data;
+    } catch (err) {
+      throw err.response?.data || "Error Updating Ticket Status";
+    }
+  };
