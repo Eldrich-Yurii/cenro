@@ -1,17 +1,17 @@
 // import { useContext } from "react"
 // import { AuthContext } from "../../context/AuthContext"
-import AdminSideBar from "../../../components/sidebar/AdminSidebar";
+import AdminEmpSideBar from "../../../components/sidebar/AdminEmpSidebar";
 import { Outlet } from "react-router-dom";
 
-export default function AdminAccount() {
+export default function AdminEmpAccount() {
   // const { logout } = useContext(AuthContext);
 
   console.log("Admin Account rendered!")
 
   return (
     <div className="z-20 flex bg-gray-200 font-inter">
-      <AdminSideBar />
-      <div className="flex-1 p-6 h-screen">
+      <AdminEmpSideBar />
+      <div className="flex-1 p-4 h-screen overflow-y-auto">
         <Outlet />
       </div>
     </div>

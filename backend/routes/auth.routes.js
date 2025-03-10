@@ -35,9 +35,9 @@ router.get("/emp/employees", verifyToken, verifyRoles("admin"), getEmployees);
 router.get("/emp/users", verifyToken, verifyRoles("admin"), getUsers);
 
 //UPDATE employee designation
-router.put("/admin/update-employee/:id", verifyToken, verifyRoles("admin"), updateEmpDesignation);
+router.put("/emp/update-employee/:id", verifyToken, verifyRoles("admin"), updateEmpDesignation);
 
 // DELETE employee account
-router.delete("/admin/delete-employee/:id", verifyToken, verifyRoles("admin"), deleteEmployee);
+router.delete("/emp/delete-employee/:id", verifyToken, verifyRoles("admin"), deleteEmployee);
 
 export default router;

@@ -2,7 +2,6 @@ import {
   Button,
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
@@ -51,7 +50,7 @@ export default function CertForAttendees() {
   };
 
   return (
-    <Card className="max-h-[34rem] w-full px-6 shadow-lg">
+    <Card className="max-h-[60rem] w-full px-6 shadow-lg">
       <CardHeader
         className="rounded-none flex-shrink-0"
         floated={false}
@@ -100,7 +99,11 @@ export default function CertForAttendees() {
             </tr>
           </thead>
           <tbody>
-            {webinarAttendees.map(({ _id, businessName }) => {
+            {webinarAttendees.length === 0 ? <tr>
+              <td colSpan={12} className="text-center p-4 font-bold">
+                No attendees found
+              </td>
+            </tr> : webinarAttendees.map(({ _id, businessName }) => {
               const isLast = _id === webinarAttendees.length - 1;
               const classes = isLast ? "py-4" : "py-4 border-b border-gray-300";
 
@@ -182,19 +185,7 @@ export default function CertForAttendees() {
           </tbody>
         </table>
       </CardBody>
-      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Typography variant="small" color="blue-gray" className="font-normal">
-          Page 1 of 1
-        </Typography>
-        <div className="flex gap-2">
-          <Button variant="outlined" size="sm" className="">
-            Previous
-          </Button>
-          <Button variant="outlined" size="sm" className="">
-            Next
-          </Button>
-        </div>
-      </CardFooter>
+      
     </Card>
   );
 }

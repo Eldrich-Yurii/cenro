@@ -2,7 +2,6 @@ import {
   Button,
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
@@ -38,6 +37,9 @@ const TABLE_HEAD = [
 
 export default function WebinarSched() {
   const [webinars, setWebinars] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredSched, setFilteredSched] = useState([]);
+
 
   useEffect(() => {
     const fetchAllWebinars = async () => {
@@ -51,9 +53,32 @@ export default function WebinarSched() {
     fetchAllWebinars();
   }, []);
 
+   //search function
+   useEffect(() => {
+    const results = webinars.filter((item) => {
+      const searchStr =
+        `${item.formType} ${formatDateTime(item.dateTime)} ${item.webinarLink} ${item.status}`.toLowerCase();
+      return searchStr.includes(searchTerm.toLowerCase());
+    });
+    setFilteredSched(results);
+  }, [searchTerm, webinars]);
+
+  const formatDateTime = (isoString) => {
+    const date = new Date(isoString);
+  
+    return date.toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
+  };
+
   return (
     
-      <Card className="h-[34rem] flex flex-col w-full p-4 shadow-lg">
+      <Card className="max-h-[60rem] flex flex-col w-full p-4 shadow-lg">
         <CardHeader className="rounded-none flex-shrink-0" floated={false} shadow={false}>
           <div className="flex justify-between items-start">
             <section>
@@ -82,6 +107,7 @@ export default function WebinarSched() {
                 name="empsearch"
                 id="empSearch"
                 placeholder="Search..."
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
               {/* <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
                 <TbSearch />
@@ -89,7 +115,7 @@ export default function WebinarSched() {
             </section>
           </div>
         </CardHeader>
-        <CardBody className="bg-yellow-200 overflow-y-auto scrollbar">
+        <CardBody className=" overflow-y-auto scrollbar">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
@@ -109,7 +135,7 @@ export default function WebinarSched() {
               </tr>
             </thead>
             <tbody>
-              {webinars.map(
+              {filteredSched.map(
                 ({ _id, formType, dateTime, webinarLink, status }) => {
                   const isLast = _id === webinars.length - 1;
                   const classes = isLast
@@ -131,8 +157,7 @@ export default function WebinarSched() {
                           variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {dateTime.split("T")[0]}
-                          {dateTime.split("T")[1].split(".")[0]}
+                          {formatDateTime(dateTime)}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -188,19 +213,6 @@ export default function WebinarSched() {
             </tbody>
           </table>
         </CardBody>
-        <CardFooter className="h-auto bg-pink-200 flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <Typography variant="small" color="blue-gray" className="font-normal">
-            Page 1 of 1
-          </Typography>
-          <div className="flex gap-2">
-            <Button variant="outlined" size="sm" className="">
-              Previous
-            </Button>
-            <Button variant="outlined" size="sm" className="">
-              Next
-            </Button>
-          </div>
-        </CardFooter>
       </Card>
   );
 }

@@ -6,7 +6,7 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
-import { TbEdit, TbSearch, TbTrash } from "react-icons/tb";
+import { TbEdit, TbTrash } from "react-icons/tb";
 import { getAllWebinar } from "../../../../api/webinarApi";
 import { useEffect, useState } from "react";
 

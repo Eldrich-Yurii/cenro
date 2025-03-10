@@ -36,6 +36,14 @@ export default function SuppAndTicket() {
     fetchTickets();
   }, []);
 
+  const handleStatusUpdate = (ticketId, newStatus) => {
+    setTickets((prevTickets) =>
+      prevTickets.map((ticket) =>
+        ticket._id === ticketId ? { ...ticket, status: newStatus } : ticket
+      )
+    );
+  };
+
   return (
       <Card className="h-auto w-full px-6 shadow-lg">
               <CardHeader className="rounded-none" floated={false} shadow={false}>
@@ -150,6 +158,7 @@ export default function SuppAndTicket() {
               {selectedTicket && (
                 <AdminEmpTicketModal
                   ticket={selectedTicket}
+                  onStatusUpdate={handleStatusUpdate}
                   isOpen={!!selectedTicket}
                   onClose={() => setSelectedTicket(null)}
                 />
