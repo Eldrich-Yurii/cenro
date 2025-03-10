@@ -1,8 +1,9 @@
-export const verifyRoles = (...allowedRoles) => {
+export const verifyDesignation = (...allowedDesignation) => {
     return (req, res, next) => {
       if (!req.user) return res.status(401).json({ message: "Unauthorized" });
   
-      if (!allowedRoles.includes(req.user.role)) {
+
+      if (req.user.role !== "employee" || "admin" || !allowedDesignation.includes(req.user.designation)) {
         return res.status(403).json({ message: "Access Denied" });
       }
       
@@ -10,4 +11,4 @@ export const verifyRoles = (...allowedRoles) => {
     };
   };
   
-  export default verifyRoles;
+  export default verifyDesignation;

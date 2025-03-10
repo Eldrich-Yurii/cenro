@@ -37,9 +37,9 @@ const LoginPage = () => {
       // localStorage.setItem("token", JSON.stringify(response.token));
       // console.log("login successful:", data)
       if (response.role === "admin") {
-        navigate("/admin/dashboard");
+        navigate("/emp/dashboard");
       } else if (response.role === "employee") {
-        navigate("/employee-account");
+        navigate("/emp/dashboard");
       } else {
         navigate("/user-account");
       }
