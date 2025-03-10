@@ -210,7 +210,7 @@ export default function AdminEmpSideBar() {
           <ListItemPrefix>
             <TbTicket className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/emp/inspection-and-final-certificate">&nbsp;&nbsp;Inspection & Final Certificate</Link>
+          <Link to="/emp/inspection-and-final-certificate">&nbsp;&nbsp;Inspection & CEC</Link>
         </ListItem>
       )}
         {/* Ticket and Chat Support */}

@@ -99,7 +99,7 @@ export default function NormalUserSidebar() {
           <ListItemPrefix>
             <TbFileCertificate className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/user-account/final-certificate">&nbsp;Final Certificate</Link>
+          <Link to="/user-account/final-certificate">&nbsp;Certificate of Compliance</Link>
         </ListItem>
         {/* Notifications */}
         <ListItem className="z-10 bg-white">
