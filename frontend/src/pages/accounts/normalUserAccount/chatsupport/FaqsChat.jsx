@@ -15,6 +15,14 @@ export default function ChatSupport() {
   const [userInput, setUserInput] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  
+  const chatMessagesRef = useRef(null);
+  useEffect(() => {
+    if (chatMessagesRef.current) {
+        chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
+    }
+}, [chatHistory]);
 
   const messagesEndRef = useRef(null);
   
@@ -36,6 +44,7 @@ export default function ChatSupport() {
       ]);
     }
   }, []);
+  
 
   const handleQuestionClick = (faq) => {
     setChatHistory((prev) => [
@@ -63,18 +72,13 @@ export default function ChatSupport() {
   const handleInputChange = (e) => {
     const input = e.target.value;
     setUserInput(input);
-
-    if (input.length > 0) {
-      const filteredSuggestions = faqs.filter((faq) =>
-        faq.question.toLowerCase().includes(input.toLowerCase())
-      );
-      setSuggestions(filteredSuggestions.slice(0, 5));
-    } else {
-      setSuggestions([]);
-    }
   };
 
   const handleSendMessage = () => {
+
+    if (isSending) return;
+    setIsSending(true);
+    
     const matchedFaq = faqs.find(
       (faq) => faq.question.toLowerCase() === userInput.toLowerCase()
     );
@@ -96,6 +100,7 @@ export default function ChatSupport() {
         };
         return updatedChat;
       });
+      setIsSending(false);
     }, 1500); // Delay for 1.5 seconds
 
     setUserInput("");
@@ -194,11 +199,13 @@ export default function ChatSupport() {
             onChange={handleInputChange}
             onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
             placeholder="Type your question..."
+            disabled={isSending}
           />
           <div>
             <button
               className="rounded-lg p-3 border-2 border-blue-800 bg-blue-800 text-2xl text-white hover:bg-blue-900"
               onClick={handleSendMessage}
+              disabled={isSending}
             >
               <TbSend />
             </button>
