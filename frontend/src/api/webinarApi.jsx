@@ -23,6 +23,21 @@ export const getAllWebinar = async () => {
       }
 }
 
+// delete webinar sched
+export const deleteWebinar = async (id, token) => {
+  try {
+    const response = await axios.delete(`${API}/delete-webinar/${id}`, {
+        headers: { 
+          Authorization: `Bearer ${token}`
+        },
+    })
+    return response.data
+  } catch (err) {
+    console.error("Error deleting webinar:", err);
+    throw err;
+  }
+}
+
 // update webinar schedule
 export const updateStatus = async (webinarId, status) => {
 
