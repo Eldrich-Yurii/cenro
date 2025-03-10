@@ -11,6 +11,7 @@ import applicationRoutes from "./routes/application.routes.js"
 import webinarRoutes from "./routes/webinar.routes.js"
 import faqsRouter from "./routes/faqs.routes.js"
 import ticketRoutes from "./routes/ticket.routes.js"
+import logsRouter from "./routes/logs.routes.js"
 // const express = require('express');
 // const bodyParser = require('body-parser');
 // const cookieParser = require('cookie-parser')
@@ -49,6 +50,7 @@ app.use("/api/application", applicationRoutes);
 app.use("/api/webinar", webinarRoutes);
 app.use("/api/faqs", faqsRouter);
 app.use("/api/ticket", ticketRoutes);
+app.use("/api/logs", logsRouter);
 
 // connect to mongoDB
 mongoose.connect(process.env.MONGODB_URI)

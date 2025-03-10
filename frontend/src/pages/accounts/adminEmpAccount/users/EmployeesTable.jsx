@@ -58,21 +58,15 @@ export default function EmployeesTable() {
   }, [searchTerm, employee]);
 
   //update employee designation
-  const handleEditDesignation = async (id, newDesignation) => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    const token = user?.token;
-    if (!token) {
-      console.error("Token not found.");
-      return;
-    }
+  const handleEditDesignation = async (id, designation) => {
 
     try {
-      const response = await updateEmployeeDesignation(id, newDesignation, token)
+      const response = await updateEmployeeDesignation(id, designation)
 
-      console.log("RES:",response)
+      console.log("Designation response:",response)
         setEmployee((prevEmployees) =>
           prevEmployees.map((employee) =>
-            employee._id === id ? { ...employee, designation: newDesignation } : employee
+            employee._id === id ? { ...employee, designation: designation } : employee
           )
         );
       
