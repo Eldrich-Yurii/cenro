@@ -74,9 +74,6 @@ export default function CertForAttendees() {
               id="certSearch"
               placeholder="Search..."
             />
-            <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
-              <TbSearch />
-            </Button>
           </section>
         </div>
       </CardHeader>
