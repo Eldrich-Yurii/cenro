@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../api/AuthApi";
 import { useState } from "react";
 import { TbArrowLeft } from "react-icons/tb";
-import Logo from "../../assets/cenro-logo.png";
+import Logo from "../../assets/CENRO-LOGO-ORIG.png";
 import { Button } from "@material-tailwind/react"
 
 const LoginPage = () => {
@@ -68,7 +68,7 @@ const LoginPage = () => {
         className="absolute top-4 left-4 opacity-90 z-10"
         src={Logo}
         alt="cenro-logo"
-        width={180}
+        width={230}
       />
       <div className="grid grid-cols-2 h-screen">
         <section className="login-pic w-full brightness-75 contrast-125"></section>
