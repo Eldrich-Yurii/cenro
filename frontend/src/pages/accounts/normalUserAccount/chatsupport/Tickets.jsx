@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import UserTicketModal from "../../../../components/modal/UserTicketModal";
 import SubmitTicket from "../../../../components/modal/SubmitTicket";
 
-const TABLE_HEAD = ["Ticket ID", "Subject", "Description", "Status", "View"];
+const TABLE_HEAD = ["Reference Number", "Subject", "Description", "Status", "View"];
 
 export default function Ticket() {
   const [tickets, setTickets] = useState([]);

@@ -10,7 +10,7 @@ import { getAllTicket } from "../../../../api/TicketApi";
 import { useEffect, useState } from "react";
 import AdminEmpTicketModal from "../../../../components/modal/AdminEmpTicketModal";
 
-const TABLE_HEAD = ["Ticket ID", "Subject", "Description", "Status", "View"];
+const TABLE_HEAD = ["Reference Number", "Subject", "Description", "Status", "View"];
 
 export default function SuppAndTicket() {
   const [tickets, setTickets] = useState([]);
