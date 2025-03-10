@@ -44,7 +44,7 @@ export default function PublicChatbot() {
     const input = e.target.value;
     setUserInput(input);
 
-    if (input.length > 0) {
+    if (input.length > 3) {
         const fuse = new Fuse(faqs, { keys: ["question"] });
         const results = fuse.search(input);
         const filteredSuggestions = results.map((result) => result.item);
