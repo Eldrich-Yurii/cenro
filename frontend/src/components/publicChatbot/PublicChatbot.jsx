@@ -36,27 +36,7 @@ export default function PublicChatbot() {
 };
 
   const handleQuestionClick = (faq) => {
-    if (isSending) return; // Prevent sending if already sending.
-    setIsSending(true);
-    setChatHistory((prev) => [
-      ...prev,
-      { type: "user", message: faq.question },
-      { type: "bot", message: "Typing..." }, // Show "Typing..." first
-    ]);
-
-    setTimeout(() => {
-      setChatHistory((prev) => {
-        const updatedChat = [...prev];
-        updatedChat[updatedChat.length - 1] = {
-          type: "bot",
-          message: faq.answer,
-        }; // Replace "Typing..." with the answer
-        return updatedChat;
-      });
-      setIsSending(false);
-    }, 1500); // Delay for 1.5 seconds
-
-    setUserInput("");
+    setUserInput(faq.question);
     setSuggestions([]);
   };
 
@@ -75,11 +55,12 @@ export default function PublicChatbot() {
 };
 
   const handleSendMessage = () => {
-    if (isSending) return; // Prevent sending if already sending.
+    if (isSending) return;
     setIsSending(true);
+  
     const fuse = new Fuse(faqs, { 
       keys: ["question"], 
-      threshold: 0.5, 
+      threshold: 0.6, 
       distance: 100,
       includeScore: true, });
     const results = fuse.search(userInput);
