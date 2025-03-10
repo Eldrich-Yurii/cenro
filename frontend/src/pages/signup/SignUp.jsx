@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../api/AuthApi";
 import { TbArrowLeft } from "react-icons/tb";
-import Logo from "../../assets/cenro-logo.png";
+import Logo from "../../assets/CENRO-LOGO-ORIG.png";
 import { Button } from "@material-tailwind/react";
 
 export default function SignUp() {
@@ -76,7 +76,7 @@ export default function SignUp() {
         className="absolute top-4 left-4 opacity-90 z-10"
         src={Logo}
         alt="cenro-logo"
-        width={180}
+        width={230}
       />
       <div className="grid grid-cols-2 h-screen">
         <section className="login-pic w-full brightness-75 contrast-125"></section>
