@@ -49,7 +49,7 @@ export default function WebSched() {
 
   return (
       <Card className="max-h-[34rem] w-full px-3 pt-3 shadow-lg">
-        <CardHeader className= "flex-shrink-0 rounded-none bg-pink-100" floated={false} shadow={false}>
+        <CardHeader className= "flex-shrink-0 rounded-none" floated={false} shadow={false}>
           <div className=" flex justify-between items-start">
             <section>
               <Typography
@@ -70,9 +70,7 @@ export default function WebSched() {
                 id="empSearch"
                 placeholder="Search..."
               />
-              <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
-                <TbSearch />
-              </Button>
+          
             </section>
           </div>
         </CardHeader>
