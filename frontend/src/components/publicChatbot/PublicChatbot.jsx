@@ -60,7 +60,7 @@ export default function PublicChatbot() {
   
     const fuse = new Fuse(faqs, { 
       keys: ["question"], 
-      threshold: 0.6, 
+      threshold: 0.5, 
       distance: 100,
       includeScore: true, });
     const results = fuse.search(userInput);
