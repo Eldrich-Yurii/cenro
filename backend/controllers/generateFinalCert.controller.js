@@ -58,7 +58,7 @@ export const generateFinalCert = async (applicationId) => {
     <h2>CERTIFICATE OF ENVIRONMENTAL COMPLIANCE</h2>
     <p>THIS IS TO CERTIFY</p>
     <p>${application.businessName}</p>
-    <p>ETO NA CERTIFICATE MO SHEESH</p>
+    <p>THAT THEY COMPLIED WITH ALL THE REQUIREMENTS TO RUN THEIR BUSINESS</p>
     <div>
     <img src="${qrCodeDataUrl}" width="150" />
     </div>
