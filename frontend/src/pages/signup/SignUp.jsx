@@ -108,13 +108,24 @@ export default function SignUp() {
                     name="firstname"
                     placeholder="Enter your first Name"
                     value={firstname}
-                    onChange={(e) => setFirstname(e.target.value)}
+                    onChange={(e) => {
+                      const maxLength = 13;
+                      const inputValue = e.target.value;
+                      if (inputValue.length <= maxLength) {
+                          setFirstname(inputValue);
+                      } else {
+                          setFirstname(inputValue.slice(0, maxLength));
+                      }
+                  }}
                     onKeyPress={(e) => {
                       const charCode = e.which ? e.which : e.keyCode;
-                          if (charCode >= 48 && charCode <= 57) { 
-                          e.preventDefault();
-                          }
-                    }}
+                      const char = String.fromCharCode(charCode);
+                      const allowedCharacters = /^[a-zA-Z\s]+$/; 
+
+                      if (!allowedCharacters.test(char)) {
+                      e.preventDefault();
+                    }
+                  }}
                     required
                     className="border-blue-900 border-2 w-full h-12 rounded-lg px-2 truncate"
                   />
@@ -132,13 +143,24 @@ export default function SignUp() {
                     name="middlename"
                     placeholder="Enter your Middle Name"
                     value={middlename}
-                    onChange={(e) => setMiddlename(e.target.value)}
+                    onChange={(e) => {
+                      const maxLength = 13;
+                      const inputValue = e.target.value;
+                      if (inputValue.length <= maxLength) {
+                          setMiddlename(inputValue);
+                      } else {
+                          setMiddlename(inputValue.slice(0, maxLength));
+                      }
+                  }}
                     onKeyPress={(e) => {
                       const charCode = e.which ? e.which : e.keyCode;
-                          if (charCode >= 48 && charCode <= 57) { 
-                          e.preventDefault();
-                          }
-                    }}
+                      const char = String.fromCharCode(charCode);
+                      const allowedCharacters = /^[a-zA-Z\s]+$/; 
+
+                      if (!allowedCharacters.test(char)) {
+                      e.preventDefault();
+                    }
+                  }}
                     className="border-blue-900 border-2 w-full h-12 rounded-lg px-2 truncate"
                   />
                 </div>
@@ -155,13 +177,24 @@ export default function SignUp() {
                     name="lastname"
                     placeholder="Enter your Last Name"
                     value={lastname}
-                    onChange={(e) => setLastname(e.target.value)}
+                    onChange={(e) => {
+                      const maxLength = 13;
+                      const inputValue = e.target.value;
+                      if (inputValue.length <= maxLength) {
+                          setLastname(inputValue);
+                      } else {
+                          setLastname(inputValue.slice(0, maxLength));
+                      }
+                  }}
                     onKeyPress={(e) => {
                       const charCode = e.which ? e.which : e.keyCode;
-                          if (charCode >= 48 && charCode <= 57) { 
-                          e.preventDefault();
-                          }
-                    }}
+                      const char = String.fromCharCode(charCode);
+                      const allowedCharacters = /^[a-zA-Z\s]+$/; 
+
+                      if (!allowedCharacters.test(char)) {
+                      e.preventDefault();
+                    }
+                  }}
                     required
                     className="border-blue-900 border-2 w-full h-12 rounded-lg px-2 truncate"
                   />
