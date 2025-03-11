@@ -3,10 +3,13 @@ import { createWebinar } from "../controllers/createWebinar.controller.js";
 import { getAllWebinar } from "../controllers/getWebinar.controller.js";
 import { updateWebinar } from "../controllers/updateWebinar.controller.js";
 import { deleteWebinar } from "../controllers/deleteWebinar.controller.js";
+import verifyRoles from "./../middlewares/verifyRoles.js"
+import { verifyToken } from "./../middlewares/auth/auth.verifyAdmin.js"
+import { verifyDesignation } from "./../middlewares/verifyDesignation.js"
 
 const router = express.Router();
 
-router.post("/create-webinar", createWebinar);
+router.post("/create-webinar", verifyToken, verifyRoles(["admin", "employee"]), verifyDesignation(["webinar coordinator"]), createWebinar);
 
 router.get("/get-webinar", getAllWebinar);
 

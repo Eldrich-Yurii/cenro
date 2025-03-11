@@ -4,8 +4,15 @@ const API = "http://localhost:5000/api/webinar";
 
 
 export const createWebinar = async (dateTime, formType, webinarLink) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user?.token; // Extract only the token
+  console.log("Stored Token:", token);
     try {
-        const response = await axios.post(`${API}/create-webinar`, {dateTime, formType, webinarLink});
+        const response = await axios.post(`${API}/create-webinar`, {dateTime, formType, webinarLink}, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
 
         return response.data;
     } catch (err) {
