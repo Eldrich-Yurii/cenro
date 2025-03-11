@@ -274,7 +274,7 @@ export default function BusinessApplications() {
             <div className="bg-white p-5 rounded-lg shadow-lg w-[80%] h-[80%] flex flex-col">
               <div className="flex justify-between">
                 <h2 className="text-xl font-bold mb-2">
-                  Certificate of Assessment
+                  Assessment Certificate
                 </h2>
                 <button
                   onClick={() => setIsModalOpen(false)}
