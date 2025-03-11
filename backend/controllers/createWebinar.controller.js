@@ -19,10 +19,11 @@ export const createWebinar = async (req, res) => {
     const eligibleUsers = await applicationSchema.find({
       formType,
       status: "Approved",
-      $or: [
-        { certificateOfAttendance: false },
-        { certificateOfAttendance: { $exists: false } }, // Include docs where it's missing
-      ],
+      attendance: false
+      // $or: [
+      //   { attendance: false },
+      //   { certificateOfAttendance: { $exists: false } }, // Include docs where it's missing
+      // ],
     });
 
     console.log("Eligible Users After Fix:", eligibleUsers);

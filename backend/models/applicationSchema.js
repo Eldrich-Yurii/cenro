@@ -57,6 +57,10 @@ const applicationSchema = new mongoose.Schema(
     // attendanceConfirmedAt: {
     //   type: Date,
     // },
+    applicationProgress: {
+      type: Number,
+      default: 0
+    },
      submittedAt: {
        type: Date,
        default: Date.now, // Automatically sets the submission timestamp
