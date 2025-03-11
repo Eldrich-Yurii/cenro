@@ -25,9 +25,9 @@ const webinarSchema = new mongoose.Schema({
         ref: "Application",
         required: true,
       },
-      attended: { type: Boolean, default: false }, // Track attendance
-      certificateGenerated: { type: Boolean, default: false }, // Track if certificate was issued
-    },
+    //   attended: { type: Boolean, default: false }, // Track attendance
+    //   certificateGenerated: { type: Boolean, default: false }, // Track if certificate was issued
+     },
   ],
   status: {
     type: String,
