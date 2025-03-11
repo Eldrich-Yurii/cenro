@@ -301,14 +301,6 @@ export default function BusinessApplications() {
         <Typography variant="small" color="blue-gray" className="font-normal">
           Page 1 of 1
         </Typography>
-        <div className="flex gap-2">
-          <Button variant="outlined" size="sm" className="">
-            Previous
-          </Button>
-          <Button variant="outlined" size="sm" className="">
-            Next
-          </Button>
-        </div>
       </CardFooter>
     </Card>
   );
