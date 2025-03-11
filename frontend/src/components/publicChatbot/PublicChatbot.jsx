@@ -31,9 +31,11 @@ export default function PublicChatbot() {
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !isSending) {
         e.preventDefault(); 
-        handleSendMessage();
-    }
-};
+        if (userInput.trim()) {
+          handleSendMessage();
+        }
+      }
+    };
 
   const handleQuestionClick = (faq) => {
     setUserInput(faq.question);
@@ -60,8 +62,8 @@ export default function PublicChatbot() {
   
     const fuse = new Fuse(faqs, { 
       keys: ["question"], 
-      threshold: 0.3, 
-      distance: 100,
+      threshold: 0.4, 
+      distance: 1,
       includeScore: true, });
     const results = fuse.search(userInput);
 
@@ -151,7 +153,7 @@ export default function PublicChatbot() {
             <button 
             className="rounded-lg px-3 py-[0.68rem] bg-blue-800 text-2xl text-white" 
             onClick={handleSendMessage}
-              disabled={isSending}>
+              disabled={isSending || !userInput.trim()}>
               <TbSend/></button>
             </div>
           </div>
