@@ -63,3 +63,15 @@ export const updateStatus = async (webinarId, status) => {
       throw err.response?.data || "Error Updating Ticket Status";
     }
   };
+
+  export const updateWebinar = async (webinarId, dateTime, webinarLink) => {
+    try {
+      const response = await axios.put(
+        `${API}/update-webinar/${webinarId}`,
+        { dateTime, webinarLink }
+      );
+      return response.data;
+    } catch (err) {
+      throw err.response?.data || "Error Updating Webinar";
+    }
+  }
