@@ -50,13 +50,13 @@ const applicationSchema = new mongoose.Schema(
       type: Boolean,
       default: false
      },
-     attendanceConfirmedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "user", // Reference to the admin/employee who confirmed
-    },
-    attendanceConfirmedAt: {
-      type: Date,
-    },
+    //  attendanceConfirmedBy: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "user", // Reference to the admin/employee who confirmed
+    // },
+    // attendanceConfirmedAt: {
+    //   type: Date,
+    // },
      submittedAt: {
        type: Date,
        default: Date.now, // Automatically sets the submission timestamp
