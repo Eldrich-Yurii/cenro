@@ -31,9 +31,9 @@ export const generateCertAttendance = async (applicationId) => {
     const htmlContent = `
     <div style="text-align: center;">
     <h2>CERTIFICATE OF ATTENDANCE</h2>
-    <p>THIS IS TO CERTIFY</p>
+    <p>THIS IS TO CERTIFY THAT</p>
     <p>${application.businessName}</p>
-    <p>THANK YOU FOR PARTICIPATING SHEESH</p>
+    <p>HAS ATTENDED THE WEBINAR</p>
     </div>
     `;
 
