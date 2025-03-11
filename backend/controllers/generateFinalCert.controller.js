@@ -41,7 +41,7 @@ export const generateFinalCert = async (applicationId) => {
         ? "https://cenro-verification.com"
         : "http://localhost:5000";
 
-    const verificationURL = `${BASE_URL}/certificate-verification?hash=${certificateHash}`;
+    const verificationURL = `${BASE_URL}/api/application/certificate-verification?hash=${certificateHash}`;
     const qrCodeDataUrl = await QRCode.toDataURL(verificationURL);
 
     // HTML Template for Certificate
