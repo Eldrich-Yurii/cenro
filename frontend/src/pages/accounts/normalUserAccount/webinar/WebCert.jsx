@@ -17,7 +17,7 @@ import { TbSearch } from "react-icons/tb";
 const TABLE_HEAD = [
   "Application Type",
   "Business Name",
-  "Certficate Of Attendace",
+  "View Certficate Of Participation",
   "Action",
 ];
 export default function WebCert() {
@@ -86,10 +86,10 @@ export default function WebCert() {
               variant="h2"
               className="text-blue-800 font-extrabold font-inter"
             >
-              Certificate Of Attendance
+              Certificate Of Participation
             </Typography>
             <p className="w-64 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-              This is the list of your Attendance Certificate
+              This is the list of your Participation Certificate for the Webinars
             </p>
           </section>
           <section className="flex items-center">
