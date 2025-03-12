@@ -17,8 +17,8 @@ import { TbSearch } from "react-icons/tb";
 const TABLE_HEAD = [
   "Application Type",
   "Business Name",
-  "View Certficate Of Participation",
-  "Action",
+  "Certificate Status",
+  "Action"
 ];
 export default function WebCert() {
   const [applications, setApplications] = useState([]);
