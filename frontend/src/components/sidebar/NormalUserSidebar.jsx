@@ -89,7 +89,7 @@ export default function NormalUserSidebar() {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to="/user-account/webinar-certificate">&nbsp;Attendee Certificate</Link>
+                <Link to="/user-account/webinar-certificate">&nbsp;Certificate of Participation</Link>
               </ListItem>
             </List>
           </AccordionBody>
@@ -99,7 +99,7 @@ export default function NormalUserSidebar() {
           <ListItemPrefix>
             <TbFileCertificate className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/user-account/final-certificate">&nbsp;Certificate of Compliance</Link>
+          <Link to="/user-account/final-certificate">&nbsp;Certificate of Environmental Compliance</Link>
         </ListItem>
         {/* Notifications */}
         <ListItem className="z-10 bg-white">
