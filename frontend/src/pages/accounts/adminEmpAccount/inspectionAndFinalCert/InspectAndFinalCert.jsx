@@ -60,7 +60,7 @@ export default function IsnpectionAndFinalCert() {
         <div className=" flex justify-between items-start">
           <section>
             <Typography variant="h2" className="text-blue-800 font-extrabold">
-              Inspection and Certificate of Compliance
+              Inspection and Certificate of Environmental Compliance
             </Typography>
             <p className="w-72 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
               This is the list of Cenro Clients that is under inspection or completed all the requirements.
