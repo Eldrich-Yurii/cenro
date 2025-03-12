@@ -19,7 +19,7 @@ import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
 import { TbLayoutGrid, TbLogs, TbLogout2, TbSettings2, TbTicket, TbVideo, TbUser, TbFile } from "react-icons/tb";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/cenro_orig_logo_notext.png"
+import Logo from "../../assets/cenro-logo-red.png"
 
 
 export default function AdminEmpSideBar() {
@@ -35,9 +35,9 @@ export default function AdminEmpSideBar() {
   };
  
   return (
-    <Card className="h-auto w-full max-w-[20rem] p-4 shadow-2xl shadow-blue-gray-900/5 rounded-none">
-      <div className="">
-        <Typography className="pt-2 font-black inline-flex items-center gap-2 text-green-800 font-inter" variant="h2">
+    <Card className="h-screen overflow-y-auto w-full max-w-[20rem] p-4 shadow-2xl shadow-blue-gray-900/5 rounded-none">
+      <div>
+        <Typography className="pt-2 font-black inline-flex items-center gap-2 text-red-800 font-inter" variant="h2">
           <img src={Logo} alt="" width={50}/>
           CENRO
         </Typography>
@@ -101,7 +101,7 @@ export default function AdminEmpSideBar() {
           <ListItemPrefix>
             <TbTicket className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/emp/inspection-and-final-certificate">&nbsp;&nbsp;Inspection & CEC</Link>
+          <Link to="/emp/inspection-and-final-certificate">&nbsp;&nbsp;Inspection & Final Certificate</Link>
         </ListItem>
           <Accordion
           open={open === 2}
@@ -210,7 +210,7 @@ export default function AdminEmpSideBar() {
           <ListItemPrefix>
             <TbTicket className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/emp/inspection-and-final-certificate">&nbsp;&nbsp;Inspection & CEC</Link>
+          <Link to="/emp/inspection-and-final-certificate">&nbsp;&nbsp;Inspection & Final Certificate</Link>
         </ListItem>
       )}
         {/* Ticket and Chat Support */}
