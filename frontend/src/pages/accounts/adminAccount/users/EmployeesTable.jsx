@@ -58,15 +58,21 @@ export default function EmployeesTable() {
   }, [searchTerm, employee]);
 
   //update employee designation
-  const handleEditDesignation = async (id, designation) => {
+  const handleEditDesignation = async (id, newDesignation) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user?.token;
+    if (!token) {
+      console.error("Token not found.");
+      return;
+    }
 
     try {
-      const response = await updateEmployeeDesignation(id, designation)
+      const response = await updateEmployeeDesignation(id, newDesignation, token)
 
-      console.log("Designation response:",response)
+      console.log("RES:",response)
         setEmployee((prevEmployees) =>
           prevEmployees.map((employee) =>
-            employee._id === id ? { ...employee, designation: designation } : employee
+            employee._id === id ? { ...employee, designation: newDesignation } : employee
           )
         );
       
@@ -125,6 +131,9 @@ export default function EmployeesTable() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
+              <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
+                <TbSearch />
+              </Button>
             </section>
           </div>
         </CardHeader>
@@ -225,6 +234,17 @@ export default function EmployeesTable() {
           )}
         </CardBody>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+          <Typography variant="small" color="blue-gray" className="font-normal">
+            Page 1 of 1
+          </Typography>
+          <div className="flex gap-2">
+            <Button variant="outlined" size="sm" className="text-blue-800">
+              Previous
+            </Button>
+            <Button variant="outlined" size="sm" className="text-blue-800">
+              Next
+            </Button>
+          </div>
         </CardFooter>
       </Card>
     </div>

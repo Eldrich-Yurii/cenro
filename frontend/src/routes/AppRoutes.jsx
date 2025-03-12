@@ -6,18 +6,19 @@ import Hero from "../pages/landing/heroSection/Hero";
 import LoginPage from "../pages/login/LoginPage";
 import SignUp from "../pages/signup/SignUp";
 import ProtectedRoute from "../components/ProtectedRoutes";
-import AdminEmpAccount from "../pages/accounts/adminEmpAccount/AdminEmpAccount";
+import AdminAccount from "../pages/accounts/adminAccount/AdminAccount";
+import EmployeeAccount from "../pages/accounts/employeeAccount/EmployeeAccount";
 import NormalUserAccount from "../pages/accounts/normalUserAccount/NormalUserAccount";
-import Dashboard from "../pages/accounts/adminEmpAccount/adminEmpDashboard/Dashboard"
-import EmployeesTable from "../pages/accounts/adminEmpAccount/users/EmployeesTable";
-import CenroClients from "../pages/accounts/adminEmpAccount/users/CenroClients";
-import BusinessApplications from "../pages/accounts/adminEmpAccount/applications/BusinessApplications";
-import WebinarSched from "../pages/accounts/adminEmpAccount/webinar/WebinarSched";
-import InspectAndFinalCert from "../pages/accounts/adminEmpAccount/inspectionAndFinalCert/InspectAndFinalCert";
-import CertForAttendees from "../pages/accounts/adminEmpAccount/webinar/CertForAttendees";
-import SuppAndTicket from "../pages/accounts/adminEmpAccount/ticket/SuppAndTicket";
-import EmpLogs from "../pages/accounts/adminEmpAccount/emplogs/EmpLogs";
-import AdminSettings from "../pages/accounts/adminEmpAccount/settings/Settings";
+import AdminDashboard from "../pages/accounts/adminAccount/adminDashboard/AdminDashboard";
+import EmployeesTable from "../pages/accounts/adminAccount/users/EmployeesTable";
+import CenroClients from "../pages/accounts/adminAccount/users/CenroClients";
+import BusinessApplications from "../pages/accounts/adminAccount/applications/BusinessApplications";
+import WebinarSched from "../pages/accounts/adminAccount/webinar/WebinarSched";
+import InspectAndFinalCert from "../pages/accounts/adminAccount/inspectionAndFinalCert/InspectAndFinalCert";
+import CertForAttendees from "../pages/accounts/adminAccount/webinar/CertForAttendees";
+import SuppAndTicket from "../pages/accounts/adminAccount/ticket/SuppAndTicket";
+import EmpLogs from "../pages/accounts/adminAccount/emplogs/EmpLogs";
+import AdminSettings from "../pages/accounts/adminAccount/settings/Settings";
 import UserDashboard from "../pages/accounts/normalUserAccount/dashboard/UserDashboard";
 import MyApplication from "../pages/accounts/normalUserAccount/application/MyApplication";
 import WebSched from "../pages/accounts/normalUserAccount/webinar/WebinarSched";
@@ -67,12 +68,12 @@ export default function AppRoutes() {
       </Route>
 
       {/* admin account */}
-      <Route element={<ProtectedRoute allowedRoles={["admin", "employee"]} />}>
-        <Route path="/emp" element={<AdminEmpAccount />}>
-          <Route index element={<Dashboard />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="employees" element={<EmployeesTable />} />
-          <Route path="users" element={<CenroClients />} />
+      <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+        <Route path="/admin" element={<AdminAccount />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="user-employee" element={<EmployeesTable />} />
+          <Route path="user-cenro-clients" element={<CenroClients />} />
           <Route
             path="business-application"
             element={<BusinessApplications />}
@@ -90,6 +91,26 @@ export default function AppRoutes() {
           <Route path="employee-logs" element={<EmpLogs />} />
           <Route path="admin-settings" element={<AdminSettings />} />
         </Route>
+      </Route>
+
+      {/* employee-account */}
+      <Route element={<ProtectedRoute allowedRoles={["employee"]} />}>
+        <Route path="/employee-account" element={<EmployeeAccount />} />
+        <Route path="user-employee" element={<EmployeesTable />} />
+        <Route path="user-cenro-clients" element={<CenroClients />} />
+        <Route path="business-application" element={<BusinessApplications />} />
+        <Route path="webinar-schedule" element={<WebinarSched />} />
+        <Route
+          path="inspection-and-final-certificate"
+          element={<InspectAndFinalCert />}
+        />
+        <Route
+          path="certificate-for-attendees"
+          element={<CertForAttendees />}
+        />
+        <Route path="support-and-tickets" element={<SuppAndTicket />} />
+        <Route path="employee-logs" element={<EmpLogs />} />
+        <Route path="admin-settings" element={<AdminSettings />} />
       </Route>
     </Routes>
   );

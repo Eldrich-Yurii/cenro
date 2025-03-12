@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../api/AuthApi";
 import { TbArrowLeft } from "react-icons/tb";
-import Logo from "../../assets/CENRO-LOGO-ORIG.png";
+import Logo from "../../assets/cenro-logo.png";
 import { Button } from "@material-tailwind/react";
 
 export default function SignUp() {
@@ -76,7 +76,7 @@ export default function SignUp() {
         className="absolute top-4 left-4 opacity-90 z-10"
         src={Logo}
         alt="cenro-logo"
-        width={230}
+        width={180}
       />
       <div className="grid grid-cols-2 h-screen">
         <section className="login-pic w-full brightness-75 contrast-125"></section>
@@ -108,24 +108,13 @@ export default function SignUp() {
                     name="firstname"
                     placeholder="Enter your first Name"
                     value={firstname}
-                    onChange={(e) => {
-                      const maxLength = 13;
-                      const inputValue = e.target.value;
-                      if (inputValue.length <= maxLength) {
-                          setFirstname(inputValue);
-                      } else {
-                          setFirstname(inputValue.slice(0, maxLength));
-                      }
-                  }}
+                    onChange={(e) => setFirstname(e.target.value)}
                     onKeyPress={(e) => {
                       const charCode = e.which ? e.which : e.keyCode;
-                      const char = String.fromCharCode(charCode);
-                      const allowedCharacters = /^[a-zA-Z\s]+$/; 
-
-                      if (!allowedCharacters.test(char)) {
-                      e.preventDefault();
-                    }
-                  }}
+                          if (charCode >= 48 && charCode <= 57) { 
+                          e.preventDefault();
+                          }
+                    }}
                     required
                     className="border-blue-900 border-2 w-full h-12 rounded-lg px-2 truncate"
                   />
@@ -143,24 +132,13 @@ export default function SignUp() {
                     name="middlename"
                     placeholder="Enter your Middle Name"
                     value={middlename}
-                    onChange={(e) => {
-                      const maxLength = 13;
-                      const inputValue = e.target.value;
-                      if (inputValue.length <= maxLength) {
-                          setMiddlename(inputValue);
-                      } else {
-                          setMiddlename(inputValue.slice(0, maxLength));
-                      }
-                  }}
+                    onChange={(e) => setMiddlename(e.target.value)}
                     onKeyPress={(e) => {
                       const charCode = e.which ? e.which : e.keyCode;
-                      const char = String.fromCharCode(charCode);
-                      const allowedCharacters = /^[a-zA-Z\s]+$/; 
-
-                      if (!allowedCharacters.test(char)) {
-                      e.preventDefault();
-                    }
-                  }}
+                          if (charCode >= 48 && charCode <= 57) { 
+                          e.preventDefault();
+                          }
+                    }}
                     className="border-blue-900 border-2 w-full h-12 rounded-lg px-2 truncate"
                   />
                 </div>
@@ -177,24 +155,13 @@ export default function SignUp() {
                     name="lastname"
                     placeholder="Enter your Last Name"
                     value={lastname}
-                    onChange={(e) => {
-                      const maxLength = 13;
-                      const inputValue = e.target.value;
-                      if (inputValue.length <= maxLength) {
-                          setLastname(inputValue);
-                      } else {
-                          setLastname(inputValue.slice(0, maxLength));
-                      }
-                  }}
+                    onChange={(e) => setLastname(e.target.value)}
                     onKeyPress={(e) => {
                       const charCode = e.which ? e.which : e.keyCode;
-                      const char = String.fromCharCode(charCode);
-                      const allowedCharacters = /^[a-zA-Z\s]+$/; 
-
-                      if (!allowedCharacters.test(char)) {
-                      e.preventDefault();
-                    }
-                  }}
+                          if (charCode >= 48 && charCode <= 57) { 
+                          e.preventDefault();
+                          }
+                    }}
                     required
                     className="border-blue-900 border-2 w-full h-12 rounded-lg px-2 truncate"
                   />

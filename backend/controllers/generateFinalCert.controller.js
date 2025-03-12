@@ -41,7 +41,7 @@ export const generateFinalCert = async (applicationId) => {
         ? "https://cenro-verification.com"
         : "http://localhost:5000";
 
-    const verificationURL = `${BASE_URL}/api/application/certificate-verification?hash=${certificateHash}`;
+    const verificationURL = `${BASE_URL}/certificate-verification?hash=${certificateHash}`;
     const qrCodeDataUrl = await QRCode.toDataURL(verificationURL);
 
     // HTML Template for Certificate
@@ -58,7 +58,7 @@ export const generateFinalCert = async (applicationId) => {
     <h2>CERTIFICATE OF ENVIRONMENTAL COMPLIANCE</h2>
     <p>THIS IS TO CERTIFY</p>
     <p>${application.businessName}</p>
-    <p>THAT THEY COMPLIED WITH ALL THE REQUIREMENTS TO RUN THEIR BUSINESS</p>
+    <p>ETO NA CERTIFICATE MO SHEESH</p>
     <div>
     <img src="${qrCodeDataUrl}" width="150" />
     </div>

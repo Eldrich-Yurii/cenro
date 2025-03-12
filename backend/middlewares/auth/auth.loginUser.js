@@ -22,12 +22,12 @@ export const loginUser = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user._id, role: user.role, designation: user.designation },
+      { id: user._id, role: user.role },
       process.env.JWT_SECRET_KEY,
       { expiresIn: "1h" }
     );
     console.log("Generated Token:", token);
-    res.json({ token, role: user.role, userId: user._id, designation: user.designation });
+    res.json({ token, role: user.role, userId: user._id });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error", error });
   }

@@ -71,35 +71,35 @@ const TABLE_ROWS = [
 ];
 
 export default function CenroClients() {
+
   const [clients, setClients] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredClients, setFilteredClients] = useState([]);
 
   useEffect(() => {
     const getData = async () => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const token = user?.token;
-      if (!token) {
-        console.error("Token not found.");
-        return;
-      }
+          const user = JSON.parse(localStorage.getItem("user"));
+          const token = user?.token;
+          if (!token) {
+            console.error("Token not found.");
+            return;
+          }
+    
+          try {
+            const clientData = await getUsers(token);
+            setClients(clientData)
+          } catch(err) {
+            console.error("Error getting data", err);
+          }
+        };
+    
+        getData();
+      }, []);
 
-      try {
-        const clientData = await getUsers(token);
-        setClients(clientData);
-      } catch (err) {
-        console.error("Error getting data", err);
-      }
-    };
-
-    getData();
-  }, []);
-
-  //search function
+      //search function
   useEffect(() => {
     const results = clients.filter((clt) => {
-      const searchStr =
-        `${clt.firstname} ${clt.middlename} ${clt.lastname} ${clt.email}`.toLowerCase();
+      const searchStr = `${clt.firstname} ${clt.middlename} ${clt.lastname} ${clt.email}`.toLowerCase();
       return searchStr.includes(searchTerm.toLowerCase());
     });
     setFilteredClients(results);
@@ -108,11 +108,7 @@ export default function CenroClients() {
   return (
     <div className="h-screen">
       <Card className="h-[36rem] w-full px-2 shadow-lg">
-        <CardHeader
-          className="rounded-none h-24"
-          floated={false}
-          shadow={false}
-        >
+        <CardHeader className="rounded-none h-24" floated={false} shadow={false}>
           <div className=" flex justify-between items-start">
             <section>
               <Typography variant="h2" className="text-blue-800 font-extrabold">
@@ -132,6 +128,9 @@ export default function CenroClients() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
+              <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
+                <TbSearch />
+              </Button>
             </section>
           </div>
         </CardHeader>
@@ -141,7 +140,10 @@ export default function CenroClients() {
             <thead>
               <tr>
                 {TABLE_HEAD.map((head) => (
-                  <th key={head} className="border-b border-gray-300 pb-4">
+                  <th
+                    key={head}
+                    className="border-b border-gray-300 pb-4"
+                  >
                     <Typography
                       variant="small"
                       className="text-gray-800 font-extrabold leading-none"
@@ -196,10 +198,7 @@ export default function CenroClients() {
                       </td>
                       <td className="border-b border-gray-300">
                         <div className="flex justify-star gap-4">
-                          <Button
-                            variant="outlined"
-                            className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white"
-                          >
+                          <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white">
                             <TbSearch />
                           </Button>
                           {/* <Button variant="outlined" className="px-2 py-2 border-blue-800 text-blue-800  hover:bg-blue-800 hover:text-white">
@@ -215,7 +214,16 @@ export default function CenroClients() {
           </table>
         </CardBody>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+          <Typography variant="small" color="blue-gray" className="font-normal">
+            Page 1 of 1
+          </Typography>
           <div className="flex gap-2">
+            <Button variant="outlined" size="sm" className="text-blue-800">
+              Previous
+            </Button>
+            <Button variant="outlined" size="sm" className="text-blue-800">
+              Next
+            </Button>
           </div>
         </CardFooter>
       </Card>

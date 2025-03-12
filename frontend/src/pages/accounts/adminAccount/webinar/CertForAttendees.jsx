@@ -8,18 +8,18 @@ import {
 } from "@material-tailwind/react";
 import { TbSearch } from "react-icons/tb";
 import {
-  confirmInspection,
-  getPendingFinalCertUsers,
+  confirmAttendance,
+  getPendingWebinarUsers,
 } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
 
 const TABLE_HEAD = ["ID", "Business Name", "Action"];
 
-export default function IsnpectionAndFinalCert() {
+export default function CertForAttendees() {
   const [webinarAttendees, setWebinarAttendees] = useState([]);
 
   useEffect(() => {
-    const fetchPendingFinalCertUsers = async () => {
+    const fetchPendingUsers = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
         const token = user?.token;
@@ -28,19 +28,19 @@ export default function IsnpectionAndFinalCert() {
           console.error("Token not found.");
           return;
         }
-        const data = await getPendingFinalCertUsers(token);
+        const data = await getPendingWebinarUsers(token);
         setWebinarAttendees(data);
       } catch (error) {
         console.error("Error fetching pending webinar users:", error);
       }
     };
 
-    fetchPendingFinalCertUsers();
+    fetchPendingUsers();
   }, []);
 
-  const handleCofirmInspection = async (applicationId) => {
+  const handleConfirmAttendance = async (applicationId) => {
     try {
-      const response = await confirmInspection(applicationId);
+      const response = await confirmAttendance(applicationId);
       setWebinarAttendees((prev) =>
         prev.filter((attendee) => attendee._id !== applicationId)
       );
@@ -60,10 +60,11 @@ export default function IsnpectionAndFinalCert() {
         <div className=" flex justify-between items-start">
           <section>
             <Typography variant="h2" className="text-blue-800 font-extrabold">
-              Inspection and Certificate of Compliance
+              Generate Certificates
             </Typography>
             <p className="w-72 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-              This is the list of Cenro Clients that is under inspection or completed all the requirements.
+              This is the list of Cenro Clients that should attended the
+              Webinar.
             </p>
           </section>
           <section className="flex items-center">
@@ -74,6 +75,9 @@ export default function IsnpectionAndFinalCert() {
               id="certSearch"
               placeholder="Search..."
             />
+            <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
+              <TbSearch />
+            </Button>
           </section>
         </div>
       </CardHeader>
@@ -96,11 +100,7 @@ export default function IsnpectionAndFinalCert() {
             </tr>
           </thead>
           <tbody>
-            {webinarAttendees.length === 0 ? <tr>
-                <td colSpan="12" className="text-center pt-4">
-                  No Pending Users Found
-                </td>
-              </tr>:webinarAttendees.map(({ _id, businessName }) => {
+            {webinarAttendees.map(({ _id, businessName }) => {
               const isLast = _id === webinarAttendees.length - 1;
               const classes = isLast ? "py-4" : "py-4 border-b border-gray-300";
 
@@ -149,8 +149,8 @@ export default function IsnpectionAndFinalCert() {
                         </div>
                       </td> */}
                   <td className="border-b border-gray-300">
-                    <Button onClick={() => handleCofirmInspection(_id)}>
-                      Generate Certificate Now
+                    <Button onClick={() => handleConfirmAttendance(_id)}>
+                      Confirm Attendance
                     </Button>
                     {/* <div className="flex gap-4">
                           <Menu>

@@ -8,7 +8,6 @@ import {
 } from "@material-tailwind/react";
 import { TbSend } from "react-icons/tb";
 import "./Chatbot.css";
-import Fuse from "fuse.js"; // Import Fuse
 
 export default function ChatSupport() {
   const [faqs, setFaqs] = useState([]);
@@ -16,23 +15,15 @@ export default function ChatSupport() {
   const [userInput, setUserInput] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [isSending, setIsSending] = useState(false);
-
-  const chatMessagesRef = useRef(null);
-  useEffect(() => {
-    if (chatMessagesRef.current) {
-      chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight;
-    }
-  }, [chatHistory]);
 
   const messagesEndRef = useRef(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-  useEffect(() => {
-    scrollToBottom();
-  }, [chatHistory]);
+  
+    const scrollToBottom = () => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+    useEffect(() => {
+      scrollToBottom();
+    }, [chatHistory]);
 
   useEffect(() => {
     if (location.pathname === "/user-account/frequently-asked-questions") {
@@ -47,48 +38,10 @@ export default function ChatSupport() {
   }, []);
 
   const handleQuestionClick = (faq) => {
-    setUserInput(faq.question);
-    setSuggestions([]);
-  };
-
-  const handleInputChange = (e) => {
-    const input = e.target.value;
-    setUserInput(input);
-
-    if (input.length > 3) {
-      const fuse = new Fuse(faqs, { keys: ["question"] });
-      const results = fuse.search(input);
-      const filteredSuggestions = results.map((result) => result.item);
-      setSuggestions(filteredSuggestions);
-    } else {
-      setSuggestions([]);
-    }
-  };
-
-  const handleSendMessage = () => {
-    if (isSending || !userInput.trim()) return; // Added check for empty input
-    setIsSending(true);
-
-    const fuse = new Fuse(faqs, {
-      keys: ["question"],
-      threshold: 0.4,
-      distance: 1,
-      includeScore: true,
-    });
-    const results = fuse.search(userInput);
-
-    let response;
-    if (results.length > 0) {
-      response = results[0].item.answer;
-    } else {
-      response =
-        "Sorry, I don't have an answer for that yet. Would you like to create a support ticket? 💡 You can create a support ticket, and a staff member will assist you.";
-    }
-
     setChatHistory((prev) => [
       ...prev,
-      { type: "user", message: userInput },
-      { type: "bot", message: "Typing..." },
+      { type: "user", message: faq.question },
+      { type: "bot", message: "Typing..." }, // Show "Typing..." first
     ]);
 
     setTimeout(() => {
@@ -96,18 +49,61 @@ export default function ChatSupport() {
         const updatedChat = [...prev];
         updatedChat[updatedChat.length - 1] = {
           type: "bot",
-          message: response,
+          message: faq.answer,
+        }; // Replace "Typing..." with the answer
+        return updatedChat;
+      });
+    }, 1500); // Delay for 1.5 seconds
+
+    setIsOpen(false);
+    setUserInput("");
+    setSuggestions([]);
+  };
+
+  const handleInputChange = (e) => {
+    const input = e.target.value;
+    setUserInput(input);
+
+    if (input.length > 0) {
+      const filteredSuggestions = faqs.filter((faq) =>
+        faq.question.toLowerCase().includes(input.toLowerCase())
+      );
+      setSuggestions(filteredSuggestions.slice(0, 5));
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleSendMessage = () => {
+    const matchedFaq = faqs.find(
+      (faq) => faq.question.toLowerCase() === userInput.toLowerCase()
+    );
+
+    setChatHistory((prev) => [
+      ...prev,
+      { type: "user", message: userInput },
+      { type: "bot", message: "Typing..." }, // Show "Typing..." first
+    ]);
+
+    setTimeout(() => {
+      setChatHistory((prev) => {
+        const updatedChat = [...prev];
+        updatedChat[updatedChat.length - 1] = {
+          type: "bot",
+          message: matchedFaq
+            ? matchedFaq.answer
+            : "Sorry, I don't have an answer for that yet. Would you like to create a support ticket? 💡 You can create a support ticket, and a staff member will assist you.",
         };
         return updatedChat;
       });
-      setIsSending(false);
-    }, 1500);
+    }, 1500); // Delay for 1.5 seconds
 
     setUserInput("");
     setSuggestions([]);
   };
 
   const handleCreateTicket = () => {
+    // Redirect to ticket creation page
     window.location.href = "/user-account/support-ticket";
   };
 
@@ -121,22 +117,14 @@ export default function ChatSupport() {
     ]);
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !isSending) {
-      e.preventDefault();
-      if (userInput.trim()) {
-        handleSendMessage();
-      }
-    }
-  };
-
   return (
     <Card className="h-full flex flex-col justify-between">
       <CardHeader floated={false} shadow={false}>
         <h2>Ask Cendi for FAQs</h2>
       </CardHeader>
       <CardBody>
-        <div className="chat-messages" ref={chatMessagesRef}>
+        {/* mesage content */}
+        <div className="chat-messages">
           {chatHistory.map((msg, index) => (
             <div
               key={index}
@@ -167,7 +155,7 @@ export default function ChatSupport() {
                       </div>
                     </div>
                   )}
-                  <div ref={messagesEndRef}></div>
+                   <div ref={messagesEndRef}></div>
                 </>
               )}
             </div>
@@ -204,23 +192,18 @@ export default function ChatSupport() {
             type="text"
             value={userInput}
             onChange={handleInputChange}
-            onKeyDown={handleKeyDown} // Use handleKeyDown
+            onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
             placeholder="Type your question..."
-            disabled={isSending}
           />
           <div>
             <button
               className="rounded-lg p-3 border-2 border-blue-800 bg-blue-800 text-2xl text-white hover:bg-blue-900"
               onClick={handleSendMessage}
-              disabled={isSending || !userInput.trim()} //Disable when empty
             >
               <TbSend />
             </button>
           </div>
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="border-2 border-lime-600 text-lime-600 font-bold p-3 rounded-lg hover:bg-lime-600 hover:text-white"
-          >
+          <button onClick={() => setIsOpen(!isOpen)} className="border-2 border-lime-600 text-lime-600 font-bold p-3 rounded-lg hover:bg-lime-600 hover:text-white">
             FAQs
           </button>
         </div>

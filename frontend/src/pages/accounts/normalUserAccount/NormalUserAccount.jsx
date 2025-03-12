@@ -8,7 +8,7 @@ export default function NormalUserAccount() {
   return (
     <div className="z-20 flex bg-gray-200">
       <NormalUserSidebar />
-      <div className="h-screen  flex-1 p-4 overflow-y-auto">
+      <div className="h-screen flex-1 p-4">
         <Outlet />
       </div>
       {/* <SampleForm /> */}

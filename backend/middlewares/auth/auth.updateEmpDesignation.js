@@ -1,53 +1,37 @@
-import usersSchema from "../../models/usersSchema.js";
+import User from "../../models/usersSchema.js";
 import mongoose from "mongoose";
-import { saveLog } from "../../controllers/saveLog.controller.js";
 
 export const updateEmpDesignation = async (req, res) => {
-  try {
-    const { id } = req.params;
-    console.log("Received ID:", id);
+    try {
+        const { designation } = req.body;
+        const id = req.params.id;
 
-    if (!req.user || !req.user._id) {
-      return res.status(401).json({ message: "Unauthorized: User not found" });
+        console.log("ID:", req.params.id)
+        console.log("Received Request Body:", req.body);
+
+
+         // Validate MongoDB ObjectId
+         if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: "Invalid employee ID format" });
+        }
+
+        // Convert the ID to an ObjectId and find the employee
+        const employeeId = new mongoose.Types.ObjectId(id);
+        const employee = await User.findOne({ _id: employeeId });
+
+        if (!employee) {
+            return res.status(404).json({ message: "Employee not found"})
+        }
+        // Update the employee's designation
+        employee.designation = designation;
+        console.log("Employee Found:", employee);
+
+        await employee.save();
+
+        res.status(200).json({ meassgae: "Employee Updated Successfully", employee})
+
+    } catch(err) {
+        console.error("Error updating Employee", err);
+        res.status(500).json({ message: "Internal Server Error"})
     }
-
-    const userId = req.user._id;
-
-    if (!id || !mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ message: "Invalid employee ID" });
-    }
-
-    const { designation } = req.body;
-
-    if (!designation) {
-      return res.status(400).json({ message: "No fields provided for update" });
-    }
-
-    const updatedDesignation = await usersSchema.findByIdAndUpdate(
-      id,
-      { designation },
-      { new: true }
-    );
-
-    if (!updatedDesignation) {
-      return res.status(404).json({ message: "No employee found" });
-    }
-
-    await saveLog("Designation Updated", userId, `Webinar ID: ${id}`);
-
-    return res
-      .status(200)
-      .json({
-        message: "Designation Updated Successfully",
-        updatedDesignation,
-      });
-  } catch (err) {
-    console.error("Error Updating Employee Designation:", err);
-    return res
-      .status(500)
-      .json({
-        message: "Error Updating Employee Designation",
-        error: err.message,
-      });
-  }
-};
+}  

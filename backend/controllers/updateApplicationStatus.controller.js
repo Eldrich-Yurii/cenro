@@ -9,7 +9,7 @@ export const updateApplicationStatus = async (req, res) => {
         const { applicationId } = req.params;
         const { status } = req.body
 
-        // console.log("Received applicationId:", applicationId);
+        console.log("Received applicationId:", applicationId);
 
         if (!mongoose.Types.ObjectId.isValid(applicationId)) {
             return res.status(400).json({ message: "Invalid application ID" });
@@ -22,7 +22,7 @@ export const updateApplicationStatus = async (req, res) => {
             return res.status(404).json({ message: "Application not found" });
         }
 
-        // console.log("Extracted applicationId:", applicationId); // Debugging
+        console.log("Extracted applicationId:", applicationId); // Debugging
 
         application.status = status;
         await application.save();

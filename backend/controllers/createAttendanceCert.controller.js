@@ -22,8 +22,8 @@ export const createAttendanceCert = async (req, res) => {
     // Mark attendance as confirmed
     application.attendance = true;
     await application.save();
-    // application.attendanceConfirmedBy = adminId;
-    // application.attendanceConfirmedAt = new Date();
+    application.attendanceConfirmedBy = adminId;
+    application.attendanceConfirmedAt = new Date();
 
     // Generate attendance certificate
     const certPath = await generateCertAttendance(applicationId);
@@ -35,8 +35,8 @@ export const createAttendanceCert = async (req, res) => {
     res.status(200).json({
       message: "Attendance confirmed & Certificate generated",
       certPath,
-      // confirmedBy: adminId,
-      // confirmedAt: application.attendanceConfirmedAt,
+      confirmedBy: adminId,
+      confirmedAt: application.attendanceConfirmedAt,
     });
   } catch (err) {
     console.error("Error Confirming attendance:", err);

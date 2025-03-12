@@ -23,7 +23,7 @@ export const createEmployee = async (employeeData) => {
   
   try {
     const response = await axios.post(
-      `${API}/emp/create-employee`,
+      `${API}/admin/create-employee`,
       employeeData,
       {
         headers: {
@@ -42,7 +42,7 @@ export const createEmployee = async (employeeData) => {
 // fetch employee acounts
 export const getEmployees = async (token) => {
   try {
-    const response = await axios.get(`${API}/emp/employees`, {
+    const response = await axios.get(`${API}/admin/employees`, {
       headers: { Authorization: `Bearer ${token}` },
     }
   );
@@ -53,19 +53,16 @@ export const getEmployees = async (token) => {
 };
 
 // update employee designation
-export const updateEmployeeDesignation = async (id, designation) => {
-
-  const user = JSON.parse(localStorage.getItem("user"));
-    const token = user?.token;
-    if (!token) {
-      console.error("Token not found.");
-      return;
-    }
+export const updateEmployeeDesignation = async (id, token, newDesignation) => {
+  console.log("📢 updateEmployeeDesignation() STARTED");
+  console.log("➡️ API URL:", `${API}/admin/update-employee/${id}`);
+  console.log("➡️ Token:", token ? "Token Present ✅" : "No Token ❌");
+  console.log("➡️ Payload:", { designation: newDesignation });
 
   try {
     const response = await axios.put(
-      `${API}/emp/update-employee/${id}`,
-      { designation },  // Pass correct payload
+      `${API}/admin/update-employee/${id}`,
+      { designation: newDesignation },  // Pass correct payload
       {
         headers: {
           Authorization: `Bearer ${token}`, // Ensure token is sent
@@ -86,7 +83,7 @@ export const updateEmployeeDesignation = async (id, designation) => {
 // delete employee account
 export const deleteEmployee = async (id, token) => {
   try {
-    const response = await axios.delete(`${API}/emp/delete-employee/${id}`, {
+    const response = await axios.delete(`${API}/admin/delete-employee/${id}`, {
         headers: { 
           Authorization: `Bearer ${token}`
         },
@@ -123,7 +120,7 @@ export const loginUser = async (email, password) => {
 // get cenro clients account for admin account
 export const getUsers = async (token) => {
   try {
-    const response = await axios.get(`${API}/emp/users`, {
+    const response = await axios.get(`${API}/admin/users`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;

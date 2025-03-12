@@ -2,23 +2,24 @@ import {
   Button,
   Card,
   CardBody,
+  CardFooter,
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
 import { TbSearch } from "react-icons/tb";
 import {
-  confirmAttendance,
-  getPendingWebinarUsers,
+  confirmInspection,
+  getPendingFinalCertUsers,
 } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
 
 const TABLE_HEAD = ["ID", "Business Name", "Action"];
 
-export default function CertForAttendees() {
+export default function IsnpectionAndFinalCert() {
   const [webinarAttendees, setWebinarAttendees] = useState([]);
 
   useEffect(() => {
-    const fetchPendingUsers = async () => {
+    const fetchPendingFinalCertUsers = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
         const token = user?.token;
@@ -27,19 +28,19 @@ export default function CertForAttendees() {
           console.error("Token not found.");
           return;
         }
-        const data = await getPendingWebinarUsers(token);
+        const data = await getPendingFinalCertUsers(token);
         setWebinarAttendees(data);
       } catch (error) {
         console.error("Error fetching pending webinar users:", error);
       }
     };
 
-    fetchPendingUsers();
+    fetchPendingFinalCertUsers();
   }, []);
 
-  const handleConfirmAttendance = async (applicationId) => {
+  const handleCofirmInspection = async (applicationId) => {
     try {
-      const response = await confirmAttendance(applicationId);
+      const response = await confirmInspection(applicationId);
       setWebinarAttendees((prev) =>
         prev.filter((attendee) => attendee._id !== applicationId)
       );
@@ -50,7 +51,7 @@ export default function CertForAttendees() {
   };
 
   return (
-    <Card className="max-h-[60rem] w-full px-6 shadow-lg">
+    <Card className="max-h-[34rem] w-full px-6 shadow-lg">
       <CardHeader
         className="rounded-none flex-shrink-0"
         floated={false}
@@ -74,6 +75,9 @@ export default function CertForAttendees() {
               id="certSearch"
               placeholder="Search..."
             />
+            <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
+              <TbSearch />
+            </Button>
           </section>
         </div>
       </CardHeader>
@@ -97,10 +101,10 @@ export default function CertForAttendees() {
           </thead>
           <tbody>
             {webinarAttendees.length === 0 ? <tr>
-              <td colSpan={12} className="text-center p-4 font-bold">
-                No attendees found
-              </td>
-            </tr> : webinarAttendees.map(({ _id, businessName }) => {
+                <td colSpan="12" className="text-center pt-4">
+                  No Pending Users Found
+                </td>
+              </tr>:webinarAttendees.map(({ _id, businessName }) => {
               const isLast = _id === webinarAttendees.length - 1;
               const classes = isLast ? "py-4" : "py-4 border-b border-gray-300";
 
@@ -149,8 +153,8 @@ export default function CertForAttendees() {
                         </div>
                       </td> */}
                   <td className="border-b border-gray-300">
-                    <Button onClick={() => handleConfirmAttendance(_id)}>
-                      Confirm Attendance
+                    <Button onClick={() => handleCofirmInspection(_id)}>
+                      Generate Certificate Now
                     </Button>
                     {/* <div className="flex gap-4">
                           <Menu>
@@ -182,7 +186,19 @@ export default function CertForAttendees() {
           </tbody>
         </table>
       </CardBody>
-      
+      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+        <Typography variant="small" color="blue-gray" className="font-normal">
+          Page 1 of 1
+        </Typography>
+        <div className="flex gap-2">
+          <Button variant="outlined" size="sm" className="">
+            Previous
+          </Button>
+          <Button variant="outlined" size="sm" className="">
+            Next
+          </Button>
+        </div>
+      </CardFooter>
     </Card>
   );
 }

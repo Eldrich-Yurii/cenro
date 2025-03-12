@@ -139,6 +139,14 @@ import {
             </table>
           </CardBody>
           <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+            <div className="flex gap-2">
+              <Button variant="outlined" size="sm" className="text-blue-800">
+                Previous
+              </Button>
+              <Button variant="outlined" size="sm" className="text-blue-800">
+                Next
+              </Button>
+            </div>
           </CardFooter>
         </Card>
       </div>
