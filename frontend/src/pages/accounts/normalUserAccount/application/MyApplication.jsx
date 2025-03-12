@@ -14,8 +14,8 @@ const TABLE_HEAD = [
   "Business Name",
   "Status",
   // "PDF File",
-  "Assessment",
-  "Upload Assessment",
+  "Official Receipt (OR)",
+  "Upload OR",
 ];
 export default function MyApplication() {
   const [applications, setApplications] = useState([]);

@@ -23,7 +23,7 @@ const TABLE_HEAD = [
   "Application Type",
   "Business Name",
   "Status",
-  "Assessment Certificate",
+  "Official Receipt",
   "Actions",
 ];
 
