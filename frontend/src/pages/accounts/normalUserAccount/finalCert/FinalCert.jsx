@@ -70,11 +70,11 @@ export default function FinalCert() {
                 variant="h2"
                 className="text-blue-800 font-extrabold font-inter"
               >
-                Inspection & Final Certificate
+                Inspection & Certificate of Compliance
               </Typography>
               <p className="w-72 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-                This where you will get your final certificate after the
-                inspection.
+                This where you will get your Certificate of Compliance after the
+                Inspection.
               </p>
             </section>
             <section className="flex items-center">

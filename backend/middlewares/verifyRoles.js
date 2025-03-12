@@ -1,9 +1,10 @@
-export const verifyRoles = (...allowedRoles) => {
-    return (request, response, next) => {
-      if (!request.user) return response.status(401).json({ message: "Unauthorized" });
+export const verifyRoles = (allowedRoles) => {
+    return (req, res, next) => {
+      if (!req.user) return res.status(401).json({ message: "Unauthorized" });
   
-      if (!allowedRoles.includes(request.user.role)) {
-        return response.status(403).json({ message: "Access Denied" });
+      if (!allowedRoles.includes(req.user.role)) {
+        console.log("RES:",req.user.role)
+        return res.status(403).json({ message: "Access Denied" });
       }
       
       next();

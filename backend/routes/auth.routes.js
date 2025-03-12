@@ -20,24 +20,24 @@ router.post("/login", loginUser);
   
 // Admin routes
 //CREATE an employee account
-router.post("/admin/create-employee", verifyToken, verifyRoles("admin"), createEmployee);
+router.post("/emp/create-employee", verifyToken, verifyRoles("admin"), createEmployee);
 
 // GET Admin account
-router.get("/admin", verifyToken, verifyRoles("admin"), (req, res) => {
+router.get("/emp", verifyToken, verifyRoles("admin"), (req, res) => {
   if (req.user.role !== "admin") return res.status(403).json({ message: "Access Denied" });
   res.json({ message: "Welcome, Admin" });
 });
 
-// GET users from DB to admin table
-router.get("/admin/employees", verifyToken, verifyRoles("admin"), getEmployees);
+// GET employees from DB to admin table
+router.get("/emp/employees", verifyToken, verifyRoles("admin"), getEmployees);
 
 // GET users from DB to admin table
-router.get("/admin/users", verifyToken, verifyRoles("admin"), getUsers);
+router.get("/emp/users", verifyToken, verifyRoles("admin"), getUsers);
 
 //UPDATE employee designation
-router.put("/admin/update-employee/:id", verifyToken, verifyRoles("admin"), updateEmpDesignation);
+router.put("/emp/update-employee/:id", verifyToken, verifyRoles("admin"), updateEmpDesignation);
 
 // DELETE employee account
-router.delete("/admin/delete-employee/:id", verifyToken, verifyRoles("admin"), deleteEmployee);
+router.delete("/emp/delete-employee/:id", verifyToken, verifyRoles("admin"), deleteEmployee);
 
 export default router;

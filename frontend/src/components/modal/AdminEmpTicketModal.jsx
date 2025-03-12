@@ -10,7 +10,7 @@ import {
   CardHeader,
 } from "@material-tailwind/react";
 
-export default function AdminEmpTicketModal({ ticket, isOpen, onClose }) {
+export default function AdminEmpTicketModal({ ticket, isOpen, onClose, onStatusUpdate }) {
   const [status, setStatus] = useState(ticket.status);
   const [messages, setMessages] = useState(ticket.messages || []);
   const [newMessage, setNewMessage] = useState("");
@@ -54,6 +54,7 @@ export default function AdminEmpTicketModal({ ticket, isOpen, onClose }) {
       try {
         await updateStatus(ticket._id, newStatus);
         setStatus(newStatus);
+        onStatusUpdate(ticket._id, newStatus);
       } catch (err) {
         console.error("Failed to update status:", err);
       }

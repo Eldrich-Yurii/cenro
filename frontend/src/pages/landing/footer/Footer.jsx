@@ -47,7 +47,7 @@ export default function Footer() {
               <p>(+63) 967 380 5773</p>
               <span className="flex">
                 <LiaFacebook size={23} />
-                <a href="">CENRO San Juan City</a>
+                <a href="https://www.facebook.com/cenrosjmm" target="_blank">CENRO San Juan City</a>
               </span>
             </div>
           </section>

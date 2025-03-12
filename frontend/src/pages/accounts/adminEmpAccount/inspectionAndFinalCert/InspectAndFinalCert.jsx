@@ -8,18 +8,18 @@ import {
 } from "@material-tailwind/react";
 import { TbSearch } from "react-icons/tb";
 import {
-  confirmAttendance,
-  getPendingWebinarUsers,
+  confirmInspection,
+  getPendingFinalCertUsers,
 } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
 
 const TABLE_HEAD = ["ID", "Business Name", "Action"];
 
-export default function CertForAttendees() {
+export default function IsnpectionAndFinalCert() {
   const [webinarAttendees, setWebinarAttendees] = useState([]);
 
   useEffect(() => {
-    const fetchPendingUsers = async () => {
+    const fetchPendingFinalCertUsers = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
         const token = user?.token;
@@ -28,19 +28,19 @@ export default function CertForAttendees() {
           console.error("Token not found.");
           return;
         }
-        const data = await getPendingWebinarUsers(token);
+        const data = await getPendingFinalCertUsers(token);
         setWebinarAttendees(data);
       } catch (error) {
         console.error("Error fetching pending webinar users:", error);
       }
     };
 
-    fetchPendingUsers();
+    fetchPendingFinalCertUsers();
   }, []);
 
-  const handleConfirmAttendance = async (applicationId) => {
+  const handleCofirmInspection = async (applicationId) => {
     try {
-      const response = await confirmAttendance(applicationId);
+      const response = await confirmInspection(applicationId);
       setWebinarAttendees((prev) =>
         prev.filter((attendee) => attendee._id !== applicationId)
       );
@@ -60,11 +60,10 @@ export default function CertForAttendees() {
         <div className=" flex justify-between items-start">
           <section>
             <Typography variant="h2" className="text-blue-800 font-extrabold">
-              Generate Certificates
+              Inspection and Certificate of Compliance
             </Typography>
             <p className="w-72 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-              This is the list of Cenro Clients that should attended the
-              Webinar.
+              This is the list of Cenro Clients that is under inspection or completed all the requirements.
             </p>
           </section>
           <section className="flex items-center">
@@ -75,9 +74,6 @@ export default function CertForAttendees() {
               id="certSearch"
               placeholder="Search..."
             />
-            <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
-              <TbSearch />
-            </Button>
           </section>
         </div>
       </CardHeader>
@@ -100,7 +96,11 @@ export default function CertForAttendees() {
             </tr>
           </thead>
           <tbody>
-            {webinarAttendees.map(({ _id, businessName }) => {
+            {webinarAttendees.length === 0 ? <tr>
+                <td colSpan="12" className="text-center pt-4">
+                  No Pending Users Found
+                </td>
+              </tr>:webinarAttendees.map(({ _id, businessName }) => {
               const isLast = _id === webinarAttendees.length - 1;
               const classes = isLast ? "py-4" : "py-4 border-b border-gray-300";
 
@@ -149,8 +149,8 @@ export default function CertForAttendees() {
                         </div>
                       </td> */}
                   <td className="border-b border-gray-300">
-                    <Button onClick={() => handleConfirmAttendance(_id)}>
-                      Confirm Attendance
+                    <Button onClick={() => handleCofirmInspection(_id)}>
+                      Generate Certificate Now
                     </Button>
                     {/* <div className="flex gap-4">
                           <Menu>

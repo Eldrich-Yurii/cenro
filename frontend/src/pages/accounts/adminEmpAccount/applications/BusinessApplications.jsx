@@ -274,7 +274,7 @@ export default function BusinessApplications() {
             <div className="bg-white p-5 rounded-lg shadow-lg w-[80%] h-[80%] flex flex-col">
               <div className="flex justify-between">
                 <h2 className="text-xl font-bold mb-2">
-                  Certificate of Assessment
+                  Assessment Certificate
                 </h2>
                 <button
                   onClick={() => setIsModalOpen(false)}
@@ -301,14 +301,6 @@ export default function BusinessApplications() {
         <Typography variant="small" color="blue-gray" className="font-normal">
           Page 1 of 1
         </Typography>
-        <div className="flex gap-2">
-          <Button variant="outlined" size="sm" className="">
-            Previous
-          </Button>
-          <Button variant="outlined" size="sm" className="">
-            Next
-          </Button>
-        </div>
       </CardFooter>
     </Card>
   );

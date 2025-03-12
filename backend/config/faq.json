@@ -3,21 +3,18 @@
       "question": "What is CENRO?",
       "answer": "CENRO stands for Community Environment and Natural Resources Office. It is responsible for managing and protecting natural resources in the local area."
     },
+    
     {
-      "question": "How do I apply for an environmental clearance?",
-      "answer": "You can apply for an environmental clearance by visiting the CENRO office or using our online appointment system. Required documents include a completed application form and supporting documents."
+      "question": "What services do you provide?",
+      "answer": "CENRO provides services such as business certification, environmental clearance processing, tree-cutting permits, and land-use assessments."
     },
     {
-      "question": "What services does CENRO provide?",
-      "answer": "CENRO provides services such as environmental clearance processing, tree-cutting permits, and land-use assessments."
-    },
-    {
-      "question": "How can I schedule an appointment?",
+      "question": "How can I get an appointment?",
       "answer": "You can schedule an appointment through our website or by calling the CENRO office."
     },
     {
       "question": "What should I do if my concern is not listed?",
-      "answer": "If your concern is not listed, you can submit your question through our chatbot or create a ticket so an assigned employee can assist you."
+      "answer": "If your concern is not listed, you can submit your question to our chat support section so an assigned employee can assist you. Account creation is required for this process"
     },
     {
         "question": "What is a Certificate of Environmental Compliance (CEC)",
@@ -44,7 +41,7 @@
         "answer": "The Business Establishment Environmental Awareness Seminar (BEEAS) discusses the different provisions stated under the national and local ordinances for the protection and conservation of the environment."
       },
       {
-        "question": "How often does CENRO conduct seminar?",
+        "question": "How often do you schedule and conduct seminars?",
         "answer": "The seminar is scheduled in batches and is usually held every Thursday or Friday of the week via Zoom platform. (Schedule may vary due to the availability of resource persons.)"
       },
       {
@@ -52,7 +49,17 @@
         "answer": "Commercial Establishments are expected to practice proper environmental management as stated under the National and City's Local Ordinances. They are also expected to provide all necessary documents stated in this handout."
       },
       {
+        "question": "Heo",
+        "answer": "Hey there! Is there anything you want to know?"
+      },
+      {
+        "question": "How can I get started with the online system",
+        "answer": "To get started, create your own account and have access to the services we provide"
+      },
+      {
         "question": "What is the difference between Low Risk and High Risk Commercial Establishment?",
         "answer": "High Risk Establishments - Refers to any establishment that generates potentially hazardous wastes which require extensive treatment before disposal or may also generate large amounts of solid and liquid wastes which may cause potential harm to the environment without proper disposal. Low Risk Establishments - Any establishment that generates minimal amount of solid and liquid waste such as retailers, financial institutions, services, kiosks, and other project or activities."
       }
+      
+      
   ]

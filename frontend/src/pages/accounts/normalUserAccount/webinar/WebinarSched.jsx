@@ -6,7 +6,7 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
-import { TbEdit, TbSearch, TbTrash } from "react-icons/tb";
+import { TbEdit, TbTrash } from "react-icons/tb";
 import { getAllWebinar } from "../../../../api/webinarApi";
 import { useEffect, useState } from "react";
 
@@ -15,7 +15,6 @@ const TABLE_HEAD = [
   "Date and Time",
   "Webinar Link",
   "Status",
-  "Actions",
 ];
 
 export default function WebSched() {
@@ -151,22 +150,6 @@ export default function WebSched() {
                           </span>
                         </div>
                       </td>
-                      <td className="border-b border-gray-300">
-                        <div className="flex gap-4">
-                          <Button
-                            variant="outlined"
-                            className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white"
-                          >
-                            <TbEdit />
-                          </Button>
-                          <Button
-                            variant="outlined"
-                            className="px-2 py-2 border-blue-800 text-blue-800  hover:bg-blue-800 hover:text-white"
-                          >
-                            <TbTrash />
-                          </Button>
-                        </div>
-                      </td>
                     </tr>
                   );
                 }
@@ -175,17 +158,6 @@ export default function WebSched() {
           </table>
         </CardBody>
         <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <Typography variant="small" color="blue-gray" className="font-normal">
-            Page 1 of 1
-          </Typography>
-          <div className="flex gap-2">
-            <Button variant="outlined" size="sm" className="text-blue-800">
-              Previous
-            </Button>
-            <Button variant="outlined" size="sm" className="text-blue-800">
-              Next
-            </Button>
-          </div>
         </CardFooter>
       </Card>
   );

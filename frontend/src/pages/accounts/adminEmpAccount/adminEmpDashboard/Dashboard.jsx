@@ -5,9 +5,9 @@ import ImportantAlerts from "./dashboardElements/ImportantAlerts";
 import ApplicationBreakdown from "./dashboardElements/ApplicationBreakdown"
 
 
-export default function AdminDashboard() {
+export default function Dashboard() {
   return (
-    <div className="h-auto">
+    <div>
       <small className="font-semibold">Dashboard Overview</small>
       <div className="grid grid-flow-col pt-2">
         {/* Total Application */}

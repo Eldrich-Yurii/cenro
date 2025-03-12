@@ -1,19 +1,39 @@
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../api/AuthApi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TbArrowLeft } from "react-icons/tb";
-import Logo from "../../assets/cenro-logo.png";
+import Logo from "../../assets/CENRO-LOGO-ORIG.png";
 import { Button } from "@material-tailwind/react"
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loginAttempts, setLoginAttempts] = useState(0);
+  const [lockoutTime, setLockoutTime] = useState(null);
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (lockoutTime && Date.now() < lockoutTime) {
+      const timer = setTimeout(() => {
+        setLockoutTime(null);
+        setLoginAttempts(0);
+      }, lockoutTime - Date.now());
+      return () => clearTimeout(timer);
+    } else if (lockoutTime) {
+      setLockoutTime(null);
+      setLoginAttempts(0);
+    }
+  }, [lockoutTime]);
+
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (lockoutTime && Date.now() < lockoutTime) {
+      setError("Account locked. Please try again later.");
+      return;
+    }
 
     try {
       const response = await loginUser( email, password );
@@ -21,15 +41,18 @@ const LoginPage = () => {
 
       if (!response || !response.token) {
         console.error("Login failed: No token received");
+        handleFailedLogin();
         return;
     }
     
     if (!response.role) {
       console.error("No role in response");
+      handleFailedLogin();
       return;
   }
     if (!response.userId) {
       console.error("No id in response");
+      handleFailedLogin();
       return;
   }
 
@@ -37,17 +60,37 @@ const LoginPage = () => {
       // localStorage.setItem("token", JSON.stringify(response.token));
       // console.log("login successful:", data)
       if (response.role === "admin") {
-        navigate("/admin/dashboard");
+        navigate("/emp/dashboard");
       } else if (response.role === "employee") {
-        navigate("/employee-account");
+        navigate("/emp/dashboard");
       } else {
         navigate("/user-account");
       }
     } catch (err){
       setError("Invalid email or password");
-      console.log("Login Error:", err.response?.data || err.message)
+      console.log("Login Error:", err.response?.data || err.message);
+      handleFailedLogin();
     }
   };
+
+  const handleFailedLogin = () => {
+    setLoginAttempts((prevAttempts) => prevAttempts + 1);
+    if (loginAttempts >= 4) {
+      const lockDuration = 20 * 1000; // 20 seconds in milliseconds
+      setLockoutTime(Date.now() + lockDuration);
+      setLoginAttempts(0);
+      setError(`Too many failed login attempts. Account locked for 20 seconds.`);
+    }
+  };
+
+  const getRemainingTime = () => {
+    if (lockoutTime && Date.now() < lockoutTime) {
+      const remaining = Math.ceil((lockoutTime - Date.now()) / 1000);
+      return `Account locked for ${remaining} seconds.`;
+    }
+    return "";
+  };
+
 
   // const handleEmail = (e) => {
   //   setEmail(e.target.value);
@@ -68,7 +111,7 @@ const LoginPage = () => {
         className="absolute top-4 left-4 opacity-90 z-10"
         src={Logo}
         alt="cenro-logo"
-        width={180}
+        width={230}
       />
       <div className="grid grid-cols-2 h-screen">
         <section className="login-pic w-full brightness-75 contrast-125"></section>
@@ -85,6 +128,9 @@ const LoginPage = () => {
               </div>
               <div>
                 {error && <p className="text-red-600">{error}</p>}
+                {lockoutTime && Date.now() < lockoutTime && (
+                  <p className="text-red-600">{getRemainingTime()}</p>
+                )}
                 <div className="pb-8 flex flex-col gap-2">
                   <label
                     className="font-semibold text-blue-900"
