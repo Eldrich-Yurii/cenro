@@ -19,7 +19,7 @@ import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
 import { TbLayoutGrid, TbLogs, TbLogout2, TbSettings2, TbTicket, TbVideo, TbUser, TbFile } from "react-icons/tb";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/cenro-logo-red.png"
+import Logo from "../../assets/cenro_orig_logo_notext.png"
 
 
 export default function AdminEmpSideBar() {
