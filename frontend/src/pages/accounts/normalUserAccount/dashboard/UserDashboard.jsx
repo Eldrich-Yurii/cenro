@@ -9,6 +9,7 @@ import {
 import { getUserApplication, uploadAssessment } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
 import SubmitApplication from "../../../../components/modal/SubmitApplication"
+import ProgressTracker from "./dasboardElements/ProgressTracker";
 
 export default function UserDashboard() {
   return (
@@ -30,11 +31,11 @@ export default function UserDashboard() {
           
         </div>
       </CardHeader>
-      <br />
       <CardBody>
-        <table className="w-full min-w-max table-auto text-left">
+        {/* <ProgressTracker /> */}
+        {/* <table className="w-full min-w-max table-auto text-left">
          
-        </table>
+        </table> */}
        
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">

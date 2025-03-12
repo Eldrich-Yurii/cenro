@@ -9,9 +9,9 @@ export default function AdminEmpAccount() {
   console.log("Admin Account rendered!")
 
   return (
-    <div className="z-20 flex bg-gray-200 font-inter h-screen">
+    <div className="z-20 flex bg-white font-inter">
       <AdminEmpSideBar />
-      <div className="flex-1 p-4 h-full">
+      <div className="flex-1 p-4 h-screen overflow-y-auto">
         <Outlet />
       </div>
     </div>
