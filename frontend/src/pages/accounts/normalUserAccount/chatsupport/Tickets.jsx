@@ -132,12 +132,17 @@ export default function Ticket() {
                         </div>
                       </td>
                       <td className="border-b border-gray-300">
-                        <button
-                          onClick={() => setSelectedTicket(ticket)}
-                          className="text-blue-800 font-bold"
-                        >
-                          View
-                        </button>{" "}
+                      {ticket.status === "Resolved" ? (
+                          <Button disabled>View</Button>
+                            ) : (
+                                  <button
+                                  onClick={() => setSelectedTicket(ticket)}
+                                  className="text-blue-800 font-bold"
+                                  >
+                                     View
+                                  </button>
+                         )}
+
                       </td>
                     </tr>
                   );
