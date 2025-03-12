@@ -83,7 +83,7 @@ export default function WebSchedModal() {
             <form onSubmit={handleSubmit}>
               <header className="grid grid-flow-row gap-2">
                 <div className="flex justify-between items-center">
-                  <h2 className="text-xl font-bold">Scedule A Webinar</h2>
+                  <h2 className="text-xl font-bold">Schedule A Webinar</h2>
                   <IoClose
                     onClick={() => setIsOpen(false)}
                     className="text-xl hover:text-red-700 cursor-pointer"
