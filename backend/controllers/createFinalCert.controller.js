@@ -32,7 +32,7 @@ export const createFinalCert = async (req, res) => {
      // Update progress tracking
      await progressSchema.findOneAndUpdate(
       { applicationId },
-      { $set: { "steps.receiptApproved": true } },
+      { $set: { "steps.businessCertificateIssued": true } },
       { upsert: true, new: true } // Ensures a progress document exists
     );
 

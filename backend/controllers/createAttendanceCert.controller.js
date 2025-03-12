@@ -36,7 +36,7 @@ export const createAttendanceCert = async (req, res) => {
      // Update progress tracking
      await progressSchema.findOneAndUpdate(
       { applicationId },
-      { $set: { "steps.businessCertificateIssued": true } },
+      { $set: { "steps.attendanceConfirmed": true } },
       { upsert: true, new: true } // Ensures a progress document exists
     );
 
