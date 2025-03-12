@@ -14,7 +14,7 @@ import {
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 
-const TABLE_HEAD = ["Application Number", "Business Name", "Certificate", "Actions"];
+const TABLE_HEAD = ["Account Number", "Business Name", "Certificate", "Actions"];
 
 export default function FinalCert() {
   const [applications, setApplications] = useState([]);
@@ -187,19 +187,6 @@ export default function FinalCert() {
             </div>
           )}
         </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-6">
-          <Typography variant="small" color="blue-gray" className="font-normal">
-            Page 1 of 1
-          </Typography>
-          <div className="flex gap-2">
-            <Button variant="outlined" size="sm" className="">
-              Previous
-            </Button>
-            <Button variant="outlined" size="sm" className="">
-              Next
-            </Button>
-          </div>
-        </CardFooter>
       </Card>
     </div>
   );

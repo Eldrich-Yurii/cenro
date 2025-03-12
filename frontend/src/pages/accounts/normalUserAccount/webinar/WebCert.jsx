@@ -15,7 +15,7 @@ import { IoClose } from "react-icons/io5";
 import { TbSearch } from "react-icons/tb";
 
 const TABLE_HEAD = [
-  "Application Number",
+  "Account Number",
   "Application Type",
   "Business Name",
   "Certificate Status",
