@@ -63,7 +63,6 @@ export const generateFinalCert = async (applicationId) => {
     <img src="${qrCodeDataUrl}" width="150" />
     </div>
     </div>
-    <small style="font-size: 12px; color: gray;">Verification Hash: ${certificateHash}</small>
     </html>
     `;
 
