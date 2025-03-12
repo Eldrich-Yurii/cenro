@@ -1,4 +1,5 @@
 import applicationSchema from "../models/applicationSchema.js";
+import progressSchema from "../models/progressSchema.js";
 import { generateFinalCert } from "./generateFinalCert.controller.js";
 
 export const createFinalCert = async (req, res) => {
@@ -27,6 +28,18 @@ export const createFinalCert = async (req, res) => {
     application.businessCertificate = true;
     application.businessCertificatePath = certPath;
     await application.save();
+
+     // Update progress tracking
+     await progressSchema.findOneAndUpdate(
+      { applicationId },
+      { $set: { "steps.receiptApproved": true } },
+      { upsert: true, new: true } // Ensures a progress document exists
+    );
+
+    // Emit real-time update via Socket.io
+    if (req.io) {
+      req.io.emit("progressUpdated", { applicationId });
+    }
 
     res.status(200).json({
       message: "Certificate generated",
