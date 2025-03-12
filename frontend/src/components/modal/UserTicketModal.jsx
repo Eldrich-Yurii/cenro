@@ -104,13 +104,16 @@ const handleKeyPress = (e) => {
         <div className="mt-4 flex">
           <input
             type="text"
-            placeholder="Type your response..."
+            placeholder={ticket.status === "Resolved" ? "This is now resolved." : "Type your response..."}
             className="flex-1 p-2 border rounded-lg"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyDown={handleKeyPress}
+            disabled={ticket.status === "Resolved"}
           />
-          <button onClick={handleSendMessage} className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <button onClick={handleSendMessage} 
+          className={`ml-2 px-4 py-2 rounded-lg ${ticket.status === "Resolved" ? "bg-gray-400 text-white cursor-not-allowed" : "bg-blue-600 text-white hover:bg-blue-700"}`}
+          disabled={ticket.status === "Resolved"}>
             Send
           </button>
         </div>
