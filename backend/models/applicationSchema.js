@@ -7,6 +7,10 @@ const applicationSchema = new mongoose.Schema(
       ref: "user", // Reference to the normal user's account
       required: true,
     },
+    accountNumber: {
+      type: String,
+      required: true,
+    },
     ownerName: {
       type: String,
       required: true,

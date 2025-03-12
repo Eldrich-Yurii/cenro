@@ -11,6 +11,7 @@ export default function SubmitApplication() {
   const navigate = useNavigate();
   const { user } = useAuth(); // Get user from context
   const [businessName, setBusinessName] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");
   const [ownerName, setOwnerName] = useState("");
   // const [formType] = useState("New Business Application");
   const [formType, setFormtype] = useState("");
@@ -29,6 +30,7 @@ export default function SubmitApplication() {
 
     const formData = {
       userId: user.userId,
+      accountNumber,
       businessName,
       ownerName,
       formType,
@@ -126,6 +128,16 @@ export default function SubmitApplication() {
                     type="text"
                     value={ownerName}
                     onChange={(e) => setOwnerName(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                  <label>Account Number:</label>
+                  <input
+                    id="accountNumber"
+                    name="accountNumber"
+                    type="text"
+                    value={accountNumber}
+                    onChange={(e) => setAccountNumber(e.target.value)}
                     />
                   </div>
                 </div>
