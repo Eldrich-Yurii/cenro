@@ -37,7 +37,7 @@ export default function AdminEmpSideBar() {
   return (
     <Card className="h-screen overflow-y-auto w-full max-w-[20rem] p-4 shadow-2xl shadow-blue-gray-900/5 rounded-none">
       <div>
-        <Typography className="pt-2 font-black inline-flex items-center gap-2 text-red-800 font-inter" variant="h2">
+        <Typography className="pt-2 font-black inline-flex items-center gap-2 text-green-800 font-inter" variant="h2">
           <img src={Logo} alt="" width={50}/>
           CENRO
         </Typography>
