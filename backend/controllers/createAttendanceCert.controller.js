@@ -1,4 +1,5 @@
 import applicationSchema from "../models/applicationSchema.js";
+import progressSchema from "../models/progressSchema.js";
 import { generateCertAttendance } from "./generatePdfAttendance.controller.js";
 
 export const createAttendanceCert = async (req, res) => {
@@ -31,6 +32,18 @@ export const createAttendanceCert = async (req, res) => {
     // Save the certificate path
     application.certificateOfAttendancePath = certPath;
     await application.save();
+
+     // Update progress tracking
+     await progressSchema.findOneAndUpdate(
+      { applicationId },
+      { $set: { "steps.businessCertificateIssued": true } },
+      { upsert: true, new: true } // Ensures a progress document exists
+    );
+
+    // Emit real-time update via Socket.io
+    if (req.io) {
+      req.io.emit("progressUpdated", { applicationId });
+    }
 
     res.status(200).json({
       message: "Attendance confirmed & Certificate generated",

@@ -1,4 +1,5 @@
 import applicationSchema from "../models/applicationSchema.js";
+import progressSchema from "../models/progressSchema.js";
 import { generatePdf } from "./generatePdf.controller.js";
 
 export const submitApplication = async (req, res) => {
@@ -22,6 +23,19 @@ export const submitApplication = async (req, res) => {
        });
 
        await newApplication.save()
+
+       const progress = new progressSchema({
+        userId,
+        applicationId: newApplication._id,
+        steps: {
+            formSubmitted: true
+        }});
+
+        await progress.save()
+
+        // save the progress ID in application Schema
+        newApplication.progressId = progress._id
+        await newApplication.save();
 
        const normalizedPath = pdfPath.replace(/\\/g, "/"); // Fix Windows backslashes
        const pdfUrl = `${req.protocol}://${req.get("host")}/${normalizedPath}`
