@@ -13,7 +13,7 @@ import {
 } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
 
-const TABLE_HEAD = ["ID", "Business Name", "Action"];
+const TABLE_HEAD = ["ID", "Account Number", "Business Name", "Action"];
 
 export default function IsnpectionAndFinalCert() {
   const [webinarAttendees, setWebinarAttendees] = useState([]);
@@ -100,7 +100,7 @@ export default function IsnpectionAndFinalCert() {
                 <td colSpan="12" className="text-center pt-4">
                   No Pending Users Found
                 </td>
-              </tr>:webinarAttendees.map(({ _id, businessName }) => {
+              </tr>:webinarAttendees.map(({ _id, businessName, accountNumber }) => {
               const isLast = _id === webinarAttendees.length - 1;
               const classes = isLast ? "py-4" : "py-4 border-b border-gray-300";
 
@@ -116,6 +116,14 @@ export default function IsnpectionAndFinalCert() {
                         {_id}
                       </Typography>
                     </div>
+                  </td>
+                  <td className={classes}>
+                    <Typography
+                      variant="small"
+                      className="font-normal text-gray-600"
+                    >
+                      {accountNumber}
+                    </Typography>
                   </td>
                   <td className={classes}>
                     <Typography

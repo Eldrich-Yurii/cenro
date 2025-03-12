@@ -15,6 +15,7 @@ import { IoClose } from "react-icons/io5";
 import { TbSearch } from "react-icons/tb";
 
 const TABLE_HEAD = [
+  "Application Number",
   "Application Type",
   "Business Name",
   "Certificate Status",
@@ -140,6 +141,14 @@ export default function WebCert() {
 
                 return (
                   <tr key={application._id} className="hover:bg-gray-50">
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        className="font-bold text-gray-600"
+                      >
+                        {application.accountNumber}
+                      </Typography>
+                    </td>
                     <td className={classes}>
                       <Typography
                         variant="small"

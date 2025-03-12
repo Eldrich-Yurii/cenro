@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 
 const TABLE_HEAD = [
+  "Account Number",
   "Application Type",
   "Business Name",
   "Status",
@@ -170,7 +171,7 @@ export default function BusinessApplications() {
               </tr>
             ) : (
               filteredApplications.map(
-                ({ _id, formType, businessName, status, assessmentCert }) => {
+                ({ _id, accountNumber, formType, businessName, status, assessmentCert }) => {
                   const isLast = _id === applications.length - 1;
                   const classes = isLast
                     ? "py-4"
@@ -182,6 +183,14 @@ export default function BusinessApplications() {
                         <Typography
                           variant="small"
                           className="font-bold text-gray-600"
+                        >
+                          {accountNumber}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          className="font-normal text-gray-600"
                         >
                           {formType}
                         </Typography>
@@ -297,10 +306,7 @@ export default function BusinessApplications() {
           </div>
         )}
       </CardBody>
-      <CardFooter className="h-38 flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Typography variant="small" color="blue-gray" className="font-normal">
-          Page 1 of 1
-        </Typography>
+      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50">
       </CardFooter>
     </Card>
   );

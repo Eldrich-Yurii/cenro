@@ -14,7 +14,7 @@ import {
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 
-const TABLE_HEAD = ["Business Name", "Certificate", "Actions"];
+const TABLE_HEAD = ["Application Number", "Business Name", "Certificate", "Actions"];
 
 export default function FinalCert() {
   const [applications, setApplications] = useState([]);
@@ -109,7 +109,7 @@ export default function FinalCert() {
             </thead>
             <tbody>
               {applications.map(
-                ({ _id, businessName, businessCertificatePath }) => {
+                ({ _id, businessName, businessCertificatePath, accountNumber }) => {
                   const isLast = _id === applications.length - 1;
                   const classes = isLast
                     ? "py-4"
@@ -117,6 +117,14 @@ export default function FinalCert() {
 
                   return (
                     <tr key={_id} className="hover:bg-gray-50">
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          className="font-bold text-gray-600"
+                        >
+                          {accountNumber}
+                        </Typography>
+                      </td>
                       <td className={classes}>
                         <Typography
                           variant="small"

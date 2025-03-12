@@ -10,6 +10,7 @@ import { getUserApplication, uploadAssessment } from "../../../../api/Applicatio
 import { useEffect, useState } from "react";
 import SubmitApplication from "../../../../components/modal/SubmitApplication"
 const TABLE_HEAD = [
+  "Account Number",
   "Application Type",
   "Business Name",
   "Status",
@@ -130,6 +131,14 @@ export default function MyApplication() {
                             variant="small"
                             className="font-bold text-gray-600"
                           >
+                            {application.accountNumber}
+                          </Typography>
+                        </td>
+                        <td className={classes}>
+                          <Typography
+                            variant="small"
+                            className="font-normal text-gray-600"
+                          >
                             {application.formType}
                           </Typography>
                         </td>
@@ -202,9 +211,6 @@ export default function MyApplication() {
           )} */}
         </CardBody>
         <CardFooter className="h-auto flex-shrink-0 flex items-center justify-between border-t border-blue-gray-50 p-4">
-          <Typography variant="small" color="blue-gray" className="font-normal">
-            Page 1 of 1
-          </Typography>
         </CardFooter>
       </Card>
   );
