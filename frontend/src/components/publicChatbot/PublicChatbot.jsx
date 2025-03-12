@@ -72,7 +72,7 @@ export default function PublicChatbot() {
         
         response = results[0].item.answer;
     } else {
-        response = "Sorry, I'm still learning with that.";
+        response = "Sorry, I'm still learning with that, or you can sign up to use our chat support if your concern is not listed." ; 
     }
 
     setChatHistory((prev) => [
