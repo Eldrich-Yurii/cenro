@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
@@ -31,6 +30,7 @@ const TABLE_HEAD = [
 export default function BusinessApplications() {
   const [applications, setApplications] = useState([]);
   const [fileUrl, setFileUrl] = useState(null);
+  const [fileType, setFileType] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredApplications, setFilteredApplications] = useState([]);
@@ -82,15 +82,25 @@ export default function BusinessApplications() {
       const fileData = await viewAssessmentCert(applicationId);
 
       // create a blob URL for the file
-      const blob = new Blob([fileData], { type: "application/pdf" });
+      const blob = new Blob([fileData], { type: fileData.type });
       const blobUrl = URL.createObjectURL(blob);
 
       setFileUrl(blobUrl);
+      setFileType(fileData.type);
       setIsModalOpen(true);
     } catch (err) {
       console.log("Error fetching file", err);
     }
   };
+
+  // Clean up blob URL when modal closes
+  useEffect(() => {
+    return () => {
+      if (fileUrl) {
+        URL.revokeObjectURL(fileUrl);
+      }
+    };
+  }, [fileUrl]);
 
   return (
     <Card className="h-[34rem] w-full px-3 pt-3 shadow-lg">
@@ -171,7 +181,14 @@ export default function BusinessApplications() {
               </tr>
             ) : (
               filteredApplications.map(
-                ({ _id, accountNumber, formType, businessName, status, assessmentCert }) => {
+                ({
+                  _id,
+                  accountNumber,
+                  formType,
+                  businessName,
+                  status,
+                  assessmentCert,
+                }) => {
                   const isLast = _id === applications.length - 1;
                   const classes = isLast
                     ? "py-4"
@@ -282,9 +299,7 @@ export default function BusinessApplications() {
           <div className="z-20 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white p-5 rounded-lg shadow-lg w-[80%] h-[80%] flex flex-col">
               <div className="flex justify-between">
-                <h2 className="text-xl font-bold mb-2">
-                  Official Receipt 
-                </h2>
+                <h2 className="text-xl font-bold mb-2">Official Receipt</h2>
                 <button
                   onClick={() => setIsModalOpen(false)}
                   className="text-2xl"
@@ -292,13 +307,24 @@ export default function BusinessApplications() {
                   <IoClose />
                 </button>
               </div>
-              <iframe src={fileUrl} className="w-full h-full border" />
+              {fileType.startsWith("application/pdf") ? (
+                <iframe src={fileUrl} className="w-full h-full border" />
+              ) : fileType.startsWith("image/") ? (
+                <img
+                  src={fileUrl}
+                  alt="Assessment Certificate"
+                  className="w-full h-full object-contain overflow-y-auto"
+                />
+              ) : (
+                <p className="text-center text-red-500">
+                  Unsupported file type. Please download the file.
+                </p>
+              )}
             </div>
           </div>
         )}
       </CardBody>
-      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50">
-      </CardFooter>
+      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50"></CardFooter>
     </Card>
   );
 }
