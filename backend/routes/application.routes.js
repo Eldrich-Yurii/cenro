@@ -57,7 +57,7 @@ router.post("/upload-assessment/:applicationId", upload.single("assessmentCert")
 router.put("/update-status/:applicationId", updateApplicationStatus);
 
 // verify Final Certificate for verification
-router.get("/certificate-verification", verifyCert)
+router.get("/verify-certificate", verifyCert)
 
 
 
