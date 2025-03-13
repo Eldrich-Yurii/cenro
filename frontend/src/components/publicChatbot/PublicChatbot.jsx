@@ -31,32 +31,14 @@ export default function PublicChatbot() {
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !isSending) {
         e.preventDefault(); 
-        handleSendMessage();
-    }
-};
+        if (userInput.trim()) {
+          handleSendMessage();
+        }
+      }
+    };
 
   const handleQuestionClick = (faq) => {
-    if (isSending) return; // Prevent sending if already sending.
-    setIsSending(true);
-    setChatHistory((prev) => [
-      ...prev,
-      { type: "user", message: faq.question },
-      { type: "bot", message: "Typing..." }, // Show "Typing..." first
-    ]);
-
-    setTimeout(() => {
-      setChatHistory((prev) => {
-        const updatedChat = [...prev];
-        updatedChat[updatedChat.length - 1] = {
-          type: "bot",
-          message: faq.answer,
-        }; // Replace "Typing..." with the answer
-        return updatedChat;
-      });
-      setIsSending(false);
-    }, 1500); // Delay for 1.5 seconds
-
-    setUserInput("");
+    setUserInput(faq.question);
     setSuggestions([]);
   };
 
@@ -64,7 +46,7 @@ export default function PublicChatbot() {
     const input = e.target.value;
     setUserInput(input);
 
-    if (input.length > 0) {
+    if (input.length > 3) {
         const fuse = new Fuse(faqs, { keys: ["question"] });
         const results = fuse.search(input);
         const filteredSuggestions = results.map((result) => result.item);
@@ -75,12 +57,13 @@ export default function PublicChatbot() {
 };
 
   const handleSendMessage = () => {
-    if (isSending) return; // Prevent sending if already sending.
+    if (isSending) return;
     setIsSending(true);
+  
     const fuse = new Fuse(faqs, { 
       keys: ["question"], 
-      threshold: 0.5, 
-      distance: 100,
+      threshold: 0.4, 
+      distance: 1,
       includeScore: true, });
     const results = fuse.search(userInput);
 
@@ -89,7 +72,7 @@ export default function PublicChatbot() {
         
         response = results[0].item.answer;
     } else {
-        response = "Sorry, I'm still learning with that.";
+        response = "Sorry, I'm still learning with that, or you can sign up to use our chat support if your concern is not listed." ; 
     }
 
     setChatHistory((prev) => [
@@ -170,7 +153,7 @@ export default function PublicChatbot() {
             <button 
             className="rounded-lg px-3 py-[0.68rem] bg-blue-800 text-2xl text-white" 
             onClick={handleSendMessage}
-              disabled={isSending}>
+              disabled={isSending || !userInput.trim()}>
               <TbSend/></button>
             </div>
           </div>

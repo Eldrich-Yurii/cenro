@@ -15,10 +15,11 @@ import { IoClose } from "react-icons/io5";
 import { TbSearch } from "react-icons/tb";
 
 const TABLE_HEAD = [
+  "Account Number",
   "Application Type",
   "Business Name",
-  "Certficate Of Attendace",
-  "Action",
+  "Certificate Status",
+  "Action"
 ];
 export default function WebCert() {
   const [applications, setApplications] = useState([]);
@@ -86,10 +87,10 @@ export default function WebCert() {
               variant="h2"
               className="text-blue-800 font-extrabold font-inter"
             >
-              Certificate Of Attendance
+              Certificate Of Participation
             </Typography>
             <p className="w-64 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-              This is the list of your Attendance Certificate
+              This is the list of your Participation Certificate for the Webinars
             </p>
           </section>
           <section className="flex items-center">
@@ -140,6 +141,14 @@ export default function WebCert() {
 
                 return (
                   <tr key={application._id} className="hover:bg-gray-50">
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        className="font-bold text-gray-600"
+                      >
+                        {application.accountNumber}
+                      </Typography>
+                    </td>
                     <td className={classes}>
                       <Typography
                         variant="small"

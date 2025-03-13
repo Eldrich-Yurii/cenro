@@ -12,7 +12,7 @@ import {
 } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
 
-const TABLE_HEAD = ["ID", "Business Name", "Action"];
+const TABLE_HEAD = ["ID", "Account Number", "Business Name", "Action"];
 
 export default function CertForAttendees() {
   const [webinarAttendees, setWebinarAttendees] = useState([]);
@@ -74,9 +74,6 @@ export default function CertForAttendees() {
               id="certSearch"
               placeholder="Search..."
             />
-            <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
-              <TbSearch />
-            </Button>
           </section>
         </div>
       </CardHeader>
@@ -103,7 +100,7 @@ export default function CertForAttendees() {
               <td colSpan={12} className="text-center p-4 font-bold">
                 No attendees found
               </td>
-            </tr> : webinarAttendees.map(({ _id, businessName }) => {
+            </tr> : webinarAttendees.map(({ _id, businessName, accountNumber }) => {
               const isLast = _id === webinarAttendees.length - 1;
               const classes = isLast ? "py-4" : "py-4 border-b border-gray-300";
 
@@ -119,6 +116,14 @@ export default function CertForAttendees() {
                         {_id}
                       </Typography>
                     </div>
+                  </td>
+                  <td className={classes}>
+                    <Typography
+                      variant="small"
+                      className="font-normal text-gray-600"
+                    >
+                      {accountNumber}
+                    </Typography>
                   </td>
                   <td className={classes}>
                     <Typography

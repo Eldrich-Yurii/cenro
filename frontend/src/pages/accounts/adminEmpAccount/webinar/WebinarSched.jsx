@@ -7,7 +7,9 @@ import {
 } from "@material-tailwind/react";
 import { TbEdit, TbTrash } from "react-icons/tb";
 import WebSchedModal from "../../../../components/modal/WebSchedModal";
+import UpdateWebinar from "../../../../components/modal/UpdateWebinar";
 import { getAllWebinar } from "../../../../api/webinarApi";
+import { deleteWebinar } from "../../../../api/webinarApi"
 import { useEffect, useState } from "react";
 
 const TABLE_HEAD = [
@@ -39,6 +41,7 @@ export default function WebinarSched() {
   const [webinars, setWebinars] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredSched, setFilteredSched] = useState([]);
+  const [editWebinar, setEditWebinar] = useState(null);
 
 
   useEffect(() => {
@@ -75,6 +78,27 @@ export default function WebinarSched() {
       hour12: true
     });
   };
+  const handleDeleteWebinar = async (id) => {
+      if(!window.confirm("Are you sure you want delete this webinar schedule?"))
+    return;
+  
+      const user = JSON.parse(localStorage.getItem("webinar"));
+      const token = user?.token;
+  
+      if (!token) {
+        console.error("Token not found.");
+      }
+  
+      try {
+        await deleteWebinar(id, token)
+        
+        setWebinars((prevWebinar) => prevWebinar.filter((webinar) => webinar._id !== id));
+      }catch(err) {
+        console.error("Error deleting webinar", err);
+      }
+      alert("Webinar schedule deleted")
+    }
+  
 
   return (
     
@@ -195,12 +219,13 @@ export default function WebinarSched() {
                           <Button
                             variant="outlined"
                             className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white"
+                            onClick={() => setEditWebinar({ _id, dateTime, webinarLink })}
                           >
                             <TbEdit />
                           </Button>
                           <Button
-                            variant="outlined"
-                            className="px-2 py-2 border-blue-800 text-blue-800  hover:bg-blue-800 hover:text-white"
+                            variant="outlined"onClick={() => handleDeleteWebinar(_id)}
+                            className="px-2 py-2 border-red-800 text-red-800  hover:bg-red-800 hover:text-white"
                           >
                             <TbTrash />
                           </Button>
@@ -213,6 +238,13 @@ export default function WebinarSched() {
             </tbody>
           </table>
         </CardBody>
+        {editWebinar && (
+        <UpdateWebinar
+          webinar={editWebinar}
+          setEditWebinar={setEditWebinar}
+          setWebinars={setWebinars}
+        />
+      )}
       </Card>
   );
 }

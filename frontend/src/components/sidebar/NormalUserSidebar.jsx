@@ -19,7 +19,7 @@ import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
 import { TbFileText, TbLayoutGrid, TbLogout2, TbSettings2, TbTicket, TbVideo, TbFileCertificate, TbNotification } from "react-icons/tb";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/cenro-logo-red.png"
+import Logo from "../../assets/cenro_orig_logo_notext.png"
 
 
 export default function NormalUserSidebar() {
@@ -37,7 +37,7 @@ export default function NormalUserSidebar() {
   return (
     <Card className="h-screen overflow-y-auto w-full max-w-[20rem] p-4 shadow-2xl shadow-blue-gray-900/5 rounded-none">
       <div className="mb-2 p-4">
-        <Typography className="pt-2 font-black inline-flex items-center gap-2 text-red-800" variant="h2">
+        <Typography className="pt-2 font-black inline-flex items-center gap-2 text-green-800" variant="h2">
           <img src={Logo} alt="" width={50}/>
           CENRO
         </Typography>
@@ -89,7 +89,7 @@ export default function NormalUserSidebar() {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                <Link to="/user-account/webinar-certificate">&nbsp;Attendee Certificate</Link>
+                <Link to="/user-account/webinar-certificate">&nbsp;Certificate of Participation</Link>
               </ListItem>
             </List>
           </AccordionBody>
@@ -99,7 +99,7 @@ export default function NormalUserSidebar() {
           <ListItemPrefix>
             <TbFileCertificate className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/user-account/final-certificate">&nbsp;Final Certificate</Link>
+          <Link to="/user-account/final-certificate">&nbsp;Certificate of Environmental Compliance</Link>
         </ListItem>
         {/* Notifications */}
         <ListItem className="z-10 bg-white">

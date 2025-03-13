@@ -9,16 +9,17 @@ import { useNavigate } from "react-router-dom";
 export default function SubmitApplication() {
 
   const navigate = useNavigate();
-
   const { user } = useAuth(); // Get user from context
   const [businessName, setBusinessName] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");
   const [ownerName, setOwnerName] = useState("");
   // const [formType] = useState("New Business Application");
   const [formType, setFormtype] = useState("");
   // const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef(null);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -29,12 +30,14 @@ export default function SubmitApplication() {
 
     const formData = {
       userId: user.userId,
+      accountNumber,
       businessName,
       ownerName,
       formType,
       role: user.role,
     };
 
+    setIsSubmitting(true);
     try {
       const data = await submitApplication(formData); // Directly access `data`
       console.log("Backend Response Data:", data);
@@ -127,6 +130,16 @@ export default function SubmitApplication() {
                     onChange={(e) => setOwnerName(e.target.value)}
                     />
                   </div>
+                  <div>
+                  <label>Account Number:</label>
+                  <input
+                    id="accountNumber"
+                    name="accountNumber"
+                    type="text"
+                    value={accountNumber}
+                    onChange={(e) => setAccountNumber(e.target.value)}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="mt-4 flex justify-end">
@@ -139,8 +152,9 @@ export default function SubmitApplication() {
                 <Button
                   type="submit"
                   className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-950"
+                  disabled={isSubmitting}
                 >
-                  Submit Application
+                  {isSubmitting ? "Submitting..." : "Submit Application"} 
                 </Button>
               </div>
             </div>

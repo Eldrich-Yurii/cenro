@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import UserTicketModal from "../../../../components/modal/UserTicketModal";
 import SubmitTicket from "../../../../components/modal/SubmitTicket";
 
-const TABLE_HEAD = ["Ticket ID", "Subject", "Description", "Status", "View"];
+const TABLE_HEAD = ["Reference Number", "Subject", "Description", "Status", "View"];
 
 export default function Ticket() {
   const [tickets, setTickets] = useState([]);
@@ -46,7 +46,7 @@ export default function Ticket() {
                 variant="h2"
                 className="text-blue-800 font-extrabold font-inter"
               >
-                Support Tickets
+                Chat Support
               </Typography>
               <p className="w-64 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
                 This is the list of tickets you submitted to the Chat Support.
@@ -132,12 +132,14 @@ export default function Ticket() {
                         </div>
                       </td>
                       <td className="border-b border-gray-300">
-                        <button
-                          onClick={() => setSelectedTicket(ticket)}
-                          className="text-blue-800 font-bold"
-                        >
-                          View
-                        </button>{" "}
+                                  <button
+                                  onClick={() => setSelectedTicket(ticket)}
+                                  className="text-blue-800 font-bold"
+                                  >
+                                     View
+                                  </button>
+                         
+
                       </td>
                     </tr>
                   );

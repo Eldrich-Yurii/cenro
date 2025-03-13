@@ -30,6 +30,21 @@ export const getAllWebinar = async () => {
       }
 }
 
+// delete webinar sched
+export const deleteWebinar = async (id, token) => {
+  try {
+    const response = await axios.delete(`${API}/delete-webinar/${id}`, {
+        headers: { 
+          Authorization: `Bearer ${token}`
+        },
+    })
+    return response.data
+  } catch (err) {
+    console.error("Error deleting webinar:", err);
+    throw err;
+  }
+}
+
 // update webinar schedule
 export const updateStatus = async (webinarId, status) => {
 
@@ -48,3 +63,15 @@ export const updateStatus = async (webinarId, status) => {
       throw err.response?.data || "Error Updating Ticket Status";
     }
   };
+
+  export const updateWebinar = async (webinarId, dateTime, webinarLink) => {
+    try {
+      const response = await axios.put(
+        `${API}/update-webinar/${webinarId}`,
+        { dateTime, webinarLink }
+      );
+      return response.data;
+    } catch (err) {
+      throw err.response?.data || "Error Updating Webinar";
+    }
+  }

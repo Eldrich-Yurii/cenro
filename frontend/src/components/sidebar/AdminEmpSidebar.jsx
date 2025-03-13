@@ -19,7 +19,7 @@ import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
 import { TbLayoutGrid, TbLogs, TbLogout2, TbSettings2, TbTicket, TbVideo, TbUser, TbFile } from "react-icons/tb";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/cenro-logo-red.png"
+import Logo from "../../assets/cenro_orig_logo_notext.png"
 
 
 export default function AdminEmpSideBar() {
@@ -37,7 +37,7 @@ export default function AdminEmpSideBar() {
   return (
     <Card className="h-screen overflow-y-auto w-full max-w-[20rem] p-4 shadow-2xl shadow-blue-gray-900/5 rounded-none">
       <div>
-        <Typography className="pt-2 font-black inline-flex items-center gap-2 text-red-800 font-inter" variant="h2">
+        <Typography className="pt-2 font-black inline-flex items-center gap-2 text-green-800 font-inter" variant="h2">
           <img src={Logo} alt="" width={50}/>
           CENRO
         </Typography>

@@ -10,7 +10,7 @@ import { getAllTicket } from "../../../../api/TicketApi";
 import { useEffect, useState } from "react";
 import AdminEmpTicketModal from "../../../../components/modal/AdminEmpTicketModal";
 
-const TABLE_HEAD = ["Ticket ID", "Subject", "Description", "Status", "View"];
+const TABLE_HEAD = ["Reference Number", "Subject", "Description", "Status", "View"];
 
 export default function SuppAndTicket() {
   const [tickets, setTickets] = useState([]);
@@ -143,17 +143,6 @@ export default function SuppAndTicket() {
                 </table>
               </CardBody>
               <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-                <Typography variant="small" color="blue-gray" className="font-normal">
-                  Page 1 of 1
-                </Typography>
-                <div className="flex gap-2">
-                  <Button variant="outlined" size="sm" className="text-blue-800">
-                    Previous
-                  </Button>
-                  <Button variant="outlined" size="sm" className="text-blue-800">
-                    Next
-                  </Button>
-                </div>
               </CardFooter>
               {selectedTicket && (
                 <AdminEmpTicketModal

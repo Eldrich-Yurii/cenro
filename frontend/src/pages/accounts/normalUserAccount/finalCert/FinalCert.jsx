@@ -14,7 +14,7 @@ import {
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 
-const TABLE_HEAD = ["Business Name", "Certificate", "Actions"];
+const TABLE_HEAD = ["Account Number", "Business Name", "Certificate", "Actions"];
 
 export default function FinalCert() {
   const [applications, setApplications] = useState([]);
@@ -70,11 +70,11 @@ export default function FinalCert() {
                 variant="h2"
                 className="text-blue-800 font-extrabold font-inter"
               >
-                Inspection & Final Certificate
+                Inspection & Certificate of Compliance
               </Typography>
               <p className="w-72 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-                This where you will get your final certificate after the
-                inspection.
+                This where you will get your Certificate of Compliance after the
+                Inspection.
               </p>
             </section>
             <section className="flex items-center">
@@ -109,7 +109,7 @@ export default function FinalCert() {
             </thead>
             <tbody>
               {applications.map(
-                ({ _id, businessName, businessCertificatePath }) => {
+                ({ _id, businessName, businessCertificatePath, accountNumber }) => {
                   const isLast = _id === applications.length - 1;
                   const classes = isLast
                     ? "py-4"
@@ -117,6 +117,14 @@ export default function FinalCert() {
 
                   return (
                     <tr key={_id} className="hover:bg-gray-50">
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          className="font-bold text-gray-600"
+                        >
+                          {accountNumber}
+                        </Typography>
+                      </td>
                       <td className={classes}>
                         <Typography
                           variant="small"
@@ -179,19 +187,6 @@ export default function FinalCert() {
             </div>
           )}
         </CardBody>
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-6">
-          <Typography variant="small" color="blue-gray" className="font-normal">
-            Page 1 of 1
-          </Typography>
-          <div className="flex gap-2">
-            <Button variant="outlined" size="sm" className="">
-              Previous
-            </Button>
-            <Button variant="outlined" size="sm" className="">
-              Next
-            </Button>
-          </div>
-        </CardFooter>
       </Card>
     </div>
   );
