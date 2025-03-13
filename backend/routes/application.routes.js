@@ -15,6 +15,7 @@ import { createFinalCert } from "../controllers/createFinalCert.controller.js";
 import { verifyCert } from "../controllers/verifyCert.controller.js";
 import { viewFinalCert } from "../controllers/viewFinalCert.controller.js";
 import { getPendingFinalCert } from "../controllers/getPendingFinalCert.controller.js";
+import verifyDesignation from "../middlewares/verifyDesignation.js";
 
 
 
@@ -24,10 +25,10 @@ const router = express.Router()
 router.post("/generate-pdf", submitApplication);
 
 // Generate certificate of Attendance
-router.post("/generate-certificate/:applicationId", verifyToken, createAttendanceCert)
+router.post("/generate-certificate/:applicationId", verifyToken, verifyRoles(["admin", "employee"]), verifyDesignation(["admin", "webinar coordinator"]), createAttendanceCert)
 
 // Generate certificate of Environmental Compliance
-router.post("/generate-final-certificate/:applicationId", verifyToken, createFinalCert)
+router.post("/generate-final-certificate/:applicationId", verifyToken, verifyRoles(["admin", "employee"]), verifyDesignation(["admin", "inspector"]), createFinalCert)
 
 // Get Application to normal user
 router.get("/get-user-application", verifyToken, getUserApplication);
@@ -36,16 +37,16 @@ router.get("/get-user-application", verifyToken, getUserApplication);
 router.get("/get-application", getAllApplication);
 
 // Get application that is initially approved for webinar schedule
-router.get("/pending-webinar-users", verifyToken, verifyRoles("admin"), getPendingAttendanceCert)
+router.get("/pending-webinar-users", verifyToken, verifyRoles(["admin", "employee"]), verifyDesignation(["admin", "webinar coordinator"]), getPendingAttendanceCert)
 
 // Get application that is attended in webinar for final certificate
-router.get("/pending-final-certificate-users", verifyToken, verifyRoles("admin"), getPendingFinalCert)
+router.get("/pending-final-certificate-users", verifyToken, verifyRoles(["admin", "employee"]), verifyDesignation(["admin", "inspector"]), getPendingFinalCert)
 
 // View assessment certificate for admin/employee
 router.get("/view-assessment-file/:applicationId", viewAssessmentCert)
 
 // View certificate of attendance for normal user
-router.get("/view-certificate-of-attendance/:applicationId", viewCertOfAttendance)
+router.get("/view-certificate-of-attendance/:applicationId", verifyToken, verifyRoles(["admin", "employee"]), viewCertOfAttendance)
 
 // View Final certificate for normal user
 router.get("/view-final-certificate/:applicationId", viewFinalCert)

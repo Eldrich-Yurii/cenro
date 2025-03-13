@@ -164,7 +164,7 @@ export default function FinalCert() {
               <div className="bg-white p-5 rounded-lg shadow-lg w-[80%] h-[80%] flex flex-col">
                 <div className="flex justify-between">
                   <h2 className="text-xl font-bold mb-2">
-                    Certificate of Attendance
+                    Certificate of Environmental Compliance
                   </h2>
                   <button
                     onClick={() => setIsModalOpen(false)}
@@ -174,15 +174,6 @@ export default function FinalCert() {
                   </button>
                 </div>
                 <iframe src={fileUrl} className="w-full h-full border" />
-                <div className="flex justify-end mt-4">
-                  <a
-                    href={fileUrl}
-                    download="assessment_certificate.pdf"
-                    className="bg-green-500 text-white px-4 py-2 rounded mr-2"
-                  >
-                    Download
-                  </a>
-                </div>
               </div>
             </div>
           )}

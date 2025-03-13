@@ -293,7 +293,7 @@ useEffect(() => {
             <div className="bg-white p-5 rounded-lg shadow-lg w-[80%] h-[80%] flex flex-col">
               <div className="flex justify-between">
                 <h2 className="text-xl font-bold mb-2">
-                  Assessment Certificate
+                  Official Receipt 
                 </h2>
                 <button
                   onClick={() => setIsModalOpen(false)}
@@ -309,15 +309,6 @@ useEffect(() => {
 ) : (
   <p className="text-center text-red-500">Unsupported file type. Please download the file.</p>
 )}
-              <div className="flex justify-end mt-4">
-                <a
-                  href={fileUrl}
-                  download="assessment_certificate.pdf"
-                  className="bg-lime-500 text-white px-4 py-2 rounded mr-2"
-                >
-                  Download
-                </a>
-              </div>
             </div>
           </div>
         )}
