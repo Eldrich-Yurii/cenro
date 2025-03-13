@@ -10,13 +10,13 @@ const router = express.Router();
 router.post("/create-ticket", verifyToken, verifyRoles("user"), createTicket);
 
 // get all tickets for specific normal user
-router.get("/get-user-ticket",verifyToken, verifyRoles(["admin", "employee"]), verifyDesignation(["admin", "chat support"]),  getUserTickets);
+router.get("/get-user-ticket",verifyToken, verifyRoles("user"),  getUserTickets);
 
 // get one ticket
-router.get("/get-user-ticket/:id", verifyToken, verifyRoles(["admin", "employee"]), verifyDesignation(["admin", "chat support"]),  getTicketById);
+router.get("/get-user-ticket/:id", verifyToken, verifyRoles("user"),  getTicketById);
 
 // send message 
-router.post("/send-message/:id/message", verifyToken, verifyRoles(["admin", "employee"]), verifyDesignation(["admin", "chat support"]), sendMessage);
+router.post("/send-message/:id/message", verifyToken, verifyRoles("user"), sendMessage);
 
 // Admin routes
 router.get("/admin/get-all-ticket", verifyToken, verifyRoles(["admin", "employee"]), verifyDesignation(["admin", "chat support"]), getAllTickets);
