@@ -8,7 +8,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const uploadPath = path.join(__dirname, "../uploads/assessmentCertificates");
+const uploadPath = path.join(__dirname, "../uploads/officialReceipts");
 
 // Ensure the upload directory exists
 if (!fs.existsSync(uploadPath)) {
@@ -18,7 +18,7 @@ if (!fs.existsSync(uploadPath)) {
 // Storage configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/assessmentCertificates/"); // Folder where files will be stored
+    cb(null, "uploads/officialReceipts/"); // Folder where files will be stored
   },
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);
