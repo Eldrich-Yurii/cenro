@@ -3,6 +3,6 @@ import { getLogs } from "../controllers/getLogs.controller.js";
 
 const router = express.Router()
 
-router.get("/logs", getLogs)
+router.get("/get-logs", getLogs)
 
 export default router;
