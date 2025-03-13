@@ -46,7 +46,7 @@ router.get("/pending-final-certificate-users", verifyToken, verifyRoles(["admin"
 router.get("/view-assessment-file/:applicationId", viewAssessmentCert)
 
 // View certificate of attendance for normal user
-router.get("/view-certificate-of-attendance/:applicationId", verifyToken, verifyRoles(["admin", "employee"]), viewCertOfAttendance)
+router.get("/view-certificate-of-attendance/:applicationId", viewCertOfAttendance)
 
 // View Final certificate for normal user
 router.get("/view-final-certificate/:applicationId", viewFinalCert)

@@ -8,19 +8,21 @@ import {
 } from "@material-tailwind/react";
 import { getUserApplication, uploadAssessment } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
-import SubmitApplication from "../../../../components/modal/SubmitApplication"
+import SubmitApplication from "../../../../components/modal/SubmitApplication";
+import Swal from "sweetalert2";
+
 const TABLE_HEAD = [
   "Account Number",
   "Application Type",
   "Business Name",
   "Status",
-  // "PDF File",
   "Official Receipt (OR)",
   "Upload OR",
 ];
+
 export default function MyApplication() {
   const [applications, setApplications] = useState([]);
-  // const [selectedTicket, setSelectedTicket] = useState(null);
+  const [uploadDisabled, setUploadDisabled] = useState({});
 
   useEffect(() => {
     const fetchApplications = async () => {
@@ -35,40 +37,70 @@ export default function MyApplication() {
       try {
         const data = await getUserApplication(token);
         setApplications(data);
+
+        // Load uploadDisabled from localStorage AFTER applications are fetched
+        const storedDisabled = localStorage.getItem("uploadDisabled");
+        if (storedDisabled) {
+          setUploadDisabled(JSON.parse(storedDisabled));
+        }
       } catch (err) {
         console.log("Error:", err);
       }
     };
+
     fetchApplications();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("uploadDisabled", JSON.stringify(uploadDisabled));
+  }, [uploadDisabled]);
 
   const handleFileUpload = async (e, applicationId) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    try {
-        const response = await uploadAssessment(applicationId, file);
-        console.log("File upload response:", response); // Debugging log
+    Swal.fire({
+      title: "Confirm Upload",
+      text: `Are you sure you want to upload "${file.name}"?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, upload it!",
+      cancelButtonText: "No, cancel",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await uploadAssessment(applicationId, file);
+          console.log("File upload response:", response);
 
-        // Use 'fileUrl' instead of 'fileName'
-        if (!response || !response.fileUrl) {
+          if (!response || !response.fileUrl) {
             console.error("Unexpected response format:", response);
             return;
-        }
+          }
 
-        setApplications((prevApplications) =>
+          setApplications((prevApplications) =>
             prevApplications.map((app) =>
-                app._id === applicationId
-                    ? { ...app, assessmentCert: response.fileUrl } // Use fileUrl
-                    : app
+              app._id === applicationId ? { ...app, assessmentCert: response.fileUrl } : app
             )
-        );
+          );
 
-        e.target.value = ""; // Reset file input
-    } catch (error) {
-        console.error("Error uploading file:", error.response?.data || error.message);
-    }
-};
+          setUploadDisabled((prevDisabled) => ({
+            ...prevDisabled,
+            [applicationId]: true,
+          }));
+
+          e.target.value = ""; // Reset file input
+
+          Swal.fire("Uploaded!", "Your file has been uploaded.", "success");
+        } catch (error) {
+          console.error(
+            "Error uploading file:",
+            error.response?.data || error.message
+          );
+          Swal.fire("Error!", "There was an error uploading your file.", "error");
+        }
+      }
+    });
+  };
 
   return (
       <Card className="max-h-[34rem] w-full px-6 shadow-lg">
@@ -185,8 +217,9 @@ export default function MyApplication() {
                         </td>
                         <td className="border-b border-gray-300">
                           <input
-                            type="file"
-                            onChange={(e) => handleFileUpload(e, application._id)}
+                             type="file"
+                             onChange={(e) => handleFileUpload(e, application._id)}
+                             disabled={uploadDisabled[application._id]}
                           />
                           {/* <Button
                             variant="outlined"

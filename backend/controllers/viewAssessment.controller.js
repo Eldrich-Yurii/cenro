@@ -24,7 +24,7 @@ export const viewAssessmentCert = async (req, res) => {
 
     const fileName = application.assessmentCert;
     // const filePath = path.join(__dirname, "uploads", "assessmentCertificates", path.basename(fileName));
-    const filePath = path.join(__dirname, "..", "uploads", "assessmentCertificates", path.basename(fileName));
+    const filePath = path.join(__dirname, "..", "uploads", "officialReceipts", path.basename(fileName));
     // console.log("Expected File Path:", filePath);
 
     if (!fs.existsSync(filePath)) {
