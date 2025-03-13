@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
@@ -31,6 +30,7 @@ const TABLE_HEAD = [
 export default function BusinessApplications() {
   const [applications, setApplications] = useState([]);
   const [fileUrl, setFileUrl] = useState(null);
+  const [fileType, setFileType] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredApplications, setFilteredApplications] = useState([]);
@@ -82,15 +82,25 @@ export default function BusinessApplications() {
       const fileData = await viewAssessmentCert(applicationId);
 
       // create a blob URL for the file
-      const blob = new Blob([fileData], { type: "application/pdf" });
+      const blob = new Blob([fileData], { type: fileData.type });
       const blobUrl = URL.createObjectURL(blob);
 
       setFileUrl(blobUrl);
+      setFileType(fileData.type)
       setIsModalOpen(true);
     } catch (err) {
       console.log("Error fetching file", err);
     }
   };
+
+  // Clean up blob URL when modal closes
+useEffect(() => {
+  return () => {
+    if (fileUrl) {
+      URL.revokeObjectURL(fileUrl);
+    }
+  };
+}, [fileUrl]);
 
   return (
     <Card className="h-[34rem] w-full px-3 pt-3 shadow-lg">
@@ -292,7 +302,13 @@ export default function BusinessApplications() {
                   <IoClose />
                 </button>
               </div>
-              <iframe src={fileUrl} className="w-full h-full border" />
+              {fileType.startsWith("application/pdf") ? (
+  <iframe src={fileUrl} className="w-full h-full border" />
+) : fileType.startsWith("image/") ? (
+  <img src={fileUrl} alt="Assessment Certificate" className="w-full h-full object-contain overflow-y-auto" />
+) : (
+  <p className="text-center text-red-500">Unsupported file type. Please download the file.</p>
+)}
               <div className="flex justify-end mt-4">
                 <a
                   href={fileUrl}
