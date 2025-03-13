@@ -9,7 +9,7 @@ const applicationSchema = new mongoose.Schema(
     },
     accountNumber: {
       type: String,
-      required: true,
+      required: false,
     },
     ownerName: {
       type: String,
