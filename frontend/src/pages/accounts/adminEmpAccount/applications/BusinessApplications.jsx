@@ -86,7 +86,7 @@ export default function BusinessApplications() {
       const blobUrl = URL.createObjectURL(blob);
 
       setFileUrl(blobUrl);
-      setFileType(fileData.type)
+      setFileType(fileData.type);
       setIsModalOpen(true);
     } catch (err) {
       console.log("Error fetching file", err);
@@ -94,13 +94,13 @@ export default function BusinessApplications() {
   };
 
   // Clean up blob URL when modal closes
-useEffect(() => {
-  return () => {
-    if (fileUrl) {
-      URL.revokeObjectURL(fileUrl);
-    }
-  };
-}, [fileUrl]);
+  useEffect(() => {
+    return () => {
+      if (fileUrl) {
+        URL.revokeObjectURL(fileUrl);
+      }
+    };
+  }, [fileUrl]);
 
   return (
     <Card className="h-[34rem] w-full px-3 pt-3 shadow-lg">
@@ -181,7 +181,14 @@ useEffect(() => {
               </tr>
             ) : (
               filteredApplications.map(
-                ({ _id, accountNumber, formType, businessName, status, assessmentCert }) => {
+                ({
+                  _id,
+                  accountNumber,
+                  formType,
+                  businessName,
+                  status,
+                  assessmentCert,
+                }) => {
                   const isLast = _id === applications.length - 1;
                   const classes = isLast
                     ? "py-4"
@@ -292,9 +299,7 @@ useEffect(() => {
           <div className="z-20 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white p-5 rounded-lg shadow-lg w-[80%] h-[80%] flex flex-col">
               <div className="flex justify-between">
-                <h2 className="text-xl font-bold mb-2">
-                  Official Receipt 
-                </h2>
+                <h2 className="text-xl font-bold mb-2">Official Receipt</h2>
                 <button
                   onClick={() => setIsModalOpen(false)}
                   className="text-2xl"
@@ -303,18 +308,23 @@ useEffect(() => {
                 </button>
               </div>
               {fileType.startsWith("application/pdf") ? (
-  <iframe src={fileUrl} className="w-full h-full border" />
-) : fileType.startsWith("image/") ? (
-  <img src={fileUrl} alt="Assessment Certificate" className="w-full h-full object-contain overflow-y-auto" />
-) : (
-  <p className="text-center text-red-500">Unsupported file type. Please download the file.</p>
-)}
+                <iframe src={fileUrl} className="w-full h-full border" />
+              ) : fileType.startsWith("image/") ? (
+                <img
+                  src={fileUrl}
+                  alt="Assessment Certificate"
+                  className="w-full h-full object-contain overflow-y-auto"
+                />
+              ) : (
+                <p className="text-center text-red-500">
+                  Unsupported file type. Please download the file.
+                </p>
+              )}
             </div>
           </div>
         )}
       </CardBody>
-      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50">
-      </CardFooter>
+      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50"></CardFooter>
     </Card>
   );
 }
