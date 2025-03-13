@@ -4,6 +4,9 @@ import path from "path";
 import applicationSchema from "../models/applicationSchema.js";
 import crypto from "crypto";
 import QRCode from "qrcode";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const generateFinalCert = async (applicationId) => {
   try {
@@ -36,10 +39,15 @@ export const generateFinalCert = async (applicationId) => {
       .update(applicationId + Date.now())
       .digest("hex");
 
+    // const BASE_URL =
+    //   process.env.NODE_ENV === "production"
+    //     ? "https://cenro-verification.com"
+    //     : "http://localhost:5000";
+
     const BASE_URL =
       process.env.NODE_ENV === "production"
-        ? "https://cenro-verification.com"
-        : "http://localhost:5000";
+          ? "https://cenro-verification.com"
+          : `http://${process.env.LOCAL_IP_ADDRESS || "localhost"}:5000`;
 
     const verificationURL = `${BASE_URL}/api/application/certificate-verification?hash=${certificateHash}`;
     const qrCodeDataUrl = await QRCode.toDataURL(verificationURL);
