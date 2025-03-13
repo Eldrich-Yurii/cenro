@@ -12,8 +12,8 @@ export default function Contact() {
           </div>
           <div>
             <h3 className="font-extrabold text-xl pb-1">Contact Number</h3>
-            <p>(63) 939 717 2394</p>
-            <p>(63) 967 380 5773</p>
+            <p>(+63) 939 717 2394</p>
+            <p>(+63) 967 380 5773</p>
           </div>
         </section>
         <section className="flex gap-2 pb-4">
