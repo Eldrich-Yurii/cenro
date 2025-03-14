@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "fuse": "^0.4.0",
+    "fuse.js": "^7.1.0",
+    "swal": "^0.1.0",
+    "sweetalert2": "^11.6.13"
+  }
+}
