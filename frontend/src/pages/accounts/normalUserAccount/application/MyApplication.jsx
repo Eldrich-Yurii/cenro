@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
@@ -9,7 +8,7 @@ import {
 import { getUserApplication, uploadAssessment } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
 import SubmitApplication from "../../../../components/modal/SubmitApplication";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 const TABLE_HEAD = [
   "Account Number",

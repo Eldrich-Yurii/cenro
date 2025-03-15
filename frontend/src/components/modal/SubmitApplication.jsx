@@ -5,7 +5,7 @@ import { IoClose } from "react-icons/io5";
 import { useAuth } from "../../context/AuthContext";
 import { submitApplication } from "../../api/ApplicationApi";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 export default function SubmitApplication() {
 

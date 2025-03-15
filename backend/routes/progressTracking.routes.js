@@ -7,8 +7,7 @@ import { getUserProgress } from "../controllers/progress.controller.js";
 const router = express.Router()
 
 // Get user progress
-router.get("/user/:userId/progress", verifyToken, getUserProgress);
-
+router.get("/user-progress", verifyToken, getUserProgress);
 // Update user progress
 // router.put("/application/:applicationId", verifyToken, updateUserProgress);
 

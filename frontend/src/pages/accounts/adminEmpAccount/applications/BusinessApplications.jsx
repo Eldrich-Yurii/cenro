@@ -187,7 +187,7 @@ export default function BusinessApplications() {
                   formType,
                   businessName,
                   status,
-                  assessmentCert,
+                  attendance,
                 }) => {
                   const isLast = _id === applications.length - 1;
                   const classes = isLast
@@ -241,7 +241,7 @@ export default function BusinessApplications() {
                             variant="small"
                             className="font-normal text-gray-600"
                           >
-                            {assessmentCert}
+                            {attendance === false ? "cross" : "check"}
                           </Typography>
                         </div>
                       </td>
