@@ -18,22 +18,29 @@ const webinarSchema = new mongoose.Schema({
       userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true,
+        required: false,
       },
-      applicationId: {
+      applicationId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Application",
-        required: true,
-      },
+        required: false,
+      }],
+      confirmedAt: {
+        type: Date,
+        default: Date.now()
+        
+      }
     //   attended: { type: Boolean, default: false }, // Track attendance
     //   certificateGenerated: { type: Boolean, default: false }, // Track if certificate was issued
      },
   ],
-  status: {
-    type: String,
-    enum: ["Scheduled", "Completed", "Cancelled"],
-    default: "Scheduled",
+  maxAttendees: {
+    type: Number,
+    default: 130,
   },
-});
+},
+{ timestamps: true } // Automatically add createdAt & updatedAt
+
+);
 
 export default mongoose.model("Webinar", webinarSchema);

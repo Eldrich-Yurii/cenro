@@ -19,7 +19,7 @@ const progressSchema = new mongoose.Schema({
     attendanceConfirmed: { type: Boolean, default: false }, // Attendance confirmed by admin
     // inspectionPassed: { type: Boolean, default: false }, // Inspection approval
     businessCertificateIssued: { type: Boolean, default: false }, // Final certificate issued
-  }, // Default step is 0 (Not Started)
+  },
   updatedAt: { type: Date, default: Date.now },
 });
 

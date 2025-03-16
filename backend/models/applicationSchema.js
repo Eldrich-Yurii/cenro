@@ -54,13 +54,6 @@ const applicationSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    //  attendanceConfirmedBy: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "user", // Reference to the admin/employee who confirmed
-    // },
-    // attendanceConfirmedAt: {
-    //   type: Date,
-    // },
     progressId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Progress",
