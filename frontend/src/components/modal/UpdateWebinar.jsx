@@ -1,4 +1,4 @@
-import { Button, Input } from "@material-tailwind/react";
+import { Button, Option, Select } from "@material-tailwind/react";
 import { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { IoClose } from "react-icons/io5";
@@ -53,20 +53,34 @@ export default function UpdateWebinar({
                 />
               </header>
               <div>
-                <label htmlFor="dateTime">Date and Time</label>
-                <Input
+                {/* <label htmlFor="dateTime">Date and Time</label> */}
+                <br />
+                <input
                   type="datetime-local"
+                  label="Date and Time"
                   value={dateTime ? new Date(dateTime).toISOString().slice(0, 16) : ""}
                   onChange={(e) => setDateTime(e.target.value)}
+                  className="h-10 px-2 rounded-lg w-full border-gray-200"
                 />
               </div>
               <div>
                 <label htmlFor="webinarLink">Webinar Link</label>
-                <Input
+                <br />
+                <input
                   type="text"
                   value={webinarLink}
+                  placeholder="Paste here your webinar link"
                   onChange={(e) => setWebinarLink(e.target.value)}
+                  className="h-10 px-2 rounded-lg w-full border-gray-200"
                 />
+                 <div className="w-full">
+                 <label htmlFor="webinarLink">Webinar Status</label>
+                 <br />
+                  <Select value="">
+                    <Option value="validator">Ongoing</Option>
+                    <Option value="chat support">Done</Option>
+                  </Select>
+                </div>
               </div>
             </div>
             <div className="mt-4 flex justify-end">

@@ -112,7 +112,7 @@ export default function WebSchedModal() {
                     type="datetime-local"
                     value={dateTime}
                     onChange={(e) => setDateTime(e.target.value)}
-                    className="w-full"
+                    className="h-10 px-2 rounded-lg w-full border-gray-200"
                   />
                 </div>
                 <div>
@@ -123,7 +123,7 @@ export default function WebSchedModal() {
                     placeholder="Paste your Webinar Link here"
                     value={webinarLink}
                     onChange={(e) => setWebinarLink(e.target.value)}
-                    className="w-full"
+                    className="h-10 px-2 rounded-lg w-full border-gray-200"
                   />
                 </div>
               </header>
