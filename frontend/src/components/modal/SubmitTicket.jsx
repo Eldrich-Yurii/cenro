@@ -5,9 +5,9 @@ import { IoClose } from "react-icons/io5";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { createTicket } from "../../api/TicketApi";
+
 export default function SubmitTicket() {
   const navigate = useNavigate();
-
   const { user } = useAuth(); // Get user from context
   const [subject, setSubject] = useState("");
   const [description, setDescription] = useState("");
@@ -39,7 +39,6 @@ export default function SubmitTicket() {
   
       setMessage("Ticket created successfully!");
       console.log("Ticket Created:", newTicket);
-      
       setSubject("");
       setDescription("");
       navigate(0); // Refresh page
@@ -83,20 +82,20 @@ export default function SubmitTicket() {
       {/* Modal */}
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="w-full max-w-md">
             <div
               ref={modalRef}
               className="bg-white p-6 rounded-lg shadow-lg w-96 transform transition-transform duration-300 scale-95 opacity-0 animate-fade-in"
             >
-              <div className="grid grid-flow-row gap-2">
-                <header className="flex justify-between items-center">
+              <div className="grid grid-flow-row gap-4">
+                <header className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-bold">Submit A Ticket</h2>
                   <IoClose
                     onClick={() => setIsOpen(false)}
                     className="text-xl hover:text-red-700 cursor-pointer"
                   />
                 </header>
-                <div>
+               
                   {/* <div>
                     <Select label="Select Category" value={formType} onChange={handleFormType}>
                       <Option value="General Inquiry">General Inquiry</Option>
@@ -105,37 +104,33 @@ export default function SubmitTicket() {
                       <Option value="Others">Others</Option>
                     </Select>
                   </div> */}
-                   {message && <p>{message}</p>}
-                  <div>
-                    <label>Subject</label>
+                   {message && <p className="text-red-600 mb-2">{message}</p>}
+                  
                     <input
-                      id="subject"
-                      name="subject"
-                      type="text"
+                      label="Subject"
+                      placeholder="Enter Subject"
                       value={subject}
                       required
                       onChange={(e) => setSubject(e.target.value)}
+                      className="rounded-md p-2 font-bold"
                     />
-                  </div>
-                  <div>
-                    <label>Description</label>
+              
                     <textarea
-                      name="desc"
-                      rows="7"
-                      cols="44"
+                      label="Description"
                       id="description"
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
-                      className="border-2"
+                      rows={7}
                       required
-                      placeholder="Enter Your Concerns Here..."
-                    ></textarea>
-                  </div>
+                      placeholder="Enter Your Concern Here..."
+                      className="rounded-md p-2 border"
+                    />
                 </div>
-              </div>
-              <div className="mt-4 flex justify-end">
+
+              <div className="mt-6 flex justify-end">
                 <Button
-                  className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg mr-2 hover:bg-red-600 hover:text-white"
+                  variant="text"
+                  className="mr-2"
                   onClick={() => setIsOpen(false)}
                 >
                   Cancel
@@ -143,7 +138,7 @@ export default function SubmitTicket() {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-950"
+                  className="bg-blue-800 text-white"
                 >
                   {loading ? "Submitting..." : "Create Ticket"}
                 </Button>

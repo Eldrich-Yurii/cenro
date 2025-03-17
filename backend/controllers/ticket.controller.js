@@ -60,7 +60,7 @@ export const sendMessage = async (req, res) => {
     if (!ticket) return res.status(404).json({ error: "Ticket not found" });
 
     const newMessage = {
-      sender: req.user?.role === "admin" ? "admin" : "user",
+      sender: req.user?.role === "admin" || req.user?.role === "employee" ? "admin" : "user",
       message,
     };
 

@@ -16,7 +16,7 @@ router.get("/get-user-ticket",verifyToken, verifyRoles("user"),  getUserTickets)
 router.get("/get-user-ticket/:id", verifyToken, verifyRoles("user"),  getTicketById);
 
 // send message 
-router.post("/send-message/:id/message", verifyToken, verifyRoles("user"), sendMessage);
+router.post("/send-message/:id/message", verifyToken, sendMessage);
 
 // Admin routes
 router.get("/admin/get-all-ticket", verifyToken, verifyRoles(["admin", "employee"]), verifyDesignation(["admin", "chat support"]), getAllTickets);

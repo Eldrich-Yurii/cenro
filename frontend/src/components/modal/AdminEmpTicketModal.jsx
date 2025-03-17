@@ -158,30 +158,23 @@ export default function AdminEmpTicketModal({ ticket, isOpen, onClose, onStatusU
           <div className="mt-4 p-3 bg-white h-[19rem] rounded-md overflow-y-auto">
             {messages.length > 0 ? (
               messages.map((msg, index) => (
-                <div
-                  key={index}
-                  className={
-                    msg.sender === "user"
-                      ? "text-gray-900 mb-8"
-                      : "text-white mb-8"
-                  }
+                <div 
+                key={index} 
+                className={msg.sender === "admin"
+                  ? "text-white mb-8" 
+                  : "text-gray-900 mb-8"
+                }
                 >
-                  <div
-                    className={
-                      msg.sender === "user"
-                        ? "text-gray-400 flex justify-self-center"
-                        : "text-gray-400 flex justify-self-center"
-                    }
-                  >
-                    <small>{formatDateTime(msg.timestamp)}</small>
-                  </div>
-                  <div
-                    className={
-                      msg.sender === "user"
-                        ? "text-gray-900 bg-gray-100 mr-16 p-3 rounded-lg w-fit"
-                        : "text-white bg-sky-700 ml-16 p-3 rounded-lg w-fit flex justify-self-end gap-2"
-                    }
-                  >
+              <div className="text-gray-400 flex justify-self-center">
+                <small>{formatDateTime(msg.timestamp)}</small>
+              </div>
+              <div
+                className={
+                  msg.sender === "admin"
+                    ? "text-white bg-sky-700 ml-16 p-3 rounded-lg w-fit flex justify-self-end gap-2"
+                    : "text-gray-900 bg-gray-100 mr-16 p-3 rounded-lg w-fit"
+                }
+              >
                     <strong>{msg.sender}:</strong> {msg.message}
                   </div>
                 </div>
