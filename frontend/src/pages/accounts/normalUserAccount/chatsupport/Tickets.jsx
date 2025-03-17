@@ -39,7 +39,7 @@ export default function Ticket() {
 
   return (
       <Card className="max-h-[34rem] w-full px-6 shadow-lg">
-        <CardHeader className="rounded-none h-full" floated={false} shadow={false}>
+        <CardHeader className="rounded-none h-auto" floated={false} shadow={false}>
           <div className=" flex justify-between">
             <section>
               <Typography
@@ -57,7 +57,7 @@ export default function Ticket() {
             </section>
           </div>
         </CardHeader>
-        <CardBody>
+        <CardBody className="flex-grow overflow-y-auto">
           <table className="w-full min-w-max table-auto text-left">
             <thead>
               <tr>
