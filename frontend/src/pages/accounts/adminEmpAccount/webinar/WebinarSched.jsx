@@ -5,17 +5,17 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
-import { TbEdit, TbTrash } from "react-icons/tb";
+import { TbEdit } from "react-icons/tb";
 import WebSchedModal from "../../../../components/modal/WebSchedModal";
 import UpdateWebinar from "../../../../components/modal/UpdateWebinar";
 import { getAllWebinar } from "../../../../api/webinarApi";
-import { deleteWebinar } from "../../../../api/webinarApi"
+// import { deleteWebinar } from "../../../../api/webinarApi"
 import { useEffect, useState } from "react";
 
 const TABLE_HEAD = [
   "Webinar Title",
   "Date and Time",
-  "Webinar Link",
+  "Attendees",
   "Status",
   "Actions",
 ];
@@ -78,26 +78,26 @@ export default function WebinarSched() {
       hour12: true
     });
   };
-  const handleDeleteWebinar = async (id) => {
-      if(!window.confirm("Are you sure you want delete this webinar schedule?"))
-    return;
+  // const handleDeleteWebinar = async (id) => {
+  //     if(!window.confirm("Are you sure you want delete this webinar schedule?"))
+  //   return;
   
-      const user = JSON.parse(localStorage.getItem("webinar"));
-      const token = user?.token;
+  //     const user = JSON.parse(localStorage.getItem("webinar"));
+  //     const token = user?.token;
   
-      if (!token) {
-        console.error("Token not found.");
-      }
+  //     if (!token) {
+  //       console.error("Token not found.");
+  //     }
   
-      try {
-        await deleteWebinar(id, token)
+  //     try {
+  //       await deleteWebinar(id, token)
         
-        setWebinars((prevWebinar) => prevWebinar.filter((webinar) => webinar._id !== id));
-      }catch(err) {
-        console.error("Error deleting webinar", err);
-      }
-      alert("Webinar schedule deleted")
-    }
+  //       setWebinars((prevWebinar) => prevWebinar.filter((webinar) => webinar._id !== id));
+  //     }catch(err) {
+  //       console.error("Error deleting webinar", err);
+  //     }
+  //     alert("Webinar schedule deleted")
+  //   }
   
 
   return (
@@ -116,9 +116,6 @@ export default function WebinarSched() {
                 This is the table where you can list the webinar schedules.
               </p>
             </section>
-            {/* <section className="flex items-center">
-              <WebSchedModal />
-            </section> */}
           </div>
           <div className="w-full flex justify-between pt-2 pb-3">
             <section className="flex items-center">
@@ -133,9 +130,6 @@ export default function WebinarSched() {
                 placeholder="Search..."
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              {/* <Button className="ml-2 h-12 w-12 rounded-lg bg-blue-800 text-white text-2xl grid place-content-center hover:bg-blue-950">
-                <TbSearch />
-              </Button> */}
             </section>
           </div>
         </CardHeader>
@@ -160,7 +154,7 @@ export default function WebinarSched() {
             </thead>
             <tbody>
               {filteredSched.map(
-                ({ _id, formType, dateTime, webinarLink, status }) => {
+                ({ _id, formType, dateTime, status, maxAttendees, attendees }) => {
                   const isLast = _id === webinars.length - 1;
                   const classes = isLast
                     ? "py-4"
@@ -189,14 +183,7 @@ export default function WebinarSched() {
                           variant="small"
                           className="font-bold text-gray-600"
                         >
-                          <a
-                            href={webinarLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:underline"
-                          >
-                            {webinarLink}
-                          </a>
+                         {attendees.length} / {maxAttendees}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -219,16 +206,16 @@ export default function WebinarSched() {
                           <Button
                             variant="outlined"
                             className="px-2 py-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white"
-                            onClick={() => setEditWebinar({ _id, dateTime, webinarLink })}
+                            onClick={() => setEditWebinar({ _id, dateTime })}
                           >
                             <TbEdit />
                           </Button>
-                          <Button
+                          {/* <Button
                             variant="outlined"onClick={() => handleDeleteWebinar(_id)}
                             className="px-2 py-2 border-red-800 text-red-800  hover:bg-red-800 hover:text-white"
                           >
                             <TbTrash />
-                          </Button>
+                          </Button> */}
                         </div>
                       </td>
                     </tr>
