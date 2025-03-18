@@ -11,7 +11,7 @@ import SubmitApplication from "../../../../components/modal/SubmitApplication";
 // import Swal from "sweetalert2";
 
 const TABLE_HEAD = [
-  "Account Number",
+  "Account No.",
   "Application Type",
   "Business Name",
   "Status",
@@ -102,7 +102,7 @@ export default function MyApplication() {
   };
 
   return (
-      <Card className="max-h-[34rem] w-full px-6 shadow-lg">
+      <Card className="max-h-[600px] w-full px-6 shadow-lg">
         <CardHeader className="flex-shrink-0 rounded-none" floated={false} shadow={false}>
           <div className=" flex justify-between">
             <section>
@@ -112,8 +112,26 @@ export default function MyApplication() {
               >
                 My Business Application
               </Typography>
-              <p className="w-64 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-                This is the list of applications you submitted.
+              <p className="w-auto text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
+                Follow these steps to start processing your application:
+              </p>
+              <p className="w-auto text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
+                1. Make sure you already payed the processing fee at the CENRO cashier.
+              </p>
+              <p className="w-auto text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
+                2. Click the Submit Application Button.
+              </p>
+              <p className="w-auto text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
+                3. Fill-out the form.
+              </p>
+              <p className="w-auto text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
+                4. Your application details will show below.
+              </p>
+              <p className="w-auto text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
+                5. Upload the copy of your Official Receipt obtained from the cashier to start validation.
+              </p>
+              <p className="w-auto text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
+                6. Once approved, you are now elligible to attend the Webinar.
               </p>
             </section>
             <section className="flex flex-col gap-2 items-end">
@@ -123,7 +141,7 @@ export default function MyApplication() {
         </CardHeader>
         <br />
         <CardBody className="overflow-y-scroll">
-          <table className="h-auto flex-grow w-full min-w-max table-auto text-left ">
+          <table className="min-h-[200px] flex-grow w-full min-w-max table-auto text-left ">
             <thead>
               <tr>
                 {TABLE_HEAD.map((head) => (
