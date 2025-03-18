@@ -14,6 +14,7 @@ export default function SubmitApplication() {
   const [businessName, setBusinessName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
   const [ownerName, setOwnerName] = useState("");
+  const [locationAddress, setLocationAddress] = useState("");
   // const [formType] = useState("New Business Application");
   const [formType, setFormtype] = useState("");
   // const [error, setError] = useState(null);
@@ -34,6 +35,7 @@ export default function SubmitApplication() {
       accountNumber,
       businessName,
       ownerName,
+      locationAddress,
       formType,
       role: user.role,
     };
@@ -117,6 +119,7 @@ export default function SubmitApplication() {
                     id="businessName"
                     name="businessName"
                     type="text"
+                    placeholder="Business Name"
                     value={businessName}
                     onChange={(e) => setBusinessName(e.target.value)}
                     />
@@ -127,6 +130,7 @@ export default function SubmitApplication() {
                     id="ownerName"
                     name="ownerName"
                     type="text"
+                    placeholder="John dela Cruz"
                     value={ownerName}
                     onChange={(e) => setOwnerName(e.target.value)}
                     />
@@ -137,8 +141,24 @@ export default function SubmitApplication() {
                     id="accountNumber"
                     name="accountNumber"
                     type="text"
+                    placeholder="00000"
                     value={accountNumber}
-                    onChange={(e) => setAccountNumber(e.target.value)}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      const numericValue = value.replace(/[^0-9]/g, '').slice(0, 5);
+                      setAccountNumber(numericValue);
+                    }}
+                    />
+                  </div>
+                  <div>
+                  <label>Business Location:</label>
+                  <input
+                    id="locationAddress"
+                    name="locationAddress"
+                    type="text"
+                    placeholder="Business Address"
+                    value={locationAddress}
+                    onChange={(e) => setLocationAddress(e.target.value)}
                     />
                   </div>
                 </div>
