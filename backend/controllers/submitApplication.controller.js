@@ -4,13 +4,13 @@ import { generatePdf } from "./generatePdf.controller.js";
 
 export const submitApplication = async (req, res) => {
     try {
-       const { userId, accountNumber, businessName, ownerName, formType } = req.body;
+       const { userId, accountNumber, businessName, ownerName, locationAddress, formType } = req.body;
        console.log("Request Body:", req.body);
-       if (!userId || !accountNumber || !formType || !businessName || !ownerName) {
+       if (!userId || !accountNumber || !formType || !businessName || !locationAddress || !ownerName) {
         return res.status(400).json({ message: "Missing required fields" });
     }
 
-       const pdfPath = await generatePdf({ businessName, accountNumber, ownerName, userId, formType });
+       const pdfPath = await generatePdf({ businessName, accountNumber, ownerName, locationAddress, userId, formType });
         
        const newApplication = new applicationSchema({
         userId,
@@ -18,6 +18,7 @@ export const submitApplication = async (req, res) => {
         ownerName,
         businessName,
         formType,
+        locationAddress,
         pdfPath,
         // status: "pending",
         submittedAt: Date.now()

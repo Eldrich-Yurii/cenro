@@ -42,6 +42,10 @@ export const generateFinalCert = async (applicationId) => {
       ? application.accountNumber.replace(/\s+/g, "_")
       : "Unknown";
 
+      const safeBusinessAddress = application.locationAddress
+      ? application.locationAddress.replace(/\s+/g, "_")
+      : "Unknown";
+
       // Get the directory of the current module
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
@@ -193,7 +197,7 @@ body {
                 <td>${application.ownerName}</td>
             </tr>
             <tr>
-                <td>Address:</td>
+                <td>${application.locationAddress}</td>
      
             </tr>
             <tr>

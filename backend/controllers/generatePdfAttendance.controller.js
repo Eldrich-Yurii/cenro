@@ -32,6 +32,10 @@ export const generateCertAttendance = async (applicationId) => {
       ? application.accountNumber.replace(/\s+/g, "_")
       : "Unknown";
 
+    const safeBusinessAddress = application.locationAddress 
+      ? application.locationAddress.replace(/\s+/g, "_") 
+      : "Unknown";
+
       // Get the directory of the current module
           const __filename = fileURLToPath(import.meta.url);
           const __dirname = path.dirname(__filename);
@@ -172,7 +176,7 @@ export const generateCertAttendance = async (applicationId) => {
     <p>THIS IS TO CERTIFY THAT</p>
     <p class="name">${application.businessName}</p>
     <div class="description">
-      <p>Located at <b>102 F BLUMENTRITT, SAN PERFECTO, SAN JUAN</b></p>
+      <p>Located at <b>${application.locationAddress}</b></p>
     <p>Has successfully participated in the Business Establishment Awareness Webinar.</p>
     <p>This certificate is issued as partial fulfillment of the requirements for the Certificate of Environmental Compliance.</p>
     </div>
@@ -195,7 +199,7 @@ export const generateCertAttendance = async (applicationId) => {
     const formattedDate = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, "0")}-${now.getDate().toString().padStart(2, "0")}`;
 
     // Generate PDF File Name
-    const pdfName = `${application.userId}-${formattedDate}-${safeBusinessName}-${safeAccountNumber}-Attendance-Certificate.pdf`;
+    const pdfName = `${application.userId}-${formattedDate}-${safeBusinessName}-${safeAccountNumber}-${safeBusinessAddress}-Attendance-Certificate.pdf`;
     const pdfDir = path.join("uploads", "certOfAttendance");
     const certPath = path.join(pdfDir, pdfName);
 

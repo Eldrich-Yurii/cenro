@@ -24,6 +24,10 @@ const applicationSchema = new mongoose.Schema(
       enum: ["New Business Application", "Renewal of Business"], // Only allow these options
       required: true,
     },
+    locationAddress: {
+      type: String,
+      required: true
+    },
     status: {
       type: String,
       enum: ["Pending", "Approved", "Rejected"],
