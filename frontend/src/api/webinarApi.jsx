@@ -60,7 +60,7 @@ export const updateStatus = async (webinarId, status) => {
       );
       return response.data;
     } catch (err) {
-      throw err.response?.data || "Error Updating Ticket Status";
+      throw err.response?.data || "Error Updating Webinar Status";
     }
   };
 
@@ -75,3 +75,33 @@ export const updateStatus = async (webinarId, status) => {
       throw err.response?.data || "Error Updating Webinar";
     }
   }
+
+  export const confirmAttendance = async (webinarId, userId) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = user?.token;
+  
+    console.log("TOKEN:", token);
+  
+    if (!token) {
+      console.log("Token not found.");
+      return;
+    }
+  
+    console.log("Webinar id:", webinarId);
+  
+    try {
+      const response = await axios.post(
+        `${API}/webinar-attendance/${webinarId}/confirm`,
+        {userId},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (err) {
+      console.log("Error Confirming Attendance", err.response?.data);
+      throw err.response?.data || "Error Updating Webinar";
+    }
+  };
