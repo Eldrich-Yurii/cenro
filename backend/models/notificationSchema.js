@@ -13,7 +13,7 @@ const notificationSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ["certificate", "application_update", "reminder"],
+      enum: ["certificate", "application_update", "webinar confirmation"],
       required: true,
     },
     isRead: {

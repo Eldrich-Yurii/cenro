@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post("/create-webinar", verifyToken, verifyRoles(["admin", "employee"]), verifyDesignation(["webinar coordinator"]), createWebinar);
 
-router.post("/webinar-attendance/:id/confirm", verifyToken, confirmAttendees)
+router.post("/webinar-attendance/:webinarId/confirm", verifyToken, confirmAttendees)
 
 router.get("/get-webinar", getAllWebinar);
 

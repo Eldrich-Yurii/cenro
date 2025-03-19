@@ -15,6 +15,7 @@ import faqsRouter from "./routes/faqs.routes.js";
 import ticketRoutes from "./routes/ticket.routes.js";
 import logsRouter from "./routes/logs.routes.js";
 import progressRoutes from "./routes/progressTracking.routes.js";
+import notifRoutes from "./routes/notification.routes.js"
 // const express = require('express');
 // const bodyParser = require('body-parser');
 // const cookieParser = require('cookie-parser')
@@ -65,7 +66,7 @@ app.use("/api/faqs", faqsRouter);
 app.use("/api/ticket", ticketRoutes);
 app.use("/api/logs", logsRouter);
 app.use("/api/progress", progressRoutes);
-
+app.use("/api/notification", notifRoutes)
 // connect to mongoDB
 mongoose
   .connect(process.env.MONGODB_URI)

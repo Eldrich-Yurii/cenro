@@ -5,28 +5,28 @@ const applicationSchema = new mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user", // Reference to the normal user's account
-      required: true,
+      required: false,
     },
     accountNumber: {
       type: String,
-      required: true,
+      required: false,
     },
     ownerName: {
       type: String,
-      required: true,
+      required: false,
     },
     businessName: {
       type: String,
-      required: true,
+      required: false,
     },
     formType: {
       type: String,
       enum: ["New Business Application", "Renewal of Business"], // Only allow these options
-      required: true,
+      required: false,
     },
     locationAddress: {
       type: String,
-      required: true
+      required: false
     },
     status: {
       type: String,
@@ -35,7 +35,7 @@ const applicationSchema = new mongoose.Schema(
     },
     pdfPath: {
       type: String, // Store the file path where the PDF is generated
-      required: true,
+      required: false,
     },
     assessmentCert: {
       type: String, // Store the file path of assessment certificate
@@ -67,7 +67,7 @@ const applicationSchema = new mongoose.Schema(
       default: Date.now, // Automatically sets the submission timestamp
     },
   },
-  { timestamps: true } // Automatically add createdAt & updatedAt
+  { timestamps: false } // Automatically add createdAt & updatedAt
 );
 
 export default mongoose.model("Application", applicationSchema);
