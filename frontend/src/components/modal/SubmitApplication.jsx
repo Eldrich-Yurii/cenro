@@ -1,27 +1,23 @@
-import { Button, Select, Option } from "@material-tailwind/react";
+import { Button, Select, Option, Input, Typography } from "@material-tailwind/react";
 import { useState, useEffect, useRef } from "react";
 import { TbFileText } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
 import { useAuth } from "../../context/AuthContext";
 import { submitApplication } from "../../api/ApplicationApi";
 import { useNavigate } from "react-router-dom";
-// import Swal from "sweetalert2";
 
 export default function SubmitApplication() {
-
   const navigate = useNavigate();
-  const { user } = useAuth(); // Get user from context
+  const { user } = useAuth();
   const [businessName, setBusinessName] = useState("");
   const [accountNumber, setAccountNumber] = useState("");
   const [ownerName, setOwnerName] = useState("");
   const [locationAddress, setLocationAddress] = useState("");
-  // const [formType] = useState("New Business Application");
   const [formType, setFormtype] = useState("");
-  // const [error, setError] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -42,27 +38,15 @@ export default function SubmitApplication() {
 
     setIsSubmitting(true);
     try {
-      const data = await submitApplication(formData); // Directly access `data`
-      console.log("Backend Response Data:", data);
-
-      // if (data.pdfUrl) {
-      //   const pdfUrl = data.pdfUrl;
-      //   console.log("PDF URL:", pdfUrl);
-
-      //   const link = document.createElement("a");
-      //   link.href = pdfUrl;
-      //   link.setAttribute("download", "Application-form.pdf");
-      //   document.body.appendChild(link);
-      //   link.click();
-      //   document.body.removeChild(link);
-      // }
-      navigate(0)
+      await submitApplication(formData);
+      navigate(0);
     } catch (err) {
       console.error("Error submitting application:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  // Close modal on Escape key press
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
@@ -74,13 +58,11 @@ export default function SubmitApplication() {
   }, []);
 
   const handleFormType = (value) => {
-    console.log("Selected form type:", value); // Debugging
     setFormtype(value);
   };
 
   return (
     <div className="z-10">
-      {/* Button to open modal */}
       <Button
         onClick={() => setIsOpen(true)}
         variant="outlined"
@@ -90,93 +72,88 @@ export default function SubmitApplication() {
         Submit Application
       </Button>
 
-      {/* Modal */}
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center transition-opacity duration-300">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="w-full max-w-md">
             <div
               ref={modalRef}
-              className="bg-white p-6 rounded-lg shadow-lg w-96 transform transition-transform duration-300 scale-95 opacity-0 animate-fade-in"
+              className="bg-white p-6 rounded-lg shadow-lg w-full transform transition-transform duration-300 scale-95 opacity-0 animate-fade-in"
             >
-              <div className="grid grid-flow-row gap-2">
-                <header className="flex justify-between items-center">
-                  <h2 className="text-xl font-bold">Application for New Business</h2>
+              <div className="grid grid-flow-row gap-4">
+                <header className="flex justify-between items-center mb-4">
+                  <Typography variant="h5" className="font-bold">
+                    Application for New Business
+                  </Typography>
                   <IoClose
                     onClick={() => setIsOpen(false)}
                     className="text-xl hover:text-red-700 cursor-pointer"
                   />
                 </header>
+
                 <div>
-                  <div>
-                    <Select label="Select form type" value={formType} onChange={handleFormType}>
-                      <Option value="New Business Application">New Business Application</Option>
-                      <Option value="Renewal of Business">Renewal of Business</Option>
-                    </Select>
-                  </div>
+                  <Select label="Select form type" value={formType} onChange={handleFormType}>
+                    <Option value="New Business Application">New Business Application</Option>
+                    <Option value="Renewal of Business">Renewal of Business</Option>
+                  </Select>
+                </div>
+
                 <div>
-                  <label>Business Name:</label>
-                  <input
-                    id="businessName"
-                    name="businessName"
-                    type="text"
-                    placeholder="Business Name"
+                  <Input
+                    label="Business Name"
                     value={businessName}
                     onChange={(e) => setBusinessName(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                  <label>Owner Name:</label>
-                  <input
-                    id="ownerName"
-                    name="ownerName"
-                    type="text"
+                    className="border-black-500 rounded-md p-2 focus:border-black-700"
+                  />
+                </div>
+
+                <div>
+                  <Input
+                    label="Owner Name"
                     placeholder="John dela Cruz"
                     value={ownerName}
                     onChange={(e) => setOwnerName(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                  <label>Account Number:</label>
-                  <input
-                    id="accountNumber"
-                    name="accountNumber"
-                    type="text"
+                  />
+                </div>
+
+                <div>
+                  <Input
+                    label="Account Number"
                     placeholder="00000"
                     value={accountNumber}
                     onChange={(e) => {
                       const value = e.target.value;
-                      const numericValue = value.replace(/[^0-9]/g, '').slice(0, 5);
+                      const numericValue = value.replace(/[^0-9]/g, "").slice(0, 5);
                       setAccountNumber(numericValue);
                     }}
-                    />
-                  </div>
-                  <div>
-                  <label>Business Location:</label>
-                  <input
-                    id="locationAddress"
-                    name="locationAddress"
-                    type="text"
+                  />
+                </div>
+
+                <div>
+                  <Input
+                    label="Business Location"
                     placeholder="Business Address"
                     value={locationAddress}
-                    onChange={(e) => setLocationAddress(e.target.value)}
-                    />
-                  </div>
+                    onChange={(e) => setLocationAddress(e.target.value.toUpperCase())}
+                  />
                 </div>
-              </div>
-              <div className="mt-4 flex justify-end">
-                <Button
-                  className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg mr-2 hover:bg-red-600 hover:text-white"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  className="bg-blue-800 text-white px-4 py-2 rounded-lg hover:bg-blue-950"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Submitting..." : "Submit Application"} 
-                </Button>
+
+                <div className="mt-6 flex justify-end">
+                  <Button
+                    variant="text"
+                    color="red"
+                    className="mr-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    color="blue"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Submitting..." : "Submit Application"}
+                  </Button>
+                </div>
               </div>
             </div>
           </form>
