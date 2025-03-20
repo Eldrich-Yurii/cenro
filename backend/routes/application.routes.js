@@ -3,7 +3,7 @@ import { submitApplication } from "../controllers/submitApplication.controller.j
 import { getUserApplication, getAllApplication } from "../controllers/getApplication.controller.js";
 import { downloadPdf } from "../controllers/downloadPdf.controller.js";
 import { uploadAssessmentCert } from "../controllers/uploadAssessmentCert.controller.js";
-import upload from "../controllers/multerConfig.js";
+import { officialReceipts, inspectionReports } from "../controllers/multerConfig.js";
 import { updateApplicationStatus } from "../controllers/updateApplicationStatus.controller.js";
 import { viewAssessmentCert } from "../controllers/viewAssessment.controller.js";
 import { verifyToken } from "../middlewares/auth/auth.verifyAdmin.js";
@@ -16,6 +16,7 @@ import { verifyCert } from "../controllers/verifyCert.controller.js";
 import { viewFinalCert } from "../controllers/viewFinalCert.controller.js";
 import { getPendingFinalCert } from "../controllers/getPendingFinalCert.controller.js";
 import verifyDesignation from "../middlewares/verifyDesignation.js";
+import { uploadInspectionReport } from "../controllers/uploadInspectionReport.js";
 
 
 
@@ -52,7 +53,10 @@ router.get("/view-certificate-of-attendance/:applicationId", viewCertOfAttendanc
 router.get("/view-final-certificate/:applicationId", viewFinalCert)
 
 //upload file 
-router.post("/upload-assessment/:applicationId", upload.single("assessmentCert"), uploadAssessmentCert);
+router.post("/upload-assessment/:applicationId", officialReceipts.single("assessmentCert"), uploadAssessmentCert);
+
+//upload file 
+router.post("/upload-report/:applicationId", inspectionReports.single("inspectionReport"), uploadInspectionReport);
 
 // update status of application
 router.put("/update-status/:applicationId", updateApplicationStatus);

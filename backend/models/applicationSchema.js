@@ -41,6 +41,10 @@ const applicationSchema = new mongoose.Schema(
       type: String, // Store the file path of assessment certificate
       required: false,
     },
+    inspectionReport: {
+      type: String, // Store the file path of inspection report
+      required: false,
+    },
     attendance: {
       type: Boolean, // Attended Webinar or not
       default: false,
