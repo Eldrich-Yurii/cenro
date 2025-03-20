@@ -120,6 +120,25 @@ export const uploadAssessment = async (applicationId, file) => {
   }
 };
 
+export const uploadInspectionReport = async (applicationId, file) => {
+  try {
+    const formData = new FormData();
+    formData.append("inspectionReport", file);
+
+    const response = await axios.post(
+      `${API}/upload-report/${applicationId}`,
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    console.log("Error uploading file:", err.response?.data || err.message);
+    throw new Error(err.response?.data || "Error uploading file");
+  }
+};
+
 export const updateApplicationStatus = async (applicationId, status) => {
   try {
     console.log("Sending applicationId:", applicationId); // Debugging

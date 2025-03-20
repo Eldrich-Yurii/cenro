@@ -10,13 +10,15 @@ import { TbSearch } from "react-icons/tb";
 import {
   confirmInspection,
   getPendingFinalCertUsers,
+  uploadInspectionReport,
 } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
 
-const TABLE_HEAD = ["ID", "Account Number", "Business Name", "Action"];
+const TABLE_HEAD = ["Account Number", "Business Name", "Upload", "Report", "Action"]; // Added Report
 
 export default function IsnpectionAndFinalCert() {
   const [webinarAttendees, setWebinarAttendees] = useState([]);
+  const [uploadDisabled, setUploadDisabled] = useState({}); // Initialize uploadDisabled
 
   useEffect(() => {
     const fetchPendingFinalCertUsers = async () => {
@@ -30,6 +32,12 @@ export default function IsnpectionAndFinalCert() {
         }
         const data = await getPendingFinalCertUsers(token);
         setWebinarAttendees(data);
+
+        const initialDisabled = {};
+        data.forEach((attendee) => {
+          initialDisabled[attendee._id] = false;
+        });
+        setUploadDisabled(initialDisabled);
       } catch (error) {
         console.error("Error fetching pending webinar users:", error);
       }
@@ -44,9 +52,39 @@ export default function IsnpectionAndFinalCert() {
       setWebinarAttendees((prev) =>
         prev.filter((attendee) => attendee._id !== applicationId)
       );
-      console.log(response.message); // Show success message
+      console.log(response.message);
     } catch (err) {
       console.log("Error generating certificate", err);
+    }
+  };
+
+  const handleFileUpload = async (e, applicationId) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      const response = await uploadInspectionReport(applicationId, file);
+      console.log("File upload response:", response);
+
+      if (!response || !response.fileUrl) {
+        console.error("Unexpected response format:", response);
+        return;
+      }
+
+      setWebinarAttendees((prevAttendees) =>
+        prevAttendees.map((app) =>
+          app._id === applicationId ? { ...app, inspectionReport: response.fileUrl } : app
+        )
+      );
+
+      setUploadDisabled((prevDisabled) => ({
+        ...prevDisabled,
+        [applicationId]: true,
+      }));
+
+      e.target.value = "";
+    } catch (error) {
+      console.error("Error uploading file:", error.response?.data || error.message);
     }
   };
 
@@ -96,97 +134,60 @@ export default function IsnpectionAndFinalCert() {
             </tr>
           </thead>
           <tbody>
-            {webinarAttendees.length === 0 ? <tr>
+            {webinarAttendees.length === 0 ? (
+              <tr>
                 <td colSpan="12" className="text-center pt-4">
                   No Pending Users Found
                 </td>
-              </tr>:webinarAttendees.map(({ _id, businessName, accountNumber }) => {
-              const isLast = _id === webinarAttendees.length - 1;
-              const classes = isLast ? "py-4" : "py-4 border-b border-gray-300";
+              </tr>
+            ) : (
+              webinarAttendees.map(({ _id, businessName, accountNumber, inspectionReport }) => {
+                const isLast = _id === webinarAttendees.length - 1;
+                const classes = isLast ? "py-4" : "py-4 border-b border-gray-300";
+                const isReportUploaded = !!inspectionReport;
 
-              return (
-                <tr key={_id} className="hover:bg-gray-50">
-                  <td className={classes}>
-                    <div className="flex items-center">
-                      {/* <Checkbox /> */}
-                      <Typography
-                        variant="small"
-                        className="font-bold text-gray-600"
-                      >
-                        {_id}
-                      </Typography>
-                    </div>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      className="font-normal text-gray-600"
-                    >
-                      {accountNumber}
-                    </Typography>
-                  </td>
-                  <td className={classes}>
-                    <Typography
-                      variant="small"
-                      className="font-normal text-gray-600"
-                    >
-                      {businessName}
-                    </Typography>
-                  </td>
-                  {/* <td className={classes}>
-                        <Typography
-                          variant="small"
-                          className="font-normal text-gray-600"
-                        >
-                          {lastname}
+                return (
+                  <tr key={_id} className="hover:bg-gray-50">
+                    {/* <td className={classes}>
+                      <div className="flex items-center">
+                        <Typography variant="small" className="font-bold text-gray-600">
+                          {_id}
                         </Typography>
-                      </td> */}
-                  {/* <td className={classes}>
-                        <div className="w-max">
-                          <span
-                            className={`px-3 py-2 font-extrabold uppercase text-xs rounded-lg ${
-                              status === "certificate generated"
-                                ? "bg-lime-200 text-lime-800"
-                                : status === "pending"
-                                ? "bg-yellow-200 text-orange-600"
-                                : "bg-red-200 text-red-600"
-                            }`}
-                          >
-                            {status}
-                          </span>
-                        </div>
-                      </td> */}
-                  <td className="border-b border-gray-300">
-                    <Button onClick={() => handleCofirmInspection(_id)}>
-                      Generate Certificate Now
-                    </Button>
-                    {/* <div className="flex gap-4">
-                          <Menu>
-                            <MenuHandler>
-                              <Button
-                                variant="outlined"
-                                className="px-2 py-2 border-gray-200 text-blue-800 hover:bg-blue-800 hover:text-white"
-                              >
-                                <TbDots />
-                              </Button>
-                            </MenuHandler>
-                            <MenuList className="text-start p-2">
-                              <MenuItem className="pt-2 hover:bg-blue-50">
-                                View COA
-                              </MenuItem>
-                              <MenuItem className="pt-2 hover:bg-blue-50">
-                                Approve
-                              </MenuItem>
-                              <MenuItem className="pt-2 hover:bg-blue-50">
-                                Reject
-                              </MenuItem>
-                            </MenuList>
-                          </Menu>
-                        </div> */}
-                  </td>
-                </tr>
-              );
-            })}
+                      </div>
+                    </td> */}
+                    <td className={classes}>
+                      <Typography variant="small" className="font-normal text-gray-600">
+                        {accountNumber}
+                      </Typography>
+                    </td>
+                    <td className={classes}>
+                      <Typography variant="small" className="font-normal text-gray-600">
+                        {businessName}
+                      </Typography>
+                    </td>
+                    <td className="border-b border-gray-300">
+                      <input
+                        type="file"
+                        onChange={(e) => handleFileUpload(e, _id)}
+                        disabled={uploadDisabled[_id]}
+                      />
+                    </td>
+                    <td className={classes}>
+                      <div className="w-32 truncate">
+                        <Typography variant="small" className="font-normal text-gray-600">
+                          {inspectionReport || "No Report Uploaded"}
+                        </Typography>
+                      </div>
+                    </td>
+                    <td className="border-b border-gray-300">
+                      <Button onClick={() => handleCofirmInspection(_id)} disabled={!isReportUploaded}>
+                        Generate Certificate Now
+                      </Button>
+                    </td>
+                  </tr>
+                );
+              })
+            )}
           </tbody>
         </table>
       </CardBody>
@@ -203,6 +204,7 @@ export default function IsnpectionAndFinalCert() {
           </Button>
         </div>
       </CardFooter>
+
     </Card>
   );
 }
