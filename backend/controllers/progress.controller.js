@@ -1,10 +1,14 @@
 import progressSchema from "../models/progressSchema.js"; // Use the correct schema
 
+
 export const getUserProgress = async (req, res) => {
   try {
     const userId = req.user.id; // Get userId from the token
 
-    const progress = await progressSchema.find({ userId }).populate("applicationId");
+    const progress = await progressSchema.find({ userId }).populate({
+      path: "applicationId",
+      select: "businessName",
+    });
 
     if (!progress || progress.length === 0) {
       return res.status(404).json({ message: "No progress found for this user" });

@@ -58,7 +58,11 @@ export default function ProgressTracker() {
         {progress.map((step) => {
           return (
             <div key={step._id} className="flex justify-center flex-col pb-8">
-          
+              {step.applicationId && step.applicationId.businessName && (
+                <div className="text-center mb-2">
+                  <strong className="text-lg">{step.applicationId.businessName}</strong>
+                </div>
+              )}
 
               <div className="flex items-center justify-between px-6">
                 <span>
