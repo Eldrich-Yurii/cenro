@@ -1,9 +1,9 @@
 import express from "express"
 import { submitApplication } from "../controllers/submitApplication.controller.js";
 import { getUserApplication, getAllApplication } from "../controllers/getApplication.controller.js";
-import { downloadPdf } from "../controllers/downloadPdf.controller.js";
-import { uploadAssessmentCert } from "../controllers/uploadAssessmentCert.controller.js";
-import { officialReceipts, inspectionReports } from "../controllers/multerConfig.js";
+// import { downloadPdf } from "../controllers/downloadPdf.controller.js";
+import { uploadOfficialReceipt } from "../controllers/uploadOfficialReceipt.controller.js";
+import { officialReceipts, inspectionReports, postTests, preTests } from "../middlewares/multerConfig.js";
 import { updateApplicationStatus } from "../controllers/updateApplicationStatus.controller.js";
 import { viewAssessmentCert } from "../controllers/viewAssessment.controller.js";
 import { verifyToken } from "../middlewares/auth/auth.verifyAdmin.js";
@@ -16,6 +16,8 @@ import { verifyCert } from "../controllers/verifyCert.controller.js";
 import { viewFinalCert } from "../controllers/viewFinalCert.controller.js";
 import { getPendingFinalCert } from "../controllers/getPendingFinalCert.controller.js";
 import verifyDesignation from "../middlewares/verifyDesignation.js";
+import { uploadPreTestScreenShot } from "../controllers/uploadPreTestScreenShot.controller.js";
+import { uploadPostTestScreenshot } from "../controllers/uploadPostTestScreenShot.controller.js";
 import { uploadInspectionReport } from "../controllers/uploadInspectionReport.js";
 
 
@@ -53,10 +55,16 @@ router.get("/view-certificate-of-attendance/:applicationId", viewCertOfAttendanc
 router.get("/view-final-certificate/:applicationId", viewFinalCert)
 
 //upload file 
-router.post("/upload-assessment/:applicationId", officialReceipts.single("assessmentCert"), uploadAssessmentCert);
+router.post("/upload-assessment/:applicationId", officialReceipts.single("assessmentCert"), uploadOfficialReceipt);
 
 //upload file 
 router.post("/upload-report/:applicationId", inspectionReports.single("inspectionReport"), uploadInspectionReport);
+
+//upload file 
+router.post("/upload-preTest/:applicationId", preTests.single("pretest"), uploadPreTestScreenShot);
+
+//upload file 
+router.post("/upload-postTest/:applicationId", postTests.single("postTest"), uploadPostTestScreenshot);
 
 // update status of application
 router.put("/update-status/:applicationId", updateApplicationStatus);

@@ -45,6 +45,22 @@ const applicationSchema = new mongoose.Schema(
       type: String, // Store the file path of inspection report
       required: false,
     },
+    preTestPath: {
+      type: String, // Store the file path of inspection report
+      required: false,
+    },
+    preTest: {
+      type: Boolean, // Store the file path of inspection report
+      default: false,
+    },
+    postTestPath: {
+      type: String, // Store the file path of inspection report
+      required: false,
+    },
+    postTest: {
+      type: Boolean, // Store the file path of inspection report
+      default: false,
+    },
     attendance: {
       type: Boolean, // Attended Webinar or not
       default: false,

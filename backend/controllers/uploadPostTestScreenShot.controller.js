@@ -1,6 +1,6 @@
 import applicationSchema from "./../models/applicationSchema.js";
 
-export const uploadAssessmentCert = async (req, res) => {
+export const uploadPostTestScreenshot = async (req, res) => {
   try {
     const { applicationId } = req.params;
     // console.log("Received applicationId:", applicationId); // Debugging
@@ -17,7 +17,8 @@ export const uploadAssessmentCert = async (req, res) => {
       }
   
       // Update application with the uploaded file path
-      application.assessmentCert = filePath;
+      application.postTestPath = filePath;
+      application.postTest = true;
       await application.save();
   
       // res.status(200).json({ message: "Assessment certificate uploaded", fileUrl: `${req.protocol}://${req.get("host")}/${filePath}` });

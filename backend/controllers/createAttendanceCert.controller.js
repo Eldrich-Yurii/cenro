@@ -5,7 +5,6 @@ import { generateCertAttendance } from "./generatePdfAttendance.controller.js";
 export const createAttendanceCert = async (req, res) => {
   try {
     const { applicationId } = req.params;
-    const adminId = req.user.id; // Get admin/employee ID from request
 
     // Find the application
     const application = await applicationSchema.findById(applicationId);
