@@ -11,7 +11,6 @@ import {
 } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
 import SubmitApplication from "../../../../components/modal/SubmitApplication";
-// import Swal from "sweetalert2";
 
 const TABLE_HEAD = [
   "Account No.",
@@ -24,7 +23,6 @@ const TABLE_HEAD = [
 
 export default function MyApplication() {
   const [applications, setApplications] = useState([]);
-  const [uploadDisabled, setUploadDisabled] = useState({});
 
   useEffect(() => {
     const fetchApplications = async () => {
@@ -39,12 +37,6 @@ export default function MyApplication() {
       try {
         const data = await getUserApplication(token);
         setApplications(data);
-
-        // Load uploadDisabled from localStorage AFTER applications are fetched
-        const storedDisabled = localStorage.getItem("uploadDisabled");
-        if (storedDisabled) {
-          setUploadDisabled(JSON.parse(storedDisabled));
-        }
       } catch (err) {
         console.log("Error:", err);
       }
@@ -53,61 +45,37 @@ export default function MyApplication() {
     fetchApplications();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("uploadDisabled", JSON.stringify(uploadDisabled));
-  }, [uploadDisabled]);
-
   const handleFileUpload = async (e, applicationId) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    Swal.fire({
-      title: "Confirm Upload",
-      text: `Are you sure you want to upload "${file.name}"?`,
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonText: "Yes, upload it!",
-      cancelButtonText: "No, cancel",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          const response = await uploadAssessment(applicationId, file);
-          console.log("File upload response:", response);
+    try {
+      const response = await uploadAssessment(applicationId, file);
+      console.log("File upload response:", response);
 
-          if (!response || !response.fileUrl) {
-            console.error("Unexpected response format:", response);
-            return;
-          }
-
-          setApplications((prevApplications) =>
-            prevApplications.map((app) =>
-              app._id === applicationId
-                ? { ...app, assessmentCert: response.fileUrl }
-                : app
-            )
-          );
-
-          setUploadDisabled((prevDisabled) => ({
-            ...prevDisabled,
-            [applicationId]: true,
-          }));
-
-          e.target.value = ""; // Reset file input
-
-          Swal.fire("Uploaded!", "Your file has been uploaded.", "success");
-        } catch (error) {
-          console.error(
-            "Error uploading file:",
-            error.response?.data || error.message
-          );
-          Swal.fire(
-            "Error!",
-            "There was an error uploading your file.",
-            "error"
-          );
-        }
+      if (!response || !response.fileUrl) {
+        console.error("Unexpected response format:", response);
+        return;
       }
-    });
+
+      setApplications((prevApplications) =>
+        prevApplications.map((app) =>
+          app._id === applicationId
+            ? { ...app, assessmentCert: response.fileUrl }
+            : app
+        )
+      );
+
+      e.target.value = ""; // Reset file input
+
+      alert("Uploaded! Your file has been uploaded.");
+    } catch (error) {
+      console.error(
+        "Error uploading file:",
+        error.response?.data || error.message
+      );
+      alert("Error! There was an error uploading your file.");
+    }
   };
 
   return (
@@ -224,16 +192,6 @@ export default function MyApplication() {
                         {application.status}
                       </span>
                     </td>
-                    {/* <td className={classes}>
-                          <a
-                            href={`http://localhost:5000/${application.pdfPath}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:underline hover:text-blue-600"
-                          >
-                            Download PDF
-                          </a>
-                        </td> */}
                     <td className={classes}>
                       <div className="w-32 truncate">
                         <Typography
@@ -248,7 +206,6 @@ export default function MyApplication() {
                       <input
                         type="file"
                         onChange={(e) => handleFileUpload(e, application._id)}
-                        disabled={uploadDisabled[application._id]}
                       />
                     </td>
                   </tr>
@@ -257,13 +214,6 @@ export default function MyApplication() {
             )}
           </tbody>
         </table>
-        {/* {editEmployeeDesignation  && (
-            <EditDesigModal
-              employee={editEmployeeDesignation}
-              setEditEmployeeDesignation={setEditEmployeeDesignation}
-              updateEmployeeDesignation={updateEmployeeDesignation}
-            />
-          )} */}
       </CardBody>
       <CardFooter className="h-auto flex-shrink-0 flex items-center justify-between border-t border-blue-gray-50 p-4">
         <Typography variant="small" color="blue-gray" className="font-normal">

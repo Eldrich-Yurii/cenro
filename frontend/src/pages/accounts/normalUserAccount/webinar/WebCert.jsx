@@ -33,7 +33,6 @@ export default function WebCert() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredApplications, setFilteredApplications] = useState([]);
-  const [uploadDisabled, setUploadDisabled] = useState({});
 
   useEffect(() => {
     const fetchApplications = async () => {
@@ -70,115 +69,71 @@ export default function WebCert() {
     }
   };
 
-    useEffect(() => {
-      localStorage.setItem("uploadDisabled", JSON.stringify(uploadDisabled));
-    }, [uploadDisabled]);
-  
-    const handlePreTestUpload = async (e, applicationId) => {
-      const file = e.target.files[0];
-      if (!file) return;
-  
-      Swal.fire({
-        title: "Confirm Upload",
-        text: `Are you sure you want to upload "${file.name}"?`,
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonText: "Yes, upload it!",
-        cancelButtonText: "No, cancel",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          try {
-            const response = await uploadPreTest(applicationId, file);
-            console.log("File upload response:", response);
-  
-            if (!response || !response.fileUrl) {
-              console.error("Unexpected response format:", response);
-              return;
-            }
-  
-            setApplications((prevApplications) =>
-              prevApplications.map((app) =>
-                app._id === applicationId
-                  ? { ...app, preTest: response.fileUrl }
-                  : app
-              )
-            );
-  
-            setUploadDisabled((prevDisabled) => ({
-              ...prevDisabled,
-              [applicationId]: true,
-            }));
-  
-            e.target.value = ""; // Reset file input
-  
-            Swal.fire("Uploaded!", "Your file has been uploaded.", "success");
-          } catch (error) {
-            console.error(
-              "Error uploading file:",
-              error.response?.data || error.message
-            );
-            Swal.fire(
-              "Error!",
-              "There was an error uploading your file.",
-              "error"
-            );
-          }
-        }
-      });
-    };
+  const handlePreTestUpload = async (e, applicationId) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-    const handlePostTestUpload = async (e, applicationId) => {
-      const file = e.target.files[0];
-      if (!file) return;
-  
-      Swal.fire({
-        title: "Confirm Upload",
-        text: `Are you sure you want to upload "${file.name}"?`,
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonText: "Yes, upload it!",
-        cancelButtonText: "No, cancel",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          try {
-            const response = await uploadPostTest(applicationId, file);
-            console.log("File upload response:", response);
-  
-            if (!response || !response.fileUrl) {
-              console.error("Unexpected response format:", response);
-              return;
-            }
-  
-            setApplications((prevApplications) =>
-              prevApplications.map((app) =>
-                app._id === applicationId
-                  ? { ...app, postTest: response.fileUrl }
-                  : app
-              )
-            );
-  
-            setUploadDisabled((prevDisabled) => ({
-              ...prevDisabled,
-              [applicationId]: true,
-            }));
-  
-            e.target.value = ""; // Reset file input
-  
-            Swal.fire("Uploaded!", "Your file has been uploaded.", "success");
-          } catch (error) {
-            console.error(
-              "Error uploading file:",
-              error.response?.data || error.message
-            );
-            Swal.fire(
-              "Error!",
-              "There was an error uploading your file.",
-              "error"
-            );
-          }
-        }
-      });
-    };
+    try {
+      const response = await uploadPreTest(applicationId, file);
+      console.log("File upload response:", response);
+
+      if (!response || !response.fileUrl) {
+        console.error("Unexpected response format:", response);
+        return;
+      }
+
+      setApplications((prevApplications) =>
+        prevApplications.map((app) =>
+          app._id === applicationId
+            ? { ...app, preTest: response.fileUrl }
+            : app
+        )
+      );
+
+      e.target.value = ""; // Reset file input
+
+      alert("Uploaded! Your file has been uploaded.");
+    } catch (error) {
+      console.error(
+        "Error uploading file:",
+        error.response?.data || error.message
+      );
+      alert("Error! There was an error uploading your file.");
+    }
+  };
+
+  const handlePostTestUpload = async (e, applicationId) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      const response = await uploadPostTest(applicationId, file);
+      console.log("File upload response:", response);
+
+      if (!response || !response.fileUrl) {
+        console.error("Unexpected response format:", response);
+        return;
+      }
+
+      setApplications((prevApplications) =>
+        prevApplications.map((app) =>
+          app._id === applicationId
+            ? { ...app, postTest: response.fileUrl }
+            : app
+        )
+      );
+
+      e.target.value = ""; // Reset file input
+
+      alert("Uploaded! Your file has been uploaded.");
+    } catch (error) {
+      console.error(
+        "Error uploading file:",
+        error.response?.data || error.message
+      );
+      alert("Error! There was an error uploading your file.");
+    }
+  };
 
   //search function
   useEffect(() => {
@@ -296,7 +251,6 @@ export default function WebCert() {
                       <input
                         type="file"
                         onChange={(e) => handlePreTestUpload(e, application._id)}
-                        disabled={uploadDisabled[application._id]}
                       />
                     </td>
                     <td className={classes} style={{ paddingRight: '1rem', paddingLeft: '1rem' }}>
@@ -313,7 +267,6 @@ export default function WebCert() {
                       <input
                         type="file"
                         onChange={(e) => handlePostTestUpload(e, application._id)}
-                        disabled={uploadDisabled[application._id]}
                       />
                     </td>
                     <td className={classes} style={{ paddingRight: '1rem', paddingLeft: '1rem' }}>
