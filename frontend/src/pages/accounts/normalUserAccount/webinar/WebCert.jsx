@@ -14,7 +14,7 @@ import {
 } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
-import { TbSearch } from "react-icons/tb";
+import { TbEye } from "react-icons/tb";
 
 const TABLE_HEAD = [
   "Account No.",
@@ -231,9 +231,9 @@ export default function WebCert() {
           <thead>
             <tr>
               {TABLE_HEAD.map((head) => (
-                <th key={head} className="border-b border-gray-300 pb-4 pt-10">
+                <th key={head} className="border-b border-gray-300 pb-4 pt-10" style={{ paddingRight: '1rem', paddingLeft: '1rem' }}>
                   <Typography
-                    variant="small"
+                     variant="small"
                     className="text-gray-800 font-extrabold leading-none font-inter"
                   >
                     {head}
@@ -258,7 +258,7 @@ export default function WebCert() {
 
                 return (
                   <tr key={application._id} className="hover:bg-gray-50">
-                    <td className={classes}>
+                    <td className={classes} style={{ paddingRight: '1rem', paddingLeft: '1rem' }}>
                       <Typography
                         variant="small"
                         className="font-bold text-gray-600"
@@ -266,7 +266,7 @@ export default function WebCert() {
                         {application.accountNumber}
                       </Typography>
                     </td>
-                    <td className={classes}>
+                    <td className={classes} style={{ paddingRight: '1rem', paddingLeft: '1rem' }}>
                       <Typography
                         variant="small"
                         className="font-bold text-gray-600"
@@ -274,7 +274,7 @@ export default function WebCert() {
                         {application.formType}
                       </Typography>
                     </td>
-                    <td className={classes}>
+                    <td className={classes} style={{ paddingRight: '1rem', paddingLeft: '1rem' }}>
                       <Typography
                         variant="small"
                         className="font-normal text-gray-600"
@@ -282,7 +282,7 @@ export default function WebCert() {
                         {application.businessName}
                       </Typography>
                     </td>
-                    <td className={classes}>
+                    <td className={classes} style={{ paddingRight: '1rem', paddingLeft: '1rem' }}>
                       <div className="w-32 truncate">
                         <Typography
                           variant="small"
@@ -292,14 +292,14 @@ export default function WebCert() {
                         </Typography>
                       </div>
                     </td>
-                    <td className="border-b border-gray-300">
+                    <td className={classes} style={{ paddingRight: '1rem', paddingLeft: '1rem' }}>
                       <input
                         type="file"
                         onChange={(e) => handlePreTestUpload(e, application._id)}
                         disabled={uploadDisabled[application._id]}
                       />
                     </td>
-                    <td className={classes}>
+                    <td className={classes} style={{ paddingRight: '1rem', paddingLeft: '1rem' }}>
                       <div className="w-32 truncate">
                         <Typography
                           variant="small"
@@ -309,14 +309,14 @@ export default function WebCert() {
                         </Typography>
                       </div>
                     </td>
-                    <td className="border-b border-gray-300">
+                    <td className={classes} style={{ paddingRight: '1rem', paddingLeft: '1rem' }}>
                       <input
                         type="file"
                         onChange={(e) => handlePostTestUpload(e, application._id)}
                         disabled={uploadDisabled[application._id]}
                       />
                     </td>
-                    <td className={classes}>
+                    <td className={classes} style={{ paddingRight: '1rem', paddingLeft: '1rem' }}>
                       <div className="w-32 truncate">
                         <Typography
                           variant="small"
@@ -328,14 +328,14 @@ export default function WebCert() {
                         </Typography>
                       </div>
                     </td>
-                    <td className={classes}>
+                    <td className={classes} style={{ paddingRight: '1rem', paddingLeft: '1rem' }}>
                       <button
                         onClick={() =>
                           handleViewCertAttendance(application._id)
                         }
                         className="border border-blue-800 text-blue-800 p-2 rounded-lg"
                       >
-                        <TbSearch />
+                        <TbEye />
                       </button>
                     </td>
                   </tr>
