@@ -58,7 +58,8 @@ export const confirmAttendees = async (req, res) => {
         // Notification
         await notificationSchema.create({
             userId,
-            message: `You have successfully confirmed attendance for "${webinar.formType}". Webinar Link: ${webinar.webinarLink}`,
+            message: `You have successfully confirmed attendance for "${webinar.formType}".`,
+            link: `${webinar.webinarLink}`,
             type: "webinar confirmation",
             createdAt: Date.now()
         });
