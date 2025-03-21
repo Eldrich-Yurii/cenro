@@ -8,6 +8,8 @@ import {
 } from "@material-tailwind/react";
 import {
   getUserApplication,
+  uploadPostTest,
+  uploadPreTest,
   viewCertificateOfAttendance,
 } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
@@ -15,11 +17,15 @@ import { IoClose } from "react-icons/io5";
 import { TbSearch } from "react-icons/tb";
 
 const TABLE_HEAD = [
-  "Account Number",
+  "Account No.",
   "Application Type",
   "Business Name",
+  "Pre test Screenshot",
+  "Pre test Upload",
+  "Post test Screenshot",
+  "Post test Upload",
   "Certificate Status",
-  "Action"
+  "Action",
 ];
 export default function WebCert() {
   const [applications, setApplications] = useState([]);
@@ -27,7 +33,7 @@ export default function WebCert() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredApplications, setFilteredApplications] = useState([]);
-  // const [selectedTicket, setSelectedTicket] = useState(null);
+  const [uploadDisabled, setUploadDisabled] = useState({});
 
   useEffect(() => {
     const fetchApplications = async () => {
@@ -64,6 +70,116 @@ export default function WebCert() {
     }
   };
 
+    useEffect(() => {
+      localStorage.setItem("uploadDisabled", JSON.stringify(uploadDisabled));
+    }, [uploadDisabled]);
+  
+    const handlePreTestUpload = async (e, applicationId) => {
+      const file = e.target.files[0];
+      if (!file) return;
+  
+      Swal.fire({
+        title: "Confirm Upload",
+        text: `Are you sure you want to upload "${file.name}"?`,
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Yes, upload it!",
+        cancelButtonText: "No, cancel",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const response = await uploadPreTest(applicationId, file);
+            console.log("File upload response:", response);
+  
+            if (!response || !response.fileUrl) {
+              console.error("Unexpected response format:", response);
+              return;
+            }
+  
+            setApplications((prevApplications) =>
+              prevApplications.map((app) =>
+                app._id === applicationId
+                  ? { ...app, preTest: response.fileUrl }
+                  : app
+              )
+            );
+  
+            setUploadDisabled((prevDisabled) => ({
+              ...prevDisabled,
+              [applicationId]: true,
+            }));
+  
+            e.target.value = ""; // Reset file input
+  
+            Swal.fire("Uploaded!", "Your file has been uploaded.", "success");
+          } catch (error) {
+            console.error(
+              "Error uploading file:",
+              error.response?.data || error.message
+            );
+            Swal.fire(
+              "Error!",
+              "There was an error uploading your file.",
+              "error"
+            );
+          }
+        }
+      });
+    };
+
+    const handlePostTestUpload = async (e, applicationId) => {
+      const file = e.target.files[0];
+      if (!file) return;
+  
+      Swal.fire({
+        title: "Confirm Upload",
+        text: `Are you sure you want to upload "${file.name}"?`,
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Yes, upload it!",
+        cancelButtonText: "No, cancel",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const response = await uploadPostTest(applicationId, file);
+            console.log("File upload response:", response);
+  
+            if (!response || !response.fileUrl) {
+              console.error("Unexpected response format:", response);
+              return;
+            }
+  
+            setApplications((prevApplications) =>
+              prevApplications.map((app) =>
+                app._id === applicationId
+                  ? { ...app, postTest: response.fileUrl }
+                  : app
+              )
+            );
+  
+            setUploadDisabled((prevDisabled) => ({
+              ...prevDisabled,
+              [applicationId]: true,
+            }));
+  
+            e.target.value = ""; // Reset file input
+  
+            Swal.fire("Uploaded!", "Your file has been uploaded.", "success");
+          } catch (error) {
+            console.error(
+              "Error uploading file:",
+              error.response?.data || error.message
+            );
+            Swal.fire(
+              "Error!",
+              "There was an error uploading your file.",
+              "error"
+            );
+          }
+        }
+      });
+    };
+
   //search function
   useEffect(() => {
     const results = applications.filter((app) => {
@@ -89,8 +205,9 @@ export default function WebCert() {
             >
               Certificate Of Participation
             </Typography>
-            <p className="w-64 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-              This is the list of your Participation Certificate for the Webinars
+            <p className="w-96 text-sm leading-[120%] py-2 font-semibold text-red-600 tracking-tight">
+              <strong>Note:</strong> Please upload your pre and post test
+              screenshot to verify that you attend the webinar.
             </p>
           </section>
           <section className="flex items-center">
@@ -165,14 +282,49 @@ export default function WebCert() {
                         {application.businessName}
                       </Typography>
                     </td>
-
                     <td className={classes}>
                       <div className="w-32 truncate">
                         <Typography
                           variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {application.certificateOfAttendancePath ? "Certificate Ready" : "No Certificate Yet"}
+                          {application.preTest}
+                        </Typography>
+                      </div>
+                    </td>
+                    <td className="border-b border-gray-300">
+                      <input
+                        type="file"
+                        onChange={(e) => handlePreTestUpload(e, application._id)}
+                        disabled={uploadDisabled[application._id]}
+                      />
+                    </td>
+                    <td className={classes}>
+                      <div className="w-32 truncate">
+                        <Typography
+                          variant="small"
+                          className="font-normal text-gray-600"
+                        >
+                          {application.postTest}
+                        </Typography>
+                      </div>
+                    </td>
+                    <td className="border-b border-gray-300">
+                      <input
+                        type="file"
+                        onChange={(e) => handlePostTestUpload(e, application._id)}
+                        disabled={uploadDisabled[application._id]}
+                      />
+                    </td>
+                    <td className={classes}>
+                      <div className="w-32 truncate">
+                        <Typography
+                          variant="small"
+                          className="font-normal text-gray-600"
+                        >
+                          {application.certificateOfAttendancePath
+                            ? "Certificate Ready"
+                            : "No Certificate Yet"}
                         </Typography>
                       </div>
                     </td>
@@ -213,16 +365,8 @@ export default function WebCert() {
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-6">
         <Typography variant="small" color="blue-gray" className="font-normal">
-          Page 1 of 1
+          Total Applications: {applications.length}
         </Typography>
-        <div className="flex gap-2">
-          <Button variant="outlined" size="sm" className="">
-            Previous
-          </Button>
-          <Button variant="outlined" size="sm" className="">
-            Next
-          </Button>
-        </div>
       </CardFooter>
     </Card>
   );

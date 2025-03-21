@@ -90,6 +90,7 @@ export const getPendingWebinarUsers = async (token) => {
   }
 };
 
+// Retrieve applications of user who will get final certificate
 export const getPendingFinalCertUsers = async (token) => {
   try {
     const response = await axios.get(`${API}/pending-final-certificate-users`, {
@@ -101,6 +102,7 @@ export const getPendingFinalCertUsers = async (token) => {
   }
 };
 
+// upload official receipt
 export const uploadAssessment = async (applicationId, file) => {
   try {
     const formData = new FormData();
@@ -120,6 +122,7 @@ export const uploadAssessment = async (applicationId, file) => {
   }
 };
 
+// Upload inspection report
 export const uploadInspectionReport = async (applicationId, file) => {
   try {
     const formData = new FormData();
@@ -127,6 +130,46 @@ export const uploadInspectionReport = async (applicationId, file) => {
 
     const response = await axios.post(
       `${API}/upload-report/${applicationId}`,
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    console.log("Error uploading file:", err.response?.data || err.message);
+    throw new Error(err.response?.data || "Error uploading file");
+  }
+};
+
+// Upload pre test screenshot
+export const uploadPreTest = async (applicationId, file) => {
+  try {
+    const formData = new FormData();
+    formData.append("pretest", file);
+
+    const response = await axios.post(
+      `${API}/upload-preTest/${applicationId}`,
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    console.log("Error uploading file:", err.response?.data || err.message);
+    throw new Error(err.response?.data || "Error uploading file");
+  }
+};
+
+// Upload post test screenshot
+export const uploadPostTest = async (applicationId, file) => {
+  try {
+    const formData = new FormData();
+    formData.append("postTest", file);
+
+    const response = await axios.post(
+      `${API}/upload-postTest/${applicationId}`,
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" },
