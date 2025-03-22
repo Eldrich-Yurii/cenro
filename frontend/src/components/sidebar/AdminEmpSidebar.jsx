@@ -43,7 +43,12 @@ export default function AdminEmpSideBar() {
         </Typography>
       </div>
       <List className="text-gray-600 font-inter">
-        {/* Dashboard */}
+        
+
+
+        {user.role === "admin" && (
+          <>
+          {/* Dashboard */}
         <ListItem className="text-[15px]">
           <ListItemPrefix>
             <TbLayoutGrid className="h-5 w-5" />
@@ -51,9 +56,7 @@ export default function AdminEmpSideBar() {
           <Link to="/emp/dashboard">&nbsp;&nbsp;Dashboard</Link>
         </ListItem>
 
-
-        {user.role === "admin" && (
-          <>
+           {/* Business Application */}
           <ListItem className="text-[15px]">
           <ListItemPrefix>
             <TbFile className="h-5 w-5" />

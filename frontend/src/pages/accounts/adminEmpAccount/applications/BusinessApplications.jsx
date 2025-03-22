@@ -187,7 +187,7 @@ export default function BusinessApplications() {
                   formType,
                   businessName,
                   status,
-                  attendance,
+                  assessmentCert,
                 }) => {
                   const isLast = _id === applications.length - 1;
                   const classes = isLast
@@ -241,7 +241,7 @@ export default function BusinessApplications() {
                             variant="small"
                             className="font-normal text-gray-600"
                           >
-                            {attendance === false ? "cross" : "check"}
+                            {assessmentCert === true ? "Receipt Not Yet Submitted" : "Receipt Submitted"}
                           </Typography>
                         </div>
                       </td>

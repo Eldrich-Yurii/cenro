@@ -6,7 +6,7 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
-import { TbSearch } from "react-icons/tb";
+import { TbEye } from "react-icons/tb";
 import {
   getUserApplication,
   viewFinalCertificate,
@@ -150,7 +150,7 @@ export default function FinalCert() {
                           onClick={() => handleViewFinalCert(_id)}
                           className="border-blue-800 border text-blue-800 p-2 rounded-lg"
                         >
-                          <TbSearch />
+                          <TbEye />
                         </button>
                       </td>
                     </tr>

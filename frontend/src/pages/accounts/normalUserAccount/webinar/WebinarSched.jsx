@@ -52,7 +52,7 @@ export default function WebSched() {
   const handleConfirmAttendance = async (webinarId) => {
     try {
       await confirmAttendance(webinarId, userId);
-
+  
       // Set button disabled for this webinar
       setConfirm((prev) => ({
         ...prev,
@@ -61,14 +61,20 @@ export default function WebSched() {
 
       // Update local webinar attendees count immediately
       setWebinar((prev) =>
-        prev.map((web) =>
-          web._id === webinarId
-            ? {
-                ...web,
-                attendees: [...web.attendees, { userId }],
-              }
-            : web
-        )
+        prev.map((web) => {
+          if (web._id === webinarId) {
+            const updatedAttendees = [...web.attendees, { userId }];
+            const isFull = updatedAttendees.length >= web.maxAttendees;
+            const updatedStatus = isFull ? "full" : web.status; // Update status
+  
+            return {
+              ...web,
+              attendees: updatedAttendees,
+              status: updatedStatus,
+            };
+          }
+          return web;
+        })
       );
     } catch (error) {
       console.log("Error Confirming Attendance", error);

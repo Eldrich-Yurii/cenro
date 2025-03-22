@@ -100,8 +100,8 @@ export default function IsnpectionAndFinalCert() {
             <Typography variant="h2" className="text-blue-800 font-extrabold">
               Inspection and Certificate of Environmental Compliance
             </Typography>
-            <p className="w-72 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-              This is the list of Cenro Clients that is under inspection or completed all the requirements.
+            <p className="w-80px text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
+              This is the list of Cenro Clients that has completed the webinar and has an ongoing or completed inspection. <b>Upload the inspection document</b> to be able to generate the CEC.
             </p>
           </section>
           <section className="flex items-center">

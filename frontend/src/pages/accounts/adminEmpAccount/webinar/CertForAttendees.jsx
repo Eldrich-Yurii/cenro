@@ -62,8 +62,8 @@ export default function CertForAttendees() {
               Generate Certificates
             </Typography>
             <p className="w-72 text-sm leading-[120%] py-2 font-semibold text-gray-600 tracking-tight">
-              This is the list of Cenro Clients that should attended the
-              Webinar.
+              This is the list of Cenro Clients that attended the
+              Webinar and submitted the Pre and Post Tests.
             </p>
           </section>
           <section className="flex items-center">

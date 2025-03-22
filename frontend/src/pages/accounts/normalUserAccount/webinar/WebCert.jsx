@@ -162,7 +162,7 @@ export default function WebCert() {
             </Typography>
             <p className="w-96 text-sm leading-[120%] py-2 font-semibold text-red-600 tracking-tight">
               <strong>Note:</strong> Please upload your pre and post test
-              screenshot to verify that you attend the webinar.
+              screenshot to verify that you attended the webinar.
             </p>
           </section>
           <section className="flex items-center">
@@ -243,7 +243,7 @@ export default function WebCert() {
                           variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {application.preTest}
+                          {application.preTestPath}
                         </Typography>
                       </div>
                     </td>
@@ -259,7 +259,7 @@ export default function WebCert() {
                           variant="small"
                           className="font-normal text-gray-600"
                         >
-                          {application.postTest}
+                          {application.postTestPath}
                         </Typography>
                       </div>
                     </td>

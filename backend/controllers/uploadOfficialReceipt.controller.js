@@ -18,6 +18,7 @@ export const uploadOfficialReceipt = async (req, res) => {
   
       // Update application with the uploaded file path
       application.assessmentCert = filePath;
+      application.assessmentCert = true;
       await application.save();
   
       // res.status(200).json({ message: "Assessment certificate uploaded", fileUrl: `${req.protocol}://${req.get("host")}/${filePath}` });
