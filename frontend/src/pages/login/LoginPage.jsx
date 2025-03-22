@@ -11,6 +11,7 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const [loginAttempts, setLoginAttempts] = useState(0);
   const [lockoutTime, setLockoutTime] = useState(null);
+  const [remainingTimeMessage, setRemainingTimeMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -26,6 +27,15 @@ const LoginPage = () => {
       setLoginAttempts(0);
     }
   }, [lockoutTime]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setRemainingTimeMessage(getRemainingTime());
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [lockoutTime]);
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -127,9 +137,9 @@ const LoginPage = () => {
                 </p>
               </div>
               <div>
-                {error && <p className="text-red-600">{error}</p>}
+              {error && <p className="text-red-600">{error}</p>}
                 {lockoutTime && Date.now() < lockoutTime && (
-                  <p className="text-red-600">{getRemainingTime()}</p>
+                  <p className="text-red-600">{remainingTimeMessage}</p> // Display remainingTimeMessage
                 )}
                 <div className="pb-8 flex flex-col gap-2">
                   <label
