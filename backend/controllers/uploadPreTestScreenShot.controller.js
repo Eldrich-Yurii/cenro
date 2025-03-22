@@ -18,6 +18,7 @@ export const uploadPreTestScreenShot = async (req, res) => {
   
       // Update application with the uploaded file path
       application.preTestPath = filePath;
+      application.preTest = true;
       await application.save();
   
       // res.status(200).json({ message: "Assessment certificate uploaded", fileUrl: `${req.protocol}://${req.get("host")}/${filePath}` });
