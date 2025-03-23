@@ -11,7 +11,7 @@ export const createWebinar = async (req, res) => {
 
     const userId = req.user._id;
     
-    const { dateTime, formType, webinarLink } = req.body;
+    const { dateTime, formType, webinarLink, status } = req.body;
     
     if (!dateTime || !formType || !webinarLink) {
       return res.status(400).json({ error: "Date and form type are required" });
@@ -43,6 +43,7 @@ export const createWebinar = async (req, res) => {
       formType,
       dateTime: new Date(dateTime), // Convert to Date object
       webinarLink,
+      status
     });
 
     // create webinar should have also log

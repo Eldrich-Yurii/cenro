@@ -13,6 +13,11 @@ const webinarSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  status: {
+    type: String,
+    enum: ["Ongoing", "Scheduled", "Done"],
+    default: "Scheduled",
+  },
   attendees: [
     {
       userId: {
