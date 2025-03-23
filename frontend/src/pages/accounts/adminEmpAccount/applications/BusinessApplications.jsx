@@ -241,7 +241,7 @@ export default function BusinessApplications() {
                             variant="small"
                             className="font-normal text-gray-600"
                           >
-                            {assessmentCert === true ? "Receipt Not Yet Submitted" : "Receipt Submitted"}
+                            {assessmentCert ? "Receipt Submitted" : "Receipt Not Yet Submitted"}
                           </Typography>
                         </div>
                       </td>
@@ -249,7 +249,7 @@ export default function BusinessApplications() {
                         <div className="flex gap-4">
                           <button
                             onClick={() => handleViewAssessmentCert(_id)}
-                            className="border-blue-800 border text-blue-800 p-2 rounded-lg"
+                            className="border-blue-800 border text-blue-800 p-2 rounded-lg hover:bg-blue-800 hover:text-white"
                           >
                             <TbEye />
                           </button>

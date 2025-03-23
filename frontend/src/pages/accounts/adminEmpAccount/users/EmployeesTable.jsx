@@ -6,7 +6,7 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
-import { TbEdit, TbSearch, TbTrash } from "react-icons/tb";
+import { TbEdit, TbTrash } from "react-icons/tb";
 import AddEmpAcc from "../../../../components/modal/AddEmpAcc";
 import EditDesigModal from "../../../../components/modal/EditDesigModal";
 import { getEmployees, updateEmployeeDesignation } from "../../../../api/AuthApi";
@@ -63,7 +63,7 @@ export default function EmployeesTable() {
     try {
       const response = await updateEmployeeDesignation(id, designation)
 
-      console.log("Designation response:",response)
+      console.log("Designation response:", response)
         setEmployee((prevEmployees) =>
           prevEmployees.map((employee) =>
             employee._id === id ? { ...employee, designation: designation } : employee

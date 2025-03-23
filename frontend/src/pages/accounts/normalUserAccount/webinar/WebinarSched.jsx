@@ -66,6 +66,7 @@ export default function WebSched() {
             const updatedAttendees = [...web.attendees, { userId }];
             const isFull = updatedAttendees.length >= web.maxAttendees;
             const updatedStatus = isFull ? "full" : web.status; // Update status
+            alert("Please check your notification to see the webinar link")
   
             return {
               ...web,
@@ -153,12 +154,12 @@ export default function WebSched() {
               }) => {
                 const isLast = _id === webinar.length - 1;
                 const classes = isLast
-                  ? "py-4"
-                  : "py-4 border-b border-gray-300";
-
+                ? "py-4"
+                : "py-4 border-b border-gray-300";
+                
                 const isConfirmed = confirm[_id];
                 const isFull = attendees.length >= maxAttendees;
-
+                
                 return (
                   <tr key={_id} className="hover:bg-gray-50">
                     <td className={classes}>

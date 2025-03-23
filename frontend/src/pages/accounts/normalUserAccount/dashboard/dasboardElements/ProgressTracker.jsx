@@ -49,7 +49,7 @@ export default function ProgressTracker() {
             <small
               className="text-blue-800 font-extrabold font-inter"
             >
-              Application Progress
+              Application Progress Tracker
             </small>
           </section>
         </div>

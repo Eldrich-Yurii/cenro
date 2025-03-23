@@ -108,7 +108,7 @@ export default function NormalUserSidebar() {
           </ListItemPrefix>
           <Link to="/user-account/notifications">&nbsp;Notifications</Link>
           <ListItemSuffix>
-            <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
+            {/* <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" /> */}
           </ListItemSuffix>
         </ListItem>
         {/* Ticket and Chat Support */}

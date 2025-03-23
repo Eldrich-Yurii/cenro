@@ -154,7 +154,7 @@ export default function WebinarSched() {
             </thead>
             <tbody>
               {filteredSched.map(
-                ({ _id, formType, dateTime, status, maxAttendees, attendees }) => {
+                ({ _id, formType, dateTime, status, maxAttendees, attendees, webinarLink }) => {
                   const isLast = _id === webinars.length - 1;
                   const classes = isLast
                     ? "py-4"
@@ -184,6 +184,14 @@ export default function WebinarSched() {
                           className="font-bold text-gray-600"
                         >
                          {attendees.length} / {maxAttendees}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          className="font-bold text-gray-600"
+                        >
+                         {webinarLink}
                         </Typography>
                       </td>
                       <td className={classes}>
