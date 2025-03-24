@@ -196,9 +196,9 @@ export default function MyApplication() {
                       <div className="w-32 truncate">
                         <Typography
                           variant="small"
-                          className="font-normal text-gray-600"
+                          className={`font-bold ${application.assessmentCert ? "text-green-600" : "text-gray-600"}`}
                         >
-                          {application.assessmentCert}
+                          {application.assessmentCert ? "Already Uploaded" : "Not Uploaded Yet"}
                         </Typography>
                       </div>
                     </td>
@@ -206,6 +206,7 @@ export default function MyApplication() {
                       <input
                         type="file"
                         onChange={(e) => handleFileUpload(e, application._id)}
+                        disabled={!!application.assessmentCert}
                       />
                     </td>
                   </tr>

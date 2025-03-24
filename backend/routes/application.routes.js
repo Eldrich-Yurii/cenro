@@ -19,7 +19,8 @@ import verifyDesignation from "../middlewares/verifyDesignation.js";
 import { uploadPreTestScreenShot } from "../controllers/uploadPreTestScreenShot.controller.js";
 import { uploadPostTestScreenshot } from "../controllers/uploadPostTestScreenShot.controller.js";
 import { uploadInspectionReport } from "../controllers/uploadInspectionReport.js";
-
+import { viewPostTest } from "../controllers/viewPostTest.controller.js";
+import { viewPreTest } from "../controllers/viewPreTest.controller.js";
 
 
 const router = express.Router()
@@ -47,6 +48,10 @@ router.get("/pending-final-certificate-users", verifyToken, verifyRoles(["admin"
 
 // View assessment certificate for admin/employee
 router.get("/view-assessment-file/:applicationId", viewAssessmentCert)
+
+// View pre and post test screenshots for admin/employee
+router.get("/view-post-test/:applicationId", viewPostTest)
+router.get("/view-pre-test/:applicationId", viewPreTest)
 
 // View certificate of attendance for normal user
 router.get("/view-certificate-of-attendance/:applicationId", viewCertOfAttendance)

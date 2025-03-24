@@ -134,21 +134,24 @@ export default function FinalCert() {
                         </Typography>
                       </td>
                       <td className={classes}>
-                        <div className="truncate w-32">
+                        <div className="truncate w-full">
                           <Typography
                             variant="small"
-                            className="font-normal text-gray-600"
+                            className={`font-bold ${businessCertificatePath ? "text-green-600" : "text-gray-400"}`}
                           >
                             {businessCertificatePath
-                              ? "Certficate Ready"
-                              : "No Certificate Yet"}
+                              ? "Certificate Ready"
+                              : "Certificate Not Ready"}
                           </Typography>
                         </div>
                       </td>
                       <td className="border-b border-gray-300">
                         <button
                           onClick={() => handleViewFinalCert(_id)}
-                          className="border-blue-800 border text-blue-800 p-2 rounded-lg"
+                          className={`border border-blue-800 text-blue-800 p-2 rounded-lg ${
+                            !businessCertificatePath ? "opacity-50 cursor-not-allowed" : ""
+                          }`}
+                          disabled={!businessCertificatePath}
                         >
                           <TbEye />
                         </button>

@@ -5,17 +5,24 @@ import {
   CardHeader,
   Typography,
 } from "@material-tailwind/react";
-import { TbSearch } from "react-icons/tb";
+import { TbEye } from "react-icons/tb";
 import {
   confirmAttendance,
   getPendingWebinarUsers,
+  viewPostTest,
+  viewPreTest,
 } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
+import { IoClose } from "react-icons/io5";
 
-const TABLE_HEAD = ["ID", "Account Number", "Business Name", "Action"];
+
+const TABLE_HEAD = ["Account Number", "Business Name", "Pre Test", "Post Test", "Action"];
 
 export default function CertForAttendees() {
   const [webinarAttendees, setWebinarAttendees] = useState([]);
+  const [fileUrl, setFileUrl] = useState(null);
+  const [fileType, setFileType] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchPendingUsers = async () => {
@@ -48,6 +55,40 @@ export default function CertForAttendees() {
       console.log("Error generating certificate", err);
     }
   };
+
+  const handleViewPreTest = async (applicationId) => {
+    try {
+      const fileData = await viewPreTest(applicationId);
+
+      // create a blob URL for the file
+      const blob = new Blob([fileData], { type: fileData.type });
+      const blobUrl = URL.createObjectURL(blob);
+
+      setFileUrl(blobUrl);
+      
+      setFileType(fileData.type);
+      setIsModalOpen(true);
+    } catch (err) {
+      console.log("Error fetching file", err);
+    }
+  };
+
+  const handleViewPostTest = async (applicationId) => {
+      try {
+        const fileData = await viewPostTest(applicationId);
+  
+        // create a blob URL for the file
+        const blob = new Blob([fileData], { type: fileData.type });
+        const blobUrl = URL.createObjectURL(blob);
+  
+        setFileUrl(blobUrl);
+        
+        setFileType(fileData.type);
+        setIsModalOpen(true);
+      } catch (err) {
+        console.log("Error fetching file", err);
+      }
+    };
 
   return (
     <Card className="max-h-[60rem] w-full px-6 shadow-lg">
@@ -107,17 +148,6 @@ export default function CertForAttendees() {
               return (
                 <tr key={_id} className="hover:bg-gray-50">
                   <td className={classes}>
-                    <div className="flex items-center">
-                      {/* <Checkbox /> */}
-                      <Typography
-                        variant="small"
-                        className="font-bold text-gray-600"
-                      >
-                        {_id}
-                      </Typography>
-                    </div>
-                  </td>
-                  <td className={classes}>
                     <Typography
                       variant="small"
                       className="font-normal text-gray-600"
@@ -133,6 +163,20 @@ export default function CertForAttendees() {
                       {businessName}
                     </Typography>
                   </td>
+                  <td className={classes}>
+                  <button className="border border-blue-800 text-blue-800 p-2 rounded-lg"
+                  onClick={() => handleViewPreTest(_id)}>
+                    <TbEye />
+                    </button>
+                  </td>
+                  <td className={classes}>
+                    <button className="border border-blue-800 text-blue-800 p-2 rounded-lg"
+                    onClick={() => handleViewPostTest(_id)}>
+                      
+                    <TbEye />
+                    </button>
+                  </td>
+                  
                   {/* <td className={classes}>
                         <Typography
                           variant="small"
@@ -189,6 +233,24 @@ export default function CertForAttendees() {
             })}
           </tbody>
         </table>
+        {isModalOpen && (
+                    <div className="z-20 fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                      <div className="bg-white p-5 rounded-lg shadow-lg w-[80%] h-[80%] flex flex-col">
+                        <div className="flex justify-between">
+                          <h2 className="text-xl font-bold mb-2">
+                            Screenshot Verification
+                          </h2>
+                          <button
+                            onClick={() => setIsModalOpen(false)}
+                            className="text-2xl"
+                          >
+                            <IoClose />
+                          </button>
+                        </div>
+                        <iframe src={fileUrl} className="w-full h-full border" />
+                      </div>
+                    </div>
+        )}
       </CardBody>
       
     </Card>

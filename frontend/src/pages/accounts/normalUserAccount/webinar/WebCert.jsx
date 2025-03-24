@@ -241,9 +241,9 @@ export default function WebCert() {
                       <div className="w-32 truncate">
                         <Typography
                           variant="small"
-                          className="font-normal text-gray-600"
+                          className={`font-bold ${application.preTestPath ? "text-green-600" : "text-gray-600"}`}
                         >
-                          {application.preTestPath}
+                          {application.preTestPath ? "Already Uploaded" : "Not Yet Uploaded"}
                         </Typography>
                       </div>
                     </td>
@@ -251,15 +251,16 @@ export default function WebCert() {
                       <input
                         type="file"
                         onChange={(e) => handlePreTestUpload(e, application._id)}
+                        disabled={!!application.preTestPath}
                       />
                     </td>
                     <td className={classes} style={{ paddingRight: '1rem', paddingLeft: '1rem' }}>
                       <div className="w-32 truncate">
                         <Typography
                           variant="small"
-                          className="font-normal text-gray-600"
+                          className={`font-bold ${application.postTestPath ? "text-green-600" : "text-gray-600"}`}
                         >
-                          {application.postTestPath}
+                          {application.postTestPath ? "Already Uploaded" : "Not Yet Uploaded"}
                         </Typography>
                       </div>
                     </td>
@@ -267,6 +268,7 @@ export default function WebCert() {
                       <input
                         type="file"
                         onChange={(e) => handlePostTestUpload(e, application._id)}
+                        disabled={!!application.preTestPath}
                       />
                     </td>
                     <td className={classes} style={{ paddingRight: '1rem', paddingLeft: '1rem' }}>
@@ -286,7 +288,10 @@ export default function WebCert() {
                         onClick={() =>
                           handleViewCertAttendance(application._id)
                         }
-                        className="border border-blue-800 text-blue-800 p-2 rounded-lg"
+                        className={`border border-blue-800 text-blue-800 p-2 rounded-lg ${
+                          !application.certificateOfAttendancePath ? "opacity-50 cursor-not-allowed" : ""
+                        }`}
+                        disabled={!application.certificateOfAttendancePath}
                       >
                         <TbEye />
                       </button>

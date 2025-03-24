@@ -249,7 +249,10 @@ export default function BusinessApplications() {
                         <div className="flex gap-4">
                           <button
                             onClick={() => handleViewAssessmentCert(_id)}
-                            className="border-blue-800 border text-blue-800 p-2 rounded-lg hover:bg-blue-800 hover:text-white"
+                            className={`border border-blue-800 text-blue-800 p-2 rounded-lg ${
+                              !assessmentCert ? "opacity-50 cursor-not-allowed" : ""
+                            }`}
+                            disabled={!assessmentCert}
                           >
                             <TbEye />
                           </button>

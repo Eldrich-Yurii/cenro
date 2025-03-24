@@ -56,6 +56,7 @@ export const viewCertificateOfAttendance = async (applicationId) => {
         responseType: "blob",
       }
     );
+    
 
     console.log(response)
     return response.data;
@@ -63,6 +64,37 @@ export const viewCertificateOfAttendance = async (applicationId) => {
     console.log("Error retrieving file", err);
   }
 };
+
+export const viewPreTest = async (applicationId) => {
+  try {
+    const response = await axios.get(
+      `${API}/view-pre-test/${applicationId}`,
+      {
+        responseType: "blob",
+      }
+    );
+
+    return response.data;
+  } catch (err) {
+    console.log("Error retrieving file", err);
+  }
+};
+
+export const viewPostTest = async (applicationId) => {
+  try {
+    const response = await axios.get(
+      `${API}/view-post-test/${applicationId}`,
+      {
+        responseType: "blob",
+      }
+    );
+
+    return response.data;
+  } catch (err) {
+    console.log("Error retrieving file", err);
+  }
+};
+
 export const viewFinalCertificate = async (applicationId) => {
   try {
     const response = await axios.get(
