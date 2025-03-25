@@ -148,7 +148,7 @@ export default function AdminEmpSideBar() {
           </ListItemPrefix>
           <Link to="/emp/support-and-tickets">&nbsp;&nbsp;Support/Tickets</Link>
           <ListItemSuffix>
-            <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
+            <Chip value="1" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
           </ListItemSuffix>
         </ListItem>
           </>
@@ -224,7 +224,7 @@ export default function AdminEmpSideBar() {
           </ListItemPrefix>
           <Link to="/emp/support-and-tickets">&nbsp;&nbsp;Support/Tickets</Link>
           <ListItemSuffix>
-            <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
+            <Chip value="1" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
           </ListItemSuffix>
         </ListItem>
         )}
@@ -236,12 +236,12 @@ export default function AdminEmpSideBar() {
           </ListItemPrefix>
           <Link to="/emp/employee-logs">&nbsp;&nbsp;Logs</Link>
         </ListItem>
-        <ListItem className="text-[15px]">
+        {/* <ListItem className="text-[15px]">
           <ListItemPrefix>
             <TbSettings2 className="h-5 w-5" />
           </ListItemPrefix>
           <Link to="/emp/admin-settings">&nbsp;&nbsp;Settings</Link>
-        </ListItem>
+        </ListItem> */}
         <ListItem className="text-[15px]">
           <ListItemPrefix>
             <TbLogout2 className="h-5 w-5" />

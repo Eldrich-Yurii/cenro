@@ -11,7 +11,7 @@ export const createDefaultAdmin = async () => {
     if (!existingAdmin) {
       const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 10);
       const adminUser = new User({
-        firstname: "System",
+        firstname: "Admin",
         middlename: "Default",
         lastname: "Admin",
         email: process.env.ADMIN_EMAIL,
