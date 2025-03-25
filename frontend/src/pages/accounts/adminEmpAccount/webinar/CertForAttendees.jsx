@@ -14,6 +14,7 @@ import {
 } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
+import Swal from "sweetalert2";
 
 
 const TABLE_HEAD = ["Account Number", "Business Name", "Pre Test", "Post Test", "Action"];
@@ -45,16 +46,40 @@ export default function CertForAttendees() {
   }, []);
 
   const handleConfirmAttendance = async (applicationId) => {
-    try {
-      const response = await confirmAttendance(applicationId);
-      setWebinarAttendees((prev) =>
-        prev.filter((attendee) => attendee._id !== applicationId)
-      );
-      console.log(response.message); // Show success message
-    } catch (err) {
-      console.log("Error generating certificate", err);
-    }
+    Swal.fire({
+      title: "Confirm Attendance?",
+      text: "Confirming the attendance of this client will generate his/her certificate of participation",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, confirm!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Confirming...",
+          text: "Generating certificate. Please Wait",
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+        try {
+          const response = await confirmAttendance(applicationId);
+          setWebinarAttendees((prev) =>
+            prev.filter((attendee) => attendee._id !== applicationId)
+          );
+          Swal.close();
+          Swal.fire("Confirmed!", response.message, "success");
+        } catch (err) {
+          console.log("Error generating certificate", err);
+          Swal.close();
+          Swal.fire("Error!", "Failed to confirm attendance.", "error");
+        }
+      }
+    });
   };
+  
 
   const handleViewPreTest = async (applicationId) => {
     try {

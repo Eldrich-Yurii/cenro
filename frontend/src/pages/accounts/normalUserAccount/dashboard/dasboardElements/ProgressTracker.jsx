@@ -118,7 +118,7 @@ export default function ProgressTracker() {
               </div>
               <br />
               <div className="-mt-5 flex justify-between">
-                <p className="text-center">form submission</p>
+                <p className="text-center">Form Submission</p>
                 <p>Receipt Approved</p>
                 <p>Attended Webinar</p>
                 <p>CEC Generated</p>

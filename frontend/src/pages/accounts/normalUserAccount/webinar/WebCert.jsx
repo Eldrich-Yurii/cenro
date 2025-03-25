@@ -15,15 +15,17 @@ import {
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { TbEye } from "react-icons/tb";
+import Swal from "sweetalert2";
+import { FaFilePdf, FaFileImage, FaFileWord, FaFileAlt } from "react-icons/fa";
 
 const TABLE_HEAD = [
   "Account No.",
   "Application Type",
   "Business Name",
   "Pre test Screenshot",
-  "Pre test Upload",
+  "Pre test Status",
   "Post test Screenshot",
-  "Post test Upload",
+  "Post test Status",
   "Certificate Status",
   "Action",
 ];
@@ -51,6 +53,7 @@ export default function WebCert() {
         console.log("Error:", err);
       }
     };
+    
     fetchApplications();
   }, []);
 
@@ -69,71 +72,171 @@ export default function WebCert() {
     }
   };
 
+  const getFileIcon = (file) => {
+    if (!file) return <FaFileAlt />;
+
+    const fileType = file.type;
+
+    if (fileType.includes("pdf")) {
+      return <FaFilePdf />;
+    } else if (fileType.includes("image")) {
+      return <FaFileImage />;
+    } else if (
+      fileType.includes("word") ||
+      fileType.includes(
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      )
+    ) {
+      return <FaFileWord />;
+    } else {
+      return <FaFileAlt />;
+    }
+  };
+
+  const generateFilePreview = (file) => {
+    return new Promise((resolve) => {
+      if (!file) {
+        resolve("<p>No file selected.</p>");
+        return;
+      }
+
+      const fileType = file.type;
+
+      if (fileType.includes("image")) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          resolve(`<img src="${e.target.result}" alt="File Preview" style="max-width: full; max-height: 200px;" />`);
+        };
+        reader.readAsDataURL(file);
+      } else if (fileType.includes("pdf")) {
+        
+        resolve(`<p>PDF File Preview</p><FaFilePdf size={50} />`);
+      } else if (
+        fileType.includes("word") ||
+        fileType.includes(
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        )
+      ) {
+        resolve(`<p>Word Document Preview</p><FaFileWord size={50} />`); // Example placeholder
+      } else {
+        resolve(`<p>File Preview</p><FaFileAlt size={50} />`); // Generic placeholder
+      }
+    });
+  };
+
   const handlePreTestUpload = async (e, applicationId) => {
-    const file = e.target.files[0];
-    if (!file) return;
+      const file = e.target.files[0];
+      if (!file) return;
+  
+      const preview = await generateFilePreview(file);
+  
+      Swal.fire({
+        title: "Confirm Upload",
+        html: `
+          <p>Are you sure you want to upload "${file.name}"?</p>
+          <div>${preview}</div>
+        `,
+        icon: getFileIcon(file).type.name,
+        showCancelButton: true,
+        confirmButtonText: "Yes, upload!",
+        cancelButtonText: "No, cancel!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const response = await uploadPreTest(applicationId, file);
+            console.log("File upload response:", response);
+  
+            if (!response || !response.fileUrl) {
+              console.error("Unexpected response format:", response);
+              return;
+            }
+  
+            setApplications((prevApplications) =>
+              prevApplications.map((app) =>
+                app._id === applicationId
+                  ? { ...app, assessmentCert: response.fileUrl }
+                  : app
+              )
+            );
+  
+            e.target.value = ""; // Reset file input
+  
+            Swal.fire({
+              icon: "success",
+              title: "Uploaded!",
+              text: "Your file has been uploaded.",
+            });
+          } catch (error) {
+            console.error(
+              "Error uploading file:",
+              error.response?.data || error.message
+            );
+            Swal.fire({
+              icon: "error",
+              title: "Error!",
+              text: "There was an error uploading your file.",
+            });
+          }
+        }
+      });
+    };
 
-    try {
-      const response = await uploadPreTest(applicationId, file);
-      console.log("File upload response:", response);
-
-      if (!response || !response.fileUrl) {
-        console.error("Unexpected response format:", response);
-        return;
-      }
-
-      setApplications((prevApplications) =>
-        prevApplications.map((app) =>
-          app._id === applicationId
-            ? { ...app, preTest: response.fileUrl }
-            : app
-        )
-      );
-
-      e.target.value = ""; // Reset file input
-
-      alert("Uploaded! Your file has been uploaded.");
-    } catch (error) {
-      console.error(
-        "Error uploading file:",
-        error.response?.data || error.message
-      );
-      alert("Error! There was an error uploading your file.");
-    }
-  };
-
-  const handlePostTestUpload = async (e, applicationId) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    try {
-      const response = await uploadPostTest(applicationId, file);
-      console.log("File upload response:", response);
-
-      if (!response || !response.fileUrl) {
-        console.error("Unexpected response format:", response);
-        return;
-      }
-
-      setApplications((prevApplications) =>
-        prevApplications.map((app) =>
-          app._id === applicationId
-            ? { ...app, postTest: response.fileUrl }
-            : app
-        )
-      );
-
-      e.target.value = ""; // Reset file input
-
-      alert("Uploaded! Your file has been uploaded.");
-    } catch (error) {
-      console.error(
-        "Error uploading file:",
-        error.response?.data || error.message
-      );
-      alert("Error! There was an error uploading your file.");
-    }
-  };
+    const handlePostTestUpload = async (e, applicationId) => {
+      const file = e.target.files[0];
+      if (!file) return;
+  
+      const preview = await generateFilePreview(file);
+  
+      Swal.fire({
+        title: "Confirm Upload",
+        html: `
+          <p>Are you sure you want to upload "${file.name}"?</p>
+          <div>${preview}</div>
+        `,
+        icon: getFileIcon(file).type.name,
+        showCancelButton: true,
+        confirmButtonText: "Yes, upload!",
+        cancelButtonText: "No, cancel!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const response = await uploadPostTest(applicationId, file);
+            console.log("File upload response:", response);
+  
+            if (!response || !response.fileUrl) {
+              console.error("Unexpected response format:", response);
+              return;
+            }
+  
+            setApplications((prevApplications) =>
+              prevApplications.map((app) =>
+                app._id === applicationId
+                  ? { ...app, assessmentCert: response.fileUrl }
+                  : app
+              )
+            );
+  
+            e.target.value = ""; // Reset file input
+  
+            Swal.fire({
+              icon: "success",
+              title: "Uploaded!",
+              text: "Your file has been uploaded.",
+            });
+          } catch (error) {
+            console.error(
+              "Error uploading file:",
+              error.response?.data || error.message
+            );
+            Swal.fire({
+              icon: "error",
+              title: "Error!",
+              text: "There was an error uploading your file.",
+            });
+          }
+        }
+      });
+    };
 
   //search function
   useEffect(() => {
@@ -162,7 +265,7 @@ export default function WebCert() {
             </Typography>
             <p className="w-96 text-sm leading-[120%] py-2 font-semibold text-red-600 tracking-tight">
               <strong>Note:</strong> Please upload your pre and post test
-              screenshot to verify that you attended the webinar.
+              screenshot to verify that you attended the webinar. Once validated, you will receive your participation certificate.
             </p>
           </section>
           <section className="flex items-center">

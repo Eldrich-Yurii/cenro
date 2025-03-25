@@ -11,6 +11,8 @@ import {
 } from "../../../../api/ApplicationApi";
 import { useEffect, useState } from "react";
 import SubmitApplication from "../../../../components/modal/SubmitApplication";
+import Swal from "sweetalert2";
+import { FaFilePdf, FaFileImage, FaFileWord, FaFileAlt } from "react-icons/fa";
 
 const TABLE_HEAD = [
   "Account No.",
@@ -45,37 +47,113 @@ export default function MyApplication() {
     fetchApplications();
   }, []);
 
+  const getFileIcon = (file) => {
+    if (!file) return <FaFileAlt />;
+
+    const fileType = file.type;
+
+    if (fileType.includes("pdf")) {
+      return <FaFilePdf />;
+    } else if (fileType.includes("image")) {
+      return <FaFileImage />;
+    } else if (
+      fileType.includes("word") ||
+      fileType.includes(
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      )
+    ) {
+      return <FaFileWord />;
+    } else {
+      return <FaFileAlt />;
+    }
+  };
+
+  const generateFilePreview = (file) => {
+    return new Promise((resolve) => {
+      if (!file) {
+        resolve("<p>No file selected.</p>");
+        return;
+      }
+
+      const fileType = file.type;
+
+      if (fileType.includes("image")) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          resolve(`<img src="${e.target.result}" alt="File Preview" style="max-width: full; max-height: 200px;" />`);
+        };
+        reader.readAsDataURL(file);
+      } else if (fileType.includes("pdf")) {
+        
+        resolve(`<p>PDF File Preview</p><FaFilePdf size={50} />`);
+      } else if (
+        fileType.includes("word") ||
+        fileType.includes(
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        )
+      ) {
+        resolve(`<p>Word Document Preview</p><FaFileWord size={50} />`); // Example placeholder
+      } else {
+        resolve(`<p>File Preview</p><FaFileAlt size={50} />`); // Generic placeholder
+      }
+    });
+  };
+
   const handleFileUpload = async (e, applicationId) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    try {
-      const response = await uploadAssessment(applicationId, file);
-      console.log("File upload response:", response);
+    const preview = await generateFilePreview(file);
 
-      if (!response || !response.fileUrl) {
-        console.error("Unexpected response format:", response);
-        return;
+    Swal.fire({
+      title: "Confirm Upload",
+      html: `
+        <p>Are you sure you want to upload "${file.name}"?</p>
+        <div>${preview}</div>
+      `,
+      icon: getFileIcon(file).type.name,
+      showCancelButton: true,
+      confirmButtonText: "Yes, upload!",
+      cancelButtonText: "No, cancel!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await uploadAssessment(applicationId, file);
+          console.log("File upload response:", response);
+
+          if (!response || !response.fileUrl) {
+            console.error("Unexpected response format:", response);
+            return;
+          }
+
+          setApplications((prevApplications) =>
+            prevApplications.map((app) =>
+              app._id === applicationId
+                ? { ...app, assessmentCert: response.fileUrl }
+                : app
+            )
+          );
+
+          e.target.value = ""; // Reset file input
+
+          Swal.fire({
+            icon: "success",
+            title: "Uploaded!",
+            text: "Your file has been uploaded.",
+          });
+        } catch (error) {
+          console.error(
+            "Error uploading file:",
+            error.response?.data || error.message
+          );
+          Swal.fire({
+            icon: "error",
+            title: "Error!",
+            text: "There was an error uploading your file.",
+          });
+        }
       }
-
-      setApplications((prevApplications) =>
-        prevApplications.map((app) =>
-          app._id === applicationId
-            ? { ...app, assessmentCert: response.fileUrl }
-            : app
-        )
-      );
-
-      e.target.value = ""; // Reset file input
-
-      alert("Uploaded! Your file has been uploaded.");
-    } catch (error) {
-      console.error(
-        "Error uploading file:",
-        error.response?.data || error.message
-      );
-      alert("Error! There was an error uploading your file.");
-    }
+    });
   };
 
   return (
