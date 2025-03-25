@@ -371,7 +371,7 @@ export default function WebCert() {
                       <input
                         type="file"
                         onChange={(e) => handlePostTestUpload(e, application._id)}
-                        disabled={!!application.preTestPath}
+                        disabled={!!application.postTestPath}
                       />
                     </td>
                     <td className={classes} style={{ paddingRight: '1rem', paddingLeft: '1rem' }}>
