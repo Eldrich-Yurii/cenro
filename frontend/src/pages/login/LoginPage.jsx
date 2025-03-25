@@ -72,7 +72,7 @@ const LoginPage = () => {
       if (response.role === "admin") {
         navigate("/emp/dashboard");
       } else if (response.role === "employee") {
-        navigate("/emp/dashboard");
+        navigate("/emp/employee-logs");
       } else {
         navigate("/user-account");
       }
