@@ -141,6 +141,7 @@ export default function WebCert() {
         confirmButtonText: "Yes, upload!",
         cancelButtonText: "No, cancel!",
       }).then(async (result) => {
+
         if (result.isConfirmed) {
           try {
             const response = await uploadPreTest(applicationId, file);
@@ -151,21 +152,23 @@ export default function WebCert() {
               return;
             }
   
-            setApplications((prevApplications) =>
-              prevApplications.map((app) =>
-                app._id === applicationId
-                  ? { ...app, assessmentCert: response.fileUrl }
-                  : app
-              )
-            );
-  
-            e.target.value = ""; // Reset file input
-  
-            Swal.fire({
-              icon: "success",
-              title: "Uploaded!",
-              text: "Your file has been uploaded.",
-            });
+            if (response && response.fileUrl) {
+              setApplications((prevApplications) =>
+                  prevApplications.map((app) =>
+                      app._id === applicationId
+                          ? { ...app, preTestPath: response.fileUrl } 
+                          : app
+                  )
+              );
+              e.target.value = "";
+              Swal.fire({
+                  icon: "success",
+                  title: "Uploaded!",
+                  text: "Your file has been uploaded.",
+              }).then(() => {
+                  fetchApplications(); // Re-fetch data after successful upload
+              });
+            }
           } catch (error) {
             console.error(
               "Error uploading file:",
@@ -207,22 +210,23 @@ export default function WebCert() {
               console.error("Unexpected response format:", response);
               return;
             }
-  
-            setApplications((prevApplications) =>
-              prevApplications.map((app) =>
-                app._id === applicationId
-                  ? { ...app, assessmentCert: response.fileUrl }
-                  : app
-              )
-            );
-  
-            e.target.value = ""; // Reset file input
-  
-            Swal.fire({
-              icon: "success",
-              title: "Uploaded!",
-              text: "Your file has been uploaded.",
-            });
+            if (response && response.fileUrl) {
+              setApplications((prevApplications) =>
+                  prevApplications.map((app) =>
+                      app._id === applicationId
+                          ? { ...app, postTestPath: response.fileUrl } // Assuming your backend returns the path in fileUrl
+                          : app
+                  )
+              );
+              e.target.value = "";
+              Swal.fire({
+                  icon: "success",
+                  title: "Uploaded!",
+                  text: "Your file has been uploaded.",
+              }).then(() => {
+                  fetchApplications(); // Re-fetch data after successful upload
+              });
+            }
           } catch (error) {
             console.error(
               "Error uploading file:",

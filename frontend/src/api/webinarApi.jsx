@@ -48,15 +48,15 @@ export const deleteWebinar = async (id, token) => {
   }
 };
 
-// update webinar schedule
-export const updateStatus = async (webinarId, status) => {
+
+export const updateWebinarStatus = async (webinarId, status) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = user?.token; // Extract only the token
   console.log("Stored Token:", token);
 
   try {
     const response = await axios.put(
-      `${API}/admin/update/${webinarId}/status`,
+      `${API}/update-webinarStatus/${webinarId}`,
       { status },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -66,6 +66,7 @@ export const updateStatus = async (webinarId, status) => {
   }
 };
 
+// update webinar schedule
 export const updateWebinar = async (webinarId, dateTime, webinarLink) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = user?.token; // Extract only the token

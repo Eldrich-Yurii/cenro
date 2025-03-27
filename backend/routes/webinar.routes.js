@@ -7,6 +7,7 @@ import verifyRoles from "./../middlewares/verifyRoles.js"
 import { verifyToken } from "./../middlewares/auth/auth.verifyAdmin.js"
 import { verifyDesignation } from "./../middlewares/verifyDesignation.js"
 import { confirmAttendees } from "../controllers/confirmAttendees.controller.js";
+import { updateWebinarStatus } from "../controllers/updateWebinarStatus.controller.js";
 
 const router = express.Router();
 
@@ -15,6 +16,8 @@ router.post("/create-webinar", verifyToken, verifyRoles(["admin", "employee"]), 
 router.post("/webinar-attendance/:webinarId/confirm", verifyToken, confirmAttendees)
 
 router.get("/get-webinar", getAllWebinar);
+
+router.put("/update-webinarStatus/:webinarId", updateWebinarStatus);
 
 router.put("/update-webinar/:id", updateWebinar);
 

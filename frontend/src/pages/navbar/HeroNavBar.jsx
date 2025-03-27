@@ -97,12 +97,12 @@ export default function HeroNavBar() {
             >
               Contact Us
             </a>
-            <Link
+            {/* <Link
               to="/announcements"
               className="text-[18px] font-bold text-[#EBFADC]  hover:text-[#C1111F]"
             >
               Announcements
-            </Link>
+            </Link> */}
           </div>
           {/* CTA */}
           <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-8">

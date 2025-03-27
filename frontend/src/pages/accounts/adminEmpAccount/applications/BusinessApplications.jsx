@@ -324,7 +324,10 @@ export default function BusinessApplications() {
           </div>
         )}
       </CardBody>
-      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50"></CardFooter>
+      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50">
+
+        <p>Total Applications: {applications.length}</p>
+      </CardFooter>
     </Card>
   );
 }

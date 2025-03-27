@@ -73,14 +73,7 @@ export default function UpdateWebinar({
                   onChange={(e) => setWebinarLink(e.target.value)}
                   className="h-10 px-2 rounded-lg w-full border-gray-200"
                 />
-                 <div className="w-full">
-                 <label htmlFor="webinarLink">Webinar Status</label>
-                 <br />
-                  <Select value="">
-                    <Option value="validator">Ongoing</Option>
-                    <Option value="chat support">Done</Option>
-                  </Select>
-                </div>
+                
               </div>
             </div>
             <div className="mt-4 flex justify-end">

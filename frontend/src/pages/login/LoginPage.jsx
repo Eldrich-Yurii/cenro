@@ -176,7 +176,7 @@ const LoginPage = () => {
                     required
                     className="border-blue-900 border-2 w-full h-12 rounded-lg pl-2"
                   />
-                  <p className="text-end text-blue-900">Forgot Password?</p>
+                  {/* <p className="text-end text-blue-900">Forgot Password?</p> */}
                 </div>
               </div>
               <div>

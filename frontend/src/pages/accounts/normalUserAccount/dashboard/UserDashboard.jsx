@@ -6,9 +6,9 @@ export default function UserDashboard() {
       <div className="mb-2">
       <small className="font-semibold">Dashboard Overview</small>
       </div>
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <TotalApplication />
-      </div>
+      </div> */}
       <div>
         <ProgressTracker />
       </div>

@@ -5,6 +5,7 @@ import { createWebinar } from "../../api/webinarApi";
 import { TbVideo } from "react-icons/tb";
 import { IoClose } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 export default function WebSchedModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,11 +47,23 @@ export default function WebSchedModal() {
 
     try {
       const data = await createWebinar(dateTime, formType, webinarLink);
-      alert(JSON.stringify(data))
-      // toast.success("Webinar scheduled successfully!", data, { autoClose: 3000 });
-      navigate(0)
+      
+      Swal.fire({
+        icon: 'success',
+        title: 'Webinar Scheduled!',
+        text: 'Webinar scheduled successfully.',
+        confirmButtonText: 'OK',
+      }).then(() => {
+        navigate(0); 
+      });
     } catch (err) {
-      alert(err || "Failed to Schedule Webinar");
+      
+      Swal.fire({
+        icon: 'error',
+        title: 'Scheduling Failed',
+        text: err || "Failed to Schedule Webinar",
+        confirmButtonText: 'OK',
+      });
     } finally {
       setLoading(false);
     }

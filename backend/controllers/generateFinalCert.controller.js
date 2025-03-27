@@ -217,13 +217,12 @@ export const generateFinalCert = async (applicationId) => {
         </div>
     <div class="approved-by">
             <p> Approved by: </p>
-    <p><p>
+    <p>Signature Here<p>
     <h4>GABRIEL GERARD S. KATIGBAK</h4>
     <p>Department Head<p>
     <p2>City Environment and Natural Resources Office</p2>
 
-        </div>
-        <div class="footer">
+        <div>
             <p>This certificate is valid only if the QR code is verifiable.</p>
         </div>
     </div>

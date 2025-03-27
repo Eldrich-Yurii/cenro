@@ -159,6 +159,7 @@ export default function WebSched() {
                 
                 const isConfirmed = confirm[_id];
                 const isFull = attendees.length >= maxAttendees;
+               
                 
                 return (
                   <tr key={_id} className="hover:bg-gray-50">
@@ -187,9 +188,9 @@ export default function WebSched() {
                       <div className="w-max">
                         <span
                           className={`px-3 py-2 font-extrabold uppercase text-xs rounded-lg ${
-                            status === "ongoing"
+                            status === "Done"
                               ? "bg-lime-200 text-lime-800"
-                              : status === "pending"
+                              : status === "Ongoing"
                               ? "bg-yellow-200 text-orange-600"
                               : "bg-red-200 text-red-600"
                           }`}
@@ -201,7 +202,7 @@ export default function WebSched() {
                     <td className={classes}>
                       <Button
                         onClick={() => handleConfirmAttendance(_id)}
-                        disabled={isConfirmed || isFull}
+                        disabled={isConfirmed || isFull || status=== "Ongoing" || status=== "Done"}
                       >
                         {isConfirmed
                           ? "Confirmed!"

@@ -154,6 +154,7 @@ const getFileIcon = (file) => {
       confirmButtonText: "Yes, upload!",
       cancelButtonText: "No, cancel!",
     }).then(async (result) => {
+
       if (result.isConfirmed) {
         try {
           const response = await uploadInspectionReport(applicationId, file);
@@ -187,10 +188,7 @@ const getFileIcon = (file) => {
       }
     });
   };
-
-
   
-
   return (
     <Card className="max-h-[34rem] w-full px-6 shadow-lg">
       <CardHeader
@@ -298,7 +296,7 @@ const getFileIcon = (file) => {
         </table>
       </CardBody>
       <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Typography variant="small" color="blue-gray" className="font-normal">
+        {/* <Typography variant="small" color="blue-gray" className="font-normal">
           Page 1 of 1
         </Typography>
         <div className="flex gap-2">
@@ -308,7 +306,7 @@ const getFileIcon = (file) => {
           <Button variant="outlined" size="sm" className="">
             Next
           </Button>
-        </div>
+        </div> */}
       </CardFooter>
 
     </Card>

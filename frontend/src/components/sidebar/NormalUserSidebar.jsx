@@ -165,12 +165,12 @@ export default function NormalUserSidebar() {
           </ListItemPrefix>
           <Link to="/admin/employee-logs">&nbsp;&nbsp;Logs</Link>
         </ListItem> */}
-        <ListItem>
+        {/* <ListItem>
           <ListItemPrefix>
             <TbSettings2 className="h-5 w-5" />
           </ListItemPrefix>
           <Link to="/user-account/settings">&nbsp;Settings</Link>
-        </ListItem>
+        </ListItem> */}
         <ListItem>
           <ListItemPrefix>
             <TbLogout2 className="h-5 w-5" />
