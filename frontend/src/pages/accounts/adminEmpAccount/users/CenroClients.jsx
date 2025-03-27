@@ -191,7 +191,7 @@ export default function CenroClients() {
                           variant="small"
                           className="font-bold text-blue-800"
                         >
-                          {email}
+                          {email.replace(email.slice(1,-11), "*".repeat(email.slice(1, -11).length))}
                         </Typography>
                       </td>
                       <td className="border-b border-gray-300">
